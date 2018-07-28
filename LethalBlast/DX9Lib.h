@@ -28,7 +28,6 @@
 /** @def
 * LPDIRECTINPUTDEVICE8の変数g_pDirectInputDeviceの要素数に用いる
 */
-
 #define KEY_AND_MOUSE 2
 
 /** @def
