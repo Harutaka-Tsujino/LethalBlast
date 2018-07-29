@@ -18,7 +18,7 @@ void ControlGame(SCENE* scene);
 
 /*
 *円と円の当たり判定を調べる
-*戻り値 円と円が接触していたならtrueそれ以外はfalseを返す
+*(戻り値)bool 円と円が接触していたならtrueそれ以外はfalseを返す
 */
 bool CheckCirculeCollisionDetection(float circuleAPosX, float circuleAPosY, float circuleAhalfScale, float circuleBPosX, float circuleBPosY, float circuleBhalfScale);
 
