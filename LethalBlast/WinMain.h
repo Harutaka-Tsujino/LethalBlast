@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#define PI 3.1415.f
+
 //シーンに関する列挙体
 enum SCENE
 {
