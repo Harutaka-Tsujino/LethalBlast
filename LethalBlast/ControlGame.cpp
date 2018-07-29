@@ -3,7 +3,7 @@
 #include"WinMain.h"
 #include"ControlGame.h"
 
-VOID ControlGame(SCENE* scene)
+void ControlGame(SCENE* scene)
 {
 	return;
 }
