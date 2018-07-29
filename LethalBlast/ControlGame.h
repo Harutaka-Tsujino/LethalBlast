@@ -29,3 +29,9 @@ bool CheckCirculeCollisionDetection(float circuleAPosX, float circuleAPosY, floa
 *(引数)float degreeLimit 前回のホーミングベクトルとの角度制限
 */
 void CreateHomingVect(Vect* dest, float objAPosX, float objAPosY, float objBPosX, float objBPosY, Vect prevPerceivedShortestRouteUnitVect, float degreeLimit);
+
+/*
+*2点間の距離を求める
+*(戻り値)double 2点間の距離 
+*/
+double CalculateDistanceBetweenTwoPoints(double pointAPosX, double pointAPosY, double pointBPosX, double pointBPosY);

@@ -98,3 +98,9 @@ void CreateHomingVect(Vect* dest,float objAPosX,float objAPosY, float objBPosX, 
 
 	return;
 }
+double CalculateDistanceBetweenTwoPoints(double pointAPosX, double pointAPosY, double pointBPosX, double pointBPosY)
+{
+	double pointsDistance = (pow(pointAPosX - pointBPosX, 2) + pow(pointAPosY - pointBPosY, 2));
+
+	return pointsDistance;
+}
