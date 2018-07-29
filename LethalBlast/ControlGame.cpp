@@ -40,7 +40,7 @@ void CreateHomingVect(Vect* dest,float objAPosX,float objAPosY, float objBPosX, 
 	double cross = (double)(shortestRouteUnitVect.m_x * prevPerceivedShortestRouteUnitVect.m_y - shortestRouteUnitVect.m_y * prevPerceivedShortestRouteUnitVect.m_x);
 
 	//ホーミングする円の前回のベクトルと現在のベクトルの角度の制限
-	const double radLimit = (double)(degreeLimit*PI / 180.f);
+	const double RAD_LIMIT = (double)(degreeLimit*PI / 180.f);
 
 	//ホーミングする円が認識している操作している円への最短ルートを指す単位ベクトル
 	Vect perceivedShortestRouteUnitVect = { shortestRouteUnitVect.m_x,shortestRouteUnitVect.m_y };
@@ -48,34 +48,34 @@ void CreateHomingVect(Vect* dest,float objAPosX,float objAPosY, float objBPosX, 
 	//角度の制限を超えた場合に制限と同じ角度にする
 	if (cross < 0)
 	{
-		if (radLimit < rad)
+		if (RAD_LIMIT < rad)
 		{
-			perceivedShortestRouteUnitVect.m_x = prevPerceivedShortestRouteUnitVect.m_x * cos(radLimit) - prevPerceivedShortestRouteUnitVect.m_y * sin(radLimit);
-			perceivedShortestRouteUnitVect.m_y = prevPerceivedShortestRouteUnitVect.m_x * sin(radLimit) + prevPerceivedShortestRouteUnitVect.m_y * cos(radLimit);
+			perceivedShortestRouteUnitVect.m_x = prevPerceivedShortestRouteUnitVect.m_x * cos(RAD_LIMIT) - prevPerceivedShortestRouteUnitVect.m_y * sin(RAD_LIMIT);
+			perceivedShortestRouteUnitVect.m_y = prevPerceivedShortestRouteUnitVect.m_x * sin(RAD_LIMIT) + prevPerceivedShortestRouteUnitVect.m_y * cos(RAD_LIMIT);
 		}
 	}
 
 	if (0 < cross)
 	{
-		if (radLimit < rad)
+		if (RAD_LIMIT < rad)
 		{
-			perceivedShortestRouteUnitVect.m_x = prevPerceivedShortestRouteUnitVect.m_x * cos(-radLimit) - prevPerceivedShortestRouteUnitVect.m_y * sin(-radLimit);
-			perceivedShortestRouteUnitVect.m_y = prevPerceivedShortestRouteUnitVect.m_x * sin(-radLimit) + prevPerceivedShortestRouteUnitVect.m_y * cos(-radLimit);
+			perceivedShortestRouteUnitVect.m_x = prevPerceivedShortestRouteUnitVect.m_x * cos(-RAD_LIMIT) - prevPerceivedShortestRouteUnitVect.m_y * sin(-RAD_LIMIT);
+			perceivedShortestRouteUnitVect.m_y = prevPerceivedShortestRouteUnitVect.m_x * sin(-RAD_LIMIT) + prevPerceivedShortestRouteUnitVect.m_y * cos(-RAD_LIMIT);
 		}
 	}
 
 	//アンダーフロー時角度が虚数になる
 	if (isnan(rad))
 	{
-		perceivedShortestRouteUnitVect.m_x = prevPerceivedShortestRouteUnitVect.m_x * cos(-radLimit) - prevPerceivedShortestRouteUnitVect.m_y * sin(-radLimit);
-		perceivedShortestRouteUnitVect.m_y = prevPerceivedShortestRouteUnitVect.m_x * sin(-radLimit) + prevPerceivedShortestRouteUnitVect.m_y * cos(-radLimit);
+		perceivedShortestRouteUnitVect.m_x = prevPerceivedShortestRouteUnitVect.m_x * cos(-RAD_LIMIT) - prevPerceivedShortestRouteUnitVect.m_y * sin(-RAD_LIMIT);
+		perceivedShortestRouteUnitVect.m_y = prevPerceivedShortestRouteUnitVect.m_x * sin(-RAD_LIMIT) + prevPerceivedShortestRouteUnitVect.m_y * cos(-RAD_LIMIT);
 	}
 
 	//初回のprevPerceivedShortestRouteUnitVect対策
 	if (prevPerceivedShortestRouteUnitVect.m_x == -perceivedShortestRouteUnitVect.m_x&&prevPerceivedShortestRouteUnitVect.m_y == -perceivedShortestRouteUnitVect.m_y)
 	{
-		perceivedShortestRouteUnitVect.m_x = prevPerceivedShortestRouteUnitVect.m_x * cos(radLimit) - prevPerceivedShortestRouteUnitVect.m_y * sin(radLimit);
-		perceivedShortestRouteUnitVect.m_y = prevPerceivedShortestRouteUnitVect.m_x * sin(radLimit) + prevPerceivedShortestRouteUnitVect.m_y * cos(radLimit);
+		perceivedShortestRouteUnitVect.m_x = prevPerceivedShortestRouteUnitVect.m_x * cos(RAD_LIMIT) - prevPerceivedShortestRouteUnitVect.m_y * sin(RAD_LIMIT);
+		perceivedShortestRouteUnitVect.m_y = prevPerceivedShortestRouteUnitVect.m_x * sin(RAD_LIMIT) + prevPerceivedShortestRouteUnitVect.m_y * cos(RAD_LIMIT);
 	}
 
 	//物体が止まってしまった場合に乱数を用い単位ベクトルを設定する
