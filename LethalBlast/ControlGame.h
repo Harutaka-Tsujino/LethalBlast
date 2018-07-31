@@ -35,3 +35,15 @@ void CreateHomingVect(Vect* dest, float objAPosX, float objAPosY, float objBPosX
 *(戻り値)double 2点間の距離 
 */
 double CalculateDistanceBetweenTwoPoints(double pointAPosX, double pointAPosY, double pointBPosX, double pointBPosY);
+
+/*
+*2点間の距離をベクトルで求める
+*(引数)Vect* dest この構造体に生成したベクトルを詰める
+*/
+void CalculateDistanceBetweenTwoPointsXY(Vect* dest, double pointAPosX, double pointAPosY, double pointBPosX, double pointBPosY);
+
+/*
+*内積を算出する
+*(戻り値)double 大きさ
+*/
+double CalculateDot(Vect vectA, Vect vectB);

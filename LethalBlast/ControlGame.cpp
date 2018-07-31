@@ -98,9 +98,34 @@ void CreateHomingVect(Vect* dest,float objAPosX,float objAPosY, float objBPosX, 
 
 	return;
 }
+
+//bool check2DOBBCollisionDetection(CustomVertex* objA, CustomVertex* objB)
+//{
+//	Vect objA01;
+//
+//	CalculateDistanceBetweenTwoPoints(Vect* objA01,);
+//}
+
 double CalculateDistanceBetweenTwoPoints(double pointAPosX, double pointAPosY, double pointBPosX, double pointBPosY)
 {
 	double pointsDistance = sqrt(pow(pointAPosX - pointBPosX, 2) + pow(pointAPosY - pointBPosY, 2));
 
 	return pointsDistance;
+}
+
+void CalculateDistanceBetweenTwoPointsXY(Vect* dest,double pointAPosX, double pointAPosY, double pointBPosX, double pointBPosY)
+{
+	Vect pointsDistance = { sqrt(pow(pointAPosX - pointBPosX, 2)),sqrt(pow(pointAPosY - pointBPosY, 2)) };
+
+	dest->m_x = pointsDistance.m_x;
+	dest->m_y = pointsDistance.m_y;
+
+	return;
+}
+
+double CalculateDot(Vect vectA, Vect vectB)
+{
+	double dot = vectA.m_x*vectB.m_x + vectA.m_y*vectB.m_y;
+
+	return dot;
 }
