@@ -11,7 +11,7 @@ void ControlWordListsAndTyping()
 
 	strcpy_s(katakana[ファ].katakanaRow, "ファフィフフェフォ");
 	strcpy_s(katakana[ヴァ].katakanaRow, "ヴァヴィヴヴェヴォ");
-	strcpy_s(katakana[ジャ].katakanaRow, "ジャジジュジェジョ");//
+	strcpy_s(katakana[ジャ].katakanaRow, "ジャジジュジェジョ");
 	strcpy_s(katakana[ワ].katakanaRow, "ワウィウウェヲ");
 	strcpy_s(katakana[ア].katakanaRow, "アイウエオ");
 	strcpy_s(katakana[カ].katakanaRow, "カキクケコ");
@@ -588,6 +588,31 @@ void ControlWordListsAndTyping()
 
 					 break;
 				 }
+			 }
+		 }
+
+		 const char JI = 2;
+		 const char F_V_SOUND_NUMS_FROM_FIRST[] = { 0,4,6,10,14 };
+
+		 //大文字ジャ行
+		 for (int vowel = 0; vowel < VOWELS_MAX; vowel++)
+		 {
+			 if (magicKnightAction.m_inputWords[wordCheckPos] == 'j' &&
+				 magicKnightAction.m_inputWords[wordCheckPos + 1] == 'i')
+			 {
+				 memcpy_s(&magicKnightAction.m_inputWords[wordCheckPos], sizeof(char)*MULTI_BYTE,
+					 &katakana[ジャ].katakanaRow[JI*MULTI_BYTE], sizeof(char)*MULTI_BYTE);
+
+				 break;
+			 }
+
+			 if (magicKnightAction.m_inputWords[wordCheckPos] == 'j'&&
+				 magicKnightAction.m_inputWords[wordCheckPos + 1] == VOWELS[vowel])
+			 {
+				 memcpy_s(&magicKnightAction.m_inputWords[wordCheckPos], sizeof(char)*MULTI_BYTE * 2,
+					 &katakana[ジャ].katakanaRow[F_V_SOUND_NUMS_FROM_FIRST[vowel]], sizeof(char)*MULTI_BYTE * 2);
+
+				 break;
 			 }
 		 }
 
