@@ -126,6 +126,7 @@
     <ClCompile Include="ControlGame.cpp" />
     <ClCompile Include="ControlWordListsAndTyping.cpp" />
     <ClCompile Include="RenderGame.cpp" />
+    <ClCompile Include="RenderWordListsAndTyping.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -133,6 +134,7 @@
     <ClInclude Include="ControlWordListsAndTyping.h" />
     <ClInclude Include="DX9Lib.h" />
     <ClInclude Include="RenderGame.h" />
+    <ClInclude Include="RenderWordListsAndTyping.h" />
     <ClInclude Include="WinMain.h" />
   </ItemGroup>
   <ItemGroup>
