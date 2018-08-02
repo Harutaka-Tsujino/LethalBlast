@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #define PI 3.1415f
+#define MULTI_BYTE 2
 
 //シーンに関する列挙体
 enum SCENE

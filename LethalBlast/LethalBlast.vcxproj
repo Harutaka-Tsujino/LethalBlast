@@ -124,14 +124,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ControlGame.cpp" />
+    <ClCompile Include="ControlWordListsAndTyping.cpp" />
     <ClCompile Include="RenderGame.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ControlGame.h" />
+    <ClInclude Include="ControlWordListsAndTyping.h" />
     <ClInclude Include="DX9Lib.h" />
     <ClInclude Include="RenderGame.h" />
     <ClInclude Include="WinMain.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Enum\MagicKnightWordEnum.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\OneDrive\Desktop\sam_pc_roma.gif" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
