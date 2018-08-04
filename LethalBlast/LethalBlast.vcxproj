@@ -124,16 +124,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ControlGame.cpp" />
+    <ClCompile Include="ControlTitle.cpp" />
     <ClCompile Include="ControlWordListsAndTyping.cpp" />
     <ClCompile Include="RenderGame.cpp" />
+    <ClCompile Include="RenderTitle.cpp" />
     <ClCompile Include="RenderWordListsAndTyping.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ControlGame.h" />
+    <ClInclude Include="ControlTitle.h" />
     <ClInclude Include="ControlWordListsAndTyping.h" />
     <ClInclude Include="DX9Lib.h" />
     <ClInclude Include="RenderGame.h" />
+    <ClInclude Include="RenderTitle.h" />
     <ClInclude Include="RenderWordListsAndTyping.h" />
     <ClInclude Include="WinMain.h" />
   </ItemGroup>
