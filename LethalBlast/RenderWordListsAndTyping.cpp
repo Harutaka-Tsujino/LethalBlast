@@ -4,7 +4,6 @@ void WordListsAndTypingRender()
 {
 	static TEXTUREID textureIds[TEXTURE_MAX];
 
-	
 	int g_playerType = WEAPON_MASTER;
 
 	//矩形のポリゴン生成
@@ -31,43 +30,43 @@ void WeaponMasterBackGround(CustomVertex* WordListsImage, TEXTUREID* textureIds)
 		switch (i)
 		{
 		case 0:
-			CustomImageVerticies(WordListsImage, 1000.f, 100.f, 100 / 2.f, 100 / 2.f, 0xFF000000);
+			CustomImageVerticies(WordListsImage, 1600.f, 200.f, 100 / 2.f, 100 / 2.f, 0xFF000000);
 			DrawImage(WordListsImage, textureIds[NULL]);
 			break;
 
 		case 1:
-			CustomImageVerticies(WordListsImage, 1150.f, 100.f, 100 / 2.f, 100 / 2.f, 0xFF000000);
+			CustomImageVerticies(WordListsImage, 1750.f, 200.f, 100 / 2.f, 100 / 2.f, 0xFF000000);
 			DrawImage(WordListsImage, textureIds[NULL]);
 			break;
 
 		case 2:
 
-			CustomImageVerticies(WordListsImage, 1000.f, 250.f, 100 / 2.f, 100 / 2.f, 0xFF000000);
+			CustomImageVerticies(WordListsImage, 1600.f, 400.f, 100 / 2.f, 100 / 2.f, 0xFF000000);
 			DrawImage(WordListsImage, textureIds[NULL]);
 			break;
 
 		case 3:
-			CustomImageVerticies(WordListsImage, 1150.f, 250.f, 100 / 2.f, 100 / 2.f, 0xFF000000);
+			CustomImageVerticies(WordListsImage, 1750.f, 400.f, 100 / 2.f, 100 / 2.f, 0xFF000000);
 			DrawImage(WordListsImage, textureIds[NULL]);
 			break;
 
 		case 4:
-			CustomImageVerticies(WordListsImage, 1000.f, 400.f, 100 / 2.f, 100 / 2.f, 0xFF000000);
+			CustomImageVerticies(WordListsImage, 1600.f, 600.f, 100 / 2.f, 100 / 2.f, 0xFF000000);
 			DrawImage(WordListsImage, textureIds[NULL]);
 			break;
 
 		case 5:
-			CustomImageVerticies(WordListsImage, 1150.f, 400.f, 100 / 2.f, 100 / 2.f, 0xFF000000);
+			CustomImageVerticies(WordListsImage, 1750.f, 600.f, 100 / 2.f, 100 / 2.f, 0xFF000000);
 			DrawImage(WordListsImage, textureIds[NULL]);
 			break;
 
 		case 6:
-			CustomImageVerticies(WordListsImage, 1000.f, 550.f, 100 / 2.f, 100 / 2.f, 0xFF000000);
+			CustomImageVerticies(WordListsImage, 1600.f, 800.f, 100 / 2.f, 100 / 2.f, 0xFF000000);
 			DrawImage(WordListsImage, textureIds[NULL]);
 			break;
 
 		case 7:
-			CustomImageVerticies(WordListsImage, 1150.f, 550.f, 100 / 2.f, 100 / 2.f, 0xFF000000);
+			CustomImageVerticies(WordListsImage, 1750.f, 800.f, 100 / 2.f, 100 / 2.f, 0xFF000000);
 			DrawImage(WordListsImage, textureIds[NULL]);
 			break;
 		}
