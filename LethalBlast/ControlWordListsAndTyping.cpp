@@ -592,7 +592,7 @@ void ControlWordListsAndTyping()
 		 }
 
 		 const char JI = 2;
-		 const char F_V_SOUND_NUMS_FROM_FIRST[] = { 0,4,6,10,14 };
+		 const char J_SOUND_NUMS_FROM_FIRST[] = { 0,4,6,10,14 };
 
 		 //大文字ジャ行
 		 for (int vowel = 0; vowel < VOWELS_MAX; vowel++)
@@ -610,7 +610,7 @@ void ControlWordListsAndTyping()
 				 magicKnightAction.m_inputWords[wordCheckPos + 1] == VOWELS[vowel])
 			 {
 				 memcpy_s(&magicKnightAction.m_inputWords[wordCheckPos], sizeof(char)*MULTI_BYTE * 2,
-					 &katakana[ジャ].katakanaRow[F_V_SOUND_NUMS_FROM_FIRST[vowel]], sizeof(char)*MULTI_BYTE * 2);
+					 &katakana[ジャ].katakanaRow[J_SOUND_NUMS_FROM_FIRST[vowel]], sizeof(char)*MULTI_BYTE * 2);
 
 				 break;
 			 }
