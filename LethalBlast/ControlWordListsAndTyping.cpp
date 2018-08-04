@@ -947,4 +947,6 @@ canInputCharMax:
 	{
 		wordNum++;
 	}
+		
+	return;
 }

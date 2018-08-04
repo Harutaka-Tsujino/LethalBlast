@@ -2,6 +2,7 @@
 #include"DX9Lib.h"
 #include"WinMain.h"
 #include"RenderGame.h"
+#include"RenderWordListsAndTyping.h"
 
 void RenderGame(SCENE* scene)
 {
@@ -22,6 +23,8 @@ void RenderGame(SCENE* scene)
 	CustomImageVerticies(background, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f);
 
 	DrawImage(background, textureIds[BACKGROUND_0_TEXTURE]);
+
+	WordListsAndTypingRender();
 
 	return;
 }

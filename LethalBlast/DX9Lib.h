@@ -22,8 +22,8 @@
 
 #include <windows.h>
 
-#define DISPLAY_WIDTH 1280
-#define DISPLAY_HEIGHT 720
+#define DISPLAY_WIDTH 1920
+#define DISPLAY_HEIGHT 1080
 
 /** @def
 * LPDIRECTINPUTDEVICE8の変数g_pDirectInputDeviceの要素数に用いる

@@ -4,6 +4,8 @@
 #include"ControlGame.h"
 #include"RenderGame.h"
 #include"WinMain.h"
+#include"ControlTitle.h"
+#include"RenderTitle.h"
 
 INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdShow)
 {
@@ -15,14 +17,17 @@ void MainFunction(void)
 {
 	srand((unsigned int)time(NULL));
 
-	static SCENE scene = GAME_SCENE;
+	static SCENE scene = TITLE_SCENE;
 
 	//シーン分岐
 	switch (scene)
 	{
 	case TITLE_SCENE:
+		TitleContorol(&scene);
+		TitleRender(&scene);
 
 		break;
+
 	case GAME_SCENE:
 
 		ControlGame(&scene);
