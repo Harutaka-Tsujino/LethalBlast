@@ -60,6 +60,15 @@ enum ATTACK_ATTRIBUTE
 	ATTACK_ATTRIBUTES_MAX
 };
 
+enum MOUSE_STATE
+{
+	//左クリック
+	LEFT_CLICK,
+
+	//右クリック
+	RIGHT_CLICK
+};
+
 //シーンを操作する
 extern SCENE scene;
 
