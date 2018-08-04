@@ -5,7 +5,7 @@
 enum MAGIC_KNIGHT_WORD
 {
 	VOID_WORD,
-	#include "Files/Enum/MagicKnightWordEnum.txt"
+#include "Files/Enum/MagicKnightWordEnum.txt"
 };
 
 //単語の文字数の最大値
@@ -37,11 +37,18 @@ typedef struct
 //魔法剣士の必殺技の単語数の最大値
 #define MAGIC_KNIGHT_ACTION_WORDS_MAX 5
 
+//入力する単語
+typedef struct
+{
+	//タイピングする1単語
+	char m_word[WORD_CHAR_MAX];
+}InputWord;
+
 //魔法剣士の必殺技のデータ
 typedef struct
 {
 	//タイピングされた文字
-	char m_inputWords[WORD_CHAR_MAX * MAGIC_KNIGHT_ACTION_WORDS_MAX];
+	InputWord m_inputWords[MAGIC_KNIGHT_ACTION_WORDS_MAX];
 
 	//構成している単語の識別番号
 	MAGIC_KNIGHT_WORD m_componentWordIds[MAGIC_KNIGHT_ACTION_WORDS_MAX];
@@ -56,43 +63,72 @@ typedef struct
 	unsigned long m_specialAbilities;
 }MagicKnightAction;
 
-//カタカナの行の数
-#define KATAKANA_ROW 5
-#define NULL_CHAR 1
-#define W_SPACE 5
-
-enum KATAKANA_FIRST_ROW
+enum KATAKANA
 {
-	ファ,
-	ヴァ,
-	ジャ,
-	ワ,
-	ア,
-	カ,
-	サ,
-	タ,
-	ナ,
-	ハ,
-	マ,
-	ラ,
-	ヤ,
+	ア,イ,ウ,エ,オ,
+	カ,キ,ク,ケ,コ,
+	サ,シ,ス,セ,ソ,
+	タ,チ,ツ,テ,ト,
+	ナ,ニ,ヌ,ネ,ノ,
+	ハ,ヒ,フ,ヘ,ホ,
+	ヴァ,ヴィ,ヴ,ヴェ,ヴォ,
+	ファ,フィ,/*フ*/フェ,フォ,
+	マ,ミ,ム,メ,モ,
+	ヤ,/*イ*/ユ,イェ,ヨ,
+	ラ,リ,ル,レ,ロ,
+	ワ,ウィ,/*ウ*/ウェ,ヲ,
 	ン,
-	パ,
-	ガ,
-	ザ,
-	ダ,
-	バ,
-	ァ,
-	ャ,
+
+	ガ,ギ,グ,ゲ,ゴ,
+	ザ,ジ,ズ,ゼ,ゾ,
+	ダ,ヂ,ヅ,デ,ド,
+	バ,ビ,ブ,ベ,ボ,
+
+	パ,ピ,プ,ペ,ポ,
+
+
+	キャ,キィ,キュ,キェ,キョ,
+	シャ,シィ,シュ,シェ,ショ,
+	チャ,チィ,チュ,チェ,チョ,
+	ニャ,ニィ,ニュ,ニェ,ニョ,
+	ヒャ,ヒィ,ヒュ,ヒェ,ヒョ,
+	ミャ,ミィ,ミュ,ミェ,ミョ,
+	リャ,リィ,リュ,リェ,リョ,
+
+	ギャ,ギィ,ギュ,ギェ,ギョ,
+	ジャ,/*ジ*/ジュ,ジェ,ジョ,
+	/*ジャ*/ジィ,/*ジュ*//*ジェ*//*ジョ*/
+	ヂャ,ヂィ,ヂュ,ヂェ,ヂョ,
+	ビャ,ビィ,ビュ,ビェ,ビョ,
+
+	ピャ,ピィ,ピュ,ピェ,ピョ,
+
+	ァ,ィ,ゥ,ェ,ォ,
+	ャ,/*ィ*/ュ,/*ェ*/ョ,
 	ッ,
+
 	ー,
-	KATAKANA_FIRST_ROWS_MAX
+
+	KATAKANA_MAX
 };
 
+#define KATAKANA_SIZE_MAX 4
+#define ALPHABET_SIZE_MAX 3
+#define NULL_CHAR 1
 
-//カタカナ
 typedef struct
 {
-	//カタカナ一行の文字列
-	char katakanaRow[(KATAKANA_ROW + W_SPACE) * MULTI_BYTE + NULL_CHAR];
-}Katakana;
+	char m_alphabet[ALPHABET_SIZE_MAX + NULL_CHAR];
+}Alphabet;
+
+#define ESTIMATE_ALPHABET_MAX 4
+typedef struct
+{
+	char m_katakana[KATAKANA_SIZE_MAX + NULL_CHAR];
+	Alphabet m_alphabet[ESTIMATE_ALPHABET_MAX];
+}KanaAlphabetTable;
+
+typedef struct
+{
+	char m_ruby[WORD_CHAR_MAX];
+}WordCandidate;
