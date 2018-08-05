@@ -1,4 +1,5 @@
 ﻿#include"RenderTitle.h"
+#include<windows.h>
 
 void TitleRender(SCENE *scene)
 {
@@ -25,8 +26,8 @@ void TitleRenderInit(TEXTUREID* textureIds)
 	//一回だけ読み込む
 	if (isFirstFrame)
 	{
-		RoadTexture("Texture/TitleBackGround.png", &textureIds[TITLE_BG_TEX]);
-		RoadTexture("Texture/TitleRogo.png", &textureIds[TITLE_ROGO_TEX]);
+		RoadTexture("Texture/Title/TitleBackground.png", &textureIds[TITLE_BG_TEX]);
+		RoadTexture("Texture/Title/TitleRogo.png", &textureIds[TITLE_ROGO_TEX]);
 
 		isFirstFrame = false;
 	}
@@ -41,10 +42,10 @@ void TitleRogoCanFadeIn(TEXTUREID* textureIds)
 	float TetleRogoPosY = DISPLAY_HEIGHT / 2.5f;
 
 	//アルファ値を変えるためのカウント
-	static int alphaCount = 0.f;
+	static int alphaCount = 0;
 
 	//透明度の変数
-	static float alpha = 0;
+	static unsigned char alpha = 0;
 	
 	//ここからフェードイン処理
 	alphaCount++;
@@ -61,33 +62,43 @@ void TitleRogoCanFadeIn(TEXTUREID* textureIds)
 
 void PressEnterFont(FONTID* fontIds)
 {
-	//アルファ値を変えるためのカウント
-	static int alphaCount = 0;
+	static int alphaCount = -1;
+
+	if (alphaCount == -1)
+	{ 
+		SetFont(50, 50, "MS ゴシック", fontIds, 20);
+
+		alphaCount = 0;
+	}
 
 	//透明度の変数
-	static float alpha = 0;
+	static int alpha = 0;
 
 	//ここから点滅処理
-	if (alphaCount > 75 && alphaCount <= 150)
+	if (alphaCount < 51)
 	{
-		alpha += 255 / 75;	//透明度を上げていく
+		alpha += 5;	//透明度を上げていく
 	}
 
-	if (alphaCount > 150 && alphaCount <= 225)
+	else
 	{
-		alpha -= 255 / 75;	//透明度を下げていく
+		alpha -= 5;	//透明度を下げていく
 	}
 
-	//カウントが255になったら初期化する
-	if (alphaCount == 225)
+	//カウントが以上になったら初期化する
+	if (alpha == 0)
 	{
-		alphaCount = 75;
+		alphaCount = 0;
 	}
 
-	alphaCount++;
+	else
+	{
+		alphaCount++;
+	}
 
 	//ここまで点滅処理
 
-	SetFont(50.f, 50.f, "MS ゴシック", fontIds, 20.f);
-	WriteText(DISPLAY_WIDTH / 2.f, 700.f, "Press Enter", DT_CENTER, fontIds[PRESS_ENTER_FONT], GetColor(alpha, 0xFF, 0xFF, 0xFF));
+	WriteText(DISPLAY_WIDTH / 2, 600, "Press Enter", DT_CENTER, fontIds[PRESS_ENTER_FONT], GetColor((UCHAR)alpha, 0xFF, 0xFF, 0xFF));
+
+	return;
 }

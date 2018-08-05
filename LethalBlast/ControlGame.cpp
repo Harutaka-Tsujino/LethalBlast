@@ -11,7 +11,7 @@ void ControlGame(SCENE* scene)
 
 bool CheckCirculeCollisionDetection(float circuleAPosX,float circuleAPosY,float circuleAhalfScale, float circuleBPosX, float circuleBPosY, float circuleBhalfScale)
 {
-	float centerDistance = sqrt(pow(circuleAPosX - circuleBPosX, 2) + pow(circuleAPosY - circuleBPosY, 2));
+	float centerDistance = (float)sqrt(pow(circuleAPosX - circuleBPosX, 2) + pow(circuleAPosY - circuleBPosY, 2));
 
 	float totalHalfScale = circuleAhalfScale + circuleBhalfScale;
 
@@ -25,7 +25,7 @@ bool CheckCirculeCollisionDetection(float circuleAPosX,float circuleAPosY,float 
 
 void CreateHomingVect(Vect* dest,float objAPosX,float objAPosY, float objBPosX, float objBPosY,Vect prevPerceivedShortestRouteUnitVect,float degreeLimit)
 {
-	float centerDistance = sqrt(pow(objAPosX - objBPosX, 2) + pow(objAPosY - objBPosY, 2));
+	float centerDistance = (float)sqrt(pow(objAPosX - objBPosX, 2) + pow(objAPosY - objBPosY, 2));
 
 	//操作している円への最短ルートを指す単位ベクトル
 	Vect shortestRouteUnitVect;
