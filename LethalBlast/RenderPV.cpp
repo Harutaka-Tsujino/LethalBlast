@@ -31,7 +31,7 @@ void RenderPV(SCENE* scene)
 
 	CustomVertex MagicRaser[4];
 
-	CustomImageVerticies(MagicRaser, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, DISPLAY_HEIGHT / 2.f, DISPLAY_HEIGHT / 2.f);
+	CustomImageVerticies(MagicRaser, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, DISPLAY_HEIGHT / 2.f, DISPLAY_HEIGHT / 2.f,0xDDFFFFFF);
 
 	const float MAGIC_RASER_ILLUST_WIDTH = 512.f;
 	const int SEPARATE_ILLUST_NUM = 16;
