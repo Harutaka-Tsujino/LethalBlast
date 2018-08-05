@@ -6,6 +6,9 @@
 //シーンに関する列挙体
 enum SCENE
 {
+	//PV
+	PV_SCENE,
+
 	//タイトル
 	TITLE_SCENE,
 

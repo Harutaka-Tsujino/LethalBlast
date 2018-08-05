@@ -6,6 +6,8 @@
 #include"WinMain.h"
 #include"ControlTitle.h"
 #include"RenderTitle.h"
+#include"ControlPV.h"
+#include"RenderPV.h"
 
 INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdShow)
 {
@@ -17,12 +19,20 @@ void MainFunction(void)
 {
 	srand((unsigned int)time(NULL));
 
-	static SCENE scene = TITLE_SCENE;
+	static SCENE scene = (SCENE)0;
 
 	//シーン分岐
 	switch (scene)
 	{
+	case PV_SCENE:
+
+		ControlPV(&scene);
+		RenderPV(&scene);
+
+		break;
+
 	case TITLE_SCENE:
+
 		TitleContorol(&scene);
 		TitleRender(&scene);
 
