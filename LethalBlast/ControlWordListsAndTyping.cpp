@@ -1,4 +1,6 @@
-﻿#include<windows.h>
+﻿#define _CRT_SECURE_NO_WARNINGS
+
+#include<windows.h>
 #include<mbctype.h>
 #include"DX9Lib.h"
 #include"ControlWordListsAndTyping.h"
@@ -187,7 +189,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 
 		//外部ファイルからの入力
 		fscanf_s(pWordStatesFile, "%[^,],%[^,],%[^,],%x", &(magicKnigtWords[wordsNum].m_word), sizeof(char) * WORD_CHAR_MAX, elemental,
-			sizeof(char) * ELEMENTAL_WORDS_MAX, attack, sizeof(char)*ATTACK_WORDS_MAX, magicKnigtWords[wordsNum].m_specialAbilities);
+			sizeof(char) * ELEMENTAL_WORDS_MAX, attack, sizeof(char)*ATTACK_WORDS_MAX, &magicKnigtWords[wordsNum].m_specialAbilities);
 
 		//特殊属性の数だけ回す
 		for (int elementalNum = 0; elementalNum < ELEMENT_ATTRIBUTES_MAX; ++elementalNum)
@@ -829,7 +831,7 @@ canInputCharMax:
 
 			//文字をずらす
 			for (int charShiftTarget = WORD_CHAR_MAX - 1; 
-				charShiftTarget >= charNum + (MULTI_BYTE+ sizeof(char))+ ONE_SHIFT; --charShiftTarget)
+				charShiftTarget >= charNum + (MULTI_BYTE+ (int)sizeof(char))+ ONE_SHIFT; --charShiftTarget)
 			{
 				magicKnightAction->m_inputWords[wordNum].m_word[charShiftTarget] =
 					magicKnightAction->m_inputWords[wordNum].m_word[charShiftTarget - ONE_SHIFT];
@@ -918,14 +920,21 @@ canInputCharMax:
 		//文字を回している
 		for (int rubyCount = 0; rubyCount < (WORD_CHAR_MAX / 2); ++rubyCount)
 		{
+			if (false)
+			{
+			inputtedRuby:
+
+				continue;
+			}
+
 			//カナ以外の文字が打たれているか判別
 			//打たれている場合
 			if (strlen(&magicKnightAction->m_inputWords[wordNum].m_word[wordCandidatePos]) && !changedAlphabetToKana)
 			{
 				//ッの場合
-				if (!strncmp(&magicKnigtWords[magicKnightWordLists[listWordNum].m_Id].m_word[kanaPos], "ッ", MULTI_BYTE) && 
+				if (!strncmp(&magicKnigtWords[magicKnightWordLists[listWordNum].m_Id].m_word[kanaPos], "ッ", MULTI_BYTE) &&
 					(magicKnightAction->m_inputWords[wordNum].m_word[wordCandidatePos] != 'x' ||
-					 magicKnightAction->m_inputWords[wordNum].m_word[wordCandidatePos] != 'l'))
+						magicKnightAction->m_inputWords[wordNum].m_word[wordCandidatePos] != 'l'))
 				{
 					//ッを構成する場合要素は一つだけ
 					if (!magicKnightAction->m_inputWords[wordNum].m_word[wordCandidatePos + 1])
@@ -1010,7 +1019,7 @@ canInputCharMax:
 									{
 										goto cantEstimatedInCurrentListsWord;
 									}
-								} 
+								}
 							}
 
 							else
@@ -1121,10 +1130,9 @@ canInputCharMax:
 					}
 				}
 			}
-
-		inputtedRuby:
 		}
 	}
+	
 
 	cantEstimated:
 
