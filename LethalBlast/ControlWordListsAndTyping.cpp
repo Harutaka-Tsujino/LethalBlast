@@ -1,10 +1,21 @@
 ﻿#include<windows.h>
 #include<mbctype.h>
 #include"DX9Lib.h"
-
 #include"ControlWordListsAndTyping.h"
 
-void ControlTyping()
+//魔法剣士のワードデータ
+//WordData magicKnigtWords[MAGIC_KNIGHT_WORD_MAX];
+
+//魔法剣士のリストに入っている単語のID
+//static WordList magicKnightWordLists[MAGIC_KNIGHT_WORD_LISTS_MAX];
+
+//魔法剣士の必殺技データ
+//static MagicKnightAction magicKnightAction;
+
+//単語のルビ
+//WordCandidate wordCandidates[MAGIC_KNIGHT_WORD_LISTS_MAX];
+
+void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, MagicKnightAction* magicKnightAction, WordCandidate* wordCandidates)
 {
 	static KanaAlphabetTable kanaAlphabetTable[KATAKANA_MAX];
 	memset(kanaAlphabetTable,NULL, sizeof(kanaAlphabetTable));
@@ -162,14 +173,10 @@ void ControlTyping()
 
 	fopen_s(&pWordStatesFile, "Files/WordStates/MagicKnightWordStates.csv", "r");
 
-	//魔法剣士のワードデータ
-	WordData magicKnigtWords[MAGIC_KNIGHT_WORD_MAX];
-
-	//初期化
 	memset(magicKnigtWords, 0, sizeof(WordData)*MAGIC_KNIGHT_WORD_MAX);
 
 	//魔法剣士のワードデーターを入れていく
-	for (int wordsNum = ファイヤー; wordsNum < MAGIC_KNIGHT_WORD_MAX; wordsNum++)
+	for (int wordsNum = ファイヤー; wordsNum < MAGIC_KNIGHT_WORD_MAX; ++wordsNum)
 	{
 		//外部ファイルの属性を数字に直したいので一度文字列で保管する
 		const int ELEMENTAL_WORDS_MAX = 22;
@@ -183,7 +190,7 @@ void ControlTyping()
 			sizeof(char) * ELEMENTAL_WORDS_MAX, attack, sizeof(char)*ATTACK_WORDS_MAX, magicKnigtWords[wordsNum].m_specialAbilities);
 
 		//特殊属性の数だけ回す
-		for (int elementalNum = 0; elementalNum < ELEMENT_ATTRIBUTES_MAX; elementalNum)
+		for (int elementalNum = 0; elementalNum < ELEMENT_ATTRIBUTES_MAX; ++elementalNum)
 		{
 			//属性が決まったかどうか
 			bool wasInputElemental = false;
@@ -247,24 +254,14 @@ void ControlTyping()
 				break;
 			}
 
-			if (wasInputElemental)
+			if (!wasInputElemental)
 			{
-				break;
+				continue;
 			}
 		}
 
-		//属性がない場合があるのでその対処
-		const char VOID_ATTRIBUTE = '0';
-
-		if (elemental[0] = VOID_ATTRIBUTE)
-		{
-			magicKnigtWords[wordsNum].m_element = VOID_ELEMENT;
-
-			break;
-		}
-
 		//物理属性の数だけ回す
-		for (int attackNum = 0; attackNum < ATTACK_ATTRIBUTES_MAX; attackNum++)
+		for (int attackNum = 0; attackNum < ATTACK_ATTRIBUTES_MAX; ++attackNum)
 		{
 			bool wasInputAttack = 0;
 
@@ -304,31 +301,19 @@ void ControlTyping()
 				break;
 			}
 
-			if (wasInputAttack = true)
+			if (!wasInputAttack)
 			{
-				break;
+				continue;
 			}
-
-		}
-
-		if (elemental[0] = VOID_ATTRIBUTE)
-		{
-			magicKnigtWords[wordsNum].m_attack = VOID_ATTACK;
-
-			break;
 		}
 	}
 
 	fclose(pWordStatesFile);
 
-	const int MAGIC_KNIGHT_WORD_LISTS_MAX = 5;
-
-	static WordList magicKnightWordLists[MAGIC_KNIGHT_WORD_LISTS_MAX];
-
 	if (true)
 	{
 		//単語リストに入る単語の生成
-		for (int listWord = 0; listWord < MAGIC_KNIGHT_WORD_LISTS_MAX; listWord++)
+		for (int listWord = 0; listWord < MAGIC_KNIGHT_WORD_LISTS_MAX; ++listWord)
 		{
 			//ワードenumにVOID_WORDが入ってるので-1、+1してる
 			magicKnightWordLists[listWord].m_Id = (MAGIC_KNIGHT_WORD)(rand() % (MAGIC_KNIGHT_WORD_MAX - 1) + 1);
@@ -340,13 +325,13 @@ void ControlTyping()
 
 	//単語の文字の何番目まで打たれているか
 	static int wordSpellPos = 0;
-	static MagicKnightAction magicKnightAction;
-	memset(&magicKnightAction, 0, sizeof(MagicKnightAction));
+	memset(magicKnightAction, 0, sizeof(MagicKnightAction));
 	const int INPUT_CHAR_LIMIT = 5;
 
-	for (; magicKnightAction.m_inputWords[wordNum].m_word[wordSpellPos] != 0; wordSpellPos++)
+	//入力文字数制限
+	for (int spellPos = 0; magicKnightAction->m_inputWords[wordNum].m_word[spellPos] != 0; spellPos++)
 	{
-		if (wordSpellPos > WORD_CHAR_MAX - INPUT_CHAR_LIMIT - 1)
+		if (spellPos > WORD_CHAR_MAX/2)
 		{
 			goto canInputCharMax;
 		}
@@ -360,7 +345,13 @@ void ControlTyping()
 			{
 			case DIK_A:
 
-				magicKnightAction.m_inputWords[wordNum].m_word[wordSpellPos] = 'a';
+				//入力文字数制限
+				if (wordSpellPos > WORD_CHAR_MAX / 2)
+				{
+					break;
+				}
+
+				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'a';
 
 				wordSpellPos++;
 
@@ -368,7 +359,13 @@ void ControlTyping()
 
 			case DIK_B:
 
-				magicKnightAction.m_inputWords[wordNum].m_word[wordSpellPos] = 'b';
+				//入力文字数制限
+				if (wordSpellPos > WORD_CHAR_MAX / 2)
+				{
+					break;
+				}
+
+				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'b';
 
 				wordSpellPos++;
 
@@ -376,7 +373,13 @@ void ControlTyping()
 
 			case DIK_C:
 
-				magicKnightAction.m_inputWords[wordNum].m_word[wordSpellPos] = 'c';
+				//入力文字数制限
+				if (wordSpellPos > WORD_CHAR_MAX / 2)
+				{
+					break;
+				}
+
+				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'c';
 
 				wordSpellPos++;
 
@@ -385,7 +388,13 @@ void ControlTyping()
 
 			case DIK_D:
 
-				magicKnightAction.m_inputWords[wordNum].m_word[wordSpellPos] = 'd';
+				//入力文字数制限
+				if (wordSpellPos > WORD_CHAR_MAX / 2)
+				{
+					break;
+				}
+
+				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'd';
 
 				wordSpellPos++;
 
@@ -393,7 +402,13 @@ void ControlTyping()
 
 			case DIK_E:
 
-				magicKnightAction.m_inputWords[wordNum].m_word[wordSpellPos] = 'e';
+				//入力文字数制限
+				if (wordSpellPos > WORD_CHAR_MAX / 2)
+				{
+					break;
+				}
+
+				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'e';
 
 				wordSpellPos++;
 
@@ -401,7 +416,13 @@ void ControlTyping()
 
 			case DIK_F:
 
-				magicKnightAction.m_inputWords[wordNum].m_word[wordSpellPos] = 'f';
+				//入力文字数制限
+				if (wordSpellPos > WORD_CHAR_MAX / 2)
+				{
+					break;
+				}
+
+				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'f';
 
 				wordSpellPos++;
 
@@ -409,7 +430,13 @@ void ControlTyping()
 
 			case DIK_G:
 
-				magicKnightAction.m_inputWords[wordNum].m_word[wordSpellPos] = 'g';
+				//入力文字数制限
+				if (wordSpellPos > WORD_CHAR_MAX / 2)
+				{
+					break;
+				}
+
+				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'g';
 
 				wordSpellPos++;
 
@@ -417,7 +444,13 @@ void ControlTyping()
 
 			case DIK_H:
 
-				magicKnightAction.m_inputWords[wordNum].m_word[wordSpellPos] = 'h';
+				//入力文字数制限
+				if (wordSpellPos > WORD_CHAR_MAX / 2)
+				{
+					break;
+				}
+
+				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'h';
 
 				wordSpellPos++;
 
@@ -425,7 +458,13 @@ void ControlTyping()
 
 			case DIK_I:
 
-				magicKnightAction.m_inputWords[wordNum].m_word[wordSpellPos] = 'i';
+				//入力文字数制限
+				if (wordSpellPos > WORD_CHAR_MAX / 2)
+				{
+					break;
+				}
+
+				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'i';
 
 				wordSpellPos++;
 
@@ -433,7 +472,13 @@ void ControlTyping()
 
 			case DIK_J:
 
-				magicKnightAction.m_inputWords[wordNum].m_word[wordSpellPos] = 'j';
+				//入力文字数制限
+				if (wordSpellPos > WORD_CHAR_MAX / 2)
+				{
+					break;
+				}
+
+				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'j';
 
 				wordSpellPos++;
 
@@ -441,7 +486,13 @@ void ControlTyping()
 
 			case DIK_K:
 
-				magicKnightAction.m_inputWords[wordNum].m_word[wordSpellPos] = 'k';
+				//入力文字数制限
+				if (wordSpellPos > WORD_CHAR_MAX / 2)
+				{
+					break;
+				}
+
+				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'k';
 
 				wordSpellPos++;
 
@@ -449,7 +500,13 @@ void ControlTyping()
 
 			case DIK_L:
 
-				magicKnightAction.m_inputWords[wordNum].m_word[wordSpellPos] = 'l';
+				//入力文字数制限
+				if (wordSpellPos > WORD_CHAR_MAX / 2)
+				{
+					break;
+				}
+
+				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'l';
 
 				wordSpellPos++;
 
@@ -457,7 +514,13 @@ void ControlTyping()
 
 			case DIK_M:
 
-				magicKnightAction.m_inputWords[wordNum].m_word[wordSpellPos] = 'm';
+				//入力文字数制限
+				if (wordSpellPos > WORD_CHAR_MAX / 2)
+				{
+					break;
+				}
+
+				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'm';
 
 				wordSpellPos++;
 
@@ -465,7 +528,13 @@ void ControlTyping()
 
 			case DIK_N:
 
-				magicKnightAction.m_inputWords[wordNum].m_word[wordSpellPos] = 'n';
+				//入力文字数制限
+				if (wordSpellPos > WORD_CHAR_MAX / 2)
+				{
+					break;
+				}
+
+				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'n';
 
 				wordSpellPos++;
 
@@ -473,7 +542,13 @@ void ControlTyping()
 
 			case DIK_O:
 
-				magicKnightAction.m_inputWords[wordNum].m_word[wordSpellPos] = 'o';
+				//入力文字数制限
+				if (wordSpellPos > WORD_CHAR_MAX / 2)
+				{
+					break;
+				}
+
+				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'o';
 
 				wordSpellPos++;
 
@@ -481,7 +556,13 @@ void ControlTyping()
 
 			case DIK_P:
 
-				magicKnightAction.m_inputWords[wordNum].m_word[wordSpellPos] = 'p';
+				//入力文字数制限
+				if (wordSpellPos > WORD_CHAR_MAX / 2)
+				{
+					break;
+				}
+
+				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'p';
 
 				wordSpellPos++;
 
@@ -489,7 +570,13 @@ void ControlTyping()
 
 			case DIK_Q:
 
-				magicKnightAction.m_inputWords[wordNum].m_word[wordSpellPos] = 'q';
+				//入力文字数制限
+				if (wordSpellPos > WORD_CHAR_MAX / 2)
+				{
+					break;
+				}
+
+				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'q';
 
 				wordSpellPos++;
 
@@ -497,7 +584,13 @@ void ControlTyping()
 
 			case DIK_R:
 
-				magicKnightAction.m_inputWords[wordNum].m_word[wordSpellPos] = 'r';
+				//入力文字数制限
+				if (wordSpellPos > WORD_CHAR_MAX / 2)
+				{
+					break;
+				}
+
+				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'r';
 
 				wordSpellPos++;
 
@@ -505,7 +598,13 @@ void ControlTyping()
 
 			case DIK_S:
 
-				magicKnightAction.m_inputWords[wordNum].m_word[wordSpellPos] = 's';
+				//入力文字数制限
+				if (wordSpellPos > WORD_CHAR_MAX / 2)
+				{
+					break;
+				}
+
+				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 's';
 
 				wordSpellPos++;
 
@@ -513,7 +612,13 @@ void ControlTyping()
 
 			case DIK_T:
 
-				magicKnightAction.m_inputWords[wordNum].m_word[wordSpellPos] = 't';
+				//入力文字数制限
+				if (wordSpellPos > WORD_CHAR_MAX / 2)
+				{
+					break;
+				}
+
+				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 't';
 
 				wordSpellPos++;
 
@@ -521,7 +626,13 @@ void ControlTyping()
 
 			case DIK_U:
 
-				magicKnightAction.m_inputWords[wordNum].m_word[wordSpellPos] = 'u';
+				//入力文字数制限
+				if (wordSpellPos > WORD_CHAR_MAX / 2)
+				{
+					break;
+				}
+
+				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'u';
 
 				wordSpellPos++;
 
@@ -529,7 +640,13 @@ void ControlTyping()
 
 			case DIK_V:
 
-				magicKnightAction.m_inputWords[wordNum].m_word[wordSpellPos] = 'v';
+				//入力文字数制限
+				if (wordSpellPos > WORD_CHAR_MAX / 2)
+				{
+					break;
+				}
+
+				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'v';
 
 				wordSpellPos++;
 
@@ -537,7 +654,13 @@ void ControlTyping()
 
 			case DIK_W:
 
-				magicKnightAction.m_inputWords[wordNum].m_word[wordSpellPos] = 'w';
+				//入力文字数制限
+				if (wordSpellPos > WORD_CHAR_MAX / 2)
+				{
+					break;
+				}
+
+				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'w';
 
 				wordSpellPos++;
 
@@ -545,7 +668,13 @@ void ControlTyping()
 
 			case DIK_X:
 
-				magicKnightAction.m_inputWords[wordNum].m_word[wordSpellPos] = 'x';
+				//入力文字数制限
+				if (wordSpellPos > WORD_CHAR_MAX / 2)
+				{
+					break;
+				}
+
+				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'x';
 
 				wordSpellPos++;
 
@@ -553,7 +682,13 @@ void ControlTyping()
 
 			case DIK_Y:
 
-				magicKnightAction.m_inputWords[wordNum].m_word[wordSpellPos] = 'y';
+				//入力文字数制限
+				if (wordSpellPos > WORD_CHAR_MAX / 2)
+				{
+					break;
+				}
+
+				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'y';
 
 				wordSpellPos++;
 
@@ -561,7 +696,13 @@ void ControlTyping()
 
 			case DIK_Z:
 
-				magicKnightAction.m_inputWords[wordNum].m_word[wordSpellPos] = 'z';
+				//入力文字数制限
+				if (wordSpellPos > WORD_CHAR_MAX / 2)
+				{
+					break;
+				}
+
+				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'z';
 
 				wordSpellPos++;
 
@@ -569,10 +710,15 @@ void ControlTyping()
 
 			case DIK_MINUS:
 
-				memcpy_s(&magicKnightAction.m_inputWords[wordNum].m_word[wordSpellPos], sizeof(char)*MULTI_BYTE,
-					"ー", sizeof(char)*MULTI_BYTE);
+				//入力文字数制限
+				if (wordSpellPos > WORD_CHAR_MAX / 2)
+				{
+					break;
+				}
 
-				wordSpellPos += MULTI_BYTE;
+				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = '-';
+
+				wordSpellPos++;
 
 				break;
 
@@ -581,17 +727,17 @@ void ControlTyping()
 				if (wordSpellPos > 0)
 				{
 					//ここで二バイト文字の場合一文字だけ消しても意味ない関数があったからそれを使う_ismbblead　１バイト目　_ismbbtrail 2ばいとめ
-					if (_ismbbtrail(magicKnightAction.m_inputWords[wordNum].m_word[wordSpellPos - 1]))
+					if (_ismbbtrail(magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos - 1]))
 					{
-						magicKnightAction.m_inputWords[wordNum].m_word[wordSpellPos - 1] = NULL;
-						magicKnightAction.m_inputWords[wordNum].m_word[wordSpellPos - 2] = NULL;
+						magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos - 1] = NULL;
+						magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos - 2] = NULL;
 
 						wordSpellPos -= MULTI_BYTE;
 					}
 
 					else
 					{
-						magicKnightAction.m_inputWords[wordNum].m_word[wordSpellPos - 1] = NULL;
+						magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos - 1] = NULL;
 
 						wordSpellPos--;
 					}
@@ -602,22 +748,23 @@ void ControlTyping()
 		}
 	}
 
+//入力可能文字最大
 canInputCharMax:
 	if (g_keyState.keyPush[DIK_BACK])
 	{
 		if (wordSpellPos > 0)
 		{
-			if (_ismbbtrail(magicKnightAction.m_inputWords[wordNum].m_word[wordSpellPos - 1]))
+			if (_ismbbtrail(magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos - 1]))
 			{
-				magicKnightAction.m_inputWords[wordNum].m_word[wordSpellPos - 1] = NULL;
-				magicKnightAction.m_inputWords[wordNum].m_word[wordSpellPos - 2] = NULL;
+				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos - 1] = NULL;
+				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos - 2] = NULL;
 
 				wordSpellPos -= MULTI_BYTE;
 			}
 
 			else
 			{
-				magicKnightAction.m_inputWords[wordNum].m_word[wordSpellPos - 1] = NULL;
+				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos - 1] = NULL;
 
 				wordSpellPos--;
 			}
@@ -625,10 +772,14 @@ canInputCharMax:
 	}
 
 	//タイピングした文字をカタカナに変換する
-	for (int charNum = 0;magicKnightAction.m_inputWords[wordNum].m_word[charNum] != NULL;++charNum)
+	//NULLということはそれ以上アルファベットが打たれていないということ
+	//文字列の要素を回す
+	for (int charNum = 0;magicKnightAction->m_inputWords[wordNum].m_word[charNum] != NULL;++charNum)
 	{
-		for (int kana = 0; kana < KATAKANA_MAX; ++kana)
+		//テーブルを回す
+		for (int kana = KATAKANA_MAX - 1; kana >= 0; ++kana)
 		{
+			//アルファベットの差分
 			for (int alphabet = 0; alphabet < ESTIMATE_ALPHABET_MAX; ++alphabet)
 			{
 				//範囲外対処
@@ -638,99 +789,113 @@ canInputCharMax:
 				}
 
 				//打たれた文字とテーブルにある文字が対応していないかチェック
-				if (strncmp(&magicKnightAction.m_inputWords[wordNum].m_word[charNum],
+				if (strncmp(&magicKnightAction->m_inputWords[wordNum].m_word[charNum],
 					&kanaAlphabetTable[kana].m_alphabet[alphabet].m_alphabet[0],
 					strlen(&kanaAlphabetTable[kana].m_alphabet[alphabet].m_alphabet[0])))
 				{
 					continue;
 				}
 
+				//変換する際にアルファベットとカタカナではサイズが違うので調べる
 				int alphabetSize = strlen(&kanaAlphabetTable[kana].m_alphabet[alphabet].m_alphabet[0]);
 
-				int charShiftNum = strlen(&kanaAlphabetTable[kana].m_katakana[0]) - 
-					strlen(&kanaAlphabetTable[kana].m_alphabet[alphabet].m_alphabet[0]);
+				//どれだけ文字をずらせばキレイにカタカナが入るか
+				int charShiftNum = strlen(&kanaAlphabetTable[kana].m_katakana[0]) - alphabetSize;
 
+				//文字をずらす
 				for (int charShiftTarget = WORD_CHAR_MAX - 1; 
 					charShiftTarget >= charNum + alphabetSize+ charShiftNum; --charShiftTarget)
 				{
-					magicKnightAction.m_inputWords[wordNum].m_word[charShiftTarget] = 
-						magicKnightAction.m_inputWords[wordNum].m_word[charShiftTarget- charShiftNum];
+					magicKnightAction->m_inputWords[wordNum].m_word[charShiftTarget] = 
+						magicKnightAction->m_inputWords[wordNum].m_word[charShiftTarget- charShiftNum];
 				}
 
-				strncpy(&magicKnightAction.m_inputWords[wordNum].m_word[charNum],
+				//カナに変換
+				strncpy(&magicKnightAction->m_inputWords[wordNum].m_word[charNum],
 					&kanaAlphabetTable[kana].m_katakana[0], strlen(&kanaAlphabetTable[kana].m_katakana[0]));
 
 				break;
 			}
 
-			//同じアルファベットが並んだ場合"ッ"を入れる 直前の処理で母音はすべてカタカナに変換されているので考慮せずとも良い
-			if (strncmp(&magicKnightAction.m_inputWords[wordNum].m_word[charNum],
-				&magicKnightAction.m_inputWords[wordNum].m_word[charNum + 1], 1))
+			//同じアルファベットが並んだ場合"ッ"を入れる 直前の処理で母音とンはすべてカタカナに変換されているので考慮せずとも良い
+			if (strncmp(&magicKnightAction->m_inputWords[wordNum].m_word[charNum],
+				&magicKnightAction->m_inputWords[wordNum].m_word[charNum + 1], sizeof(char)))
 			{
 				continue;
 			}
 
+			//文字を一つずらす
 			const int ONE_SHIFT = 1;
 
+			//文字をずらす
 			for (int charShiftTarget = WORD_CHAR_MAX - 1; 
 				charShiftTarget >= charNum + (MULTI_BYTE+ sizeof(char))+ ONE_SHIFT; --charShiftTarget)
 			{
-				magicKnightAction.m_inputWords[wordNum].m_word[charShiftTarget] =
-					magicKnightAction.m_inputWords[wordNum].m_word[charShiftTarget - ONE_SHIFT];
+				magicKnightAction->m_inputWords[wordNum].m_word[charShiftTarget] =
+					magicKnightAction->m_inputWords[wordNum].m_word[charShiftTarget - ONE_SHIFT];
 			}
 
-			strncpy(&magicKnightAction.m_inputWords[wordNum].m_word[charNum + MULTI_BYTE],
-				&magicKnightAction.m_inputWords[wordNum].m_word[charNum], sizeof(char));
+			//文字を入れる
+			strncpy(&magicKnightAction->m_inputWords[wordNum].m_word[charNum + MULTI_BYTE],
+				&magicKnightAction->m_inputWords[wordNum].m_word[charNum], sizeof(char));
 
-			strncpy(&magicKnightAction.m_inputWords[wordNum].m_word[charNum],"ッ", MULTI_BYTE+ sizeof(char));
+			strncpy(&magicKnightAction->m_inputWords[wordNum].m_word[charNum],"ッ", MULTI_BYTE);
 		}
 	}
 
-	//単語にアルファベットのルビを振る
+	//単語にアルファベットのルビを振る/////////////////////////////////
+	//文字列要素番号
 	int wordCandidatePos = 0;
 
 	//文字が入力されていない場合抜ける
-	if (!magicKnightAction.m_inputWords[wordNum].m_word[0])
+	if (!magicKnightAction->m_inputWords[wordNum].m_word[0])
 	{
 		goto cantEstimated;
-	}
-
-	//すでにカナが連続で何文字打たれているのか
-	for (int charNum = 0; charNum < WORD_CHAR_MAX; ++charNum)
-	{
-		if (!_ismbblead(magicKnightAction.m_inputWords[wordNum].m_word[charNum]))
-		{
-			break;
-		}
-
-		wordCandidatePos += MULTI_BYTE;
 	}
 	
 	//カナの次にアルファベットその次にカナがあった場合単語リストと一致しないため抜ける
 	for (int charNum = wordCandidatePos; charNum < WORD_CHAR_MAX; ++charNum)
 	{
-		if (_ismbblead(magicKnightAction.m_inputWords[wordNum].m_word[charNum]))
+		if (_ismbblead(magicKnightAction->m_inputWords[wordNum].m_word[charNum]))
 		{
 			goto cantEstimated;
 		}
 	}
 
-	WordCandidate wordCandidates[MAGIC_KNIGHT_WORD_LISTS_MAX];
 	memset(wordCandidates, 0, sizeof(wordCandidates));
 
 	//リストの単語と入力文字の一致が複数ある場合があるので回す
 	for (int listWordNum = 0; listWordNum < MAGIC_KNIGHT_WORD_LISTS_MAX; ++listWordNum)
 	{
+		if (false)
+		{
+			//現在のリストの単語と一致しなかった
+		cantEstimatedInCurrentListsWord:
+
+			continue;
+		}
+
+		//すでにカナが連続で何文字打たれているのか
+		for (int charNum = 0; charNum < WORD_CHAR_MAX; ++charNum)
+		{
+			if (!_ismbblead(magicKnightAction->m_inputWords[wordNum].m_word[charNum]))
+			{
+				break;
+			}
+
+			wordCandidatePos += MULTI_BYTE;
+		}
+
 		//カナ部分がなしの場合通らない
 		if (!wordCandidatePos)
 		{
 			//カナの部分でリストにあるかチェック
-			if (!strncmp(&magicKnightAction.m_inputWords[wordNum].m_word[0],
+			if (!strncmp(&magicKnightAction->m_inputWords[wordNum].m_word[0],
 				&magicKnigtWords[magicKnightWordLists[listWordNum].m_Id].m_word[0], wordCandidatePos))
 			{
 				//チェックをして単語リストにあった場合カナの部分をルビにコピー
 				strncpy(&wordCandidates[listWordNum].m_ruby[0],
-					&magicKnightAction.m_inputWords[wordNum].m_word[0], wordCandidatePos);
+					&magicKnightAction->m_inputWords[wordNum].m_word[0], wordCandidatePos);
 
 				goto copiedWord;
 			}
@@ -741,115 +906,128 @@ canInputCharMax:
 				continue;
 			}
 		}
-		
+
 	copiedWord:
 
-		//一致するカナを探す
-		//カナの優先順位的に最大値から始める
-		for (int kana = KATAKANA_MAX - 1; kana >= 0; --kana)
+		//調べるカナの位置
+		int kanaPos = wordCandidatePos;
+
+		//文字が変換されたか
+		bool changedAlphabetToKana = false;
+
+		//文字を回している
+		for (int rubyCount = 0; rubyCount < (WORD_CHAR_MAX / 2); ++rubyCount)
 		{
-			//調べるカナの位置
-			int kanaPos = wordCandidatePos;
-
-			//文字を回している
-			for (int rubyCount = 0; rubyCount < (WORD_CHAR_MAX / MULTI_BYTE); rubyCount++)
+			//カナ以外の文字が打たれているか判別
+			//打たれている場合
+			if (strlen(&magicKnightAction->m_inputWords[wordNum].m_word[wordCandidatePos]) && !changedAlphabetToKana)
 			{
-				//カナ以外の文字が打たれているか判別
-				//打たれている場合
-				if (strlen(&magicKnightAction.m_inputWords[wordNum].m_word[wordCandidatePos]))
+				//ッの場合
+				if (!strncmp(&magicKnigtWords[magicKnightWordLists[listWordNum].m_Id].m_word[kanaPos], "ッ", MULTI_BYTE) && 
+					(magicKnightAction->m_inputWords[wordNum].m_word[wordCandidatePos] != 'x' ||
+					 magicKnightAction->m_inputWords[wordNum].m_word[wordCandidatePos] != 'l'))
 				{
-					//ッの場合
-					if (!strncmp(&magicKnigtWords[magicKnightWordLists[listWordNum].m_Id].m_word[kanaPos], "ッ", MULTI_BYTE) && (
-						magicKnightAction.m_inputWords[wordNum].m_word[wordCandidatePos] != 'x' ||
-						magicKnightAction.m_inputWords[wordNum].m_word[wordCandidatePos] != 'l'))
+					//ッを構成する場合要素は一つだけ
+					if (!magicKnightAction->m_inputWords[wordNum].m_word[wordCandidatePos + 1])
 					{
-						//リストにある文字と同じかチェック
-						if (!magicKnightAction.m_inputWords[wordNum].m_word[wordCandidatePos + 1])
-						{
-							goto cantEstimated;
-						}
-
-						//カタカナを回す
-						for (int kataKana = 0; kataKana < KATAKANA_MAX; kataKana++)
-						{
-							//ッの次のカナを調べる
-							if (!strncmp(&magicKnigtWords[magicKnightWordLists[listWordNum].m_Id].m_word[kanaPos + MULTI_BYTE],
-								&kanaAlphabetTable[kataKana].m_katakana[0],
-								strlen(&kanaAlphabetTable[kataKana].m_katakana[0])))
-							{
-								//アルファベットの差分を回す
-								for (int estimate = 0; estimate < ESTIMATE_ALPHABET_MAX; estimate++)
-								{
-									//範囲外チェック
-									if (!strlen(&kanaAlphabetTable[kataKana].m_alphabet[estimate].m_alphabet[0]))
-									{
-										continue;
-									}
-
-									//アルファベットのチェック
-									if (strncmp(&magicKnightAction.m_inputWords[wordNum].m_word[wordCandidatePos],
-										&kanaAlphabetTable[kataKana].m_alphabet[estimate].m_alphabet[0], sizeof(char)))
-									{
-										//直前の処理で調べたカナを構成しているアルファベットの一番目の文字
-										strncpy(&wordCandidates[listWordNum].m_ruby[wordCandidatePos],
-											&kanaAlphabetTable[kataKana].m_alphabet[estimate].m_alphabet[0], sizeof(char));
-
-										//直前の処理で調べたカナ
-										strncpy(&wordCandidates[listWordNum].m_ruby[wordCandidatePos + 1],
-											&kanaAlphabetTable[kataKana].m_alphabet[estimate].m_alphabet[0],
-											strlen(&kanaAlphabetTable[kataKana].m_alphabet[estimate].m_alphabet[0]));
-
-										kanaPos += MULTI_BYTE + strlen(&kanaAlphabetTable[kataKana].m_katakana[0]);
-
-										wordCandidatePos += strlen(&wordCandidates[listWordNum].m_ruby[wordCandidatePos]);
-
-										goto inputtedRuby;
-									}
-								}
-							}
-						}
+						goto cantEstimated;
 					}
 
-					else
+					//カタカナを回す
+					for (int kataKana = 0; kataKana < KATAKANA_MAX; kataKana++)
 					{
-						for (int kana = KATAKANA_MAX - 1; kana >= 0; --kana)
+						//ッの次のカナを調べる
+						if (!strncmp(&magicKnigtWords[magicKnightWordLists[listWordNum].m_Id].m_word[kanaPos + MULTI_BYTE],
+							&kanaAlphabetTable[kataKana].m_katakana[0],
+							strlen(&kanaAlphabetTable[kataKana].m_katakana[0])))
 						{
 							//アルファベットの差分を回す
 							for (int estimate = 0; estimate < ESTIMATE_ALPHABET_MAX; estimate++)
 							{
 								//範囲外チェック
-								if (!strlen(&kanaAlphabetTable[kana].m_alphabet[estimate].m_alphabet[0]))
+								if (!strlen(&kanaAlphabetTable[kataKana].m_alphabet[estimate].m_alphabet[0]))
 								{
 									continue;
 								}
 
-								//入力した文字とアルファベットを比較して対応するカナを探す
-								//ずっと入らなかったらアウト
-								if (!strncmp(&magicKnightAction.m_inputWords[wordNum].m_word[wordCandidatePos],
-									&kanaAlphabetTable[kana].m_alphabet[estimate].m_alphabet[0],
-									strlen(&magicKnightAction.m_inputWords[wordNum].m_word[wordCandidatePos])))
+								//アルファベットのチェック
+								if (strncmp(&magicKnightAction->m_inputWords[wordNum].m_word[wordCandidatePos],
+									&kanaAlphabetTable[kataKana].m_alphabet[estimate].m_alphabet[0], sizeof(char)))
 								{
-									if(!strncmp(&magicKnigtWords[magicKnightWordLists[listWordNum].m_Id].m_word[wordCandidatePos],
-										&kanaAlphabetTable[kana].m_katakana[wordCandidatePos],
-										strlen(&kanaAlphabetTable[kana].m_katakana[wordCandidatePos])))
-									{
-										goto canEstimate;
-									}
+									//直前の処理で調べたカナを構成しているアルファベットの一番目の文字
+									strncpy(&wordCandidates[listWordNum].m_ruby[wordCandidatePos],
+										&kanaAlphabetTable[kataKana].m_alphabet[estimate].m_alphabet[0], sizeof(char));
+
+									//直前の処理で調べたカナ
+									strncpy(&wordCandidates[listWordNum].m_ruby[wordCandidatePos + 1],
+										&kanaAlphabetTable[kataKana].m_alphabet[estimate].m_alphabet[0],
+										strlen(&kanaAlphabetTable[kataKana].m_alphabet[estimate].m_alphabet[0]));
+
+									kanaPos += MULTI_BYTE + strlen(&kanaAlphabetTable[kataKana].m_katakana[0]);
+
+									wordCandidatePos += strlen(&wordCandidates[listWordNum].m_ruby[wordCandidatePos]);
+
+									changedAlphabetToKana = true;
+
+									goto inputtedRuby;
+								}
+							}
+						}
+					}
+				}
+
+				else
+				{
+					for (int kana = KATAKANA_MAX - 1; kana >= 0; --kana)
+					{
+						//アルファベットの差分を回す
+						for (int estimate = 0; estimate < ESTIMATE_ALPHABET_MAX; estimate++)
+						{
+							//範囲外チェック
+							if (!strlen(&kanaAlphabetTable[kana].m_alphabet[estimate].m_alphabet[0]))
+							{
+								continue;
+							}
+
+							//入力した文字とアルファベットを比較して対応するカナを探す
+							//ずっと入らなかったらアウト
+							if (!strncmp(&magicKnightAction->m_inputWords[wordNum].m_word[wordCandidatePos],
+								&kanaAlphabetTable[kana].m_alphabet[estimate].m_alphabet[0],
+								strlen(&magicKnightAction->m_inputWords[wordNum].m_word[wordCandidatePos])))
+							{
+								//対応していたカナがリストの単語のカナと一致するか調べる
+								if (!strncmp(&magicKnigtWords[magicKnightWordLists[listWordNum].m_Id].m_word[wordCandidatePos],
+									&kanaAlphabetTable[kana].m_katakana[0],
+									strlen(&kanaAlphabetTable[kana].m_katakana[0])))
+								{
+									goto canEstimate;
 								}
 
 								else
 								{
-									//最後まで行って対応するカナを探せなかったらアウト
+									//最後まで行って一致した単語を探せなかったらアウト
 									if (kana == 0)
 									{
-										goto cantEstimated;
+										goto cantEstimatedInCurrentListsWord;
 									}
+								} 
+							}
+
+							else
+							{
+								//最後まで行って対応するカナを探せなかったらアウト
+								if (kana == 0)
+								{
+									goto cantEstimated;
 								}
 							}
 						}
+					}
 
-						canEstimate:
-
+					//ルビが振れる
+				canEstimate:
+					for (int kana = KATAKANA_MAX - 1; kana >= 0; --kana)
+					{
 						//アルファベットの差分を回す
 						for (int estimate = 0; estimate < ESTIMATE_ALPHABET_MAX; estimate++)
 						{
@@ -860,9 +1038,9 @@ canInputCharMax:
 							}
 
 							//入力した文字とアルファベットを比較して対応するアルファベットを探す
-							if (!strncmp(&magicKnightAction.m_inputWords[wordNum].m_word[wordCandidatePos],
+							if (!strncmp(&magicKnightAction->m_inputWords[wordNum].m_word[wordCandidatePos],
 								&kanaAlphabetTable[kana].m_alphabet[estimate].m_alphabet[0],
-								strlen(&magicKnightAction.m_inputWords[wordNum].m_word[wordCandidatePos])))
+								strlen(&magicKnightAction->m_inputWords[wordNum].m_word[wordCandidatePos])))
 							{
 								//対応していたアルファベットを入れる
 								strncpy(&wordCandidates[listWordNum].m_ruby[wordCandidatePos],
@@ -876,68 +1054,75 @@ canInputCharMax:
 								wordCandidatePos +=
 									strlen(&kanaAlphabetTable[kana].m_alphabet[estimate].m_alphabet[0]);
 
+								changedAlphabetToKana = true;
+
 								goto inputtedRuby;
 							}
 						}
 					}
-
 				}
-				else
+
+			}
+
+			else
+			{
+				//カタカナを回す
+				for (int katakana = 0; katakana < KATAKANA_MAX; katakana++)
 				{
-					//カタカナを回す
-					for (int katakana = 0; katakana < KATAKANA_MAX; katakana++)
+					//カタカナを比較する
+					if (!strncmp(&magicKnigtWords[magicKnightWordLists[listWordNum].m_Id].m_word[kanaPos],
+						&kanaAlphabetTable[katakana].m_katakana[0],
+						strlen(&kanaAlphabetTable[katakana].m_katakana[0])))
 					{
-						//カタカナを比較する
+						//ッの場合
 						if (!strncmp(&magicKnigtWords[magicKnightWordLists[listWordNum].m_Id].m_word[kanaPos],
-							&kanaAlphabetTable[katakana].m_katakana[0],
-							strlen(&kanaAlphabetTable[katakana].m_katakana[0])))
+							"ッ", MULTI_BYTE))
 						{
-							//ッの場合
-							if (!strncmp(&magicKnigtWords[magicKnightWordLists[listWordNum].m_Id].m_word[kanaPos],
-								"ッ", MULTI_BYTE))
+							//カタカナを回す
+							for (int kataKana = 0; kataKana < KATAKANA_MAX; kataKana++)
 							{
-								//カタカナを回す
-								for (int kataKana = 0; kataKana < KATAKANA_MAX; kataKana++)
+								//ッの次のカナを調べる
+								if (!strncmp(&magicKnigtWords[magicKnightWordLists[listWordNum].m_Id].m_word[kanaPos + MULTI_BYTE],
+									&kanaAlphabetTable[kataKana].m_katakana[0],
+									strlen(&kanaAlphabetTable[kataKana].m_katakana[0])))
 								{
-									//ッの次のカナを調べる
-									if (!strncmp(&magicKnigtWords[magicKnightWordLists[listWordNum].m_Id].m_word[kanaPos + MULTI_BYTE],
-										&kanaAlphabetTable[kataKana].m_katakana[0],
-										strlen(&kanaAlphabetTable[kataKana].m_katakana[0])))
-									{
-										//直前の処理で調べたカナを構成しているアルファベットの一番目の文字
-										strncpy(&wordCandidates[listWordNum].m_ruby[wordCandidatePos],
-											&kanaAlphabetTable[katakana].m_alphabet[0].m_alphabet[0], sizeof(char));
+									//直前の処理で調べたカナを構成しているアルファベットの一番目の文字
+									strncpy(&wordCandidates[listWordNum].m_ruby[wordCandidatePos],
+										&kanaAlphabetTable[katakana].m_alphabet[0].m_alphabet[0], sizeof(char));
 
-										//直前の処理で調べたカナ
-										strncpy(&wordCandidates[listWordNum].m_ruby[wordCandidatePos + 1],
-											&kanaAlphabetTable[katakana].m_alphabet[0].m_alphabet[0],
-											strlen(&kanaAlphabetTable[katakana].m_alphabet[0].m_alphabet[0]));
+									//直前の処理で調べたカナ
+									strncpy(&wordCandidates[listWordNum].m_ruby[wordCandidatePos + 1],
+										&kanaAlphabetTable[katakana].m_alphabet[0].m_alphabet[0],
+										strlen(&kanaAlphabetTable[katakana].m_alphabet[0].m_alphabet[0]));
 
-										kanaPos += MULTI_BYTE + strlen(&kanaAlphabetTable[katakana].m_katakana[0]);
+									kanaPos += MULTI_BYTE + strlen(&kanaAlphabetTable[katakana].m_katakana[0]);
 
-										wordCandidatePos += strlen(&wordCandidates[listWordNum].m_ruby[wordCandidatePos]);
+									wordCandidatePos += strlen(&wordCandidates[listWordNum].m_ruby[wordCandidatePos]);
 
-										goto inputtedRuby;
-									}
+									changedAlphabetToKana = true;
+
+									goto inputtedRuby;
 								}
 							}
-
-							//比較したカナに対応したアルファベットを入れる
-							strncpy(&wordCandidates[listWordNum].m_ruby[wordCandidatePos],
-								&kanaAlphabetTable[katakana].m_alphabet[0].m_alphabet[0],
-								strlen(&kanaAlphabetTable[katakana].m_alphabet[0].m_alphabet[0]));
-
-							kanaPos += strlen(&kanaAlphabetTable[katakana].m_katakana[0]);
-
-							wordCandidatePos += strlen(&wordCandidates[listWordNum].m_ruby[wordCandidatePos]);
-
-							goto inputtedRuby;
 						}
+
+						//比較したカナに対応したアルファベットを入れる
+						strncpy(&wordCandidates[listWordNum].m_ruby[wordCandidatePos],
+							&kanaAlphabetTable[katakana].m_alphabet[0].m_alphabet[0],
+							strlen(&kanaAlphabetTable[katakana].m_alphabet[0].m_alphabet[0]));
+
+						kanaPos += strlen(&kanaAlphabetTable[katakana].m_katakana[0]);
+
+						wordCandidatePos += strlen(&wordCandidates[listWordNum].m_ruby[wordCandidatePos]);
+
+						changedAlphabetToKana = true;
+
+						goto inputtedRuby;
 					}
 				}
-
-			inputtedRuby:
 			}
+
+		inputtedRuby:
 		}
 	}
 
@@ -945,7 +1130,27 @@ canInputCharMax:
 
 	if(g_keyState.keyPush[DIK_RETURN])
 	{
-		wordNum++;
+		if (wordNum < 3)
+		{
+			wordNum++;
+		}
+
+		else
+		{
+			for (int wordNumber = 0; wordNumber < MAGIC_KNIGHT_ACTION_WORDS_MAX; ++wordNumber)
+			{
+				for (int listWordNum = 0; listWordNum < MAGIC_KNIGHT_WORD_LISTS_MAX; ++listWordNum)
+				{
+					if (!strcmp(&magicKnigtWords[magicKnightWordLists[listWordNum].m_Id].m_word[0],
+						magicKnightAction->m_inputWords[wordNumber].m_word))
+					{
+						magicKnightAction->m_componentWordIds[wordNumber] = magicKnightWordLists[listWordNum].m_Id;
+						magicKnightAction->m_AttackNum[magicKnigtWords[magicKnightWordLists[listWordNum].m_Id].m_attack] += 1;
+						magicKnightAction->m_elemetalNum[magicKnigtWords[magicKnightWordLists[listWordNum].m_Id].m_element] += 1;
+					}
+				}
+			}
+		}
 	}
 		
 	return;

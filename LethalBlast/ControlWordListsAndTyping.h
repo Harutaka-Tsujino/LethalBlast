@@ -27,6 +27,9 @@ typedef struct
 	unsigned long m_specialAbilities;
 }WordData;
 
+//マジックナイトのリスト数
+#define MAGIC_KNIGHT_WORD_LISTS_MAX 5
+
 //単語リスト
 typedef struct
 {
