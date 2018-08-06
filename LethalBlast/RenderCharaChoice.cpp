@@ -32,7 +32,7 @@ void RenderCharaChoiceInit(TEXTUREID* textureIds)
 
 	if (isFirstFrame)
 	{
-		RoadTexture("Texture/CharaChoiceBG.png",&textureIds[CHARA_CHOICE_BACKGROUND]);
+		RoadTexture("Texture/CharaChoice/CharaChoiceBackGround.png",&textureIds[CHARA_CHOICE_BACKGROUND]);
 
 		isFirstFrame = false;
 	}
@@ -45,27 +45,34 @@ void RenderCharaChoiceBackGround(TEXTUREID* textureIds, FONTID* fontIds)
 	CustomImageVerticies(CharaChoiceBackGround, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f);
 	DrawImage(CharaChoiceBackGround, textureIds[CHARA_CHOICE_BACKGROUND]);
 
-	SetFont(50.f, 50.f, "MS ゴシック", fontIds, 10.f);
+	static bool isFirstFrame = true;
+
+	if (isFirstFrame)
+	{
+		SetFont(50.f, 50.f, "MS ゴシック", fontIds, 10.f);
+	}
+
 
 	for (int i = 0;i < 3;i++)
 	{
 		switch (i)
 		{
 		case 0:
-			WriteText(300.f, 800.f, "ウェポンマスター", DT_CENTER, fontIds[WEAPON_MASTER_FONT]);
+			WriteText(400.f, 800.f, "ウェポンマスター", DT_CENTER, fontIds[0]);
 
 			break;
 
 		case 1:
-			WriteText(600.f, 800.f, "マジックナイト", DT_CENTER, fontIds[MASIC_KNIGHT_FONT]);
+			WriteText(700.f, 800.f, "マジックナイト", DT_CENTER, fontIds[0]);
 
 			break;
 
 		case 2:
-			WriteText(900.f, 800.f, "ネクロマンサーとサモナー", DT_CENTER, fontIds[NECROMANCER_AND_SUMMONER_FONT]);
+			WriteText(1000.f, 800.f, "ネクロマンサーとサモナー", DT_CENTER, fontIds[0]);
 
 			break;
 		}
 	}
 
 }
+

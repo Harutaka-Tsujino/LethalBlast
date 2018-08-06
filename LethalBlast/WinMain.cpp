@@ -11,6 +11,8 @@
 #include"ControlCharaChoice.h"
 #include"RenderCharaChoice.h"
 
+int g_playerType;
+
 INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdShow)
 {
 	return CreateWindowAndRepeatToControlAndRender(hInst, "Lethal Blast", MainFunction, DISPLAY_WIDTH, DISPLAY_HEIGHT, FALSE);
