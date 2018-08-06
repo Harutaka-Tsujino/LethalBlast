@@ -1079,7 +1079,6 @@ canInputCharMax:
 						}
 					}
 				}
-
 			}
 
 			else
