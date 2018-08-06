@@ -10,6 +10,8 @@
 #include"RenderPV.h"
 #include"ControlCharaChoice.h"
 #include"RenderCharaChoice.h"
+#include"ControlWordListsAndTyping.h"
+#include"RenderWordListsAndTyping.h"
 
 int g_playerType;
 
@@ -24,6 +26,14 @@ void MainFunction(void)
 	srand((unsigned int)time(NULL));
 
 	static SCENE scene = (SCENE)0;
+
+	static TEXTUREID textureIds[ALL_TEX_MAX];
+	static FONTID fontIds[ALL_FONT_MAX];
+
+	static WordData magicKnigtWords[MAGIC_KNIGHT_WORD_MAX];
+	static WordList magicKnightWordLists[5];
+	static MagicKnightAction magicKnightAction;
+	static WordCandidate wordCandidates[5];
 
 	//シーン分岐
 	switch (scene)
@@ -51,7 +61,9 @@ void MainFunction(void)
 
 	case GAME_SCENE:
 
+		ControlTyping(magicKnigtWords, magicKnightWordLists, &magicKnightAction, wordCandidates);
 		ControlGame(&scene);
+		RenderMasicKnightWordLists(fontIds, magicKnigtWords, magicKnightWordLists, &magicKnightAction, wordCandidates);
 		RenderGame(&scene);
 
 		break;

@@ -2,6 +2,8 @@
 
 #define PI 3.1415f
 #define MULTI_BYTE 2
+#define ALL_TEX_MAX 255
+#define ALL_FONT_MAX 255
 
 //シーンに関する列挙体
 enum SCENE

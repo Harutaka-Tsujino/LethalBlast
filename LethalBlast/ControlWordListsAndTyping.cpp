@@ -5,18 +5,6 @@
 #include"DX9Lib.h"
 #include"ControlWordListsAndTyping.h"
 
-//魔法剣士のワードデータ
-//WordData magicKnigtWords[MAGIC_KNIGHT_WORD_MAX];
-
-//魔法剣士のリストに入っている単語のID
-//static WordList magicKnightWordLists[MAGIC_KNIGHT_WORD_LISTS_MAX];
-
-//魔法剣士の必殺技データ
-//static MagicKnightAction magicKnightAction;
-
-//単語のルビ
-//WordCandidate wordCandidates[MAGIC_KNIGHT_WORD_LISTS_MAX];
-
 void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, MagicKnightAction* magicKnightAction, WordCandidate* wordCandidates)
 {
 	static KanaAlphabetTable kanaAlphabetTable[KATAKANA_MAX];
