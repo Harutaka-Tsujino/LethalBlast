@@ -1,59 +1,43 @@
 ﻿#include"RenderCharaChoice.h"
 
-void RenderCharaChoice(SCENE* scene)
+void RenderCharaChoice(SCENE* scene, int* cursol)
 {
 	static TEXTUREID textureIds[CHARA_CHOICE_TEX_MAX];
 	static FONTID fontIds[CHARA_CHOICE_FONT_MAX];
 
-	RenderCharaChoiceInit(textureIds);
+	RenderCharaChoiceInit(textureIds,fontIds);
 
-	RenderCharaChoiceBackGround(textureIds, fontIds);
-
-	switch (g_playerType)
-	{
-	case WEAPON_MASTER:
-
-		break;
-
-	case MASIC_KNIGHT:
-
-		break;
-
-	case NECROMAMCERANDSUMMONUR:
-
-		break;
-	}
-
+	RenderCharaChoiceBackGround(textureIds, fontIds, cursol);
 }
 
-void RenderCharaChoiceInit(TEXTUREID* textureIds)
+void RenderCharaChoiceInit(TEXTUREID* textureIds, FONTID* fontIds)
 {
 	static bool isFirstFrame = true;
 
+	//一回だけ入る
 	if (isFirstFrame)
 	{
 		RoadTexture("Texture/CharaChoice/CharaChoiceBackGround.png",&textureIds[CHARA_CHOICE_BACKGROUND]);
+		RoadTexture("Texture/CharaChoice/cursol.png", &textureIds[CHARA_CHOICE_CURSOL]);
+		RoadTexture("Texture/CharaChoice/NecromancerAndSummonur.png", &textureIds[CHARA_CHOICE_NECROMANCER_AND_SUMMONER]);
 
-		isFirstFrame = false;
-	}
-}
-
-void RenderCharaChoiceBackGround(TEXTUREID* textureIds, FONTID* fontIds)
-{
-	CustomVertex CharaChoiceBackGround[4];
-
-	CustomImageVerticies(CharaChoiceBackGround, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f);
-	DrawImage(CharaChoiceBackGround, textureIds[CHARA_CHOICE_BACKGROUND]);
-
-	static bool isFirstFrame = true;
-
-	if (isFirstFrame)
-	{
 		SetFont(20.f, 40.f, "MS ゴシック", fontIds, 10.f);
 
 		isFirstFrame = false;
 	}
+}
 
+void RenderCharaChoiceBackGround(TEXTUREID* textureIds, FONTID* fontIds, int* cursol)
+{
+	CustomVertex CharaChoiceBackGround[4];
+	CustomVertex CharaChoiceCursol[4];
+	CustomVertex CharaChoiceCharaImage[4];
+
+	//背景の描画
+	CustomImageVerticies(CharaChoiceBackGround, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f);
+	DrawImage(CharaChoiceBackGround, textureIds[CHARA_CHOICE_BACKGROUND]);
+
+	//キャラ選択のためのフォント
 	for (int i = 0;i < 3;i++)
 	{
 		switch (i)
@@ -73,6 +57,34 @@ void RenderCharaChoiceBackGround(TEXTUREID* textureIds, FONTID* fontIds)
 
 			break;
 		}
+	}
+
+	//カーソルが合ったとき立ち絵などを描画する
+	if (*cursol == 1)
+	{
+		CustomImageVerticies(CharaChoiceCursol, 100.f, 900.f, 25.f, 25.f);
+		DrawImage(CharaChoiceCursol, textureIds[CHARA_CHOICE_CURSOL]);
+
+		CustomImageVerticies(CharaChoiceCharaImage, DISPLAY_WIDTH / 4.f, DISPLAY_HEIGHT / 3.f, DISPLAY_WIDTH / 4.f, DISPLAY_HEIGHT / 3.f);
+		DrawImage(CharaChoiceCharaImage, textureIds[CHARA_CHOICE_WEAPON_MASTER]);
+	}
+
+	if (*cursol == 2)
+	{
+		CustomImageVerticies(CharaChoiceCursol, 630.f, 900.f, 25.f, 25.f);
+		DrawImage(CharaChoiceCursol, textureIds[CHARA_CHOICE_CURSOL]);
+
+		CustomImageVerticies(CharaChoiceCharaImage, DISPLAY_WIDTH / 4.f, DISPLAY_HEIGHT / 3.f, DISPLAY_WIDTH / 4.f, DISPLAY_HEIGHT / 3.f);
+		DrawImage(CharaChoiceCharaImage, textureIds[CHARA_CHOICE_MAGIC_KNIGHT]);
+	}
+
+	if (*cursol == 3)
+	{
+		CustomImageVerticies(CharaChoiceCursol, 1100.f, 900.f, 25.f, 25.f);
+		DrawImage(CharaChoiceCursol, textureIds[CHARA_CHOICE_CURSOL]);
+
+		CustomImageVerticies(CharaChoiceCharaImage, DISPLAY_WIDTH / 4.f, DISPLAY_HEIGHT / 3.f, DISPLAY_WIDTH / 4.f, DISPLAY_HEIGHT / 3.f);
+		DrawImage(CharaChoiceCharaImage, textureIds[CHARA_CHOICE_NECROMANCER_AND_SUMMONER]);
 	}
 
 }

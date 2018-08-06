@@ -14,7 +14,7 @@ void WordListsAndTypingRender()
 	//リスト背景の描画位置の表示
 	switch (g_playerType)
 	{
-	case MASIC_KNIGHT:	//マジックナイトの背景
+	case MAGIC_KNIGHT:	//マジックナイトの背景
 		CustomImageVerticies(WordListsImage, 1080.f, 270.f, 250 / 2.f, 500 / 2.f, 0xFF000000);
 		DrawImage(WordListsImage, textureIds[NULL]);
 

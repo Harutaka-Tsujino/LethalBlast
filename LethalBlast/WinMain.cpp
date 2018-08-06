@@ -13,8 +13,6 @@
 #include"ControlWordListsAndTyping.h"
 #include"RenderWordListsAndTyping.h"
 
-int g_playerType;
-
 INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdShow)
 {
 	return CreateWindowAndRepeatToControlAndRender(hInst, "Lethal Blast", MainFunction, DISPLAY_WIDTH, DISPLAY_HEIGHT, FALSE);
@@ -24,6 +22,8 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdSh
 void MainFunction(void)
 {
 	srand((unsigned int)time(NULL));
+
+	static int cursol = 1;
 
 	static SCENE scene = (SCENE)0;
 
@@ -54,8 +54,8 @@ void MainFunction(void)
 
 	case CHARA_CHOICE_SCENE:
 
-		ControlCharaChoice(&scene);
-		RenderCharaChoice (&scene);
+		ControlCharaChoice(&scene,&cursol);
+		RenderCharaChoice(&scene, &cursol);
 
 		break;
 
