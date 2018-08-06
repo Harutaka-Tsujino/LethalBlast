@@ -200,7 +200,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 			{
 			case FIRE_ELEMENT:
 
-				if (!strcmp("FIRE_ELEMENT", elemental))
+				if (!strcmp("fi", elemental))
 				{
 					magicKnigtWords[wordsNum].m_element = FIRE_ELEMENT;
 
@@ -211,7 +211,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 
 			case WATER_ELEMENT:
 
-				if (!strcmp("WATER_ELEMENT", elemental))
+				if (!strcmp("wa", elemental))
 				{
 					magicKnigtWords[wordsNum].m_element = WATER_ELEMENT;
 
@@ -222,7 +222,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 
 			case WIND_ELEMENT:
 
-				if (!strcmp("WIND_ELEMENT", elemental))
+				if (!strcmp("wi", elemental))
 				{
 					magicKnigtWords[wordsNum].m_element = WIND_ELEMENT;
 
@@ -233,7 +233,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 
 			case SHINING_ELEMENT:
 
-				if (!strcmp("SHINING_ELEMENT", elemental))
+				if (!strcmp("sh", elemental))
 				{
 					magicKnigtWords[wordsNum].m_element = SHINING_ELEMENT;
 
@@ -244,7 +244,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 
 			case DARKNESS_ELEMENT:
 
-				if (!strcmp("DARKNESS_ELEMENT", elemental))
+				if (!strcmp("da", elemental))
 				{
 					magicKnigtWords[wordsNum].m_element = DARKNESS_ELEMENT;
 
@@ -310,7 +310,10 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 
 	fclose(pWordStatesFile);
 
-	if (true)
+	//ワードのリストを更新するか
+	static bool updateWordList = true;
+
+	if (updateWordList)
 	{
 		//単語リストに入る単語の生成
 		for (int listWord = 0; listWord < MAGIC_KNIGHT_WORD_LISTS_MAX; ++listWord)
@@ -318,13 +321,19 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 			//ワードenumにVOID_WORDが入ってるので-1、+1してる
 			magicKnightWordLists[listWord].m_Id = (MAGIC_KNIGHT_WORD)(rand() % (MAGIC_KNIGHT_WORD_MAX - 1) + 1);
 		}
+
+		updateWordList = false;
 	}
 
 	//何番目の単語か
 	static int wordNum = 0;
 
 	//単語の文字の何番目まで打たれているか
-	static int wordSpellPos = 0;
+	int wordSpellPos = 0;
+
+	//どこから文字が入力できるかのチェック
+	wordSpellPos = strlen(&magicKnightAction->m_inputWords[wordNum].m_word[0]);
+
 	memset(magicKnightAction, 0, sizeof(MagicKnightAction));
 	const int INPUT_CHAR_LIMIT = 5;
 

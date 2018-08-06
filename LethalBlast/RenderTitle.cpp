@@ -16,7 +16,6 @@ void TitleRender(SCENE *scene)
 	TitleRogoCanFadeIn(textureIds);
 
 	PressEnterFont(fontIds);
-
 }
 
 void TitleRenderInit(TEXTUREID* textureIds)
