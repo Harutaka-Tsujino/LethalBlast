@@ -1,4 +1,5 @@
 ﻿#include"ControlTitle.h"
+#include"DX9Lib.h"
 
 void TitleContorol(SCENE* scene)
 {

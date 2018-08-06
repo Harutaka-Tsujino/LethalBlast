@@ -1,5 +1,6 @@
 ﻿#include"RenderTitle.h"
 #include<windows.h>
+#include"DX9Lib.h"
 
 void TitleRender(SCENE *scene)
 {
@@ -65,7 +66,7 @@ void PressEnterFont(FONTID* fontIds)
 
 	if (alphaCount == -1)
 	{ 
-		SetFont(50, 50, "MS ゴシック", fontIds, 20);
+		SetFont(50, 50, "MS ゴシック", fontIds, 20,1);
 
 		alphaCount = 0;
 	}
