@@ -12,11 +12,29 @@ enum SCENE
 	//タイトル
 	TITLE_SCENE,
 
+	//キャラ選択画面
+	CHARA_CHOICE_SCENE,
+
 	//メインゲーム
 	GAME_SCENE,
 
 	//シーンの最大数
 	SCENE_MAX
+};
+
+enum PLAYERTYPE
+{
+	//魔法剣士
+	MASIC_KNIGHT,
+
+	//ウェポンマスター
+	WEAPON_MASTER,
+
+	//ネクロマンサーとサモナー
+	NECROMAMCERANDSUMMONUR,
+
+	//ジョブの人数
+	JOB_MAX
 };
 
 //炎属性などの特殊属性列挙体
@@ -74,6 +92,9 @@ enum MOUSE_STATE
 
 //シーンを操作する
 extern SCENE scene;
+
+//キャラ選択の時に使う
+extern int g_playerType;
 
 //メッセージループでループさせる関数
 void MainFunction(void);

@@ -8,6 +8,8 @@
 #include"RenderTitle.h"
 #include"ControlPV.h"
 #include"RenderPV.h"
+#include"ControlCharaChoice.h"
+#include"RenderCharaChoice.h"
 
 INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdShow)
 {
@@ -35,6 +37,13 @@ void MainFunction(void)
 
 		TitleContorol(&scene);
 		TitleRender(&scene);
+
+		break;
+
+	case CHARA_CHOICE_SCENE:
+
+		ControlCharaChoice(&scene);
+		RenderCharaChoice (&scene);
 
 		break;
 

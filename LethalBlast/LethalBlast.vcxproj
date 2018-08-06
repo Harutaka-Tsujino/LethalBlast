@@ -123,10 +123,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ControlCharaChoicecpp.cpp" />
     <ClCompile Include="ControlGame.cpp" />
     <ClCompile Include="ControlPV.cpp" />
     <ClCompile Include="ControlTitle.cpp" />
     <ClCompile Include="ControlWordListsAndTyping.cpp" />
+    <ClCompile Include="RenderCharaChoice.cpp" />
     <ClCompile Include="RenderGame.cpp" />
     <ClCompile Include="RenderPV.cpp" />
     <ClCompile Include="RenderTitle.cpp" />
@@ -134,11 +136,13 @@
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ControlCharaChoice.h" />
     <ClInclude Include="ControlGame.h" />
     <ClInclude Include="ControlPV.h" />
     <ClInclude Include="ControlTitle.h" />
     <ClInclude Include="ControlWordListsAndTyping.h" />
     <ClInclude Include="DX9Lib.h" />
+    <ClInclude Include="RenderCharaChoice.h" />
     <ClInclude Include="RenderGame.h" />
     <ClInclude Include="RenderPV.h" />
     <ClInclude Include="RenderTitle.h" />
