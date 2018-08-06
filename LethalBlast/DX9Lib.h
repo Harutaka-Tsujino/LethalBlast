@@ -12,6 +12,7 @@
 #include<d3dx9.h>
 #include <dinput.h>
 #include <memory.h>
+#include "DX9Lib.h"
 
 #pragma comment(lib,"d3dx9d.lib")
 #pragma comment(lib,"d3d9.lib")
@@ -20,18 +21,14 @@
 #pragma comment(lib,"winmm.lib")
 #pragma comment(lib,"DX9Lib/DirectX9Library.lib")
 
-#include <windows.h>
-
-//#define DISPLAY_WIDTH 1920
-//#define DISPLAY_HEIGHT 1080
 
 #define DISPLAY_WIDTH 1280
 #define DISPLAY_HEIGHT 720
 
-
 /** @def
 * LPDIRECTINPUTDEVICE8の変数g_pDirectInputDeviceの要素数に用いる
 */
+
 #define KEY_AND_MOUSE 2
 
 /** @def
@@ -315,7 +312,7 @@ RENDER_FUNC_RETURN_VAL RoadTexture(const CHAR *pTexturePass, TEXTUREID *pTexture
 RENDER_FUNC_RETURN_VAL DrawImage(CustomVertex *pCustomVertex, TEXTUREID textureId);
 
 //thicknessは文字の太さ
-RENDER_FUNC_RETURN_VAL SetFont(INT scaleX, UINT scaleY, const CHAR *pFontType, FONTID *pFontId, UINT thickness = 0);
+RENDER_FUNC_RETURN_VAL SetFont(INT scaleX, UINT scaleY, const CHAR *pFontType, FONTID *pFontId, UINT thickness, INT charSet);
 
 //pTextは文字列の先頭アドレス
 RENDER_FUNC_RETURN_VAL WriteText(INT posX, INT posY, const CHAR *pText, UINT format, FONTID pFontId, DWORD color = 0xFFFFFFFF);
