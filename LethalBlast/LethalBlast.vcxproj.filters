@@ -27,9 +27,6 @@
     <ClCompile Include="RenderWordListsAndTyping.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="ControlWordListsAndTyping.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="ControlTitle.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -63,9 +60,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="RenderWordListsAndTyping.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="ControlWordListsAndTyping.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="ControlTitle.h">
