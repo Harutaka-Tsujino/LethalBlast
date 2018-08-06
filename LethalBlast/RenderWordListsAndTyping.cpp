@@ -4,8 +4,6 @@ void WordListsAndTypingRender()
 {
 	static TEXTUREID textureIds[TEXTURE_MAX];
 
-	int g_playerType = WEAPON_MASTER;
-
 	//矩形のポリゴン生成
 	CustomVertex WordListsImage[4];
 

@@ -923,9 +923,9 @@ canInputCharMax:
 			if (strlen(&magicKnightAction->m_inputWords[wordNum].m_word[wordCandidatePos]) && !changedAlphabetToKana)
 			{
 				//ッの場合
-				if (!strncmp(&magicKnigtWords[magicKnightWordLists[listWordNum].m_Id].m_word[kanaPos], "ッ", MULTI_BYTE) && 
+				if (!strncmp(&magicKnigtWords[magicKnightWordLists[listWordNum].m_Id].m_word[kanaPos], "ッ", MULTI_BYTE) &&
 					(magicKnightAction->m_inputWords[wordNum].m_word[wordCandidatePos] != 'x' ||
-					 magicKnightAction->m_inputWords[wordNum].m_word[wordCandidatePos] != 'l'))
+						magicKnightAction->m_inputWords[wordNum].m_word[wordCandidatePos] != 'l'))
 				{
 					//ッを構成する場合要素は一つだけ
 					if (!magicKnightAction->m_inputWords[wordNum].m_word[wordCandidatePos + 1])
@@ -1010,7 +1010,7 @@ canInputCharMax:
 									{
 										goto cantEstimatedInCurrentListsWord;
 									}
-								} 
+								}
 							}
 
 							else
