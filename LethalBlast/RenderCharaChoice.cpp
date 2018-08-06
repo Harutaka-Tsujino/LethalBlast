@@ -49,7 +49,9 @@ void RenderCharaChoiceBackGround(TEXTUREID* textureIds, FONTID* fontIds)
 
 	if (isFirstFrame)
 	{
-		SetFont(50.f, 50.f, "MS ゴシック", fontIds, 10.f);
+		SetFont(40.f, 20.f, "MS ゴシック", fontIds, 10.f);
+
+		isFirstFrame = false;
 	}
 
 
@@ -58,17 +60,17 @@ void RenderCharaChoiceBackGround(TEXTUREID* textureIds, FONTID* fontIds)
 		switch (i)
 		{
 		case 0:
-			WriteText(400.f, 800.f, "ウェポンマスター", DT_CENTER, fontIds[0]);
+			WriteText(300.f, 900.f, "ウェポンマスター", DT_CENTER, fontIds[0]);
 
 			break;
 
 		case 1:
-			WriteText(700.f, 800.f, "マジックナイト", DT_CENTER, fontIds[0]);
+			WriteText(800.f, 900.f, "マジックナイト", DT_CENTER, fontIds[0]);
 
 			break;
 
 		case 2:
-			WriteText(1000.f, 800.f, "ネクロマンサーとサモナー", DT_CENTER, fontIds[0]);
+			WriteText(1400.f, 900.f, "ネクロマンサーとサモナー", DT_CENTER, fontIds[0]);
 
 			break;
 		}
