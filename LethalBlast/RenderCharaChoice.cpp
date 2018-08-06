@@ -49,11 +49,10 @@ void RenderCharaChoiceBackGround(TEXTUREID* textureIds, FONTID* fontIds)
 
 	if (isFirstFrame)
 	{
-		SetFont(40.f, 20.f, "MS ゴシック", fontIds, 10.f);
+		SetFont(20.f, 40.f, "MS ゴシック", fontIds, 10.f);
 
 		isFirstFrame = false;
 	}
-
 
 	for (int i = 0;i < 3;i++)
 	{
