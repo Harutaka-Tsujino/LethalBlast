@@ -61,10 +61,10 @@ void MainFunction(void)
 
 	case GAME_SCENE:
 
-		ControlTyping(magicKnigtWords, magicKnightWordLists, &magicKnightAction, wordCandidates);
 		ControlGame(&scene);
-		RenderMasicKnightWordLists(fontIds, magicKnigtWords, magicKnightWordLists, &magicKnightAction, wordCandidates);
 		RenderGame(&scene);
+		ControlTyping(magicKnigtWords, magicKnightWordLists, &magicKnightAction, wordCandidates);
+		RenderMasicKnightWordLists(fontIds, magicKnigtWords, magicKnightWordLists, &magicKnightAction, wordCandidates);
 
 		break;
 	}
