@@ -46,4 +46,10 @@ void CalculateDistanceBetweenTwoPointsXY(Vect* dest, double pointAPosX, double p
 *内積を算出する
 *(戻り値)double 大きさ
 */
-double CalculateDot(Vect vectA, Vect vectB);
+double Dot(Vect vectA, Vect vectB);
+
+/*
+*外積を算出する
+*(戻り値)double ベクトル二つで形成される符号ありの平行四辺形
+*/
+double Cross(Vect vectA, Vect vectB);

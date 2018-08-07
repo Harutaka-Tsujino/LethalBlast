@@ -123,9 +123,16 @@ void CalculateDistanceBetweenTwoPointsXY(Vect* dest,double pointAPosX, double po
 	return;
 }
 
-double CalculateDot(Vect vectA, Vect vectB)
+double Dot(Vect vectA, Vect vectB)
 {
 	double dot = vectA.m_x*vectB.m_x + vectA.m_y*vectB.m_y;
 
 	return dot;
+}
+
+double Cross(Vect vectA, Vect vectB)
+{
+	double cross = (double)(vectA.m_x * vectB.m_y - vectA.m_y * vectB.m_x);
+
+	return cross;
 }
