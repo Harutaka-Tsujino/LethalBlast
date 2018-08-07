@@ -24,6 +24,7 @@ void MainFunction(void)
 	srand((unsigned int)time(NULL));
 
 	static int cursol = 1;
+	static int playerType = WEAPON_MASTER;
 
 	static SCENE scene = (SCENE)0;
 
@@ -54,7 +55,7 @@ void MainFunction(void)
 
 	case CHARA_CHOICE_SCENE:
 
-		ControlCharaChoice(&scene,&cursol);
+		ControlCharaChoice(&scene,&cursol,&playerType);
 		RenderCharaChoice(&scene, &cursol);
 
 		break;

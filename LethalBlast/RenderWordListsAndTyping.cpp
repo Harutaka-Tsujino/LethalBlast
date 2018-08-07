@@ -1,18 +1,16 @@
 ﻿#include"RenderWordListsAndTyping.h"
 #include"ControlWordListsAndTyping.h"
 
-void WordListsAndTypingRender()
+void WordListsAndTypingRender(int* playerType)
 {
 	static TEXTUREID textureIds[TEXTURE_MAX];
 	static FONTID fontIds[FONT_MAX];
-
-	int g_playerType = WEAPON_MASTER;
 
 	//矩形のポリゴン生成
 	CustomVertex WordListsImage[4];
 
 	//リスト背景の描画位置の表示
-	switch (g_playerType)
+	switch (*playerType)
 	{
 	case MAGIC_KNIGHT:	//マジックナイトの背景
 		CustomImageVerticies(WordListsImage, 1080.f, 270.f, 250 / 2.f, 500 / 2.f, 0xFF000000);
@@ -24,6 +22,7 @@ void WordListsAndTypingRender()
 		WeaponMasterBackGround(WordListsImage,textureIds);
 		break;
 	}
+	g_mouse
 }
 
 void WeaponMasterBackGround(CustomVertex* WordListsImage, TEXTUREID* textureIds)

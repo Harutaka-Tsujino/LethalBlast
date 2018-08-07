@@ -18,8 +18,9 @@ enum TYPING_FONT
 /*
 *リストの背景を描画する関数
 *　※召喚士の背景はまだ作っていません
+*(引数1)int* playerType	キャラ選択に列挙型を入れるための変数
 */
-void WordListsAndTypingRender();
+void WordListsAndTypingRender(int* playerType);
 
 /*
 *ウェポンマスターの背景関数
