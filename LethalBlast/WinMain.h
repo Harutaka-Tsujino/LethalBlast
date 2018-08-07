@@ -27,7 +27,7 @@ enum SCENE
 enum PLAYERTYPE
 {
 	//魔法剣士
-	MASIC_KNIGHT,
+	MAGIC_KNIGHT,
 
 	//ウェポンマスター
 	WEAPON_MASTER,
@@ -94,9 +94,6 @@ enum MOUSE_STATE
 
 //シーンを操作する
 extern SCENE scene;
-
-//キャラ選択の時に使う
-extern int g_playerType;
 
 //メッセージループでループさせる関数
 void MainFunction(void);

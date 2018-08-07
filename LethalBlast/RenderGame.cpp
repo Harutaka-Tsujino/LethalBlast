@@ -24,7 +24,5 @@ void RenderGame(SCENE* scene)
 
 	DrawImage(background, mainGameTextureIds[BACKGROUND_0_TEXTURE]);
 
-	//WordListsAndTypingRender();
-
 	return;
 }
