@@ -1333,7 +1333,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 
 	if(g_keyState.keyPush[DIK_RETURN])
 	{
-		if (wordNum < 3)
+		if (wordNum < 4)
 		{
 			wordNum++;
 		}
