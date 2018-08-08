@@ -1051,6 +1051,8 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 			//現在のリストの単語と一致しなかった
 		cantEstimatedInCurrentListsWord:
 
+			memset(&wordCandidates[listWordNum].m_ruby[0], 0, sizeof(WordCandidate));
+
 			continue;
 		}
 
