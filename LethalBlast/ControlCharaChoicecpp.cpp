@@ -76,11 +76,12 @@ void ControlCharaChoice(SCENE* scene, int* cursol,int* playerType)
 bool RectToRectCollisionCheak(CustomVertex* pObjA,CustomVertex* pObjB)
 {
 	if ((pObjA[0].m_x <= pObjB[0].m_x && pObjB[0].m_x <= pObjA[1].m_x) ||
-		(pObjA[0].m_x <= pObjB[1].m_x && pObjB[1].m_x <= pObjA[1].m_x))
+		(pObjA[0].m_x <= pObjB[1].m_x && pObjB[1].m_x <= pObjA[1].m_x)||
+		(pObjB[0].m_x <= pObjA[0].m_x && pObjA[1].m_x <= pObjB[1].m_x))
 	{
-
 		if ((pObjA[0].m_y <= pObjB[0].m_y && pObjB[0].m_y <= pObjA[3].m_y) ||
-			(pObjA[0].m_y <= pObjB[3].m_y && pObjB[3].m_y <= pObjA[3].m_y))
+			(pObjA[0].m_y <= pObjB[3].m_y && pObjB[3].m_y <= pObjA[3].m_y)||
+			(pObjB[0].m_y <= pObjA[0].m_y && pObjA[3].m_y <= pObjB[3].m_y))
 		{
 			return true;
 		}
