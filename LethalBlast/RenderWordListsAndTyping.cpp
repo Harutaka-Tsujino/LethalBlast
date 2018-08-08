@@ -22,7 +22,6 @@ void WordListsAndTypingRender(int* playerType)
 		WeaponMasterBackGround(WordListsImage,textureIds);
 		break;
 	}
-	g_mouse
 }
 
 void WeaponMasterBackGround(CustomVertex* WordListsImage, TEXTUREID* textureIds)
@@ -84,8 +83,8 @@ void RenderMasicKnightWordLists(FONTID* fontIds, WordData* magicKnigtWords, Word
 
 	if (isFirstFrame)
 	{
-		SetFont(20.f, 40.f, "MS ゴシック", &fontIds[TYPING_FONT], 10.f, SHIFTJIS_CHARSET);
-		SetFont(20.f, 40.f, "MS ゴシック", &fontIds[RUBY_FONT], 10.f, SHIFTJIS_CHARSET);
+		SetFont(20.f, 40.f, "MS ゴシック", &fontIds[TYPING_FONT], 0.f, SHIFTJIS_CHARSET);
+		SetFont(20.f, 40.f, "MS ゴシック", &fontIds[RUBY_FONT], 0.f, SHIFTJIS_CHARSET);
 
 		isFirstFrame = false;
 	}
@@ -93,21 +92,17 @@ void RenderMasicKnightWordLists(FONTID* fontIds, WordData* magicKnigtWords, Word
 	for (int cnt = 0;cnt < 5;cnt++)
 	{
 		typingPosY += 40;
-
 		WriteText(DISPLAY_WIDTH/4.f, DISPLAY_HEIGHT/5+ typingPosY, &magicKnigtWords[magicKnightWordLists[cnt].m_Id].m_word[0],
 			DT_CENTER, fontIds[TYPING_FONT],0xFF000000);
-		
-	}
 
-	for (int cnt = 0;cnt < 5;cnt++)
-	{
 		rubyPosY += 40;
+		WriteText(DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 5 + rubyPosY, &wordCandidates[cnt].m_ruby[0],
+			DT_CENTER, fontIds[RUBY_FONT], 0xFF000000);
 
-		&wordCandidates[cnt].m_ruby[0];
-		WriteText(DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 5+ rubyPosY, &magicKnightAction->m_inputWords[0].m_word[0],
+
+		WriteText(DISPLAY_WIDTH - 200, DISPLAY_HEIGHT / 10 + rubyPosY, &magicKnightAction->m_inputWords[cnt].m_word[0],
 			DT_CENTER, fontIds[RUBY_FONT], 0xFF000000);
 	}
 
 	return;
-
 }
