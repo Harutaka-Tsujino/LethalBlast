@@ -21,7 +21,7 @@ void RenderCharaChoiceInit(TEXTUREID* textureIds, FONTID* fontIds)
 		RoadTexture("Texture/CharaChoice/cursol.png", &textureIds[CHARA_CHOICE_CURSOL]);
 		RoadTexture("Texture/CharaChoice/NecromancerAndSummonur.png", &textureIds[CHARA_CHOICE_NECROMANCER_AND_SUMMONER]);
 
-		SetFont(20.f, 40.f, "MS ゴシック", fontIds, 10.f);
+		SetFont(18, 28, "MS ゴシック", fontIds, 10);
 
 		isFirstFrame = false;
 	}
@@ -43,17 +43,17 @@ void RenderCharaChoiceBackGround(TEXTUREID* textureIds, FONTID* fontIds, int* cu
 		switch (i)
 		{
 		case 0:
-			WriteText(300.f, 900.f, "ウェポンマスター", DT_CENTER, fontIds[0]);
+			WriteText(WEPON_MASTER_CHOICE_TEXT_WIDTH, 600, "ウェポンマスター", DT_LEFT, fontIds[0]);
 
 			break;
 
 		case 1:
-			WriteText(800.f, 900.f, "マジックナイト", DT_CENTER, fontIds[0]);
+			WriteText(WEPON_MASTER_CHOICE_TEXT_WIDTH*3, 600, "マジックナイト", DT_LEFT, fontIds[0]);
 
 			break;
 
 		case 2:
-			WriteText(1400.f, 900.f, "ネクロマンサーとサモナー", DT_CENTER, fontIds[0]);
+			WriteText(WEPON_MASTER_CHOICE_TEXT_WIDTH*5, 600, "ダブルキャスター", DT_LEFT, fontIds[0]);
 
 			break;
 		}
@@ -62,7 +62,7 @@ void RenderCharaChoiceBackGround(TEXTUREID* textureIds, FONTID* fontIds, int* cu
 	//カーソルが合ったとき立ち絵などを描画する
 	if (*cursol == 1)
 	{
-		CustomImageVerticies(CharaChoiceCursol, 100.f, 900.f, 25.f, 25.f);
+		CustomImageVerticies(CharaChoiceCursol, 25.f, 600.f, 25.f, 25.f);
 		DrawImage(CharaChoiceCursol, textureIds[CHARA_CHOICE_CURSOL]);
 
 		CustomImageVerticies(CharaChoiceCharaImage, DISPLAY_WIDTH / 4.f, DISPLAY_HEIGHT / 3.f, DISPLAY_WIDTH / 4.f, DISPLAY_HEIGHT / 3.f);
@@ -71,7 +71,7 @@ void RenderCharaChoiceBackGround(TEXTUREID* textureIds, FONTID* fontIds, int* cu
 
 	if (*cursol == 2)
 	{
-		CustomImageVerticies(CharaChoiceCursol, 630.f, 900.f, 25.f, 25.f);
+		CustomImageVerticies(CharaChoiceCursol, WEPON_MASTER_CHOICE_TEXT_WIDTH*2+25.f, 600.f, 25.f, 25.f);
 		DrawImage(CharaChoiceCursol, textureIds[CHARA_CHOICE_CURSOL]);
 
 		CustomImageVerticies(CharaChoiceCharaImage, DISPLAY_WIDTH / 4.f, DISPLAY_HEIGHT / 3.f, DISPLAY_WIDTH / 4.f, DISPLAY_HEIGHT / 3.f);
@@ -80,7 +80,7 @@ void RenderCharaChoiceBackGround(TEXTUREID* textureIds, FONTID* fontIds, int* cu
 
 	if (*cursol == 3)
 	{
-		CustomImageVerticies(CharaChoiceCursol, 1100.f, 900.f, 25.f, 25.f);
+		CustomImageVerticies(CharaChoiceCursol, WEPON_MASTER_CHOICE_TEXT_WIDTH*4+25.f, 600.f, 25.f, 25.f);
 		DrawImage(CharaChoiceCursol, textureIds[CHARA_CHOICE_CURSOL]);
 
 		CustomImageVerticies(CharaChoiceCharaImage, DISPLAY_WIDTH / 4.f, DISPLAY_HEIGHT / 3.f, DISPLAY_WIDTH / 4.f, DISPLAY_HEIGHT / 3.f);

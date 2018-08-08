@@ -4,6 +4,7 @@
 #define MULTI_BYTE 2
 #define ALL_TEX_MAX 255
 #define ALL_FONT_MAX 255
+#define WEPON_MASTER_CHOICE_TEXT_WIDTH 212
 
 //シーンに関する列挙体
 enum SCENE

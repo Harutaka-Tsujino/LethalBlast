@@ -10,3 +10,5 @@
 *(引数3)int* playerType	キャラ選択の列挙型を入れる
 */
 void ControlCharaChoice(SCENE* scene, int* cursol, int* playerType);
+
+bool RectToRectCollisionCheak(CustomVertex* pObjA, CustomVertex* pObjB);
