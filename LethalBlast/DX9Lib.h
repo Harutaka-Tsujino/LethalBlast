@@ -153,7 +153,7 @@ VOID GetKeyInfo(VOID);
 
 VOID UpdatePrevKeyInfo(VOID);
 
-VOID GetMouseInfo(VOID);
+VOID GetMouseInfo(HWND hWnd);
 
 VOID UpdatePrevMouseInfo(VOID);
 

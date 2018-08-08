@@ -22,7 +22,10 @@ void WordListsAndTypingRender(int* playerType)
 		WeaponMasterBackGround(WordListsImage,textureIds);
 		break;
 	}
+<<<<<<< .merge_file_a14012
 	
+=======
+>>>>>>> .merge_file_a14368
 }
 
 void WeaponMasterBackGround(CustomVertex* WordListsImage, TEXTUREID* textureIds)
@@ -78,31 +81,48 @@ void WeaponMasterBackGround(CustomVertex* WordListsImage, TEXTUREID* textureIds)
 void RenderMasicKnightWordLists(FONTID* fontIds, WordData* magicKnigtWords, WordList* magicKnightWordLists, MagicKnightAction* magicKnightAction, WordCandidate* wordCandidates)
 {
 	static bool isFirstFrame = true;
-	static float typingPosY = 0.f, rubyPosY = 0.f;
+	int typingPosY = 0.f;
+	int rubyPosY = 0.f;
 
 
 	if (isFirstFrame)
 	{
+<<<<<<< .merge_file_a14012
 		SetFont(40, 20, "MS ゴシック", &fontIds[TYPING_FONT], 10);
 		SetFont(30, 10, "MS ゴシック", &fontIds[RUBY_FONT], 10);
+=======
+		SetFont(20.f, 40.f, "MS ゴシック", &fontIds[TYPING_FONT], 0.f, SHIFTJIS_CHARSET);
+		SetFont(20.f, 40.f, "MS ゴシック", &fontIds[RUBY_FONT], 0.f, SHIFTJIS_CHARSET);
+>>>>>>> .merge_file_a14368
 
 		isFirstFrame = false;
 	}
 
 	for (int cnt = 0;cnt < 5;cnt++)
 	{
-		typingPosY += 100.f;
+		typingPosY += 40;
+		WriteText(DISPLAY_WIDTH/4.f, DISPLAY_HEIGHT/5+ typingPosY, &magicKnigtWords[magicKnightWordLists[cnt].m_Id].m_word[0],
+			DT_CENTER, fontIds[TYPING_FONT],0xFF000000);
 
+<<<<<<< .merge_file_a14012
 		WriteText(1600,  (int)typingPosY, &magicKnigtWords[magicKnightWordLists[cnt].m_Id].m_word[0], DT_LEFT, fontIds[TYPING_FONT]);
 		
 	}
+=======
+		rubyPosY += 40;
+		WriteText(DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 5 + rubyPosY, &wordCandidates[cnt].m_ruby[0],
+			DT_CENTER, fontIds[RUBY_FONT], 0xFF000000);
+>>>>>>> .merge_file_a14368
 
-	for (int cnt = 0;cnt < 5;cnt++)
-	{
-		rubyPosY += 90.f;
 
+<<<<<<< .merge_file_a14012
 		&wordCandidates[cnt].m_ruby[0];
 		WriteText(1600, (int)rubyPosY, &magicKnightAction->m_inputWords[0].m_word[0], DT_LEFT, fontIds[RUBY_FONT]);
+=======
+		WriteText(DISPLAY_WIDTH - 200, DISPLAY_HEIGHT / 10 + rubyPosY, &magicKnightAction->m_inputWords[cnt].m_word[0],
+			DT_CENTER, fontIds[RUBY_FONT], 0xFF000000);
+>>>>>>> .merge_file_a14368
 	}
 
+	return;
 }
