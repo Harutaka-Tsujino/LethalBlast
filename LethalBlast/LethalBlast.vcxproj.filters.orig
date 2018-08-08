@@ -45,13 +45,14 @@
     <ClCompile Include="ControlWordListsAndTyping.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+<<<<<<< Updated upstream
     <ClCompile Include="RenderTitle.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-   <ClCompile Include="ControlHP.cpp">
+=======
+    <ClCompile Include="ControlHP.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="RenderHP.cpp">
+>>>>>>> Stashed changes
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

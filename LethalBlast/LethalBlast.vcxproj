@@ -125,11 +125,13 @@
   <ItemGroup>
     <ClCompile Include="ControlCharaChoicecpp.cpp" />
     <ClCompile Include="ControlGame.cpp" />
+    <ClCompile Include="ControlHP.cpp" />
     <ClCompile Include="ControlPV.cpp" />
     <ClCompile Include="ControlTitle.cpp" />
     <ClCompile Include="ControlWordListsAndTyping.cpp" />
     <ClCompile Include="RenderCharaChoice.cpp" />
     <ClCompile Include="RenderGame.cpp" />
+    <ClCompile Include="RenderHP.cpp" />
     <ClCompile Include="RenderPV.cpp" />
     <ClCompile Include="RenderTitle.cpp" />
     <ClCompile Include="RenderWordListsAndTyping.cpp" />
@@ -138,12 +140,14 @@
   <ItemGroup>
     <ClInclude Include="ControlCharaChoice.h" />
     <ClInclude Include="ControlGame.h" />
+    <ClInclude Include="ControlHP.h" />
     <ClInclude Include="ControlPV.h" />
     <ClInclude Include="ControlTitle.h" />
     <ClInclude Include="ControlWordListsAndTyping.h" />
     <ClInclude Include="DX9Lib.h" />
     <ClInclude Include="RenderCharaChoice.h" />
     <ClInclude Include="RenderGame.h" />
+    <ClInclude Include="RenderHP.h" />
     <ClInclude Include="RenderPV.h" />
     <ClInclude Include="RenderTitle.h" />
     <ClInclude Include="RenderWordListsAndTyping.h" />
