@@ -15,6 +15,19 @@ enum TYPING_FONT
 	FONT_MAX,
 };
 
+enum ATTACK_EFFECT
+{
+	MAGIC_RASER_EFF,
+	DARK_FLAME_EFF,
+	FLAME_EFF,
+	MULTI_SLASH_EFF,
+	NEEDLE_BOMB_EFF,
+	SHADOW_BALL_EFF,
+	THROWN_EFF,
+	WIND_EFF,
+	EFF_MAX
+};
+
 /*
 *リストの背景を描画する関数
 *　※召喚士の背景はまだ作っていません
@@ -28,3 +41,5 @@ void WordListsAndTypingRender(int* playerType);
 void WeaponMasterBackGround(CustomVertex* WordListsImage, TEXTUREID* textureIds);
 
 void RenderMasicKnightWordLists(FONTID* fontIds, WordData* magicKnigtWords, WordList* magicKnightWordLists, MagicKnightAction* magicKnightAction, WordCandidate* wordCandidates);
+
+void RenderEffect(WordData* magicKnigtWords, WordList* magicKnightWordLists, MagicKnightAction* magicKnightAction, TEXTUREID* effectTexId);

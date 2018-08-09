@@ -21,7 +21,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 	kanaAlphabetTable[ケ] = { "ケ","ke" };
 	kanaAlphabetTable[コ] = { "コ","ko" };
 	kanaAlphabetTable[サ] = { "サ","sa" };
-	kanaAlphabetTable[シ] = { "シ","si" };
+	kanaAlphabetTable[シ] = { "シ","si","shi" };
 	kanaAlphabetTable[ス] = { "ス","su" };
 	kanaAlphabetTable[セ] = { "セ","se" };
 	kanaAlphabetTable[ソ] = { "ソ","so" };
@@ -98,11 +98,11 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 	kanaAlphabetTable[キュ] = { "キュ","kyu" };
 	kanaAlphabetTable[キェ] = { "キェ","kye" };
 	kanaAlphabetTable[キョ] = { "キョ","kyo" };
-	kanaAlphabetTable[シャ] = { "シャ","sya" };
+	kanaAlphabetTable[シャ] = { "シャ","sha","sya" };
 	kanaAlphabetTable[シィ] = { "シィ","syi" };
-	kanaAlphabetTable[シュ] = { "シュ","syu" };
-	kanaAlphabetTable[シェ] = { "シェ","sye" };
-	kanaAlphabetTable[ショ] = { "ショ","syo" };
+	kanaAlphabetTable[シュ] = { "シュ","shu","syu" };
+	kanaAlphabetTable[シェ] = { "シェ","she","sye" };
+	kanaAlphabetTable[ショ] = { "ショ","sho","syo" };
 	kanaAlphabetTable[チャ] = { "チャ","tya" };
 	kanaAlphabetTable[チィ] = { "チィ","tyi" };
 	kanaAlphabetTable[チュ] = { "チュ","tyu" };
@@ -1347,7 +1347,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 				for (int listWordNum = 0; listWordNum < MAGIC_KNIGHT_WORD_LISTS_MAX; ++listWordNum)
 				{
 					if (!strcmp(&magicKnigtWords[magicKnightWordLists[listWordNum].m_Id].m_word[0],
-						magicKnightAction->m_inputWords[wordNumber].m_word))
+						&magicKnightAction->m_inputWords[wordNumber].m_word[0]))
 					{
 						magicKnightAction->m_componentWordIds[wordNumber] = magicKnightWordLists[listWordNum].m_Id;
 						magicKnightAction->m_AttackNum[magicKnigtWords[magicKnightWordLists[listWordNum].m_Id].m_attack] += 1;

@@ -35,6 +35,8 @@ void MainFunction(void)
 	static WordList magicKnightWordLists[5];
 	static MagicKnightAction magicKnightAction;
 	static WordCandidate wordCandidates[5];
+	
+
 
 	//シーン分岐
 	switch (scene)
