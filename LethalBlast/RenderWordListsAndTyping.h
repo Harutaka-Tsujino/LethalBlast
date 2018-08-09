@@ -40,6 +40,14 @@ void WordListsAndTypingRender(int* playerType);
 */
 void WeaponMasterBackGround(CustomVertex* WordListsImage, TEXTUREID* textureIds);
 
+/*
+*マジックナイトが打ち込めるフォントの描画
+*(引数1)FONTID* fontIds フォントの情報を配列に詰める
+*(引数2)WordData* magicKnigtWords	単語のデータをもらう
+*(引数3)WordList* magicKnightWordLists	単語リストを描画する
+*(引数4)MagicKnightAction* magicKnightAction	魔法剣士の必殺技情報
+*(引数5)WordCandidate* wordCandidates	ルビの情報
+*/
 void RenderMasicKnightWordLists(FONTID* fontIds, WordData* magicKnigtWords, WordList* magicKnightWordLists, MagicKnightAction* magicKnightAction, WordCandidate* wordCandidates);
 
 void RenderEffect(WordData* magicKnigtWords, WordList* magicKnightWordLists, MagicKnightAction* magicKnightAction, TEXTUREID* effectTexId);

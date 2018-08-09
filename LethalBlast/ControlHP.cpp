@@ -1,24 +1,23 @@
 #include "ControlHP.h"
+#include "WinMain.h"
 
-
-//HP‰Šú‰»ŠÖ”
 void InitHP(PlayerState* pPlayer, EnemyState *pEnemy,int* pPlayerType,int* pEnemyType)
 {
 	//ƒvƒŒƒCƒ„[Ží—Þ‚²‚Æ‚Ì‰ŠúHPÝ’è
 	if (*pPlayerType == MAGIC_KNIGHT)		//–‚–@Œ•Žm‚ÌŽž
 	{
-		pPlayer[MAGIC_KNIGHT].m_maxHP = 1000;
-		pPlayer[MAGIC_KNIGHT].m_HP = 1000;
+		pPlayer[MAGIC_KNIGHT].m_maxHP = 800;
+		pPlayer[MAGIC_KNIGHT].m_HP = 800;
 	}
 	else if (*pPlayerType == WEAPON_MASTER)	//ƒEƒFƒ|ƒ“ƒ}ƒXƒ^[‚ÌŽž
 	{
 		pPlayer[WEAPON_MASTER].m_maxHP = 1000;
 		pPlayer[WEAPON_MASTER].m_HP = 1000;	
 	}
-	else if (*pPlayerType == SUMMONER)		//¢Š«Žm‚ÌŽž
+	else if (*pPlayerType == NECROMAMCERANDSUMMONUR)		//¢Š«Žm‚ÌŽž
 	{
-		pPlayer[SUMMONER].m_maxHP = 1000;
-		pPlayer[SUMMONER].m_HP = 1000;
+		pPlayer[NECROMAMCERANDSUMMONUR].m_maxHP = 600;
+		pPlayer[NECROMAMCERANDSUMMONUR].m_HP = 600;
 	}
 
 	//“GŽí—Þ‚²‚Æ‚Ì‰ŠúHPÝ’è
@@ -34,27 +33,35 @@ void InitHP(PlayerState* pPlayer, EnemyState *pEnemy,int* pPlayerType,int* pEnem
 	}
 }
 
-//HP‘€ìŠÖ”
-void ControlHP(PlayerState* pPlayer, EnemyState* pEnemy, int* pDamage,int* pPlayerType,int* pEnemyType)
+
+void ControlHP(PlayerState* pPlayer, EnemyState* pEnemy, int* pDamage,int* pPlayerType,int* pEnemyType, bool* initHPFlag)
 {
 	static int count = 0;
 	static int CTCount = 0;
+
+	//Å‰‚¾‚¯‰Šú‰»
+	if (*initHPFlag ==true)
+	{
+		InitHP(pPlayer, pEnemy, pPlayerType, pEnemyType);
+		*initHPFlag = false;
+	}
+
 		
-		//CT‚ª—­‚Ü‚é‚Æ•KŽE‹Z‚ðŒ‚‚Â
-		if (CTCount = 5)
-		{
-			pPlayer[*pPlayerType].m_HP -= 100;
-		}
+	//CT‚ª—­‚Ü‚é‚Æ•KŽE‹Z‚ðŒ‚‚Â
+	if (CTCount = 5)
+	{
+		pPlayer[*pPlayerType].m_HP -= 100;
+	}
 
-		//3•b‚É1‰ñƒ_ƒ[ƒW
-		if (count >= 180)
-		{
-			pPlayer[*pPlayerType].m_HP -= 100;
-			count = 0;
-			CTCount++;
-		}
+	//3•b‚É1‰ñƒ_ƒ[ƒW
+	if (count >= 180)
+	{
+		pPlayer[*pPlayerType].m_HP -= 100;
+		count = 0;
+		CTCount++;
+	}
 
-		count ++;
+	count ++;
 	
-		pEnemy[*pEnemyType].m_HP -= *pDamage;
+	pEnemy[*pEnemyType].m_HP -= *pDamage;
 }

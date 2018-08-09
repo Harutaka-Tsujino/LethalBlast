@@ -4,12 +4,14 @@
 
 void ControlCharaChoice(SCENE* scene, int* cursol,int* playerType)
 {
+	//フォントの矩形の作成
 	CustomVertex MouseObj[4], ObjA[4], ObjB[4], ObjC[4];
 	CustomImageVerticies(MouseObj, (float)g_mouseState.absolutePos.x, (float)g_mouseState.absolutePos.y, MOUSE_SCALE, MOUSE_SCALE);
 	CustomImageVerticies(ObjA, WEPON_MASTER_CHOICE_TEXT_WIDTH, 600.f, WEPON_MASTER_CHOICE_TEXT_WIDTH, 20.f);
 	CustomImageVerticies(ObjB, WEPON_MASTER_CHOICE_TEXT_WIDTH*3, 600.f, WEPON_MASTER_CHOICE_TEXT_WIDTH, 20.f);
 	CustomImageVerticies(ObjC, WEPON_MASTER_CHOICE_TEXT_WIDTH*5, 600.f, WEPON_MASTER_CHOICE_TEXT_WIDTH, 20.f);
 
+	//マウスの当たり判定でカーソルを動かす
 	if (RectToRectCollisionCheak(MouseObj,ObjA))
 	{
 		*cursol = 1;
@@ -75,6 +77,7 @@ void ControlCharaChoice(SCENE* scene, int* cursol,int* playerType)
 
 bool RectToRectCollisionCheak(CustomVertex* pObjA,CustomVertex* pObjB)
 {
+	//四角形の当たり判定
 	if ((pObjA[0].m_x <= pObjB[0].m_x && pObjB[0].m_x <= pObjA[1].m_x) ||
 		(pObjA[0].m_x <= pObjB[1].m_x && pObjB[1].m_x <= pObjA[1].m_x)||
 		(pObjB[0].m_x <= pObjA[0].m_x && pObjA[1].m_x <= pObjB[1].m_x))

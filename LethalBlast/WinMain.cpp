@@ -12,6 +12,8 @@
 #include"RenderCharaChoice.h"
 #include"ControlWordListsAndTyping.h"
 #include"RenderWordListsAndTyping.h"
+#include"ControlHP.h"
+#include"RenderHP.h"
 
 INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdShow)
 {
@@ -35,8 +37,12 @@ void MainFunction(void)
 	static WordList magicKnightWordLists[5];
 	static MagicKnightAction magicKnightAction;
 	static WordCandidate wordCandidates[5];
-	
-
+	static PlayerState player[JOB_MAX];
+	static EnemyState enemy[ENEMY_TYPE_MAX];
+	static int playerType = MAGIC_KNIGHT;
+	static int enemyType = BOSS;
+	static bool initHPFlag = true;
+	static int damage = 100;
 
 	//シーン分岐
 	switch (scene)
@@ -68,7 +74,8 @@ void MainFunction(void)
 		RenderGame(&scene);
 		ControlTyping(magicKnigtWords, magicKnightWordLists, &magicKnightAction, wordCandidates);
 		RenderMasicKnightWordLists(fontIds, magicKnigtWords, magicKnightWordLists, &magicKnightAction, wordCandidates);
-
+		ControlHP(player, enemy, &damage, &playerType, &enemyType, &initHPFlag);
+		RenderHP(player, enemy);
 		break;
 	}
 

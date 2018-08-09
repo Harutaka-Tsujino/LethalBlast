@@ -128,12 +128,14 @@
     <ClCompile Include="ControlHP.cpp" />
     <ClCompile Include="ControlPV.cpp" />
     <ClCompile Include="ControlTitle.cpp" />
+    <ClCompile Include="ControlWeaponMasterAction.cpp" />
     <ClCompile Include="ControlWordListsAndTyping.cpp" />
     <ClCompile Include="RenderCharaChoice.cpp" />
     <ClCompile Include="RenderGame.cpp" />
     <ClCompile Include="RenderHP.cpp" />
     <ClCompile Include="RenderPV.cpp" />
     <ClCompile Include="RenderTitle.cpp" />
+    <ClCompile Include="RenderWeaponMasterAction.cpp" />
     <ClCompile Include="RenderWordListsAndTyping.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
@@ -143,6 +145,7 @@
     <ClInclude Include="ControlHP.h" />
     <ClInclude Include="ControlPV.h" />
     <ClInclude Include="ControlTitle.h" />
+    <ClInclude Include="ControlWeaponMasterAction.h" />
     <ClInclude Include="ControlWordListsAndTyping.h" />
     <ClInclude Include="DX9Lib.h" />
     <ClInclude Include="RenderCharaChoice.h" />
@@ -150,6 +153,7 @@
     <ClInclude Include="RenderHP.h" />
     <ClInclude Include="RenderPV.h" />
     <ClInclude Include="RenderTitle.h" />
+    <ClInclude Include="RenderWeaponMasterAction.h" />
     <ClInclude Include="RenderWordListsAndTyping.h" />
     <ClInclude Include="WinMain.h" />
   </ItemGroup>
