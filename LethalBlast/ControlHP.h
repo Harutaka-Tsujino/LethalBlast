@@ -1,13 +1,13 @@
 #pragma once
 
-//プレイヤーの種類
-enum PLAYER_TYPE
-{
-	MAGIC_KNIGHT,
-	WEAPON_MASTER,
-	SUMMONER,
-	PLAYER_TYPE_MAX,
-};
+////プレイヤーの種類
+//enum PLAYER_TYPE
+//{
+//	MAGIC_KNIGHT,
+//	WEAPON_MASTER,
+//	SUMMONER,
+//	PLAYER_TYPE_MAX,
+//};
 
 //敵の種類
 enum ENEMY_TYPE
@@ -37,6 +37,7 @@ typedef struct
 	int m_weakPhysicalAttak;
 }EnemyState;
 
-
+//HP初期化関数
 void InitHP(PlayerState* pPlayer, EnemyState *pEnemy, int* pPlayerType, int* pEnemyType);
-void ControlHP(PlayerState* pPlayer, EnemyState* pEnemy, int* pDamage, int* pPlayerType, int* pEnemyType);
+//HP操作関数
+void ControlHP(PlayerState* pPlayer, EnemyState* pEnemy, int* pDamage, int* pPlayerType, int* pEnemyType, bool* initHPFlag);
