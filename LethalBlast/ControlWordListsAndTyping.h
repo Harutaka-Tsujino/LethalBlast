@@ -136,4 +136,4 @@ typedef struct
 	char m_ruby[WORD_CHAR_MAX];
 }WordCandidate;
 
-void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, MagicKnightAction* magicKnightAction, WordCandidate* wordCandidates, int* wordNum);
+void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, MagicKnightAction* magicKnightAction, WordCandidate* wordCandidates, int* wordNum,bool* endAttackEffect);

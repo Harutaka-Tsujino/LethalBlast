@@ -37,7 +37,7 @@ void RenderHP(PlayerState* pPlayer, EnemyState* pEnemy, int* pCount, int* pCTCou
 	RenderEnemyCTGauge(&textureIds[ENEMY_CT_TEX], pCTCount);
 
 	sprintf_s(test, 64, "%d", pEnemy[*pEnemyType].m_HP);
-	WriteText(300, 300, test, DT_RIGHT, fontIds[testFONT], 0xffff0000);
+	WriteText(300, 300, test, DT_CENTER, fontIds[testFONT], 0xffff0000);
 
 	frameCount++;
 
@@ -92,9 +92,9 @@ void RenderEnemyHP(EnemyState* pEnemy, TEXTUREID* pTextureIds, int* pEnemyType)
 
 void RenderEnemyATKGauge(TEXTUREID* pTextureIds, int* pCount)
 {
-	float enemyATKRatio = (*pCount) / 180.0;
+	float enemyATKRatio = (float)((*pCount) / 180.0);
 
-	float enemyATKMoveX = (*pCount) / 180.0 / 2 * 400;
+	float enemyATKMoveX = (float)((*pCount) / 180.0 / 2 * 400);
 
 	CustomVertex enemyATKSrc[4];
 

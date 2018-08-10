@@ -37,6 +37,7 @@ void MainFunction(void)
 	static MagicKnightAction magicKnightAction;
 	static WordCandidate wordCandidates[5];
 	static int wordNum = 0;
+	static bool endAttackEffect = false;
 
 	static PlayerState player[JOB_MAX];
 	static EnemyState enemy[ENEMY_TYPE_MAX];
@@ -76,8 +77,8 @@ void MainFunction(void)
 
 		ControlGame(&scene);
 		RenderGame(&scene);
-		ControlTyping(magicKnigtWords, magicKnightWordLists, &magicKnightAction, wordCandidates, &wordNum);
-		RenderMasicKnightWordLists(fontIds, magicKnigtWords, magicKnightWordLists, &magicKnightAction, wordCandidates,&wordNum);
+		ControlTyping(magicKnigtWords, magicKnightWordLists, &magicKnightAction, wordCandidates, &wordNum,&endAttackEffect);
+		RenderMasicKnightWordLists(fontIds, magicKnigtWords, magicKnightWordLists, &magicKnightAction, wordCandidates,&wordNum,&endAttackEffect);
 		ControlHP(player, enemy, &playerATKDamage, &playerType, &enemyType, &initHPFlag,&count,&CTCount, &magicKnightAction, &initMagicKnightActionFlag);
 		RenderHP(player, enemy,&count,&CTCount, playerType, &enemyType);
 		

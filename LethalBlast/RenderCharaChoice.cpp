@@ -20,6 +20,7 @@ void RenderCharaChoiceInit(TEXTUREID* textureIds, FONTID* fontIds)
 		RoadTexture("Texture/CharaChoice/CharaChoiceBackGround.png",&textureIds[CHARA_CHOICE_BACKGROUND]);
 		RoadTexture("Texture/CharaChoice/cursol.png", &textureIds[CHARA_CHOICE_CURSOL]);
 		RoadTexture("Texture/CharaChoice/NecromancerAndSummonur.png", &textureIds[CHARA_CHOICE_NECROMANCER_AND_SUMMONER]);
+		RoadTexture("Texture/CharaChoice/MagicKnight.png", &textureIds[CHARA_CHOICE_MAGIC_KNIGHT]);
 
 		SetFont(18, 28, "MS ゴシック", fontIds, 10);
 
@@ -43,17 +44,17 @@ void RenderCharaChoiceBackGround(TEXTUREID* textureIds, FONTID* fontIds, int* cu
 		switch (i)
 		{
 		case 0:
-			WriteText(WEPON_MASTER_CHOICE_TEXT_WIDTH, 600, "ウェポンマスター", DT_LEFT, fontIds[0]);
+			WriteText(WEPON_MASTER_CHOICE_TEXT_WIDTH+25, 600, "ウェポンマスター", DT_LEFT, fontIds[0]);
 
 			break;
 
 		case 1:
-			WriteText(WEPON_MASTER_CHOICE_TEXT_WIDTH*3, 600, "マジックナイト", DT_LEFT, fontIds[0]);
+			WriteText(WEPON_MASTER_CHOICE_TEXT_WIDTH*3+25, 600, "マジックナイト", DT_LEFT, fontIds[0]);
 
 			break;
 
 		case 2:
-			WriteText(WEPON_MASTER_CHOICE_TEXT_WIDTH*5, 600, "ダブルキャスター", DT_LEFT, fontIds[0]);
+			WriteText(WEPON_MASTER_CHOICE_TEXT_WIDTH*5+25, 600, "ダブルキャスター", DT_LEFT, fontIds[0]);
 
 			break;
 		}

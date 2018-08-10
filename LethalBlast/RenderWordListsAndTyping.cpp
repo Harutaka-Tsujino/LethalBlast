@@ -24,7 +24,7 @@ void WordListsAndTypingRender(int* playerType)
 	}
 }
 
-void RenderEffect(WordData* magicKnigtWords, WordList* magicKnightWordLists, MagicKnightAction* magicKnightAction, TEXTUREID* effectTexId)
+void RenderEffect(WordData* magicKnigtWords, WordList* magicKnightWordLists, MagicKnightAction* magicKnightAction, TEXTUREID* effectTexId,bool* endAttackEffect)
 {
 	for (int magicKnightActionNum = MAGIC_KNIGHT_ACTION_WORDS_MAX - 1; magicKnightActionNum >= 0; --magicKnightActionNum)
 	{
@@ -49,7 +49,7 @@ void RenderEffect(WordData* magicKnigtWords, WordList* magicKnightWordLists, Mag
 			const int SEPARATED_FI_IMAGE_X = 32;
 			const int SEPARATED_FI_IMAGE_Y = 4;
 
-			CustomImageVerticies(effectVertices, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, EFFECT_SCALE, EFFECT_SCALE, 0xFFFFFFFF,
+			CustomImageVerticies(effectVertices, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, EFFECT_SCALE, EFFECT_SCALE, 0xBBFFFFFF,
 				EFFECT_SCALE*((effectCount % (SEPARATED_FI_IMAGE_X*EFFECT_RENDER_FRAME)) / EFFECT_RENDER_FRAME),
 				EFFECT_SCALE*(effectCount / (SEPARATED_FI_IMAGE_X * EFFECT_RENDER_FRAME)),
 				EFFECT_SCALE, EFFECT_SCALE, SEPARATED_FI_IMAGE_X* EFFECT_SCALE, SEPARATED_FI_IMAGE_Y* EFFECT_SCALE);
@@ -59,6 +59,7 @@ void RenderEffect(WordData* magicKnigtWords, WordList* magicKnightWordLists, Mag
 			if (effectCount > ((SEPARATED_FI_IMAGE_X*(SEPARATED_FI_IMAGE_Y - 1)) + 4) *EFFECT_RENDER_FRAME)
 			{
 				effectCount = 0;
+				*endAttackEffect = true;
 
 				return;
 			}
@@ -73,7 +74,7 @@ void RenderEffect(WordData* magicKnigtWords, WordList* magicKnightWordLists, Mag
 			const int SEPARATED_WA_IMAGE_X = 64;
 			const int SEPARATED_WA_IMAGE_Y = 2;
 
-			CustomImageVerticies(effectVertices, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, EFFECT_SCALE, EFFECT_SCALE, 0xFFFFFFFF,
+			CustomImageVerticies(effectVertices, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, EFFECT_SCALE, EFFECT_SCALE, 0xDDFFFFFF,
 				EFFECT_SCALE*((effectCount % (SEPARATED_WA_IMAGE_X*EFFECT_RENDER_FRAME)) / EFFECT_RENDER_FRAME),
 				EFFECT_SCALE*(effectCount / (SEPARATED_WA_IMAGE_X * EFFECT_RENDER_FRAME)),
 				EFFECT_SCALE, EFFECT_SCALE, SEPARATED_WA_IMAGE_X* EFFECT_SCALE, SEPARATED_WA_IMAGE_Y* EFFECT_SCALE);
@@ -83,6 +84,7 @@ void RenderEffect(WordData* magicKnigtWords, WordList* magicKnightWordLists, Mag
 			if (effectCount > ((SEPARATED_WA_IMAGE_X*(SEPARATED_WA_IMAGE_Y - 1)) + 13) *EFFECT_RENDER_FRAME)
 			{
 				effectCount = 0;
+				*endAttackEffect = true;
 
 				return;
 			}
@@ -97,7 +99,7 @@ void RenderEffect(WordData* magicKnigtWords, WordList* magicKnightWordLists, Mag
 			const int SEPARATED_WI_IMAGE_X = 16;
 			const int SEPARATED_WI_IMAGE_Y = 2;
 
-			CustomImageVerticies(effectVertices, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, EFFECT_SCALE, EFFECT_SCALE, 0xFFFFFFFF,
+			CustomImageVerticies(effectVertices, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, EFFECT_SCALE, EFFECT_SCALE, 0xBBFFFFFF,
 				EFFECT_SCALE*((effectCount % (SEPARATED_WI_IMAGE_X*EFFECT_RENDER_FRAME)) / EFFECT_RENDER_FRAME),
 				EFFECT_SCALE*(effectCount / (SEPARATED_WI_IMAGE_X * EFFECT_RENDER_FRAME)),
 				EFFECT_SCALE, EFFECT_SCALE, SEPARATED_WI_IMAGE_X* EFFECT_SCALE, SEPARATED_WI_IMAGE_Y* EFFECT_SCALE);
@@ -107,6 +109,7 @@ void RenderEffect(WordData* magicKnigtWords, WordList* magicKnightWordLists, Mag
 			if (effectCount > ((SEPARATED_WI_IMAGE_X*(SEPARATED_WI_IMAGE_Y - 1)) + 9) *EFFECT_RENDER_FRAME)
 			{
 				effectCount = 0;
+				*endAttackEffect = true;
 
 				return;
 			}
@@ -121,7 +124,7 @@ void RenderEffect(WordData* magicKnigtWords, WordList* magicKnightWordLists, Mag
 			const int SEPARATED_SH_IMAGE_X = 30;
 			const int SEPARATED_SH_IMAGE_Y = 1;
 
-			CustomImageVerticies(effectVertices, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, EFFECT_SCALE, EFFECT_SCALE, 0xFFFFFFFF,
+			CustomImageVerticies(effectVertices, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, EFFECT_SCALE, EFFECT_SCALE, 0xBBFFFFFF,
 				EFFECT_SCALE*((effectCount % (SEPARATED_SH_IMAGE_X*EFFECT_RENDER_FRAME)) / EFFECT_RENDER_FRAME),
 				EFFECT_SCALE*(effectCount / (SEPARATED_SH_IMAGE_X * EFFECT_RENDER_FRAME)),
 				EFFECT_SCALE, EFFECT_SCALE, SEPARATED_SH_IMAGE_X* EFFECT_SCALE, SEPARATED_SH_IMAGE_Y* EFFECT_SCALE);
@@ -131,6 +134,7 @@ void RenderEffect(WordData* magicKnigtWords, WordList* magicKnightWordLists, Mag
 			if (effectCount > SEPARATED_SH_IMAGE_X*SEPARATED_SH_IMAGE_Y*EFFECT_RENDER_FRAME)
 			{
 				effectCount = 0;
+				*endAttackEffect = true;
 
 				return;
 			}
@@ -145,7 +149,7 @@ void RenderEffect(WordData* magicKnigtWords, WordList* magicKnightWordLists, Mag
 			const int SEPARATED_DA_IMAGE_X = 64;
 			const int SEPARATED_DA_IMAGE_Y = 2;
 
-			CustomImageVerticies(effectVertices, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, EFFECT_SCALE, EFFECT_SCALE, 0xFFFFFFFF,
+			CustomImageVerticies(effectVertices, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, EFFECT_SCALE, EFFECT_SCALE, 0xBBFFFFFF,
 				EFFECT_SCALE*((effectCount % (SEPARATED_DA_IMAGE_X*EFFECT_RENDER_FRAME)) / EFFECT_RENDER_FRAME),
 				EFFECT_SCALE*(effectCount / (SEPARATED_DA_IMAGE_X * EFFECT_RENDER_FRAME)),
 				EFFECT_SCALE, EFFECT_SCALE, SEPARATED_DA_IMAGE_X* EFFECT_SCALE, SEPARATED_DA_IMAGE_Y* EFFECT_SCALE);
@@ -155,6 +159,7 @@ void RenderEffect(WordData* magicKnigtWords, WordList* magicKnightWordLists, Mag
 			if (effectCount > ((SEPARATED_DA_IMAGE_X*(SEPARATED_DA_IMAGE_Y - 1)) + 36) *EFFECT_RENDER_FRAME)
 			{
 				effectCount = 0;
+				*endAttackEffect = true;
 
 				return;
 			}
@@ -165,6 +170,8 @@ void RenderEffect(WordData* magicKnigtWords, WordList* magicKnightWordLists, Mag
 		return;
 
 		case VOID_ELEMENT:
+
+			*endAttackEffect = true;
 
 			return;
 		}
@@ -225,13 +232,14 @@ void WeaponMasterBackGround(CustomVertex* WordListsImage, TEXTUREID* textureIds)
 	}
 }
 
-void RenderMasicKnightWordLists(FONTID* fontIds, WordData* magicKnigtWords, WordList* magicKnightWordLists, MagicKnightAction* magicKnightAction, WordCandidate* wordCandidates,int* wordNum)
+void RenderMasicKnightWordLists(FONTID* fontIds, WordData* magicKnigtWords, WordList* magicKnightWordLists, MagicKnightAction* magicKnightAction, WordCandidate* wordCandidates,int* wordNum,bool* endAttackEffect)
 {
 	static bool isFirstFrame = true;
 	float typingPosY = 0.f;
 	float rubyPosY = 0.f;
 
 	static TEXTUREID attackEffectIds[EFF_MAX];
+	static TEXTUREID enemyTexIds;
 
 	if (isFirstFrame)
 	{
@@ -243,39 +251,46 @@ void RenderMasicKnightWordLists(FONTID* fontIds, WordData* magicKnigtWords, Word
 		RoadTexture("Texture/Effect/Thrown.png", &attackEffectIds[THROWN_EFF]);
 		RoadTexture("Texture/Effect/Wind.png", &attackEffectIds[WIND_EFF]);
 
+		RoadTexture("texture/MainGame/Enemy/Gazer.png", &enemyTexIds);
+
 		SetFont((int)20.f, (int)40.f, "MS ゴシック", &fontIds[TYPING_FONT], 0, SHIFTJIS_CHARSET);
 		SetFont((int)10.f, (int)20.f, "MS ゴシック", &fontIds[RUBY_FONT], 0, SHIFTJIS_CHARSET);
 
 		isFirstFrame = false;
 	}
 
+	CustomVertex EnemyImage[4];
+	const float ENEMY_SCALE = 300.f;
+	CustomImageVerticies(EnemyImage, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, ENEMY_SCALE, ENEMY_SCALE);
+
+	DrawImage(EnemyImage, enemyTexIds);
+
 	for (int cnt = 0;cnt < 5;cnt++)
 	{
 		typingPosY += 25;
-		WriteText(DISPLAY_WIDTH-170, (int)(DISPLAY_HEIGHT/15+ typingPosY), &magicKnigtWords[magicKnightWordLists[cnt].m_Id].m_word[0],
-			DT_LEFT, fontIds[RUBY_FONT],0xFF000000);
+		WriteText(DISPLAY_WIDTH-140, (int)(DISPLAY_HEIGHT/15+ typingPosY), &magicKnigtWords[magicKnightWordLists[cnt].m_Id].m_word[0],
+			DT_LEFT, fontIds[RUBY_FONT],0xFFf5f5f5);
 
 		rubyPosY += 40;
-		WriteText((int)(DISPLAY_WIDTH / 1.7), DISPLAY_HEIGHT / 3 + (int)rubyPosY, &wordCandidates[cnt].m_ruby[0],
-			DT_CENTER, fontIds[TYPING_FONT], 0xFF000000);
-
+		WriteText((int)(DISPLAY_WIDTH / 1.4), (int)(DISPLAY_HEIGHT / 2.3 + rubyPosY), &wordCandidates[cnt].m_ruby[0],
+			DT_CENTER, fontIds[TYPING_FONT], 0xFFffffe0);
 	}
 
 	for (int wordNumber = 0; wordNumber < MAGIC_KNIGHT_ACTION_WORDS_MAX; ++wordNumber)
 	{
 		if (wordNumber == (*wordNum))
 		{
-			WriteText((int)(DISPLAY_WIDTH / 1.7), DISPLAY_HEIGHT - 100, &magicKnightAction->m_inputWords[*wordNum].m_word[0],
-				DT_CENTER, fontIds[TYPING_FONT], 0xFF000000);
+			WriteText((int)(DISPLAY_WIDTH / 1.4), DISPLAY_HEIGHT - 100, &magicKnightAction->m_inputWords[*wordNum].m_word[0],
+				DT_CENTER, fontIds[TYPING_FONT], 0xFFffd700);
 
 			continue;
 		}
 
 		WriteText((int)(DISPLAY_WIDTH / 2)+ 150*wordNumber, DISPLAY_HEIGHT - 150, &magicKnightAction->m_inputWords[wordNumber].m_word[0],
-			DT_CENTER, fontIds[RUBY_FONT], 0xFF000000);
+			DT_CENTER, fontIds[RUBY_FONT], 0xFFf08080);
 	}
 
-	RenderEffect(magicKnigtWords, magicKnightWordLists, magicKnightAction, attackEffectIds);
+	RenderEffect(magicKnigtWords, magicKnightWordLists, magicKnightAction, attackEffectIds, endAttackEffect);
 
 	return;
 }

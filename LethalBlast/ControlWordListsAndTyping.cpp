@@ -5,8 +5,13 @@
 #include"DX9Lib.h"
 #include"ControlWordListsAndTyping.h"
 
-void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, MagicKnightAction* magicKnightAction, WordCandidate* wordCandidates,int* wordNum)
+void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, MagicKnightAction* magicKnightAction, WordCandidate* wordCandidates,int* wordNum,bool* endAttackEffect)
 {
+	if (*endAttackEffect)
+	{
+		*wordNum = 0;
+	}
+
 	static KanaAlphabetTable kanaAlphabetTable[KATAKANA_MAX];
 	memset(kanaAlphabetTable,0, sizeof(KanaAlphabetTable)*KATAKANA_MAX);
 
@@ -350,12 +355,14 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 	static unsigned char initDatas = 0xFF;
 	static unsigned char WordDataInitCheck = (0x01 << 0);
 
-	if (initDatas & WordDataInitCheck)
+	if (*endAttackEffect)
 	{
 		memset(magicKnightAction, 0, sizeof(MagicKnightAction));
 
 		//フラグを下げる
 		initDatas ^= WordDataInitCheck;
+
+		*endAttackEffect = false;
 	}
 
 	const int INPUT_CHAR_LIMIT = 5;
@@ -1354,6 +1361,21 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 						magicKnightAction->m_elemetalNum[magicKnigtWords[magicKnightWordLists[listWordNum].m_Id].m_element] += 1;
 					}
 				}
+			}
+			
+			bool haveElement = false;
+
+			for (int listWordNum = 0; listWordNum < MAGIC_KNIGHT_WORD_LISTS_MAX; ++listWordNum)
+			{
+				if (magicKnightAction->m_componentWordIds[listWordNum])
+				{
+					haveElement = true;
+				}
+			}
+
+			if (!haveElement)
+			{
+				*endAttackEffect = true;
 			}
 		}
 	}
