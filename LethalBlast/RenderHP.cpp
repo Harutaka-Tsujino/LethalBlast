@@ -6,25 +6,27 @@
 void RenderHP(PlayerState* pPlayer, EnemyState* pEnemy, int* pCount, int* pCTCount, int playerType, int* pEnemyType)
 {
 	static int frameCount = -1;
-
+#ifdef _DEBUG
 	enum FONT
 	{
 		testFONT,
 		FONT_MAX
 	};
-
+#endif
 	static TEXTUREID textureIds[TEX_MAX];
-
+#ifdef _DEBUG
 	static FONTID fontIds[FONT_MAX];
 	char test[64];
+#endif
 	if (frameCount == -1)
 	{
-		RoadTexture("HPGauge.jpg", &textureIds[PLAYER_HP_TEX]);
-		RoadTexture("HPGauge.jpg", &textureIds[ENEMY_HP_TEX]);
-		RoadTexture("HPGauge.jpg", &textureIds[ENEMY_ATK_TEX]);
+		RoadTexture("playerHPGauge.jpg", &textureIds[PLAYER_HP_TEX]);
+		RoadTexture("enemyHPGauge.jpg", &textureIds[ENEMY_HP_TEX]);
+		RoadTexture("CT.jpg", &textureIds[ENEMY_ATK_TEX]);
 		RoadTexture("Texture/MainGame/ct.png", &textureIds[ENEMY_CT_TEX]);
+#ifdef _DEBUG
 		SetFont(40, 40, "Times New Roman", &fontIds[testFONT], 20);
-
+#endif
 		frameCount = 0;
 	}
 
@@ -35,7 +37,7 @@ void RenderHP(PlayerState* pPlayer, EnemyState* pEnemy, int* pCount, int* pCTCou
 	RenderEnemyATKGauge(&textureIds[ENEMY_ATK_TEX], pCount);
 
 	RenderEnemyCTGauge(&textureIds[ENEMY_CT_TEX], pCTCount);
-
+#ifdef _DEBUG
 	sprintf_s(test, 64, "%d", pEnemy[*pEnemyType].m_HP);
 	WriteText(300, 300, test, DT_CENTER, fontIds[testFONT], 0xffff0000);
 
