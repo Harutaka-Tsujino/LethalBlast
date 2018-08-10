@@ -10,6 +10,7 @@ enum HP_TEX
 	TEX_MAX
 };
 
+
 //HP描画関数
 void RenderHP(PlayerState* pPlayer, EnemyState* pEnemy, int* pCount, int* pCTCount, int playerType, int* pEnemyType);
 //プレイヤーHP

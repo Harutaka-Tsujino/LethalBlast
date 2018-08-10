@@ -3,9 +3,9 @@
 #include "RenderHP.h"
 
 
-void RenderHP(PlayerState* pPlayer, EnemyState* pEnemy)
+void RenderHP(PlayerState* pPlayer, EnemyState* pEnemy, int* pCount, int* pCTCount, int playerType, int* pEnemyType)
 {
-		static int frameCount = -1;
+	static int frameCount = -1;
 
 	enum FONT
 	{
@@ -28,17 +28,17 @@ void RenderHP(PlayerState* pPlayer, EnemyState* pEnemy)
 		frameCount = 0;
 	}
 
-	RenderPlayerHP(pPlayer, &textureIds[PLAYER_HP_TEX],playerType);
+	RenderPlayerHP(pPlayer, &textureIds[PLAYER_HP_TEX], playerType);
 
-	RenderEnemyHP(pEnemy, &textureIds[ENEMY_HP_TEX],pEnemyType);
+	RenderEnemyHP(pEnemy, &textureIds[ENEMY_HP_TEX], pEnemyType);
 
 	RenderEnemyATKGauge(&textureIds[ENEMY_ATK_TEX], pCount);
 
 	RenderEnemyCTGauge(&textureIds[ENEMY_CT_TEX], pCTCount);
 
-	sprintf_s(test,64,"%d",pEnemy[*pEnemyType].m_HP);
-	WriteText(300, 300, test, DT_RIGHT, fontIds[testFONT],0xffff0000);
-	
+	sprintf_s(test, 64, "%d", pEnemy[*pEnemyType].m_HP);
+	WriteText(300, 300, test, DT_RIGHT, fontIds[testFONT], 0xffff0000);
+
 	frameCount++;
 
 	if (frameCount > 120000)
@@ -50,9 +50,9 @@ void RenderHP(PlayerState* pPlayer, EnemyState* pEnemy)
 }
 
 
-void RenderPlayerHP(PlayerState* pPlayer, TEXTUREID* pTextureIds,int playerType)
+void RenderPlayerHP(PlayerState* pPlayer, TEXTUREID* pTextureIds, int playerType)
 {
-	float playerHPRatio = pPlayer->m_HP / pPlayer->m_maxHP;
+	float playerHPRatio = pPlayer[playerType].m_HP / pPlayer[playerType].m_maxHP;
 
 	float playerMoveX = -((pPlayer[playerType].m_maxHP - pPlayer[playerType].m_HP) / pPlayer[playerType].m_maxHP / 2 * 200);
 
@@ -66,13 +66,13 @@ void RenderPlayerHP(PlayerState* pPlayer, TEXTUREID* pTextureIds,int playerType)
 
 	MoveImage(playerHPMoved, playerHPMoved, playerMoveX, 0);
 
-	DrawImage(playerHPMoved, pTextureIds[PLAYER_HP_TEX]);
-*/
+	DrawImage(playerHPMoved, *pTextureIds);
 }
 
-void RenderEnemyHP(EnemyState* pEnemy,TEXTUREID* pTextureIds)
+
+void RenderEnemyHP(EnemyState* pEnemy, TEXTUREID* pTextureIds, int* pEnemyType)
 {
-	/*float enemyHPRatio = pEnemy->m_HP / pEnemy->m_maxHP;
+	float enemyHPRatio = pEnemy[*pEnemyType].m_HP / pEnemy[*pEnemyType].m_maxHP;
 
 	float enemyMoveX = -((pEnemy[*pEnemyType].m_maxHP - pEnemy[*pEnemyType].m_HP) / pEnemy[*pEnemyType].m_maxHP / 2 * 400);
 
@@ -90,7 +90,7 @@ void RenderEnemyHP(EnemyState* pEnemy,TEXTUREID* pTextureIds)
 }
 
 
-void RenderEnemyATKGauge(TEXTUREID* pTextureIds,int* pCount)
+void RenderEnemyATKGauge(TEXTUREID* pTextureIds, int* pCount)
 {
 	float enemyATKRatio = (*pCount) / 180.0;
 
@@ -98,7 +98,7 @@ void RenderEnemyATKGauge(TEXTUREID* pTextureIds,int* pCount)
 
 	CustomVertex enemyATKSrc[4];
 
-	CustomImageVerticies(enemyATKSrc, 440.0f, 150.f, 200.f, 20.f, GetColor(255, 255, 0, 0 ));
+	CustomImageVerticies(enemyATKSrc, 440.0f, 150.f, 200.f, 20.f, GetColor(255, 255, 0, 0));
 
 	CustomVertex enemyATKMoved[4];
 
@@ -109,18 +109,19 @@ void RenderEnemyATKGauge(TEXTUREID* pTextureIds,int* pCount)
 	DrawImage(enemyATKMoved, *pTextureIds);
 }
 
+
 void RenderEnemyCTGauge(TEXTUREID* pTextureIds, int* pCTCount)
 {
 	CustomVertex enemyCT1Src[4];
 	CustomVertex enemyCT2Src[4];
 	CustomVertex enemyCT3Src[4];
-	
+
 	int color = 0;
 
 	CustomImageVerticies(enemyCT1Src, 450.f, 200.f, 20.f, 20.f, GetColor(255, color, color, color));
 	CustomImageVerticies(enemyCT2Src, 500.f, 200.f, 20.f, 20.f, GetColor(255, color, color, color));
 	CustomImageVerticies(enemyCT3Src, 550.f, 200.f, 20.f, 20.f, GetColor(255, color, color, color));
-	
+
 	if (*pCTCount >= 1)
 	{
 		color = 255;

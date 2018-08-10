@@ -32,4 +32,4 @@ typedef struct
 //HP初期化関数
 void InitHP(PlayerState* pPlayer, EnemyState *pEnemy, int* pPlayerType, int* pEnemyType);
 //HP操作関数
-void ControlHP(PlayerState* pPlayer, EnemyState* pEnemy, int* pPlayerATKDamage, int* pPlayerType, int* pEnemyType, bool* pInitHPFlag,int* pCount,int* pCTCount, MagicKnightAction* pMagicKnightAction, bool* pInitMagicKnightActionFlag);
+void ControlHP(PlayerState* pPlayer, EnemyState* pEnemy, int* pPlayerATKDamage, int* pPlayerType, int* pEnemyType, bool* pInitHPFlag, int* pCount, int* pCTCount, MagicKnightAction* pMagicKnightAction, bool* pInitMagicKnightActionFlag);
