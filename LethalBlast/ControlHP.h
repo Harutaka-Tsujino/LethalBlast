@@ -1,15 +1,7 @@
-#pragma once
+ï»¿#pragma once
+#include"ControlWordListsAndTyping.h"
 
-////ƒvƒŒƒCƒ„[‚Ìí—Ş
-//enum PLAYER_TYPE
-//{
-//	MAGIC_KNIGHT,
-//	WEAPON_MASTER,
-//	SUMMONER,
-//	PLAYER_TYPE_MAX,
-//};
-
-//“G‚Ìí—Ş
+//æ•µã®ç¨®é¡
 enum ENEMY_TYPE
 {
 	MOB,
@@ -17,27 +9,27 @@ enum ENEMY_TYPE
 	ENEMY_TYPE_MAX
 };
 
-//ƒvƒŒƒCƒ„[‚ÌƒXƒe[ƒ^ƒX
+//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
 typedef struct
 {
 	int m_HP;
-	int m_maxHP;
+	float m_maxHP;
 	const char* m_name;
 	int m_weekPoint;
 }PlayerState;
 
 
-//“G‚ÌƒXƒe[ƒ^ƒX
+//æ•µã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
 typedef struct
 {
 	const char* m_name;
 	int m_HP;
-	int m_maxHP;
+	float m_maxHP;
 	int m_weakElement;
 	int m_weakPhysicalAttak;
 }EnemyState;
 
-//HP‰Šú‰»ŠÖ”
+//HPåˆæœŸåŒ–é–¢æ•°
 void InitHP(PlayerState* pPlayer, EnemyState *pEnemy, int* pPlayerType, int* pEnemyType);
-//HP‘€ìŠÖ”
-void ControlHP(PlayerState* pPlayer, EnemyState* pEnemy, int* pDamage, int* pPlayerType, int* pEnemyType, bool* initHPFlag);
+//HPæ“ä½œé–¢æ•°
+void ControlHP(PlayerState* pPlayer, EnemyState* pEnemy, int* pPlayerATKDamage, int* pPlayerType, int* pEnemyType, bool* pInitHPFlag,int* pCount,int* pCTCount, MagicKnightAction* pMagicKnightAction, bool* pInitMagicKnightActionFlag);
