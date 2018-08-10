@@ -44,6 +44,7 @@ void ControlHP(PlayerState* pPlayer, EnemyState* pEnemy, int* pPlayerATKDamage,i
 		*pInitHPFlag = false;
 	}
 
+
 	//プレイヤーHP減少
 
 	//CTが溜まると必殺技を撃つ
@@ -62,6 +63,7 @@ void ControlHP(PlayerState* pPlayer, EnemyState* pEnemy, int* pPlayerATKDamage,i
 	}
 
 	(*pCount)++;
+
 
 	//プレイヤーの攻撃ダメージ計算
 	

@@ -35,6 +35,7 @@ void RenderHP(PlayerState* pPlayer, EnemyState* pEnemy, int* pCount, int* pCTCou
 	RenderEnemyATKGauge(&textureIds[ENEMY_ATK_TEX], pCount);
 
 	RenderEnemyCTGauge(&textureIds[ENEMY_CT_TEX], pCTCount);
+
 	sprintf_s(test,64,"%d",pEnemy[*pEnemyType].m_HP);
 	WriteText(300, 300, test, DT_RIGHT, fontIds[testFONT],0xffff0000);
 	
@@ -57,7 +58,7 @@ void RenderPlayerHP(PlayerState* pPlayer, TEXTUREID* pTextureIds,int playerType)
 
 	CustomVertex playerHPSrc[4];
 
-	CustomImageVerticies(playerHPSrc, 200.f, 600.f, 100.f, 20.f, GetColor(255, 0, 255, 0));
+	CustomImageVerticies(playerHPSrc, 150.f, 600.f, 100.f, 20.f, GetColor(255, 0, 255, 0));
 
 	CustomVertex playerHPMoved[4];
 
@@ -73,7 +74,7 @@ void RenderEnemyHP(EnemyState* pEnemy,TEXTUREID* pTextureIds,int* pEnemyType)
 {
 	float enemyHPRatio = pEnemy[*pEnemyType].m_HP / pEnemy[*pEnemyType].m_maxHP;
 
-	float enemyMoveX = -((pEnemy[*pEnemyType].m_maxHP - pEnemy[*pEnemyType].m_HP) / pEnemy[*pEnemyType].m_HP / 2 * 400);
+	float enemyMoveX = -((pEnemy[*pEnemyType].m_maxHP - pEnemy[*pEnemyType].m_HP) / pEnemy[*pEnemyType].m_maxHP / 2 * 400);
 
 	CustomVertex enemyHPSrc[4];
 
