@@ -39,9 +39,10 @@ void MainFunction(void)
 	static PlayerState player[JOB_MAX];
 	static EnemyState enemy[ENEMY_TYPE_MAX];
 	static int playerType;
-	int playerATKDamage = 0;
+	static int playerATKDamage;
 	static int enemyType = BOSS;
 	static bool initHPFlag = true;
+	static bool initMagicKnightActionFlag;
 	static int count = 0;
 	static int CTCount = 0;
 
@@ -76,7 +77,7 @@ void MainFunction(void)
 		RenderGame(&scene);
 		ControlTyping(magicKnigtWords, magicKnightWordLists, &magicKnightAction, wordCandidates);
 		RenderMasicKnightWordLists(fontIds, magicKnigtWords, magicKnightWordLists, &magicKnightAction, wordCandidates);
-		ControlHP(player, enemy, &playerATKDamage, &playerType, &enemyType, &initHPFlag,&count,&CTCount, &magicKnightAction);
+		ControlHP(player, enemy, &playerATKDamage, &playerType, &enemyType, &initHPFlag,&count,&CTCount, &magicKnightAction, &initMagicKnightActionFlag);
 		RenderHP(player, enemy,&count,&CTCount, playerType, &enemyType);
 		break;
 	}

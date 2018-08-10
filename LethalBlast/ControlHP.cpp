@@ -1,43 +1,43 @@
-#include "ControlHP.h"
+ï»¿#include "ControlHP.h"
 #include "WinMain.h"
 #include"ControlWordListsAndTyping.h"
 
 void InitHP(PlayerState* pPlayer, EnemyState *pEnemy,int* pPlayerType,int* pEnemyType)
 {
-	//ƒvƒŒƒCƒ„[í—Ş‚²‚Æ‚Ì‰ŠúHPİ’è
-	if (*pPlayerType == MAGIC_KNIGHT)		//–‚–@Œ•m‚Ì
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ç¨®é¡ã”ã¨ã®åˆæœŸHPè¨­å®š
+	if (*pPlayerType == MAGIC_KNIGHT)		//é­”æ³•å‰£å£«ã®æ™‚
 	{
 		pPlayer[MAGIC_KNIGHT].m_maxHP = 800;
 		pPlayer[MAGIC_KNIGHT].m_HP = 800;
 	}
-	else if (*pPlayerType == WEAPON_MASTER)	//ƒEƒFƒ|ƒ“ƒ}ƒXƒ^[‚Ì
+	else if (*pPlayerType == WEAPON_MASTER)	//ã‚¦ã‚§ãƒãƒ³ãƒã‚¹ã‚¿ãƒ¼ã®æ™‚
 	{
 		pPlayer[WEAPON_MASTER].m_maxHP = 1000;
 		pPlayer[WEAPON_MASTER].m_HP = 1000;	
 	}
-	else if (*pPlayerType == NECROMAMCERANDSUMMONUR)		//¢Š«m‚Ì
+	else if (*pPlayerType == NECROMAMCERANDSUMMONUR)		//å¬å–šå£«ã®æ™‚
 	{
 		pPlayer[NECROMAMCERANDSUMMONUR].m_maxHP = 600;
 		pPlayer[NECROMAMCERANDSUMMONUR].m_HP = 600;
 	}
 
-	//“Gí—Ş‚²‚Æ‚Ì‰ŠúHPİ’è
-	if (*pEnemyType == MOB)			//G‹›“G‚Ì
+	//æ•µç¨®é¡ã”ã¨ã®åˆæœŸHPè¨­å®š
+	if (*pEnemyType == MOB)			//é›‘é­šæ•µã®æ™‚
 	{
 		pEnemy[MOB].m_maxHP = 1000;
 		pEnemy[MOB].m_HP = 1000;		
 	}
-	else if (*pEnemyType == BOSS)	//ƒ{ƒXƒ‚ƒ“ƒXƒ^[‚Ì
+	else if (*pEnemyType == BOSS)	//ãƒœã‚¹ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ã®æ™‚
 	{
 		pEnemy[BOSS].m_maxHP = 100000;
 		pEnemy[BOSS].m_HP = 100000;		
 	}
 }
 
-void ControlHP(PlayerState* pPlayer, EnemyState* pEnemy, int* pPlayerATKDamage,int* pPlayerType,int* pEnemyType, bool* pInitHPFlag, int* pCount,int* pCTCount,  MagicKnightAction* pMagicKnightAction)
+void ControlHP(PlayerState* pPlayer, EnemyState* pEnemy, int* pPlayerATKDamage,int* pPlayerType,int* pEnemyType, bool* pInitHPFlag, int* pCount,int* pCTCount,  MagicKnightAction* pMagicKnightAction,bool* pInitMagicKnightActionFlag)
 {
 
-	//Å‰‚¾‚¯‰Šú‰»
+	//æœ€åˆã ã‘åˆæœŸåŒ–
 	if (*pInitHPFlag ==true)
 	{
 		InitHP(pPlayer, pEnemy, pPlayerType, pEnemyType);
@@ -45,27 +45,36 @@ void ControlHP(PlayerState* pPlayer, EnemyState* pEnemy, int* pPlayerATKDamage,i
 	}
 
 
-	//ƒvƒŒƒCƒ„[HPŒ¸­
-
-	//CT‚ª—­‚Ü‚é‚Æ•KE‹Z‚ğŒ‚‚Â
-	if (*pCTCount == 3)
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼HPæ¸›å°‘
+	if (pPlayer[*pPlayerType].m_HP >= 0)
 	{
-		pPlayer[*pPlayerType].m_HP -= 50;
-		(*pCTCount) = 0;
+		//CTãŒæºœã¾ã‚‹ã¨å¿…æ®ºæŠ€ã‚’æ’ƒã¤
+
+		//3ç§’ã«1å›ãƒ€ãƒ¡ãƒ¼ã‚¸
+		if (*pCount >= 180 )
+		{
+			if (*pCTCount == 3)
+			{
+				pPlayer[*pPlayerType].m_HP -= 50;
+				(*pCTCount) = 0;
+			}
+			else
+			{
+				pPlayer[*pPlayerType].m_HP -= 20;
+				(*pCount) = 0;
+				(*pCTCount)++;
+			}
+		}
+
+		(*pCount)++;
 	}
-
-	//3•b‚É1‰ñƒ_ƒ[ƒW
-	if (*pCount >= 180)
+	else
 	{
-		pPlayer[*pPlayerType].m_HP -= 20;
+		pPlayer[*pPlayerType].m_HP = 0;
 		(*pCount) = 0;
-		(*pCTCount)++;
 	}
 
-	(*pCount)++;
-
-
-	//ƒvƒŒƒCƒ„[‚ÌUŒ‚ƒ_ƒ[ƒWŒvZ
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ”»æ’ƒãƒ€ãƒ¡ãƒ¼ã‚¸è¨ˆç®—
 	
 	(*pPlayerATKDamage) = 0;
 
@@ -81,8 +90,11 @@ void ControlHP(PlayerState* pPlayer, EnemyState* pEnemy, int* pPlayerATKDamage,i
 
 	(*pPlayerATKDamage) = wordCount * 100;
 
-	if(pEnemy[*pEnemyType].m_HP != 0)
+	if(pEnemy[*pEnemyType].m_HP >= 0)
 	{ 
 		pEnemy[*pEnemyType].m_HP -= *pPlayerATKDamage;
 	}
+
+	//pMagicKnightAction->m_componentWordIdsã®åˆæœŸåŒ–ã®ãŸã‚
+	*pInitMagicKnightActionFlag = true;
 }

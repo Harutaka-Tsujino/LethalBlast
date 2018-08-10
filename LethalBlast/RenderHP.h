@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "ControlHP.h"
 
 enum HP_TEX
@@ -11,13 +11,13 @@ enum HP_TEX
 };
 
 
-//HP•`‰æŠÖ”
+//HPæç”»é–¢æ•°
 void RenderHP(PlayerState* pPlayer, EnemyState* pEnemy, int* pCount, int* pCTCount, int playerType, int* pEnemyType);
-//ƒvƒŒƒCƒ„[HP
+//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼HP
 void RenderPlayerHP(PlayerState* pPlayer, TEXTUREID* pTextureIds, int pPlayerType);
-//“GHP
+//æ•µHP
 void RenderEnemyHP(EnemyState* pEnemy, TEXTUREID* pTextureIds, int* pEnemyType);
-//“G‚ÌUŒ‚ƒQ[ƒW
+//æ•µã®æ”»æ’ƒã‚²ãƒ¼ã‚¸
 void RenderEnemyATKGauge(TEXTUREID* pTextureIds, int* pCount);
-//“G‚ÌCTƒQ[ƒW
+//æ•µã®CTã‚²ãƒ¼ã‚¸
 void RenderEnemyCTGauge(TEXTUREID* pTextureIds, int* pCTCount);
