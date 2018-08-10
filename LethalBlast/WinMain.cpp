@@ -37,9 +37,11 @@ void MainFunction(void)
 	static WordList magicKnightWordLists[5];
 	static MagicKnightAction magicKnightAction;
 	static WordCandidate wordCandidates[5];
+	static int wordNum = 0;
+
 	static PlayerState player[JOB_MAX];
 	static EnemyState enemy[ENEMY_TYPE_MAX];
-	static int playerType = MAGIC_KNIGHT;
+	/*static int playerType = MAGIC_KNIGHT;*/
 	static int enemyType = BOSS;
 	static bool initHPFlag = true;
 	static int damage = 100;
@@ -72,10 +74,10 @@ void MainFunction(void)
 
 		ControlGame(&scene);
 		RenderGame(&scene);
-		ControlTyping(magicKnigtWords, magicKnightWordLists, &magicKnightAction, wordCandidates);
-		RenderMasicKnightWordLists(fontIds, magicKnigtWords, magicKnightWordLists, &magicKnightAction, wordCandidates);
-		ControlHP(player, enemy, &damage, &playerType, &enemyType, &initHPFlag);
-		RenderHP(player, enemy);
+		ControlTyping(magicKnigtWords, magicKnightWordLists, &magicKnightAction, wordCandidates, &wordNum);
+		RenderMasicKnightWordLists(fontIds, magicKnigtWords, magicKnightWordLists, &magicKnightAction, wordCandidates,&wordNum);
+		/*ControlHP(player, enemy, &damage, &playerType, &enemyType, &initHPFlag);
+		RenderHP(player, enemy);*/
 		break;
 	}
 

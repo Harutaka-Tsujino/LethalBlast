@@ -5,7 +5,7 @@
 
 void RenderHP(PlayerState* pPlayer, EnemyState* pEnemy)
 {
-	static int frameCount = -1;
+	/*static int frameCount = -1;
 
 	static TEXTUREID textureIds[TEX_MAX];
 
@@ -32,14 +32,14 @@ void RenderHP(PlayerState* pPlayer, EnemyState* pEnemy)
 	if (frameCount > 120000)
 	{
 		frameCount = 0;
-	}
+	}*/
 
 	return;
 }
 
 void RenderPlayerHP(PlayerState* pPlayer, TEXTUREID* pTextureIds)
 {
-	float playerHPRatio = pPlayer->m_HP / pPlayer->m_maxHP;
+	/*float playerHPRatio = pPlayer->m_HP / pPlayer->m_maxHP;
 
 	float playerMoveX = (pPlayer->m_maxHP - pPlayer->m_HP) / 2 * 400;
 
@@ -54,12 +54,12 @@ void RenderPlayerHP(PlayerState* pPlayer, TEXTUREID* pTextureIds)
 	MoveImage(playerHPMoved, playerHPMoved, playerMoveX, 0);
 
 	DrawImage(playerHPMoved, pTextureIds[PLAYER_HP_TEX]);
-
+*/
 }
 
 void RenderEnemyHP(EnemyState* pEnemy,TEXTUREID* pTextureIds)
 {
-	float enemyHPRatio = pEnemy->m_HP / pEnemy->m_maxHP;
+	/*float enemyHPRatio = pEnemy->m_HP / pEnemy->m_maxHP;
 
 	float enemyMoveX = (pEnemy->m_maxHP - pEnemy->m_HP) / 2 * 400;
 
@@ -73,6 +73,6 @@ void RenderEnemyHP(EnemyState* pEnemy,TEXTUREID* pTextureIds)
 
 	MoveImage(enemyHPMoved, enemyHPMoved, enemyMoveX, 0);
 
-	DrawImage(enemyHPMoved, pTextureIds[ENEMY_HP_TEX]);
+	DrawImage(enemyHPMoved, pTextureIds[ENEMY_HP_TEX]);*/
 
 }

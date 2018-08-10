@@ -5,7 +5,7 @@
 #include"DX9Lib.h"
 #include"ControlWordListsAndTyping.h"
 
-void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, MagicKnightAction* magicKnightAction, WordCandidate* wordCandidates)
+void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, MagicKnightAction* magicKnightAction, WordCandidate* wordCandidates,int* wordNum)
 {
 	static KanaAlphabetTable kanaAlphabetTable[KATAKANA_MAX];
 	memset(kanaAlphabetTable,0, sizeof(KanaAlphabetTable)*KATAKANA_MAX);
@@ -338,14 +338,14 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 		updateWordList = false;
 	}
 
-	//何番目の単語か
-	static int wordNum = 0;
+	////何番目の単語か
+	//static int wordNum = 0;
 
 	//単語の文字の何番目まで打たれているか
 	int wordSpellPos = 0;
 
 	//どこから文字が入力できるかのチェック
-	wordSpellPos = strlen(&magicKnightAction->m_inputWords[wordNum].m_word[0]);
+	wordSpellPos = strlen(&magicKnightAction->m_inputWords[*wordNum].m_word[0]);
 
 	static unsigned char initDatas = 0xFF;
 	static unsigned char WordDataInitCheck = (0x01 << 0);
@@ -361,7 +361,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 	const int INPUT_CHAR_LIMIT = 5;
 
 	//入力文字数制限
-	for (int spellPos = 0; magicKnightAction->m_inputWords[wordNum].m_word[spellPos] != 0; spellPos++)
+	for (int spellPos = 0; magicKnightAction->m_inputWords[*wordNum].m_word[spellPos] != 0; spellPos++)
 	{
 		if (spellPos > WORD_CHAR_MAX/2)
 		{
@@ -383,7 +383,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 					break;
 				}
 
-				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'a';
+				magicKnightAction->m_inputWords[*wordNum].m_word[wordSpellPos] = 'a';
 
 				wordSpellPos++;
 
@@ -397,7 +397,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 					break;
 				}
 
-				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'b';
+				magicKnightAction->m_inputWords[*wordNum].m_word[wordSpellPos] = 'b';
 
 				wordSpellPos++;
 
@@ -411,7 +411,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 					break;
 				}
 
-				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'c';
+				magicKnightAction->m_inputWords[*wordNum].m_word[wordSpellPos] = 'c';
 
 				wordSpellPos++;
 
@@ -426,7 +426,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 					break;
 				}
 
-				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'd';
+				magicKnightAction->m_inputWords[*wordNum].m_word[wordSpellPos] = 'd';
 
 				wordSpellPos++;
 
@@ -440,7 +440,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 					break;
 				}
 
-				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'e';
+				magicKnightAction->m_inputWords[*wordNum].m_word[wordSpellPos] = 'e';
 
 				wordSpellPos++;
 
@@ -454,7 +454,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 					break;
 				}
 
-				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'f';
+				magicKnightAction->m_inputWords[*wordNum].m_word[wordSpellPos] = 'f';
 
 				wordSpellPos++;
 
@@ -468,7 +468,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 					break;
 				}
 
-				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'g';
+				magicKnightAction->m_inputWords[*wordNum].m_word[wordSpellPos] = 'g';
 
 				wordSpellPos++;
 
@@ -482,7 +482,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 					break;
 				}
 
-				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'h';
+				magicKnightAction->m_inputWords[*wordNum].m_word[wordSpellPos] = 'h';
 
 				wordSpellPos++;
 
@@ -496,7 +496,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 					break;
 				}
 
-				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'i';
+				magicKnightAction->m_inputWords[*wordNum].m_word[wordSpellPos] = 'i';
 
 				wordSpellPos++;
 
@@ -510,7 +510,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 					break;
 				}
 
-				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'j';
+				magicKnightAction->m_inputWords[*wordNum].m_word[wordSpellPos] = 'j';
 
 				wordSpellPos++;
 
@@ -524,7 +524,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 					break;
 				}
 
-				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'k';
+				magicKnightAction->m_inputWords[*wordNum].m_word[wordSpellPos] = 'k';
 
 				wordSpellPos++;
 
@@ -538,7 +538,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 					break;
 				}
 
-				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'l';
+				magicKnightAction->m_inputWords[*wordNum].m_word[wordSpellPos] = 'l';
 
 				wordSpellPos++;
 
@@ -552,7 +552,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 					break;
 				}
 
-				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'm';
+				magicKnightAction->m_inputWords[*wordNum].m_word[wordSpellPos] = 'm';
 
 				wordSpellPos++;
 
@@ -566,7 +566,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 					break;
 				}
 
-				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'n';
+				magicKnightAction->m_inputWords[*wordNum].m_word[wordSpellPos] = 'n';
 
 				wordSpellPos++;
 
@@ -580,7 +580,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 					break;
 				}
 
-				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'o';
+				magicKnightAction->m_inputWords[*wordNum].m_word[wordSpellPos] = 'o';
 
 				wordSpellPos++;
 
@@ -594,7 +594,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 					break;
 				}
 
-				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'p';
+				magicKnightAction->m_inputWords[*wordNum].m_word[wordSpellPos] = 'p';
 
 				wordSpellPos++;
 
@@ -608,7 +608,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 					break;
 				}
 
-				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'q';
+				magicKnightAction->m_inputWords[*wordNum].m_word[wordSpellPos] = 'q';
 
 				wordSpellPos++;
 
@@ -622,7 +622,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 					break;
 				}
 
-				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'r';
+				magicKnightAction->m_inputWords[*wordNum].m_word[wordSpellPos] = 'r';
 
 				wordSpellPos++;
 
@@ -636,7 +636,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 					break;
 				}
 
-				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 's';
+				magicKnightAction->m_inputWords[*wordNum].m_word[wordSpellPos] = 's';
 
 				wordSpellPos++;
 
@@ -650,7 +650,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 					break;
 				}
 
-				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 't';
+				magicKnightAction->m_inputWords[*wordNum].m_word[wordSpellPos] = 't';
 
 				wordSpellPos++;
 
@@ -664,7 +664,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 					break;
 				}
 
-				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'u';
+				magicKnightAction->m_inputWords[*wordNum].m_word[wordSpellPos] = 'u';
 
 				wordSpellPos++;
 
@@ -678,7 +678,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 					break;
 				}
 
-				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'v';
+				magicKnightAction->m_inputWords[*wordNum].m_word[wordSpellPos] = 'v';
 
 				wordSpellPos++;
 
@@ -692,7 +692,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 					break;
 				}
 
-				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'w';
+				magicKnightAction->m_inputWords[*wordNum].m_word[wordSpellPos] = 'w';
 
 				wordSpellPos++;
 
@@ -706,7 +706,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 					break;
 				}
 
-				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'x';
+				magicKnightAction->m_inputWords[*wordNum].m_word[wordSpellPos] = 'x';
 
 				wordSpellPos++;
 
@@ -720,7 +720,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 					break;
 				}
 
-				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'y';
+				magicKnightAction->m_inputWords[*wordNum].m_word[wordSpellPos] = 'y';
 
 				wordSpellPos++;
 
@@ -734,7 +734,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 					break;
 				}
 
-				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = 'z';
+				magicKnightAction->m_inputWords[*wordNum].m_word[wordSpellPos] = 'z';
 
 				wordSpellPos++;
 
@@ -748,7 +748,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 					break;
 				}
 
-				magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos] = '-';
+				magicKnightAction->m_inputWords[*wordNum].m_word[wordSpellPos] = '-';
 
 				wordSpellPos++;
 
@@ -759,19 +759,19 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 				if (wordSpellPos > 0)
 				{
 					//ここで二バイト文字の場合一文字だけ消しても意味ない関数があったからそれを使う_ismbblead　１バイト目　_ismbbtrail 2ばいとめ
-					if (magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos - 2] == -125 ||
-						!strncmp(&magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos - 2], "ー", MULTI_BYTE) &&
+					if (magicKnightAction->m_inputWords[*wordNum].m_word[wordSpellPos - 2] == -125 ||
+						!strncmp(&magicKnightAction->m_inputWords[*wordNum].m_word[wordSpellPos - 2], "ー", MULTI_BYTE) &&
 						wordSpellPos > 1)
 					{
-						magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos - 1] = NULL;
-						magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos - 2] = NULL;
+						magicKnightAction->m_inputWords[*wordNum].m_word[wordSpellPos - 1] = NULL;
+						magicKnightAction->m_inputWords[*wordNum].m_word[wordSpellPos - 2] = NULL;
 
 						wordSpellPos -= MULTI_BYTE;
 					}
 
 					else
 					{
-						magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos - 1] = NULL;
+						magicKnightAction->m_inputWords[*wordNum].m_word[wordSpellPos - 1] = NULL;
 
 						wordSpellPos--;
 					}
@@ -793,19 +793,19 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 			if (wordSpellPos > 0)
 			{
 				//ここで二バイト文字の場合一文字だけ消しても意味ない関数があったからそれを使う_ismbblead　１バイト目　_ismbbtrail 2ばいとめ
-				if (magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos - 2] == -125 ||
-					!strncmp(&magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos - 2], "ー", MULTI_BYTE) &&
+				if (magicKnightAction->m_inputWords[*wordNum].m_word[wordSpellPos - 2] == -125 ||
+					!strncmp(&magicKnightAction->m_inputWords[*wordNum].m_word[wordSpellPos - 2], "ー", MULTI_BYTE) &&
 					wordSpellPos > 1)
 				{
-					magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos - 1] = NULL;
-					magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos - 2] = NULL;
+					magicKnightAction->m_inputWords[*wordNum].m_word[wordSpellPos - 1] = NULL;
+					magicKnightAction->m_inputWords[*wordNum].m_word[wordSpellPos - 2] = NULL;
 
 					wordSpellPos -= MULTI_BYTE;
 				}
 
 				else
 				{
-					magicKnightAction->m_inputWords[wordNum].m_word[wordSpellPos - 1] = NULL;
+					magicKnightAction->m_inputWords[*wordNum].m_word[wordSpellPos - 1] = NULL;
 
 					wordSpellPos--;
 				}
@@ -819,10 +819,10 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 	//日本語文字の数数える
 	for (int charNumber = WORD_CHAR_MAX-1; charNumber>=0; --charNumber)
 	{
-		/*if ((magicKnightAction->m_inputWords[wordNum].m_word[charNum - 1] == -125 ||
-			magicKnightAction->m_inputWords[wordNum].m_word[charNum - 1] == -127) &&
-			(magicKnightAction->m_inputWords[wordNum].m_word[charNum - 2] == -125 ||
-				magicKnightAction->m_inputWords[wordNum].m_word[charNum - 2] == -127)
+		/*if ((magicKnightAction->m_inputWords[*wordNum].m_word[charNum - 1] == -125 ||
+			magicKnightAction->m_inputWords[*wordNum].m_word[charNum - 1] == -127) &&
+			(magicKnightAction->m_inputWords[*wordNum].m_word[charNum - 2] == -125 ||
+				magicKnightAction->m_inputWords[*wordNum].m_word[charNum - 2] == -127)
 			&& charNumber > 1)
 		{
 			break;
@@ -830,12 +830,12 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 		//メの対処
 
 		//ャの対処
-		if (magicKnightAction->m_inputWords[wordNum].m_word[charNumber - 2] == -125 &&
-			magicKnightAction->m_inputWords[wordNum].m_word[charNumber - 3] == -125 &&
+		if (magicKnightAction->m_inputWords[*wordNum].m_word[charNumber - 2] == -125 &&
+			magicKnightAction->m_inputWords[*wordNum].m_word[charNumber - 3] == -125 &&
 			charNumber > 2)
 		{
 			//ャが二連続
-			if (magicKnightAction->m_inputWords[wordNum].m_word[charNumber - 1] == -125 && charNumber > 0)
+			if (magicKnightAction->m_inputWords[*wordNum].m_word[charNumber - 1] == -125 && charNumber > 0)
 			{
 				charNum = charNumber;
 
@@ -849,8 +849,8 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 		}
 
 		//アルファベットの場合
-		if (magicKnightAction->m_inputWords[wordNum].m_word[charNumber - 2] == -125 ||
-			!strncmp(&magicKnightAction->m_inputWords[wordNum].m_word[charNumber - 2], "ー", MULTI_BYTE) &&
+		if (magicKnightAction->m_inputWords[*wordNum].m_word[charNumber - 2] == -125 ||
+			!strncmp(&magicKnightAction->m_inputWords[*wordNum].m_word[charNumber - 2], "ー", MULTI_BYTE) &&
 			charNumber > 1)
 		{
 			charNum = charNumber;
@@ -862,26 +862,26 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 	//タイピングした文字をカタカナに変換する
 	//NULLということはそれ以上アルファベットが打たれていないということ
 	//文字列の要素を回す
-	for (;(magicKnightAction->m_inputWords[wordNum].m_word[charNum]) != 0;++charNum)
+	for (;(magicKnightAction->m_inputWords[*wordNum].m_word[charNum]) != 0;++charNum)
 	{
 		//カタカナに変換されたか
 		bool changedKana = false;
 
 		//アルファベットじゃない場合アウト
-		if ((magicKnightAction->m_inputWords[wordNum].m_word[charNum] < 'a') &&
-			('z' < magicKnightAction->m_inputWords[wordNum].m_word[charNum]))
+		if ((magicKnightAction->m_inputWords[*wordNum].m_word[charNum] < 'a') &&
+			('z' < magicKnightAction->m_inputWords[*wordNum].m_word[charNum]))
 		{
 			continue;
 		}
 
 		//ャの対処
-		if (!(magicKnightAction->m_inputWords[wordNum].m_word[charNum - 1] == -125&&
-			magicKnightAction->m_inputWords[wordNum].m_word[charNum - 2] == -125) 
+		if (!(magicKnightAction->m_inputWords[*wordNum].m_word[charNum - 1] == -125&&
+			magicKnightAction->m_inputWords[*wordNum].m_word[charNum - 2] == -125) 
 			&& charNum > 1)
 		{
 			//カタカナならアウト
-			if ((magicKnightAction->m_inputWords[wordNum].m_word[charNum - 1] == -125 ||
-				!strncmp(&magicKnightAction->m_inputWords[wordNum].m_word[charNum - 1], "ー", MULTI_BYTE))
+			if ((magicKnightAction->m_inputWords[*wordNum].m_word[charNum - 1] == -125 ||
+				!strncmp(&magicKnightAction->m_inputWords[*wordNum].m_word[charNum - 1], "ー", MULTI_BYTE))
 				&& charNum > 0)
 			{
 				continue;
@@ -901,7 +901,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 				}
 
 				//打たれた文字とテーブルにある文字が対応していないかチェック
-				if (strncmp(&magicKnightAction->m_inputWords[wordNum].m_word[charNum],
+				if (strncmp(&magicKnightAction->m_inputWords[*wordNum].m_word[charNum],
 					&kanaAlphabetTable[kana].m_alphabet[alphabet].m_alphabet[0],
 					strlen(&kanaAlphabetTable[kana].m_alphabet[alphabet].m_alphabet[0])))
 				{
@@ -920,12 +920,12 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 				for (int charShiftTarget = WORD_CHAR_MAX - 1; 
 					charShiftTarget >= charNum-1 + alphabetSize+ charShiftNum; --charShiftTarget)
 				{
-					magicKnightAction->m_inputWords[wordNum].m_word[charShiftTarget] = 
-						magicKnightAction->m_inputWords[wordNum].m_word[charShiftTarget- charShiftNum];
+					magicKnightAction->m_inputWords[*wordNum].m_word[charShiftTarget] = 
+						magicKnightAction->m_inputWords[*wordNum].m_word[charShiftTarget- charShiftNum];
 				}
 
 				//カナに変換
-				strncpy(&magicKnightAction->m_inputWords[wordNum].m_word[charNum],
+				strncpy(&magicKnightAction->m_inputWords[*wordNum].m_word[charNum],
 					&kanaAlphabetTable[kana].m_katakana[0], strlen(&kanaAlphabetTable[kana].m_katakana[0]));
 
 				charNum += kanaSize-1;
@@ -946,17 +946,17 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 			}
 
 			//nnとなっていた場合ンに置換
-			if(magicKnightAction->m_inputWords[wordNum].m_word[charNum]=='n'&&
-				magicKnightAction->m_inputWords[wordNum].m_word[charNum + 1] == 'n')
+			if(magicKnightAction->m_inputWords[*wordNum].m_word[charNum]=='n'&&
+				magicKnightAction->m_inputWords[*wordNum].m_word[charNum + 1] == 'n')
 			{
-				strncpy(&magicKnightAction->m_inputWords[wordNum].m_word[charNum], "ン", MULTI_BYTE);
+				strncpy(&magicKnightAction->m_inputWords[*wordNum].m_word[charNum], "ン", MULTI_BYTE);
 
 				break;
 			}
 
 			//同じアルファベットが並んだ場合"ッ"を入れる 直前の処理で母音とンはすべてカタカナに変換されているので考慮せずとも良い
-			if (strncmp(&magicKnightAction->m_inputWords[wordNum].m_word[charNum],
-				&magicKnightAction->m_inputWords[wordNum].m_word[charNum + 1], sizeof(char)))
+			if (strncmp(&magicKnightAction->m_inputWords[*wordNum].m_word[charNum],
+				&magicKnightAction->m_inputWords[*wordNum].m_word[charNum + 1], sizeof(char)))
 			{
 				continue;
 			}
@@ -968,15 +968,15 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 			for (int charShiftTarget = WORD_CHAR_MAX - 1; 
 				charShiftTarget >= charNum + (MULTI_BYTE+ (int)sizeof(char))+ ONE_SHIFT; --charShiftTarget)
 			{
-				magicKnightAction->m_inputWords[wordNum].m_word[charShiftTarget] =
-					magicKnightAction->m_inputWords[wordNum].m_word[charShiftTarget - ONE_SHIFT];
+				magicKnightAction->m_inputWords[*wordNum].m_word[charShiftTarget] =
+					magicKnightAction->m_inputWords[*wordNum].m_word[charShiftTarget - ONE_SHIFT];
 			}
 
 			//文字を入れる
-			strncpy(&magicKnightAction->m_inputWords[wordNum].m_word[charNum + MULTI_BYTE],
-				&magicKnightAction->m_inputWords[wordNum].m_word[charNum], sizeof(char));
+			strncpy(&magicKnightAction->m_inputWords[*wordNum].m_word[charNum + MULTI_BYTE],
+				&magicKnightAction->m_inputWords[*wordNum].m_word[charNum], sizeof(char));
 
-			strncpy(&magicKnightAction->m_inputWords[wordNum].m_word[charNum],"ッ", MULTI_BYTE);
+			strncpy(&magicKnightAction->m_inputWords[*wordNum].m_word[charNum],"ッ", MULTI_BYTE);
 
 			charNum += MULTI_BYTE - 1;
 
@@ -989,7 +989,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//strcpy(magicKnightAction->m_inputWords[wordNum].m_word, "s");
+	//strcpy(magicKnightAction->m_inputWords[*wordNum].m_word, "s");
 
 	static unsigned char wordCandidateInitCheck = (0x01 << 1);
 
@@ -1001,7 +1001,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 	}
 
 	//文字が入力されていない場合抜ける
-	if (!magicKnightAction->m_inputWords[wordNum].m_word[0])
+	if (!magicKnightAction->m_inputWords[*wordNum].m_word[0])
 	{
 		goto cantEstimated;
 	}
@@ -1015,8 +1015,8 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 
 		while (wordCandidatePos < WORD_CHAR_MAX)
 		{
-			if (!(magicKnightAction->m_inputWords[wordNum].m_word[wordCandidatePos] == -125 ||
-				!strncmp(&magicKnightAction->m_inputWords[wordNum].m_word[wordCandidatePos], "ー", MULTI_BYTE)))
+			if (!(magicKnightAction->m_inputWords[*wordNum].m_word[wordCandidatePos] == -125 ||
+				!strncmp(&magicKnightAction->m_inputWords[*wordNum].m_word[wordCandidatePos], "ー", MULTI_BYTE)))
 			{
 				break;
 			}
@@ -1029,13 +1029,13 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 		{
 			for (int charNum = wordCandidatePos; charNum < WORD_CHAR_MAX; ++charNum)
 			{
-				if (magicKnightAction->m_inputWords[wordNum].m_word[charNum] == 0)
+				if (magicKnightAction->m_inputWords[*wordNum].m_word[charNum] == 0)
 				{
 					break;
 				}
 
-			if (magicKnightAction->m_inputWords[wordNum].m_word[charNum] == -125 ||
-					!strncmp(&magicKnightAction->m_inputWords[wordNum].m_word[charNum], "ー", MULTI_BYTE))
+			if (magicKnightAction->m_inputWords[*wordNum].m_word[charNum] == -125 ||
+					!strncmp(&magicKnightAction->m_inputWords[*wordNum].m_word[charNum], "ー", MULTI_BYTE))
 				{
 					goto cantEstimated;
 				}
@@ -1060,12 +1060,12 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 		if (wordCandidatePos)
 		{
 			//カナの部分でリストにあるかチェック
-			if (!strncmp(&magicKnightAction->m_inputWords[wordNum].m_word[0],
+			if (!strncmp(&magicKnightAction->m_inputWords[*wordNum].m_word[0],
 				&magicKnigtWords[magicKnightWordLists[listWordNum].m_Id].m_word[0], wordCandidatePos))
 			{
 				//チェックをして単語リストにあった場合カナの部分をルビにコピー
 				strncpy(&wordCandidates[listWordNum].m_ruby[0],
-					&magicKnightAction->m_inputWords[wordNum].m_word[0], wordCandidatePos);
+					&magicKnightAction->m_inputWords[*wordNum].m_word[0], wordCandidatePos);
 
 				goto copiedWord;
 			}
@@ -1099,15 +1099,15 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 
 			//カナ以外の文字が打たれているか判別
 			//打たれている場合
-			if (strlen(&magicKnightAction->m_inputWords[wordNum].m_word[wordCandidatePos]) && !changedAlphabetToKana&&!changedToKanafirst)
+			if (strlen(&magicKnightAction->m_inputWords[*wordNum].m_word[wordCandidatePos]) && !changedAlphabetToKana&&!changedToKanafirst)
 			{
 				//ッの場合
 				if (!strncmp(&magicKnigtWords[magicKnightWordLists[listWordNum].m_Id].m_word[kanaPos], "ッ", MULTI_BYTE) &&
-					(magicKnightAction->m_inputWords[wordNum].m_word[wordCandidatePos] != 'x' ||
-						magicKnightAction->m_inputWords[wordNum].m_word[wordCandidatePos] != 'l'))
+					(magicKnightAction->m_inputWords[*wordNum].m_word[wordCandidatePos] != 'x' ||
+						magicKnightAction->m_inputWords[*wordNum].m_word[wordCandidatePos] != 'l'))
 				{
 					//ッを構成する場合要素は一つだけ
-					if (!magicKnightAction->m_inputWords[wordNum].m_word[wordCandidatePos + 1])
+					if (!magicKnightAction->m_inputWords[*wordNum].m_word[wordCandidatePos + 1])
 					{
 						goto cantEstimated;
 					}
@@ -1130,7 +1130,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 								}
 
 								//アルファベットのチェック
-								if (strncmp(&magicKnightAction->m_inputWords[wordNum].m_word[wordCandidatePos],
+								if (strncmp(&magicKnightAction->m_inputWords[*wordNum].m_word[wordCandidatePos],
 									&kanaAlphabetTable[kataKana].m_alphabet[estimate].m_alphabet[0], sizeof(char)))
 								{
 									//直前の処理で調べたカナを構成しているアルファベットの一番目の文字
@@ -1170,9 +1170,9 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 
 							//入力した文字とアルファベットを比較して対応するカナを探す
 							//ずっと入らなかったらアウト
-							if (!strncmp(&magicKnightAction->m_inputWords[wordNum].m_word[wordCandidatePos],
+							if (!strncmp(&magicKnightAction->m_inputWords[*wordNum].m_word[wordCandidatePos],
 								&kanaAlphabetTable[kana].m_alphabet[estimate].m_alphabet[0],
-								strlen(&magicKnightAction->m_inputWords[wordNum].m_word[wordCandidatePos])))
+								strlen(&magicKnightAction->m_inputWords[*wordNum].m_word[wordCandidatePos])))
 							{
 								//対応していたカナがリストの単語のカナと一致するか調べる
 								if (!strncmp(&magicKnigtWords[magicKnightWordLists[listWordNum].m_Id].m_word[wordCandidatePos],
@@ -1217,9 +1217,9 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 							}
 
 							//入力した文字とアルファベットを比較して対応するアルファベットを探す
-							if (!strncmp(&magicKnightAction->m_inputWords[wordNum].m_word[wordCandidatePos],
+							if (!strncmp(&magicKnightAction->m_inputWords[*wordNum].m_word[wordCandidatePos],
 								&kanaAlphabetTable[kana].m_alphabet[estimate].m_alphabet[0],
-								strlen(&magicKnightAction->m_inputWords[wordNum].m_word[wordCandidatePos])))
+								strlen(&magicKnightAction->m_inputWords[*wordNum].m_word[wordCandidatePos])))
 							{
 								if (strncmp(&magicKnigtWords[magicKnightWordLists[listWordNum].m_Id].m_word[wordCandidatePos],
 									&kanaAlphabetTable[kana].m_katakana[0],
@@ -1335,9 +1335,9 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 
 	if(g_keyState.keyPush[DIK_RETURN])
 	{
-		if (wordNum < 4)
+		if ((*wordNum )< 4)
 		{
-			wordNum++;
+			(*wordNum)++;
 		}
 
 		else

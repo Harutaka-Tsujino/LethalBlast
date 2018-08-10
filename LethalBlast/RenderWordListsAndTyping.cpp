@@ -225,7 +225,7 @@ void WeaponMasterBackGround(CustomVertex* WordListsImage, TEXTUREID* textureIds)
 	}
 }
 
-void RenderMasicKnightWordLists(FONTID* fontIds, WordData* magicKnigtWords, WordList* magicKnightWordLists, MagicKnightAction* magicKnightAction, WordCandidate* wordCandidates)
+void RenderMasicKnightWordLists(FONTID* fontIds, WordData* magicKnigtWords, WordList* magicKnightWordLists, MagicKnightAction* magicKnightAction, WordCandidate* wordCandidates,int* wordNum)
 {
 	static bool isFirstFrame = true;
 	float typingPosY = 0.f;
@@ -239,27 +239,39 @@ void RenderMasicKnightWordLists(FONTID* fontIds, WordData* magicKnigtWords, Word
 		RoadTexture("Texture/Effect/Flame.png", &attackEffectIds[FLAME_EFF]);
 		RoadTexture("Texture/Effect/MultiSlash.png", &attackEffectIds[MULTI_SLASH_EFF]);
 		RoadTexture("Texture/Effect/NeedleBomb.png", &attackEffectIds[NEEDLE_BOMB_EFF]);
-		RoadTexture("Texture/Effect/ShadowBall.png", &attackEffectIds[SHADOW_BALL_EFF]);
+		RoadTexture("Texture/Effect/ShadowBall2.png", &attackEffectIds[SHADOW_BALL_EFF]);
 		RoadTexture("Texture/Effect/Thrown.png", &attackEffectIds[THROWN_EFF]);
 		RoadTexture("Texture/Effect/Wind.png", &attackEffectIds[WIND_EFF]);
 
 		SetFont((int)20.f, (int)40.f, "MS ゴシック", &fontIds[TYPING_FONT], 0, SHIFTJIS_CHARSET);
-		SetFont((int)20.f, (int)40.f, "MS ゴシック", &fontIds[RUBY_FONT], 0, SHIFTJIS_CHARSET);
+		SetFont((int)10.f, (int)20.f, "MS ゴシック", &fontIds[RUBY_FONT], 0, SHIFTJIS_CHARSET);
 
 		isFirstFrame = false;
 	}
 
 	for (int cnt = 0;cnt < 5;cnt++)
 	{
-		typingPosY += 40;
-		WriteText(DISPLAY_WIDTH-200, (int)(DISPLAY_HEIGHT/15+ typingPosY), &magicKnigtWords[magicKnightWordLists[cnt].m_Id].m_word[0],
-			DT_LEFT, fontIds[TYPING_FONT],0xFF000000);
+		typingPosY += 25;
+		WriteText(DISPLAY_WIDTH-170, (int)(DISPLAY_HEIGHT/15+ typingPosY), &magicKnigtWords[magicKnightWordLists[cnt].m_Id].m_word[0],
+			DT_LEFT, fontIds[RUBY_FONT],0xFF000000);
 
 		rubyPosY += 40;
-		WriteText((int)(DISPLAY_WIDTH / 1.7), DISPLAY_HEIGHT / 2 + (int)rubyPosY, &wordCandidates[cnt].m_ruby[0],
-			DT_CENTER, fontIds[RUBY_FONT], 0xFF000000);
+		WriteText((int)(DISPLAY_WIDTH / 1.7), DISPLAY_HEIGHT / 3 + (int)rubyPosY, &wordCandidates[cnt].m_ruby[0],
+			DT_CENTER, fontIds[TYPING_FONT], 0xFF000000);
 
-		WriteText((int)(DISPLAY_WIDTH/1.7), DISPLAY_HEIGHT -150  + (int)rubyPosY, &magicKnightAction->m_inputWords[cnt].m_word[0],
+	}
+
+	for (int wordNumber = 0; wordNumber < MAGIC_KNIGHT_ACTION_WORDS_MAX; ++wordNumber)
+	{
+		if (wordNumber == (*wordNum))
+		{
+			WriteText((int)(DISPLAY_WIDTH / 1.7), DISPLAY_HEIGHT - 100, &magicKnightAction->m_inputWords[*wordNum].m_word[0],
+				DT_CENTER, fontIds[TYPING_FONT], 0xFF000000);
+
+			continue;
+		}
+
+		WriteText((int)(DISPLAY_WIDTH / 2)+ 150*wordNumber, DISPLAY_HEIGHT - 150, &magicKnightAction->m_inputWords[wordNumber].m_word[0],
 			DT_CENTER, fontIds[RUBY_FONT], 0xFF000000);
 	}
 

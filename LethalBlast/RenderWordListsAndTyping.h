@@ -48,6 +48,6 @@ void WeaponMasterBackGround(CustomVertex* WordListsImage, TEXTUREID* textureIds)
 *(引数4)MagicKnightAction* magicKnightAction	魔法剣士の必殺技情報
 *(引数5)WordCandidate* wordCandidates	ルビの情報
 */
-void RenderMasicKnightWordLists(FONTID* fontIds, WordData* magicKnigtWords, WordList* magicKnightWordLists, MagicKnightAction* magicKnightAction, WordCandidate* wordCandidates);
+void RenderMasicKnightWordLists(FONTID* fontIds, WordData* magicKnigtWords, WordList* magicKnightWordLists, MagicKnightAction* magicKnightAction, WordCandidate* wordCandidates,int* wordNum);
 
 void RenderEffect(WordData* magicKnigtWords, WordList* magicKnightWordLists, MagicKnightAction* magicKnightAction, TEXTUREID* effectTexId);

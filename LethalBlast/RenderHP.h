@@ -8,11 +8,11 @@ enum TEX
 	TEX_MAX
 };
 
-enum FONT
-{
-	HP_FONT,
-	FONT_MAX
-};
+//enum FONT
+//{
+//	HP_FONT,
+//	FONT_MAX
+//};
 
 void RenderHP(PlayerState* pPlayer, EnemyState* pEnemy);
 void RenderPlayerHP(PlayerState* pPlayer, TEXTUREID* pTextureIds);
