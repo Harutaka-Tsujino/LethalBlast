@@ -1,13 +1,5 @@
 #pragma once
-
-////ƒvƒŒƒCƒ„[‚Ìí—Ş
-//enum PLAYER_TYPE
-//{
-//	MAGIC_KNIGHT,
-//	WEAPON_MASTER,
-//	SUMMONER,
-//	PLAYER_TYPE_MAX,
-//};
+#include"ControlWordListsAndTyping.h"
 
 //“G‚Ìí—Ş
 enum ENEMY_TYPE
@@ -21,7 +13,7 @@ enum ENEMY_TYPE
 typedef struct
 {
 	int m_HP;
-	int m_maxHP;
+	float m_maxHP;
 	const char* m_name;
 	int m_weekPoint;
 }PlayerState;
@@ -32,7 +24,7 @@ typedef struct
 {
 	const char* m_name;
 	int m_HP;
-	int m_maxHP;
+	float m_maxHP;
 	int m_weakElement;
 	int m_weakPhysicalAttak;
 }EnemyState;
@@ -40,4 +32,4 @@ typedef struct
 //HP‰Šú‰»ŠÖ”
 void InitHP(PlayerState* pPlayer, EnemyState *pEnemy, int* pPlayerType, int* pEnemyType);
 //HP‘€ìŠÖ”
-void ControlHP(PlayerState* pPlayer, EnemyState* pEnemy, int* pDamage, int* pPlayerType, int* pEnemyType, bool* initHPFlag);
+void ControlHP(PlayerState* pPlayer, EnemyState* pEnemy, int* pPlayerATKDamage, int* pPlayerType, int* pEnemyType, bool* pInitHPFlag,int* pCount,int* pCTCount, MagicKnightAction* pMagicKnightAction);

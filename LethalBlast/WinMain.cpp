@@ -25,8 +25,7 @@ void MainFunction(void)
 {
 	srand((unsigned int)time(NULL));
 
-	static int cursol = 1;
-	static int playerType = WEAPON_MASTER;
+	static int cursol = 1;  
 
 	static SCENE scene = (SCENE)0;
 
@@ -39,10 +38,13 @@ void MainFunction(void)
 	static WordCandidate wordCandidates[5];
 	static PlayerState player[JOB_MAX];
 	static EnemyState enemy[ENEMY_TYPE_MAX];
-	static int playerType = MAGIC_KNIGHT;
+	static int playerType;
+	int playerATKDamage = 0;
 	static int enemyType = BOSS;
 	static bool initHPFlag = true;
-	static int damage = 100;
+	static int count = 0;
+	static int CTCount = 0;
+
 
 	//シーン分岐
 	switch (scene)
@@ -74,8 +76,8 @@ void MainFunction(void)
 		RenderGame(&scene);
 		ControlTyping(magicKnigtWords, magicKnightWordLists, &magicKnightAction, wordCandidates);
 		RenderMasicKnightWordLists(fontIds, magicKnigtWords, magicKnightWordLists, &magicKnightAction, wordCandidates);
-		ControlHP(player, enemy, &damage, &playerType, &enemyType, &initHPFlag);
-		RenderHP(player, enemy);
+		ControlHP(player, enemy, &playerATKDamage, &playerType, &enemyType, &initHPFlag,&count,&CTCount, &magicKnightAction);
+		RenderHP(player, enemy,&count,&CTCount, playerType, &enemyType);
 		break;
 	}
 

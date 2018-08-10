@@ -1,5 +1,6 @@
 #include "ControlHP.h"
 #include "WinMain.h"
+#include"ControlWordListsAndTyping.h"
 
 void InitHP(PlayerState* pPlayer, EnemyState *pEnemy,int* pPlayerType,int* pEnemyType)
 {
@@ -28,40 +29,58 @@ void InitHP(PlayerState* pPlayer, EnemyState *pEnemy,int* pPlayerType,int* pEnem
 	}
 	else if (*pEnemyType == BOSS)	//ボスモンスターの時
 	{
-		pEnemy[BOSS].m_maxHP = 1000;
-		pEnemy[BOSS].m_HP = 1000;		
+		pEnemy[BOSS].m_maxHP = 100000;
+		pEnemy[BOSS].m_HP = 100000;		
 	}
 }
 
-
-void ControlHP(PlayerState* pPlayer, EnemyState* pEnemy, int* pDamage,int* pPlayerType,int* pEnemyType, bool* initHPFlag)
+void ControlHP(PlayerState* pPlayer, EnemyState* pEnemy, int* pPlayerATKDamage,int* pPlayerType,int* pEnemyType, bool* pInitHPFlag, int* pCount,int* pCTCount,  MagicKnightAction* pMagicKnightAction)
 {
-	static int count = 0;
-	static int CTCount = 0;
 
 	//最初だけ初期化
-	if (*initHPFlag ==true)
+	if (*pInitHPFlag ==true)
 	{
 		InitHP(pPlayer, pEnemy, pPlayerType, pEnemyType);
-		*initHPFlag = false;
+		*pInitHPFlag = false;
 	}
 
-		
+	//プレイヤーHP減少
+
 	//CTが溜まると必殺技を撃つ
-	if (CTCount = 5)
+	if (*pCTCount == 3)
 	{
-		pPlayer[*pPlayerType].m_HP -= 100;
+		pPlayer[*pPlayerType].m_HP -= 50;
+		(*pCTCount) = 0;
 	}
 
 	//3秒に1回ダメージ
-	if (count >= 180)
+	if (*pCount >= 180)
 	{
-		pPlayer[*pPlayerType].m_HP -= 100;
-		count = 0;
-		CTCount++;
+		pPlayer[*pPlayerType].m_HP -= 20;
+		(*pCount) = 0;
+		(*pCTCount)++;
 	}
 
-	count ++;
+	(*pCount)++;
+
+	//プレイヤーの攻撃ダメージ計算
 	
-	pEnemy[*pEnemyType].m_HP -= *pDamage;
+	(*pPlayerATKDamage) = 0;
+
+	int wordCount = 0;
+
+	for (int i = 0; i < 5; i++)
+	{
+		if (pMagicKnightAction->m_componentWordIds[i] != 0)
+		{
+			wordCount++;
+		}
+	}
+
+	(*pPlayerATKDamage) = wordCount * 100;
+
+	if(pEnemy[*pEnemyType].m_HP != 0)
+	{ 
+		pEnemy[*pEnemyType].m_HP -= *pPlayerATKDamage;
+	}
 }
