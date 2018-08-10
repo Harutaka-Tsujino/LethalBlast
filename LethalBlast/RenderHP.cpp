@@ -37,7 +37,7 @@ void RenderHP(PlayerState* pPlayer, EnemyState* pEnemy, int* pCount, int* pCTCou
 	RenderEnemyATKGauge(&textureIds[ENEMY_ATK_TEX], pCount);
 
 	RenderEnemyCTGauge(&textureIds[ENEMY_CT_TEX], pCTCount);
-#ifdef _DEBUG
+
 	sprintf_s(test, 64, "%d", pEnemy[*pEnemyType].m_HP);
 	WriteText(300, 300, test, DT_CENTER, fontIds[testFONT], 0xffff0000);
 
