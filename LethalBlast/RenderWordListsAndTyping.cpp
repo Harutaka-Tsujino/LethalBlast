@@ -273,7 +273,7 @@ void RenderMasicKnightWordLists(FONTID* fontIds, WordData* magicKnigtWords, Word
 
 		rubyPosY += 40;
 		WriteText((int)(DISPLAY_WIDTH / 1.4), (int)(DISPLAY_HEIGHT / 2.3 + rubyPosY), &wordCandidates[cnt].m_ruby[0],
-			DT_CENTER, fontIds[TYPING_FONT], 0xFFffffe0);
+			DT_CENTER, fontIds[TYPING_FONT], 0xFFb22222);
 	}
 
 	for (int wordNumber = 0; wordNumber < MAGIC_KNIGHT_ACTION_WORDS_MAX; ++wordNumber)
@@ -281,13 +281,13 @@ void RenderMasicKnightWordLists(FONTID* fontIds, WordData* magicKnigtWords, Word
 		if (wordNumber == (*wordNum))
 		{
 			WriteText((int)(DISPLAY_WIDTH / 1.4), DISPLAY_HEIGHT - 100, &magicKnightAction->m_inputWords[*wordNum].m_word[0],
-				DT_CENTER, fontIds[TYPING_FONT], 0xFFffd700);
+				DT_CENTER, fontIds[TYPING_FONT], 0xFFdc143c);
 
 			continue;
 		}
 
 		WriteText((int)(DISPLAY_WIDTH / 2)+ 150*wordNumber, DISPLAY_HEIGHT - 150, &magicKnightAction->m_inputWords[wordNumber].m_word[0],
-			DT_CENTER, fontIds[RUBY_FONT], 0xFFf08080);
+			DT_CENTER, fontIds[RUBY_FONT], 0xFFdc143c);
 	}
 
 	RenderEffect(magicKnigtWords, magicKnightWordLists, magicKnightAction, attackEffectIds, endAttackEffect);

@@ -21,6 +21,7 @@ void RenderCharaChoiceInit(TEXTUREID* textureIds, FONTID* fontIds)
 		RoadTexture("Texture/CharaChoice/cursol.png", &textureIds[CHARA_CHOICE_CURSOL]);
 		RoadTexture("Texture/CharaChoice/NecromancerAndSummonur.png", &textureIds[CHARA_CHOICE_NECROMANCER_AND_SUMMONER]);
 		RoadTexture("Texture/CharaChoice/MagicKnight.png", &textureIds[CHARA_CHOICE_MAGIC_KNIGHT]);
+		RoadTexture("Texture/CharaChoice/WaeponMaster.png", &textureIds[CHARA_CHOICE_WEAPON_MASTER]);
 
 		SetFont(18, 28, "MS ゴシック", fontIds, 10);
 
