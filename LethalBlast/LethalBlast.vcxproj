@@ -126,6 +126,7 @@
     <ClCompile Include="ControlCharaChoicecpp.cpp" />
     <ClCompile Include="ControlGame.cpp" />
     <ClCompile Include="ControlHP.cpp" />
+    <ClCompile Include="ControlMagicKnigtMainGame.cpp" />
     <ClCompile Include="ControlPV.cpp" />
     <ClCompile Include="ControlTitle.cpp" />
     <ClCompile Include="ControlWeaponMasterAction.cpp" />
@@ -143,6 +144,7 @@
     <ClInclude Include="ControlCharaChoice.h" />
     <ClInclude Include="ControlGame.h" />
     <ClInclude Include="ControlHP.h" />
+    <ClInclude Include="ControlMagicKnightMainGame.h" />
     <ClInclude Include="ControlPV.h" />
     <ClInclude Include="ControlTitle.h" />
     <ClInclude Include="ControlWeaponMasterAction.h" />
