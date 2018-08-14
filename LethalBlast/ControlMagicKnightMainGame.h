@@ -16,10 +16,10 @@ typedef struct
 	//名前
 	char m_word[WORD_NAME_CHAR_MAX];
 
-	//特殊属性
+	//特殊属性の識別子
 	ELEMENT_ATTRIBUTE m_element;
 
-	//物理属性
+	//物理属性の識別子
 	ATTACK_ATTRIBUTE m_attack;
 
 	//特殊効果ビットフラグ
@@ -32,6 +32,9 @@ typedef struct
 //デッキに入れることができる単語の最大数
 #define DECK_WORD_MAX 40
 
+//デッキの保存できる最大数
+#define MAGIC_KNIGHT_DECKS_MAX 8
+
 //デッキのデータ
 typedef struct
 {
@@ -39,7 +42,7 @@ typedef struct
 	char m_name[DECK_NAME_CHAR_MAX];
 
 	//デッキを構成している単語の識別子
-	int m_wordIds[DECK_WORD_MAX];
+	MAGIC_KNIGHT_WORD m_wordIds[DECK_WORD_MAX];
 
 	//特殊属性別の合計数
 	int m_elementTotals[ELEMENT_ATTRIBUTES_MAX];
@@ -61,33 +64,39 @@ typedef struct
 typedef struct
 {
 	//現在のデッキの識別子
-	int currentId;
+	MAGIC_KNIGHT_WORD m_currentId;
 
 	//手札の単語の識別子
-	int handWordId[DECK_WORD_MAX];
+	MAGIC_KNIGHT_WORD m_handWordId[DECK_WORD_MAX];
 
 	//デッキにある単語の識別子
-	int deckWordId[HAND_WORD_MAX];
+	MAGIC_KNIGHT_WORD m_deckWordId[HAND_WORD_MAX];
 
 	//墓地にある単語の識別子
-	int discardWordId[DECK_WORD_MAX];
+	MAGIC_KNIGHT_WORD m_discardWordId[DECK_WORD_MAX];
 }MagicKnightPlayingDeck;
 
 //必殺技を構成する単語の最大数
 #define MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX 5
 
-//魔法剣士の必殺技のデータ
+//魔法剣士の必殺技のデータ　八原氏に渡す
 typedef struct
 {
 	//構成している単語の識別子
 	MAGIC_KNIGHT_WORD m_componentWordIds[MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX];
 
 	//特殊属性別の合計数
-	char m_elemetalTotals[ELEMENT_ATTRIBUTES_MAX];
+	char m_elementTotals[ELEMENT_ATTRIBUTES_MAX];
 
 	//物理属性別の合計数
-	char m_AttackTotals[ATTACK_ATTRIBUTES_MAX];
+	char m_attackTotals[ATTACK_ATTRIBUTES_MAX];
 
 	//特殊効果ビットフラグ
 	unsigned long m_specialAbilities;
+
+	//必殺技を放ったか
+	bool useAction;
 }MagicKnightAction;
+
+void ControlMagicKnightMainGame(WordData* pWordDatas, MagicKnightDeck* pMagicKnightDecks, MagicKnightPlayingDeck* pMagicKnightPlayingDeck, MagicKnightAction* pMagicKnightAction,
+	CustomVertex* pHandWordCollisionsVertex, CustomVertex* pMagicKnightActionCollisionsVertex);

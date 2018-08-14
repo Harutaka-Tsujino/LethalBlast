@@ -269,6 +269,7 @@ typedef struct
 //! マウスのカーソル位置ボタンの入力状態
 extern MouseState g_mouseState;
 
+#define RECT_VERTEX_NUM 4
 
 //startPosTuTv,scaleTuTvなどは画像の座標,scaleImageは画像のサイズ
 VOID CustomImageVerticies(CustomVertex *pCustomVertex, FLOAT posX, FLOAT posY, FLOAT scaleX, FLOAT scaleY,
