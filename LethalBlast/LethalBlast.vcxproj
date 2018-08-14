@@ -134,6 +134,7 @@
     <ClCompile Include="RenderCharaChoice.cpp" />
     <ClCompile Include="RenderGame.cpp" />
     <ClCompile Include="RenderHP.cpp" />
+    <ClCompile Include="RenderMagicKnigtMainGame.cpp" />
     <ClCompile Include="RenderPV.cpp" />
     <ClCompile Include="RenderTitle.cpp" />
     <ClCompile Include="RenderWeaponMasterAction.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="RenderCharaChoice.h" />
     <ClInclude Include="RenderGame.h" />
     <ClInclude Include="RenderHP.h" />
+    <ClInclude Include="RenderMagicKnigtMainGame.h" />
     <ClInclude Include="RenderPV.h" />
     <ClInclude Include="RenderTitle.h" />
     <ClInclude Include="RenderWeaponMasterAction.h" />
