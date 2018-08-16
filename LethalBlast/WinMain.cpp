@@ -14,6 +14,8 @@
 //#include"RenderWordListsAndTyping.h"
 //#include"ControlHP.h"
 //#include"RenderHP.h"
+#include"ControlDeckChoice.h"
+#include"RenderDeckChoice.h"
 #include"ControlMagicKnightMainGame.h"
 #include"RenderMagicKnigtMainGame.h"
 
@@ -58,6 +60,8 @@ void MainFunction(void)
 	ImagesCustomVertex handWordCollisionsVertex[HAND_WORD_MAX];
 	ImagesCustomVertex magicKnightActionCollisionsVertex[MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX];
 
+	ImagesCustomVertex choiseDeckCollisionsVertex[MAGIC_KNIGHT_DECKS_MAX];
+
 	//シーン分岐
 	switch (scene)
 	{
@@ -79,6 +83,26 @@ void MainFunction(void)
 
 		ControlCharaChoice(&scene,&cursol,&playerType);
 		RenderCharaChoice(&scene, &cursol);
+
+		break;
+
+	case HOME_SCENE:
+
+		break;
+
+	case ALTER_DECK_SCENE:
+
+		break;
+
+	case MODIFY_WORD_SCENE:
+
+		break;
+
+	case CHOSE_DECK_SCENE:
+
+		ControlChoiceDeck(choiseDeckCollisionsVertex, &magicKnightPlayingDeck);
+		RenderChoiceDeck(choiseDeckCollisionsVertex, magicKnightDecks);
+
 
 		break;
 

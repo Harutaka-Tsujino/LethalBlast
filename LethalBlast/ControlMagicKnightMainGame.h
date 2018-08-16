@@ -41,6 +41,9 @@ typedef struct
 //デッキの保存できる最大数
 #define MAGIC_KNIGHT_DECKS_MAX 8
 
+//修飾時の素材の数
+#define MATERIALS_NUM 2
+
 //デッキのデータ
 typedef struct
 {
@@ -56,6 +59,9 @@ typedef struct
 	//物理属性別の合計数
 	int m_attackTotals[ATTACK_ATTRIBUTES_MAX];
 
+	//修飾時の素材
+	int m_matterials[MATERIALS_NUM];
+
 	//構成する単語の数
 	int m_wordNum;
 
@@ -70,7 +76,7 @@ typedef struct
 typedef struct
 {
 	//現在のデッキの識別子
-	MAGIC_KNIGHT_WORD m_currentId;
+	int m_currentId;
 
 	//手札の単語の識別子
 	MAGIC_KNIGHT_WORD m_handWordId[DECK_WORD_MAX];

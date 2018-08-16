@@ -3,23 +3,6 @@
 #include"ControlCharaChoice.h"
 #include"ControlMagicKnightMainGame.h"
 
-void ControlChoiceDeck()
-{
-	static bool choseDeck = false;
-
-	if (!choseDeck)
-	{
-		/*デッキの選択用当たり判定の頂点設定 開始*/
-		CustomVertex pChoiseDeckCollisionsVertex[MAGIC_KNIGHT_DECKS_MAX*RECT_VERTEX_NUM];
-
-		/*デッキの選択用当たり判定の頂点設定 終了*/
-
-		return;
-	}
-
-	return; 
-}
-
 //static MagicKnightDeck magicKnightDecks[MAGIC_KNIGHT_DECKS_MAX];
 //static MagicKnightPlayingDeck magicKnightPlayingDeck;
 //static MagicKnightAction magicKnightAction;
@@ -63,7 +46,7 @@ void ControlMagicKnightMainGame(WordData* pMagicKnightWordDatas ,MagicKnightDeck
 		//デッキの中の単語識別子をシャッフルする
 		for (int deckWordNum = 0; deckWordNum < DECK_WORD_MAX; deckWordNum++)
 		{
-			int unshuffledDeckWordNum = 40;//pMagicKnightDecks[pMagicKnightPlayingDeck->m_currentId].m_wordNum - deckWordNum;
+			int unshuffledDeckWordNum = pMagicKnightDecks[pMagicKnightPlayingDeck->m_currentId].m_wordNum - deckWordNum;
 			int chosenNum = rand() % (unshuffledDeckWordNum);
 
 			pMagicKnightPlayingDeck->m_deckWordId[deckWordNum] = pWordShuffleBuf[chosenNum];

@@ -15,16 +15,28 @@
 //シーンに関する列挙体
 enum SCENE
 {
-	//PV
+	//PV画面
 	PV_SCENE,
 
-	//タイトル
+	//タイトル画面
 	TITLE_SCENE,
 
 	//キャラ選択画面
 	CHARA_CHOICE_SCENE,
 
-	//メインゲーム
+	//待機画面
+	HOME_SCENE,
+
+	//デッキの改造画面
+	ALTER_DECK_SCENE,
+
+	//単語修飾画面
+	MODIFY_WORD_SCENE,
+
+	//デッキ選択画面
+	CHOSE_DECK_SCENE,
+
+	//メインゲーム画面
 	GAME_SCENE,
 
 	//シーンの最大数
