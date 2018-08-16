@@ -1,11 +1,16 @@
 ﻿#pragma once
 
+#include"DX9Lib.h"
+
 #define PI 3.1415f
 #define MULTI_BYTE 2
 #define ALL_TEX_MAX 255
 #define ALL_FONT_MAX 255
 #define DEFAULT_COLOR 0xFFFFFFFF
 #define WEPON_MASTER_CHOICE_TEXT_WIDTH 212
+
+//初期化を行うときのフレームカウント
+#define INIT_FRAME -1
 
 //シーンに関する列挙体
 enum SCENE
@@ -93,6 +98,12 @@ enum MOUSE_STATE
 	//右クリック
 	RIGHT_CLICK
 };
+
+typedef struct
+{
+	CustomVertex ImageVertex[RECT_VERTEX_NUM];
+}ImagesCustomVertex;
+
 
 //シーンを操作する
 extern SCENE scene;

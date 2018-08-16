@@ -176,7 +176,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 	memset(magicKnigtWords, 0, sizeof(WordData)*MAGIC_KNIGHT_WORD_MAX);
 
 	//魔法剣士のワードデーターを入れていく
-	for (int wordsNum = ファイヤー; wordsNum < MAGIC_KNIGHT_WORD_MAX; ++wordsNum)
+	for (int wordsNum = ファイアー; wordsNum < MAGIC_KNIGHT_WORD_MAX; ++wordsNum)
 	{
 		//外部ファイルの属性を数字に直したいので一度文字列で保管する
 		const int ELEMENTAL_WORDS_MAX = 22;
@@ -192,7 +192,7 @@ void ControlTyping(WordData* magicKnigtWords, WordList* magicKnightWordLists, Ma
 			sizeof(char) * ELEMENTAL_WORDS_MAX, attack, sizeof(char)*ATTACK_WORDS_MAX, &magicKnigtWords[wordsNum].m_specialAbilities);
 
 		//￥ｎの対処
-		if (wordsNum > ファイヤー)
+		if (wordsNum > ファイアー)
 		{
 			strcpy(&magicKnigtWords[wordsNum].m_word[0], &magicKnigtWords[wordsNum].m_word[1]);
 		}

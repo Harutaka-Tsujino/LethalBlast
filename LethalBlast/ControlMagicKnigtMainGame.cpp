@@ -12,7 +12,6 @@ void ControlChoiceDeck()
 		/*デッキの選択用当たり判定の頂点設定 開始*/
 		CustomVertex pChoiseDeckCollisionsVertex[MAGIC_KNIGHT_DECKS_MAX*RECT_VERTEX_NUM];
 
-
 		/*デッキの選択用当たり判定の頂点設定 終了*/
 
 		return;
@@ -27,17 +26,20 @@ void ControlChoiceDeck()
 //CustomVertex handWordCollisionsVertex[HAND_WORD_MAX*RECT_VERTEX_NUM];
 //CustomVertex magicKnightActionCollisionsVertex[MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX*RECT_VERTEX_NUM];
 
-void ControlMagicKnightMainGame(WordData* pWordDatas ,MagicKnightDeck* pMagicKnightDecks, MagicKnightPlayingDeck* pMagicKnightPlayingDeck, MagicKnightAction* pMagicKnightAction,
-	CustomVertex* pHandWordCollisionsVertex,CustomVertex* pMagicKnightActionCollisionsVertex)
+void ControlMagicKnightMainGame(WordData* pMagicKnightWordDatas ,MagicKnightDeck* pMagicKnightDecks, 
+	MagicKnightPlayingDeck* pMagicKnightPlayingDeck, MagicKnightAction* pMagicKnightAction,
+	ImagesCustomVertex* pHandWordCollisionsVertex, ImagesCustomVertex* pMagicKnightActionCollisionsVertex)
 {
+	for (int magicKnightDeckWord = 0; magicKnightDeckWord < DECK_WORD_MAX; ++magicKnightDeckWord)
+	{
+		pMagicKnightPlayingDeck->m_deckWordId[magicKnightDeckWord] = ファイアー;///////////////////////////////////////////////////////////////////////////////////////
+	}
+
 	//必殺技を発動している
 	if (pMagicKnightAction->useAction)
 	{
 		return;
 	}
-
-	//初期化を行うときのフレームカウント
-	const int INIT_FRAME = -1;
 
 	//フレームのカウント
 	static int frameCount = INIT_FRAME;
@@ -46,7 +48,8 @@ void ControlMagicKnightMainGame(WordData* pWordDatas ,MagicKnightDeck* pMagicKni
 	if (frameCount == INIT_FRAME)
 	{
 		//構造体の初期化 全て0を代入する
-		memset(&pMagicKnightAction,0,sizeof(MagicKnightAction));
+		memset(pMagicKnightAction,0,sizeof(MagicKnightAction));
+		memset(pMagicKnightWordDatas, 0, sizeof(WordData));
 
 		/*プレイ開始時の手札やデッキなどの初期化 開始*/
 		MAGIC_KNIGHT_WORD* pWordShuffleBuf = (MAGIC_KNIGHT_WORD*)malloc(sizeof(MAGIC_KNIGHT_WORD)*pMagicKnightDecks[pMagicKnightPlayingDeck->m_currentId].m_wordNum);
@@ -60,7 +63,7 @@ void ControlMagicKnightMainGame(WordData* pWordDatas ,MagicKnightDeck* pMagicKni
 		//デッキの中の単語識別子をシャッフルする
 		for (int deckWordNum = 0; deckWordNum < DECK_WORD_MAX; deckWordNum++)
 		{
-			int unshuffledDeckWordNum = pMagicKnightDecks[pMagicKnightPlayingDeck->m_currentId].m_wordNum - deckWordNum;
+			int unshuffledDeckWordNum = 40;//pMagicKnightDecks[pMagicKnightPlayingDeck->m_currentId].m_wordNum - deckWordNum;
 			int chosenNum = rand() % (unshuffledDeckWordNum);
 
 			pMagicKnightPlayingDeck->m_deckWordId[deckWordNum] = pWordShuffleBuf[chosenNum];
@@ -95,27 +98,51 @@ void ControlMagicKnightMainGame(WordData* pWordDatas ,MagicKnightDeck* pMagicKni
 	CustomVertex mouseCursorCollisionVertex[RECT_VERTEX_NUM];
 
 	const float MOUSE_CURSOR_SCALE = 0.5f;
-	CustomImageVerticies(mouseCursorCollisionVertex,g_mouseState.absolutePos.x, g_mouseState.absolutePos.y, MOUSE_CURSOR_SCALE, MOUSE_CURSOR_SCALE);
+	CustomImageVerticies(mouseCursorCollisionVertex,(float)g_mouseState.absolutePos.x, (float)g_mouseState.absolutePos.y, MOUSE_CURSOR_SCALE, MOUSE_CURSOR_SCALE);
 
 	//手札
-	const int HAND_WORD_COLLISION_WIDTH = DISPLAY_WIDTH / 10;
-	const int HAND_WORD_COLLISION_HEIGHT = DISPLAY_HEIGHT / 20;
+	const float HAND_WORD_COLLISION_WIDTH = (float)(DISPLAY_WIDTH / 20);
+	const float HAND_WORD_COLLISION_HEIGHT = HAND_WORD_COLLISION_WIDTH / 2;
+	const float HAND_POS_Y = (float)(DISPLAY_HEIGHT / 2);
+	const float CIRCULATE_POS_X = DISPLAY_WIDTH * 1.3f;
+
+	/*手札のリストをずらす処理 開始*/
+	static int degree = 0;
+
+	if (g_keyState.keyHold[DIK_COMMA])
+	{
+		degree-=2;
+	}
+
+	if (g_keyState.keyHold[DIK_PERIOD])
+	{
+		degree+=2;
+	}
+
+	if (degree == 360 || degree == -360)
+	{
+		degree = 0;
+	}
 
 	for (int handWord = 0; handWord < HAND_WORD_MAX; ++handWord)
 	{
-		CustomImageVerticies(&pHandWordCollisionsVertex[handWord*RECT_VERTEX_NUM],
-			DISPLAY_WIDTH - HAND_WORD_COLLISION_WIDTH * (handWord % 2 + 1), HAND_WORD_COLLISION_HEIGHT*(handWord % 8), 
+		CustomImageVerticies(pHandWordCollisionsVertex[handWord].ImageVertex,
+			DISPLAY_WIDTH-200, HAND_POS_Y,
 			HAND_WORD_COLLISION_WIDTH, HAND_WORD_COLLISION_HEIGHT);
+
+		CirculateImageDeg(pHandWordCollisionsVertex[handWord].ImageVertex,
+			pHandWordCollisionsVertex[handWord].ImageVertex, (float)(((360 / HAND_WORD_MAX)*handWord)+ degree), CIRCULATE_POS_X, HAND_POS_Y);
 	}
+	/*手札のリストをずらす処理 終了*/
 
 	//必殺技
-	const int ACTION_COMPONENT_WORD_COLLISION_WIDTH = DISPLAY_WIDTH / 20;
-	const int ACTION_COMPONENT_WORD_COLLISION_HEIGHT = DISPLAY_HEIGHT / 40;
+	const float ACTION_COMPONENT_WORD_COLLISION_WIDTH = (float)(DISPLAY_WIDTH / 20);
+	const float ACTION_COMPONENT_WORD_COLLISION_HEIGHT = ACTION_COMPONENT_WORD_COLLISION_WIDTH / 2;
 
 	for (int actionComponentWord = 0; actionComponentWord < MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX; ++actionComponentWord)
 	{
-		CustomImageVerticies(&pMagicKnightActionCollisionsVertex[actionComponentWord*RECT_VERTEX_NUM],
-			(DISPLAY_WIDTH / 2) + ACTION_COMPONENT_WORD_COLLISION_WIDTH, DISPLAY_HEIGHT - ACTION_COMPONENT_WORD_COLLISION_HEIGHT,
+		CustomImageVerticies(pMagicKnightActionCollisionsVertex[actionComponentWord].ImageVertex,
+			(DISPLAY_WIDTH / 3) + (ACTION_COMPONENT_WORD_COLLISION_WIDTH*2)*actionComponentWord, DISPLAY_HEIGHT - (ACTION_COMPONENT_WORD_COLLISION_HEIGHT*2),
 			ACTION_COMPONENT_WORD_COLLISION_WIDTH, ACTION_COMPONENT_WORD_COLLISION_HEIGHT);
 	}
 	/*マウスカーソルとの当たり判定用の頂点設定 終了*/
@@ -134,7 +161,7 @@ void ControlMagicKnightMainGame(WordData* pWordDatas ,MagicKnightDeck* pMagicKni
 		{
 			//当たっていない
 			if (!RectToRectCollisionCheak(&mouseCursorCollisionVertex[0],
-				&pHandWordCollisionsVertex[handWord*RECT_VERTEX_NUM]))
+				pHandWordCollisionsVertex[handWord].ImageVertex))
 			{
 				continue;
 			}
@@ -165,7 +192,7 @@ void ControlMagicKnightMainGame(WordData* pWordDatas ,MagicKnightDeck* pMagicKni
 		{
 			//当たっていなかったら
 			if (!RectToRectCollisionCheak(&mouseCursorCollisionVertex[0],
-				&pMagicKnightActionCollisionsVertex[actionConponentWord*RECT_VERTEX_NUM]))
+				pMagicKnightActionCollisionsVertex[actionConponentWord].ImageVertex))
 			{
 				continue;
 			}
@@ -182,11 +209,15 @@ void ControlMagicKnightMainGame(WordData* pWordDatas ,MagicKnightDeck* pMagicKni
 		/*必殺技が完成したときの処理　開始*/
 		for (int actionConponentWord = 0; actionConponentWord < MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX; ++actionConponentWord)
 		{
-			pMagicKnightAction->m_attackTotals[pWordDatas[pMagicKnightAction->m_componentWordIds[actionConponentWord]].m_attack] += 1;
-			pMagicKnightAction->m_elementTotals[pWordDatas[pMagicKnightAction->m_componentWordIds[actionConponentWord]].m_element] += 1;
-			pMagicKnightAction->m_specialAbilities |= pWordDatas[pMagicKnightAction->m_componentWordIds[actionConponentWord]].m_specialAbilities;
-			pMagicKnightAction->useAction = true;
+			MAGIC_KNIGHT_WORD magicKnightWord = pMagicKnightAction->m_componentWordIds[actionConponentWord];
+
+			(pMagicKnightAction->m_attackTotals[(pMagicKnightWordDatas[magicKnightWord].m_attack)]) += 1;
+			(pMagicKnightAction->m_elementTotals[(pMagicKnightWordDatas[magicKnightWord].m_element)]) += 1;
+			(pMagicKnightAction->m_specialAbilities) |= (pMagicKnightWordDatas[magicKnightWord].m_specialAbilities);
+			(pMagicKnightAction->useAction) = true;
 		}
 		/*必殺技が完成したときの処理　終了*/
 	}
+
+	return;
 }

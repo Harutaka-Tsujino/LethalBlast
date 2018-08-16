@@ -3,32 +3,35 @@
 #include"ControlCharaChoice.h"
 #include"ControlMagicKnightMainGame.h"
 
-static MagicKnightDeck magicKnightDecks[MAGIC_KNIGHT_DECKS_MAX];
-static MagicKnightPlayingDeck magicKnightPlayingDeck;
-static MagicKnightAction magicKnightAction;
-CustomVertex handWordCollisionsVertex[HAND_WORD_MAX*RECT_VERTEX_NUM];
-CustomVertex magicKnightActionCollisionsVertex[MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX*RECT_VERTEX_NUM];
+//static MagicKnightDeck magicKnightDecks[MAGIC_KNIGHT_DECKS_MAX];
+//static MagicKnightPlayingDeck magicKnightPlayingDeck;
+//static MagicKnightAction magicKnightAction;
+//CustomVertex handWordCollisionsVertex[HAND_WORD_MAX*RECT_VERTEX_NUM];
+//CustomVertex magicKnightActionCollisionsVertex[MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX*RECT_VERTEX_NUM];
 
-void RenderMagicKnightMainGame(WordData* pWordDatas, MagicKnightDeck* pMagicKnightDecks,
+void RenderMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck* pMagicKnightDecks,
 	MagicKnightPlayingDeck* pMagicKnightPlayingDeck, MagicKnightAction* pMagicKnightAction,
-	CustomVertex* pHandWordCollisionsVertex, CustomVertex* pMagicKnightActionCollisionsVertex)
+	ImagesCustomVertex* pHandWordCollisionsVertex, ImagesCustomVertex* pMagicKnightActionCollisionsVertex)
 {
-	int frameCount = INIT_FRAME;
+	static TEXTUREID collisionTestTexId;
+	
+	static int frameCount = INIT_FRAME;
 
 	if (frameCount == INIT_FRAME)
 	{
+		RoadTexture("texture/TestRect.png", &collisionTestTexId);
 
 		frameCount = 0;
 	}
 
 	for (int handWord = 0; handWord < HAND_WORD_MAX; ++handWord)
 	{
-		DrawImage(&handWordCollisionsVertex[handWord*RECT_VERTEX_NUM], NULL);
+		DrawImage(pHandWordCollisionsVertex[handWord].ImageVertex, collisionTestTexId);
 	}
 
 	for (int actionComponentWord = 0; actionComponentWord < MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX; ++actionComponentWord)
 	{
-		DrawImage(&pMagicKnightActionCollisionsVertex[actionComponentWord*RECT_VERTEX_NUM], NULL);
+		DrawImage(pMagicKnightActionCollisionsVertex[actionComponentWord].ImageVertex, collisionTestTexId);
 	}
 
 	return;

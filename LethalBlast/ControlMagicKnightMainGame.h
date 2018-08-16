@@ -24,6 +24,12 @@ typedef struct
 
 	//特殊効果ビットフラグ
 	unsigned long m_specialAbilities;
+
+	//コスト
+	int m_cost;
+
+	//特殊属性の倍率
+	int elementMultiPlus;
 }WordData;
 
 //デッキの名前の最大文字数
@@ -58,7 +64,7 @@ typedef struct
 }MagicKnightDeck;
 
 //単語の手札最大数
-#define HAND_WORD_MAX 15
+#define HAND_WORD_MAX 40
 
 //プレイング時のデッキデータ
 typedef struct
@@ -98,5 +104,6 @@ typedef struct
 	bool useAction;
 }MagicKnightAction;
 
-void ControlMagicKnightMainGame(WordData* pWordDatas, MagicKnightDeck* pMagicKnightDecks, MagicKnightPlayingDeck* pMagicKnightPlayingDeck, MagicKnightAction* pMagicKnightAction,
-	CustomVertex* pHandWordCollisionsVertex, CustomVertex* pMagicKnightActionCollisionsVertex);
+void ControlMagicKnightMainGame(WordData* pWordDatas, MagicKnightDeck* pMagicKnightDecks, 
+	MagicKnightPlayingDeck* pMagicKnightPlayingDeck, MagicKnightAction* pMagicKnightAction,
+	ImagesCustomVertex* pHandWordCollisionsVertex, ImagesCustomVertex* pMagicKnightActionCollisionsVertex);

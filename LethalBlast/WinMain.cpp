@@ -10,10 +10,12 @@
 #include"RenderPV.h"
 #include"ControlCharaChoice.h"
 #include"RenderCharaChoice.h"
-#include"ControlWordListsAndTyping.h"
-#include"RenderWordListsAndTyping.h"
-#include"ControlHP.h"
-#include"RenderHP.h"
+//#include"ControlWordListsAndTyping.h"
+//#include"RenderWordListsAndTyping.h"
+//#include"ControlHP.h"
+//#include"RenderHP.h"
+#include"ControlMagicKnightMainGame.h"
+#include"RenderMagicKnigtMainGame.h"
 
 INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdShow)
 {
@@ -32,22 +34,29 @@ void MainFunction(void)
 	static TEXTUREID textureIds[ALL_TEX_MAX];
 	static FONTID fontIds[ALL_FONT_MAX];
 
-	static WordData magicKnigtWords[MAGIC_KNIGHT_WORD_MAX];
+	/*static WordData magicKnigtWords[MAGIC_KNIGHT_WORD_MAX];
 	static WordList magicKnightWordLists[5];
 	static MagicKnightAction magicKnightAction;
 	static WordCandidate wordCandidates[5];
 	static int wordNum = 0;
-	static bool endAttackEffect = false;
+	static bool endAttackEffect = false;*/
 
-	static PlayerState player[JOB_MAX];
+	/*static PlayerState player[JOB_MAX];
 	static EnemyState enemy[ENEMY_TYPE_MAX];
-	static int playerType;
 	static int playerATKDamage;
 	static int enemyType = BOSS;
 	static bool initHPFlag = true;
 	static bool initMagicKnightActionFlag;
 	static int count = 0;
-	static int CTCount = 0;
+	static int CTCount = 0;*/
+	static int playerType;
+
+	static WordData magicKnigtWordDatas[MAGIC_KNIGHT_WORD_MAX];
+	static MagicKnightDeck magicKnightDecks[MAGIC_KNIGHT_DECKS_MAX];
+	static MagicKnightPlayingDeck magicKnightPlayingDeck;
+	static MagicKnightAction magicKnightAction;
+	ImagesCustomVertex handWordCollisionsVertex[HAND_WORD_MAX];
+	ImagesCustomVertex magicKnightActionCollisionsVertex[MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX];
 
 	//シーン分岐
 	switch (scene)
@@ -77,10 +86,16 @@ void MainFunction(void)
 
 		ControlGame(&scene);
 		RenderGame(&scene);
-		ControlTyping(magicKnigtWords, magicKnightWordLists, &magicKnightAction, wordCandidates, &wordNum,&endAttackEffect);
+
+		ControlMagicKnightMainGame(magicKnigtWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
+			&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex);
+		RenderMagicKnightMainGame(magicKnigtWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
+			&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex);
+
+		/*ControlTyping(magicKnigtWords, magicKnightWordLists, &magicKnightAction, wordCandidates, &wordNum,&endAttackEffect);
 		RenderMasicKnightWordLists(fontIds, magicKnigtWords, magicKnightWordLists, &magicKnightAction, wordCandidates,&wordNum,&endAttackEffect);
 		ControlHP(player, enemy, &playerATKDamage, &playerType, &enemyType, &initHPFlag,&count,&CTCount, &magicKnightAction, &initMagicKnightActionFlag);
-		RenderHP(player, enemy,&count,&CTCount, playerType, &enemyType);
+		RenderHP(player, enemy,&count,&CTCount, playerType, &enemyType);*/
 		
 		break;
 	}
