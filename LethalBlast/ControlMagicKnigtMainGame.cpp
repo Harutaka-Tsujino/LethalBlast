@@ -47,6 +47,12 @@ void ControlMagicKnightMainGame(WordData* pMagicKnightWordDatas ,MagicKnightDeck
 		for (int deckWordNum = 0; deckWordNum < DECK_WORD_MAX; deckWordNum++)
 		{
 			int unshuffledDeckWordNum = pMagicKnightDecks[pMagicKnightPlayingDeck->m_currentId].m_wordNum - deckWordNum;
+
+			if (unshuffledDeckWordNum == 0)
+			{
+				break;
+			}
+
 			int chosenNum = rand() % (unshuffledDeckWordNum);
 
 			pMagicKnightPlayingDeck->m_deckWordId[deckWordNum] = pWordShuffleBuf[chosenNum];

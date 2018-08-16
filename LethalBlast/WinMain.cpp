@@ -100,7 +100,7 @@ void MainFunction(void)
 
 	case CHOSE_DECK_SCENE:
 
-		ControlChoiceDeck(choiseDeckCollisionsVertex, &magicKnightPlayingDeck);
+		ControlChoiceDeck(&scene,choiseDeckCollisionsVertex, &magicKnightPlayingDeck);
 		RenderChoiceDeck(choiseDeckCollisionsVertex, magicKnightDecks);
 
 
