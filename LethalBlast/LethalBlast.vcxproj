@@ -124,6 +124,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ControlCharaChoicecpp.cpp" />
+    <ClCompile Include="ControlDeckChoice.cpp" />
     <ClCompile Include="ControlGame.cpp" />
     <ClCompile Include="ControlHP.cpp" />
     <ClCompile Include="ControlMagicKnigtMainGame.cpp" />
@@ -132,6 +133,7 @@
     <ClCompile Include="ControlWeaponMasterAction.cpp" />
     <ClCompile Include="ControlWordListsAndTyping.cpp" />
     <ClCompile Include="RenderCharaChoice.cpp" />
+    <ClCompile Include="RenderDeckChoice.cpp" />
     <ClCompile Include="RenderGame.cpp" />
     <ClCompile Include="RenderHP.cpp" />
     <ClCompile Include="RenderMagicKnigtMainGame.cpp" />
@@ -143,6 +145,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ControlCharaChoice.h" />
+    <ClInclude Include="ControlDeckChoice.h" />
     <ClInclude Include="ControlGame.h" />
     <ClInclude Include="ControlHP.h" />
     <ClInclude Include="ControlMagicKnightMainGame.h" />
@@ -152,6 +155,7 @@
     <ClInclude Include="ControlWordListsAndTyping.h" />
     <ClInclude Include="DX9Lib.h" />
     <ClInclude Include="RenderCharaChoice.h" />
+    <ClInclude Include="RenderDeckChoice.h" />
     <ClInclude Include="RenderGame.h" />
     <ClInclude Include="RenderHP.h" />
     <ClInclude Include="RenderMagicKnigtMainGame.h" />
