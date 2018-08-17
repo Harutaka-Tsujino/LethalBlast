@@ -27,14 +27,17 @@ enum SCENE
 	//待機画面
 	HOME_SCENE,
 
+	//デッキ改造のための選択画面
+	CHOSE_DECK_TO_ALTER_SCENE,
+
 	//デッキの改造画面
 	ALTER_DECK_SCENE,
 
 	//単語修飾画面
 	MODIFY_WORD_SCENE,
 
-	//デッキ選択画面
-	CHOSE_DECK_SCENE,
+	//戦闘のためのデッキ選択画面
+	CHOSE_DECK_TO_BATTLE_SCENE,
 
 	//メインゲーム画面
 	GAME_SCENE,

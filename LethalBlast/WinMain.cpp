@@ -18,6 +18,8 @@
 #include"RenderDeckChoice.h"
 #include"ControlMagicKnightMainGame.h"
 #include"RenderMagicKnigtMainGame.h"
+#include"ControlAlterDeck.h"
+#include"RenderAlterDeck.h"
 
 INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdShow)
 {
@@ -53,7 +55,7 @@ void MainFunction(void)
 	static int CTCount = 0;*/
 	static int playerType;
 
-	static WordData magicKnigtWordDatas[MAGIC_KNIGHT_WORD_MAX];
+	static WordData magicKnightWordDatas[MAGIC_KNIGHT_WORD_MAX];
 	static MagicKnightDeck magicKnightDecks[MAGIC_KNIGHT_DECKS_MAX];
 	static MagicKnightPlayingDeck magicKnightPlayingDeck;
 	static MagicKnightAction magicKnightAction;
@@ -61,6 +63,13 @@ void MainFunction(void)
 	ImagesCustomVertex magicKnightActionCollisionsVertex[MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX];
 
 	ImagesCustomVertex choiseDeckCollisionsVertex[MAGIC_KNIGHT_DECKS_MAX];
+	ImagesCustomVertex choiseWordCollisionsVertex[MAGIC_KNIGHT_WORD_MAX];
+	ImagesCustomVertex deckComponentCollisionsVertex[DECK_WORD_MAX];
+	static int deckNumToAlter = 0;
+
+	CustomVertex endAlterDeckVertices[4];
+	CustomVertex backgroundVertices[4];
+	CustomVertex wordDatasBackVertices[4];
 
 	//シーン分岐
 	switch (scene)
@@ -90,7 +99,17 @@ void MainFunction(void)
 
 		break;
 
+	case CHOSE_DECK_TO_ALTER_SCENE:
+
+		ControlChoiceDeck(&scene, ALTER_DECK_SCENE, choiseDeckCollisionsVertex, &deckNumToAlter);
+		RenderChoiceDeck(choiseDeckCollisionsVertex, magicKnightDecks);
+
+		break;
+
 	case ALTER_DECK_SCENE:
+
+		ControlAlterDeck(&scene, magicKnightWordDatas, choiseWordCollisionsVertex, deckComponentCollisionsVertex, endAlterDeckVertices, backgroundVertices, wordDatasBackVertices, &deckNumToAlter);
+		RenderAlterDeck(choiseWordCollisionsVertex, deckComponentCollisionsVertex, endAlterDeckVertices, backgroundVertices, wordDatasBackVertices,magicKnightDecks);
 
 		break;
 
@@ -98,9 +117,9 @@ void MainFunction(void)
 
 		break;
 
-	case CHOSE_DECK_SCENE:
+	case CHOSE_DECK_TO_BATTLE_SCENE:
 
-		ControlChoiceDeck(&scene,choiseDeckCollisionsVertex, &magicKnightPlayingDeck);
+		ControlChoiceDeck(&scene,GAME_SCENE,choiseDeckCollisionsVertex, &magicKnightPlayingDeck.m_currentId);
 		RenderChoiceDeck(choiseDeckCollisionsVertex, magicKnightDecks);
 
 
@@ -111,9 +130,9 @@ void MainFunction(void)
 		ControlGame(&scene);
 		RenderGame(&scene);
 
-		ControlMagicKnightMainGame(magicKnigtWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
+		ControlMagicKnightMainGame(magicKnightWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
 			&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex);
-		RenderMagicKnightMainGame(magicKnigtWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
+		RenderMagicKnightMainGame(magicKnightWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
 			&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex);
 
 		/*ControlTyping(magicKnigtWords, magicKnightWordLists, &magicKnightAction, wordCandidates, &wordNum,&endAttackEffect);

@@ -4,7 +4,7 @@
 #include"ControlMagicKnightMainGame.h"
 #include"ControlDeckChoice.h"
 
-void ControlChoiceDeck(SCENE* scene,ImagesCustomVertex* pChoiseDeckCollisionsVertex, MagicKnightPlayingDeck* pMagicKnightPlayingDeck)
+void ControlChoiceDeck(SCENE* scene, SCENE destScene, ImagesCustomVertex* pChoiseDeckCollisionsVertex, int* pDeckNum)
 {
 	/*マウスカーソルとの当たり判定用の頂点設定 開始*/
 
@@ -36,9 +36,9 @@ void ControlChoiceDeck(SCENE* scene,ImagesCustomVertex* pChoiseDeckCollisionsVer
 		{
 			if (RectToRectCollisionCheak(mouseCursorCollisionVertex, pChoiseDeckCollisionsVertex[deckNum].ImageVertex))
 			{
-				pMagicKnightPlayingDeck->m_currentId = deckNum;
+				*pDeckNum = deckNum;
 
-				*scene = GAME_SCENE;
+				*scene = destScene;
 
 				break;
 			}

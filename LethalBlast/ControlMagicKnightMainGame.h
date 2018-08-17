@@ -10,6 +10,9 @@ enum MAGIC_KNIGHT_WORD
 //単語の名前の文字数最大値
 #define WORD_NAME_CHAR_MAX 40
 
+//修飾時の素材の数
+#define MATERIALS_NUM 2
+
 //単語のデータ
 typedef struct
 {
@@ -28,8 +31,14 @@ typedef struct
 	//コスト
 	int m_cost;
 
+	//修飾時の素材
+	int m_matterials[MATERIALS_NUM];
+
 	//特殊属性の倍率
-	int elementMultiPlus;
+	int m_elementMultiPlus;
+
+	//所持しているかどうか
+	bool m_have;
 }WordData;
 
 //デッキの名前の最大文字数
@@ -40,9 +49,6 @@ typedef struct
 
 //デッキの保存できる最大数
 #define MAGIC_KNIGHT_DECKS_MAX 8
-
-//修飾時の素材の数
-#define MATERIALS_NUM 2
 
 //デッキのデータ
 typedef struct
@@ -58,9 +64,6 @@ typedef struct
 
 	//物理属性別の合計数
 	int m_attackTotals[ATTACK_ATTRIBUTES_MAX];
-
-	//修飾時の素材
-	int m_matterials[MATERIALS_NUM];
 
 	//構成する単語の数
 	int m_wordNum;
@@ -96,6 +99,9 @@ typedef struct
 {
 	//構成している単語の識別子
 	MAGIC_KNIGHT_WORD m_componentWordIds[MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX];
+
+	//入れた単語が手札の何番目にあったか
+	int m_handPos[MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX];
 
 	//特殊属性別の合計数
 	char m_elementTotals[ELEMENT_ATTRIBUTES_MAX];
