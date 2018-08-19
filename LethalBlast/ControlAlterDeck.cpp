@@ -3,9 +3,20 @@
 #include"ControlCharaChoice.h"
 #include"ControlMagicKnightMainGame.h"
 
-void ControlAlterDeck(SCENE* scene,WordData* pMagicKnightWordDatas, ImagesCustomVertex* pChoiseWordCollisionsVertex,ImagesCustomVertex* pDeckComponentCollisionsVertex,
+void ControlAlterDeck(SCENE* scene,WordData* pMagicKnightWordDatas, MagicKnightDeck* pMagicKnightDecks, ImagesCustomVertex* pChoiseWordCollisionsVertex,ImagesCustomVertex* pDeckComponentCollisionsVertex,
 	CustomVertex* pEndDeckAlterVertices, CustomVertex* pBackgroundVertices,CustomVertex* pWordDatasBackVertices,int* pDeckNumToAlter)
 {
+	static int frameCount = -1;
+
+	static bool clickedWord[MAGIC_KNIGHT_WORD_MAX];
+
+	if (frameCount == -1)
+	{
+		memset(clickedWord, 0, sizeof(bool)*MAGIC_KNIGHT_WORD_MAX);
+
+		frameCount = 0;
+	}
+
 	//マウス
 	CustomVertex mouseCursorCollisionVertex[RECT_VERTEX_NUM];
 
@@ -50,7 +61,7 @@ void ControlAlterDeck(SCENE* scene,WordData* pMagicKnightWordDatas, ImagesCustom
 
 	for (int wordDatas = 0; wordDatas < MAGIC_KNIGHT_WORD_MAX; ++wordDatas)
 	{
-		if (true/*pMagicKnightWordDatas[wordDatas].m_have*/)
+		if (pMagicKnightWordDatas[wordDatas].m_have)
 		{
 			CustomImageVerticies(pChoiseWordCollisionsVertex[wordDatas].ImageVertex, listWordPosX, listWordPosY + wordSlidePosY, WORD_COLLISION_SCALE_X, WORD_COLLISION_SCALE_Y);
 			
@@ -83,27 +94,71 @@ void ControlAlterDeck(SCENE* scene,WordData* pMagicKnightWordDatas, ImagesCustom
 
 	for (int wordDatas = 0; wordDatas < DECK_WORD_MAX; ++wordDatas)
 	{
-		if (true)
+		CustomImageVerticies(pDeckComponentCollisionsVertex[wordDatas].ImageVertex, deckComponentPosX + deckComponentSlidePosX, deckComponentPosY, WORD_COLLISION_SCALE_X, WORD_COLLISION_SCALE_Y);
+
+		deckComponentPosX += (WORD_COLLISION_SCALE_X * 4);
+
+		if (!((wordDatas + 1) % (DECK_COMPONENT_NEW_LINE)))
 		{
-			CustomImageVerticies(pDeckComponentCollisionsVertex[wordDatas].ImageVertex, deckComponentPosX+ deckComponentSlidePosX, deckComponentPosY, WORD_COLLISION_SCALE_X, WORD_COLLISION_SCALE_Y);
-
-			deckComponentPosX += (WORD_COLLISION_SCALE_X * 4);
-
-			if (!((wordDatas+1) % (DECK_COMPONENT_NEW_LINE)))
-			{
-				deckComponentPosX = WORD_COLLISION_SCALE_X * 2;
-				deckComponentPosY += (WORD_COLLISION_SCALE_X * 4);
-			}			
+			deckComponentPosX = WORD_COLLISION_SCALE_X * 2;
+			deckComponentPosY += (WORD_COLLISION_SCALE_X * 4);
 		}
 	}
 
 	CustomImageVerticies(pEndDeckAlterVertices, DISPLAY_WIDTH*0.90f, DISPLAY_HEIGHT*0.90f, DISPLAY_WIDTH*0.025f, DISPLAY_HEIGHT*0.025f);
 
+	for (int wordDatas = 0; wordDatas < DECK_WORD_MAX; ++wordDatas)
+	{
+		clickedWord[(pMagicKnightDecks[(*pDeckNumToAlter)].m_wordIds[wordDatas])] = true;
+	}
+
 	if (g_mouseState.mousePush[LEFT_CLICK] || g_keyState.keyPush[DIK_RETURN])
 	{
+		for (int wordDatas = 0; wordDatas < MAGIC_KNIGHT_WORD_MAX; ++wordDatas)
+		{
+			if (RectToRectCollisionCheak(mouseCursorCollisionVertex, pChoiseWordCollisionsVertex[wordDatas].ImageVertex))
+			{
+				for (int deckSpace = 0; deckSpace < DECK_WORD_MAX; ++deckSpace)
+				{
+					if (!pMagicKnightDecks[(*pDeckNumToAlter)].m_wordIds[deckSpace] && !clickedWord[wordDatas])
+					{
+						pMagicKnightDecks[(*pDeckNumToAlter)].m_wordIds[deckSpace] = (MAGIC_KNIGHT_WORD)wordDatas;
+
+						clickedWord[wordDatas] = true;
+					}
+				}
+			}
+		}
+
+		for (int wordDatas = 0; wordDatas < DECK_WORD_MAX; ++wordDatas)
+		{
+			if (RectToRectCollisionCheak(mouseCursorCollisionVertex, pDeckComponentCollisionsVertex[wordDatas].ImageVertex))
+			{
+				clickedWord[(pMagicKnightDecks[(*pDeckNumToAlter)].m_wordIds[wordDatas])] = false;
+
+				pMagicKnightDecks[(*pDeckNumToAlter)].m_wordIds[wordDatas] = VOID_WORD;
+			}
+		}
+
 		if (RectToRectCollisionCheak(mouseCursorCollisionVertex, pEndDeckAlterVertices))
 		{
-			*scene = CHOSE_DECK_TO_BATTLE_SCENE;
+			*scene = HOME_SCENE;
+		}
+	}
+
+	for (int wordDatas = 0; wordDatas < MAGIC_KNIGHT_WORD_MAX; ++wordDatas)
+	{
+		if (clickedWord[wordDatas])
+		{
+			pChoiseWordCollisionsVertex[wordDatas].ImageVertex->m_color = GetColor(255, 255, 0, 0);
+		}
+	}
+
+	for (int wordDatas = 0; wordDatas < DECK_WORD_MAX; ++wordDatas)
+	{
+		if (pMagicKnightDecks[(*pDeckNumToAlter)].m_wordIds[wordDatas])
+		{
+			pDeckComponentCollisionsVertex[wordDatas].ImageVertex->m_color = GetColor(255, 255, 0, 0);
 		}
 	}
 

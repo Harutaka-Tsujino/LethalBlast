@@ -20,6 +20,8 @@
 #include"RenderMagicKnigtMainGame.h"
 #include"ControlAlterDeck.h"
 #include"RenderAlterDeck.h"
+#include"ControlHome.h"
+#include"RenderHome.h"
 
 INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdShow)
 {
@@ -71,6 +73,11 @@ void MainFunction(void)
 	CustomVertex backgroundVertices[4];
 	CustomVertex wordDatasBackVertices[4];
 
+	CustomVertex deckAlterPortal[4];
+	CustomVertex modifyWordPortal[4]; 
+	CustomVertex mainGamePortal[4];
+	CustomVertex charaChoicePortal[4];
+
 	//シーン分岐
 	switch (scene)
 	{
@@ -97,6 +104,11 @@ void MainFunction(void)
 
 	case HOME_SCENE:
 
+		ControlHome(&scene, magicKnightWordDatas, magicKnightDecks,
+			&magicKnightPlayingDeck, &magicKnightAction,
+			deckAlterPortal, modifyWordPortal, mainGamePortal, charaChoicePortal);
+		RenderHome(deckAlterPortal, modifyWordPortal, mainGamePortal, charaChoicePortal);
+
 		break;
 
 	case CHOSE_DECK_TO_ALTER_SCENE:
@@ -108,7 +120,7 @@ void MainFunction(void)
 
 	case ALTER_DECK_SCENE:
 
-		ControlAlterDeck(&scene, magicKnightWordDatas, choiseWordCollisionsVertex, deckComponentCollisionsVertex, endAlterDeckVertices, backgroundVertices, wordDatasBackVertices, &deckNumToAlter);
+		ControlAlterDeck(&scene, magicKnightWordDatas, magicKnightDecks, choiseWordCollisionsVertex, deckComponentCollisionsVertex, endAlterDeckVertices, backgroundVertices, wordDatasBackVertices, &deckNumToAlter);
 		RenderAlterDeck(choiseWordCollisionsVertex, deckComponentCollisionsVertex, endAlterDeckVertices, backgroundVertices, wordDatasBackVertices,magicKnightDecks);
 
 		break;
@@ -119,9 +131,16 @@ void MainFunction(void)
 
 	case CHOSE_DECK_TO_BATTLE_SCENE:
 
-		ControlChoiceDeck(&scene,GAME_SCENE,choiseDeckCollisionsVertex, &magicKnightPlayingDeck.m_currentId);
+		ControlChoiceDeck(&scene, LOAD_DECK_TO_PLAY,choiseDeckCollisionsVertex, &magicKnightPlayingDeck.m_currentId);
 		RenderChoiceDeck(choiseDeckCollisionsVertex, magicKnightDecks);
 
+
+		break;
+
+	case LOAD_DECK_TO_PLAY:
+
+		RenderWhileLoad(&scene, LOAD_DECK_TO_PLAY);
+		LoadMKdeck(&scene, magicKnightDecks, &magicKnightPlayingDeck);
 
 		break;
 

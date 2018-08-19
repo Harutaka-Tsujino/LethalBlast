@@ -39,6 +39,9 @@ enum SCENE
 	//戦闘のためのデッキ選択画面
 	CHOSE_DECK_TO_BATTLE_SCENE,
 
+	//デッキのロード
+	LOAD_DECK_TO_PLAY,
+
 	//メインゲーム画面
 	GAME_SCENE,
 

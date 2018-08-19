@@ -28,17 +28,17 @@ typedef struct
 	//特殊効果ビットフラグ
 	unsigned long m_specialAbilities;
 
-	//コスト
-	int m_cost;
-
 	//修飾時の素材
 	int m_matterials[MATERIALS_NUM];
+
+	//コスト
+	int m_cost;
 
 	//特殊属性の倍率
 	int m_elementMultiPlus;
 
 	//所持しているかどうか
-	bool m_have;
+	int m_have;
 }WordData;
 
 //デッキの名前の最大文字数
@@ -119,3 +119,5 @@ typedef struct
 void ControlMagicKnightMainGame(WordData* pWordDatas, MagicKnightDeck* pMagicKnightDecks, 
 	MagicKnightPlayingDeck* pMagicKnightPlayingDeck, MagicKnightAction* pMagicKnightAction,
 	ImagesCustomVertex* pHandWordCollisionsVertex, ImagesCustomVertex* pMagicKnightActionCollisionsVertex);
+
+void LoadMKdeck(SCENE* scene, MagicKnightDeck* pMagicKnightDecks, MagicKnightPlayingDeck* pMagicKnightPlayingDeck);

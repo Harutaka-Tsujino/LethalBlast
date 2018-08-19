@@ -127,6 +127,7 @@
     <ClCompile Include="ControlCharaChoicecpp.cpp" />
     <ClCompile Include="ControlDeckChoice.cpp" />
     <ClCompile Include="ControlGame.cpp" />
+    <ClCompile Include="ControlHome.cpp" />
     <ClCompile Include="ControlHP.cpp" />
     <ClCompile Include="ControlMagicKnigtMainGame.cpp" />
     <ClCompile Include="ControlPV.cpp" />
@@ -137,6 +138,7 @@
     <ClCompile Include="RenderCharaChoice.cpp" />
     <ClCompile Include="RenderDeckChoice.cpp" />
     <ClCompile Include="RenderGame.cpp" />
+    <ClCompile Include="RenderHome.cpp" />
     <ClCompile Include="RenderHP.cpp" />
     <ClCompile Include="RenderMagicKnigtMainGame.cpp" />
     <ClCompile Include="RenderPV.cpp" />
@@ -150,6 +152,7 @@
     <ClInclude Include="ControlCharaChoice.h" />
     <ClInclude Include="ControlDeckChoice.h" />
     <ClInclude Include="ControlGame.h" />
+    <ClInclude Include="ControlHome.h" />
     <ClInclude Include="ControlHP.h" />
     <ClInclude Include="ControlMagicKnightMainGame.h" />
     <ClInclude Include="ControlPV.h" />
@@ -161,6 +164,7 @@
     <ClInclude Include="RenderCharaChoice.h" />
     <ClInclude Include="RenderDeckChoice.h" />
     <ClInclude Include="RenderGame.h" />
+    <ClInclude Include="RenderHome.h" />
     <ClInclude Include="RenderHP.h" />
     <ClInclude Include="RenderMagicKnigtMainGame.h" />
     <ClInclude Include="RenderPV.h" />
