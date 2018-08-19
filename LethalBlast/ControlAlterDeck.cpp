@@ -81,12 +81,12 @@ void ControlAlterDeck(SCENE* scene,WordData* pMagicKnightWordDatas, MagicKnightD
 	{
 		if (g_keyState.keyHold[DIK_COMMA])
 		{
-			deckComponentSlidePosX -= SLIDE_SPEED;
+			deckComponentSlidePosX += SLIDE_SPEED;
 		}
 
 		if (g_keyState.keyHold[DIK_PERIOD])
 		{
-			deckComponentSlidePosX += SLIDE_SPEED;
+			deckComponentSlidePosX -= SLIDE_SPEED;
 		}
 	}
 
@@ -116,15 +116,21 @@ void ControlAlterDeck(SCENE* scene,WordData* pMagicKnightWordDatas, MagicKnightD
 	{
 		for (int wordDatas = 0; wordDatas < MAGIC_KNIGHT_WORD_MAX; ++wordDatas)
 		{
-			if (RectToRectCollisionCheak(mouseCursorCollisionVertex, pChoiseWordCollisionsVertex[wordDatas].ImageVertex))
+			if (!RectToRectCollisionCheak(pBackgroundVertices, mouseCursorCollisionVertex))
 			{
-				for (int deckSpace = 0; deckSpace < DECK_WORD_MAX; ++deckSpace)
+				if (!RectToRectCollisionCheak(pWordDatasBackVertices, mouseCursorCollisionVertex))
 				{
-					if (!pMagicKnightDecks[(*pDeckNumToAlter)].m_wordIds[deckSpace] && !clickedWord[wordDatas])
+					if (RectToRectCollisionCheak(mouseCursorCollisionVertex, pChoiseWordCollisionsVertex[wordDatas].ImageVertex))
 					{
-						pMagicKnightDecks[(*pDeckNumToAlter)].m_wordIds[deckSpace] = (MAGIC_KNIGHT_WORD)wordDatas;
+						for (int deckSpace = 0; deckSpace < DECK_WORD_MAX; ++deckSpace)
+						{
+							if (!pMagicKnightDecks[(*pDeckNumToAlter)].m_wordIds[deckSpace] && !clickedWord[wordDatas])
+							{
+								pMagicKnightDecks[(*pDeckNumToAlter)].m_wordIds[deckSpace] = (MAGIC_KNIGHT_WORD)wordDatas;
 
-						clickedWord[wordDatas] = true;
+								clickedWord[wordDatas] = true;
+							}
+						}
 					}
 				}
 			}
@@ -132,11 +138,14 @@ void ControlAlterDeck(SCENE* scene,WordData* pMagicKnightWordDatas, MagicKnightD
 
 		for (int wordDatas = 0; wordDatas < DECK_WORD_MAX; ++wordDatas)
 		{
-			if (RectToRectCollisionCheak(mouseCursorCollisionVertex, pDeckComponentCollisionsVertex[wordDatas].ImageVertex))
+			if (!RectToRectCollisionCheak(pWordDatasBackVertices, mouseCursorCollisionVertex))
 			{
-				clickedWord[(pMagicKnightDecks[(*pDeckNumToAlter)].m_wordIds[wordDatas])] = false;
+				if (RectToRectCollisionCheak(mouseCursorCollisionVertex, pDeckComponentCollisionsVertex[wordDatas].ImageVertex))
+				{
+					clickedWord[(pMagicKnightDecks[(*pDeckNumToAlter)].m_wordIds[wordDatas])] = false;
 
-				pMagicKnightDecks[(*pDeckNumToAlter)].m_wordIds[wordDatas] = VOID_WORD;
+					pMagicKnightDecks[(*pDeckNumToAlter)].m_wordIds[wordDatas] = VOID_WORD;
+				}
 			}
 		}
 

@@ -22,6 +22,8 @@
 #include"RenderAlterDeck.h"
 #include"ControlHome.h"
 #include"RenderHome.h"
+#include"ControlModifyWord.h"
+#include"RenderModifyWord.h"
 
 INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdShow)
 {
@@ -80,6 +82,11 @@ void MainFunction(void)
 
 	static TEXTUREID wordTexIds[MAGIC_KNIGHT_WORD_MAX];
 
+	CustomVertex endModifyVertices[4];
+	static int modifyWordBox[2];
+	ImagesCustomVertex modifyBoxVertices[2];
+	CustomVertex decideModify[4];
+
 	//シーン分岐
 	switch (scene)
 	{
@@ -136,6 +143,13 @@ void MainFunction(void)
 		break;
 
 	case MODIFY_WORD_SCENE:
+
+		ControlModify(&scene, magicKnightWordDatas, magicKnightDecks,
+			choiseWordCollisionsVertex, wordDatasBackVertices, endModifyVertices, backgroundVertices,
+			modifyWordBox, modifyBoxVertices, decideModify);
+		RenderModify(magicKnightWordDatas, choiseWordCollisionsVertex,
+			wordDatasBackVertices, endModifyVertices, backgroundVertices,
+			modifyWordBox, modifyBoxVertices, decideModify, wordTexIds);
 
 		break;
 
