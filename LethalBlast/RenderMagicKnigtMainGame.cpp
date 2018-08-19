@@ -11,23 +11,14 @@
 
 void RenderMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck* pMagicKnightDecks,
 	MagicKnightPlayingDeck* pMagicKnightPlayingDeck, MagicKnightAction* pMagicKnightAction,
-	ImagesCustomVertex* pHandWordCollisionsVertex, ImagesCustomVertex* pMagicKnightActionCollisionsVertex)
+	ImagesCustomVertex* pHandWordCollisionsVertex, ImagesCustomVertex* pMagicKnightActionCollisionsVertex, TEXTUREID* wordTexIds)
 {
 	static TEXTUREID collisionTestTexId;
-	static TEXTUREID wordTexIds[MAGIC_KNIGHT_WORD_MAX];
 	static int frameCount = INIT_FRAME;
 
 	if (frameCount == INIT_FRAME)
 	{
 		RoadTexture("texture/TestRect.png", &collisionTestTexId);
-		RoadTexture("Texture/MKWord/VOID_WORD.png", &wordTexIds[VOID_WORD]);
-		RoadTexture("Texture/MKWord/ファイアー.png", &wordTexIds[ファイアー]);
-		RoadTexture("Texture/MKWord/ウォーター.png", &wordTexIds[ウォーター]);
-		RoadTexture("Texture/MKWord/ウィンド.png", &wordTexIds[ウィンド]);
-		RoadTexture("Texture/MKWord/シャイニング.png", &wordTexIds[シャイニング]);
-		RoadTexture("Texture/MKWord/ダークネス.png", &wordTexIds[ダークネス]);
-		RoadTexture("Texture/MKWord/クロス.png", &wordTexIds[クロス]);
-		RoadTexture("Texture/MKWord/クロスファイアー.png", &wordTexIds[クロスファイアー]);
 
 		frameCount = 0;
 	}
@@ -45,7 +36,7 @@ void RenderMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck*
 	return;
 }
 
-void RenderWhileLoad(SCENE* scene,SCENE destScene)
+void RenderWhileLoad(SCENE* scene,SCENE destScene, TEXTUREID* wordTexIds)
 {
 	static TEXTUREID LoadTexId;
 
@@ -54,7 +45,14 @@ void RenderWhileLoad(SCENE* scene,SCENE destScene)
 	if (frameCount == INIT_FRAME)
 	{
 		RoadTexture("texture/Load/LoadScene.png", &LoadTexId);
-
+		RoadTexture("Texture/MKWord/VOID_WORD.png", &wordTexIds[VOID_WORD]);
+		RoadTexture("Texture/MKWord/ファイアー.png", &wordTexIds[ファイアー]);
+		RoadTexture("Texture/MKWord/ウォーター.png", &wordTexIds[ウォーター]);
+		RoadTexture("Texture/MKWord/ウィンド.png", &wordTexIds[ウィンド]);
+		RoadTexture("Texture/MKWord/シャイニング.png", &wordTexIds[シャイニング]);
+		RoadTexture("Texture/MKWord/ダークネス.png", &wordTexIds[ダークネス]);
+		RoadTexture("Texture/MKWord/クロス.png", &wordTexIds[クロス]);
+		RoadTexture("Texture/MKWord/クロスファイアー.png", &wordTexIds[クロスファイアー]);
 		frameCount = 0;
 	}
 

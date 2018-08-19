@@ -157,7 +157,7 @@ void ControlMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck
 			}
 
 			//必殺技のスペースを探す
-			for (int actionComponentWord = 0; MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX; ++actionComponentWord)
+			for (int actionComponentWord = 0; actionComponentWord< MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX; ++actionComponentWord)
 			{
 				if (pMagicKnightAction->m_componentWordIds[actionComponentWord] == (MAGIC_KNIGHT_WORD)NULL)
 				{
@@ -170,7 +170,7 @@ void ControlMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck
 			//スペースがなかったら
 			if (actionWordSpacePlace == ACTION_WORD_FULL)
 			{
-				continue;
+				break;
 			}
 
 			//必殺技に代入

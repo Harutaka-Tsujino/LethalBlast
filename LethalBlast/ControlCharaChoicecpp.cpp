@@ -68,7 +68,7 @@ void ControlCharaChoice(SCENE* scene, int* cursol,int* playerType)
 		{
 			if (g_keyState.keyPush[DIK_RETURN] || g_mouseState.mousePush[LEFT_CLICK])
 			{
-				*scene = HOME_SCENE/*GAME_SCENE*/;
+				*scene = LOAD_TO_HOME_SCENE/*GAME_SCENE*/;
 			}
 		}
 	}

@@ -24,6 +24,9 @@ enum SCENE
 	//キャラ選択画面
 	CHARA_CHOICE_SCENE,
 
+	//ホーム画面へ行くときのロード画面
+	LOAD_TO_HOME_SCENE,
+
 	//待機画面
 	HOME_SCENE,
 
@@ -39,8 +42,8 @@ enum SCENE
 	//戦闘のためのデッキ選択画面
 	CHOSE_DECK_TO_BATTLE_SCENE,
 
-	//デッキのロード
-	LOAD_DECK_TO_PLAY,
+	//デッキのロード画面
+	LOAD_DECK_TO_PLAY_SCENE,
 
 	//メインゲーム画面
 	GAME_SCENE,

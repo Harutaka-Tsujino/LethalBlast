@@ -4,7 +4,8 @@
 #include"ControlMagicKnightMainGame.h"
 
 void RenderAlterDeck(ImagesCustomVertex* pChoiseWordCollisionsVertex, ImagesCustomVertex* pDeckComponentCollisionsVertex,
-	CustomVertex* endDeckAlterVertices,CustomVertex* pBackgroundVertices, CustomVertex* pWordDatasBackVertices, MagicKnightDeck* pMagicKnightDecks)
+	CustomVertex* endDeckAlterVertices,CustomVertex* pBackgroundVertices, CustomVertex* pWordDatasBackVertices,
+	TEXTUREID* wordTexIds, WordData* pMagicKnightWordDatas, MagicKnightDeck* pMagicKnightDecks, int* pDeckNumToAlter)
 {
 	static TEXTUREID collisionTestTexId;
 	static TEXTUREID alterDeckTexId;
@@ -21,14 +22,14 @@ void RenderAlterDeck(ImagesCustomVertex* pChoiseWordCollisionsVertex, ImagesCust
 
 	for (int deckNum = 0; deckNum < MAGIC_KNIGHT_DECKS_MAX; ++deckNum)
 	{
-		DrawImage(pChoiseWordCollisionsVertex[deckNum].ImageVertex, collisionTestTexId);
+		DrawImage(pChoiseWordCollisionsVertex[deckNum].ImageVertex, wordTexIds[deckNum]);
 	}
 	
 	DrawImage(pBackgroundVertices, NULL);
 
 	for (int deckNum = 0; deckNum < DECK_WORD_MAX; ++deckNum)
 	{
-		DrawImage(pDeckComponentCollisionsVertex[deckNum].ImageVertex, collisionTestTexId);
+		DrawImage(pDeckComponentCollisionsVertex[deckNum].ImageVertex, wordTexIds[(pMagicKnightDecks[(*pDeckNumToAlter)].m_wordIds[deckNum])]);
 	}
 
 	DrawImage(pWordDatasBackVertices, NULL);

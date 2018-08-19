@@ -78,6 +78,8 @@ void MainFunction(void)
 	CustomVertex mainGamePortal[4];
 	CustomVertex charaChoicePortal[4];
 
+	static TEXTUREID wordTexIds[MAGIC_KNIGHT_WORD_MAX];
+
 	//シーン分岐
 	switch (scene)
 	{
@@ -102,6 +104,12 @@ void MainFunction(void)
 
 		break;
 
+	case LOAD_TO_HOME_SCENE:
+
+		RenderWhileLoad(&scene, HOME_SCENE, wordTexIds);
+
+		break;
+
 	case HOME_SCENE:
 
 		ControlHome(&scene, magicKnightWordDatas, magicKnightDecks,
@@ -120,8 +128,10 @@ void MainFunction(void)
 
 	case ALTER_DECK_SCENE:
 
-		ControlAlterDeck(&scene, magicKnightWordDatas, magicKnightDecks, choiseWordCollisionsVertex, deckComponentCollisionsVertex, endAlterDeckVertices, backgroundVertices, wordDatasBackVertices, &deckNumToAlter);
-		RenderAlterDeck(choiseWordCollisionsVertex, deckComponentCollisionsVertex, endAlterDeckVertices, backgroundVertices, wordDatasBackVertices,magicKnightDecks);
+		ControlAlterDeck(&scene, magicKnightWordDatas, magicKnightDecks, choiseWordCollisionsVertex,
+			deckComponentCollisionsVertex, endAlterDeckVertices, backgroundVertices, wordDatasBackVertices, &deckNumToAlter);
+		RenderAlterDeck(choiseWordCollisionsVertex, deckComponentCollisionsVertex, endAlterDeckVertices,
+			backgroundVertices, wordDatasBackVertices, wordTexIds, magicKnightWordDatas, magicKnightDecks,&deckNumToAlter);
 
 		break;
 
@@ -131,15 +141,15 @@ void MainFunction(void)
 
 	case CHOSE_DECK_TO_BATTLE_SCENE:
 
-		ControlChoiceDeck(&scene, LOAD_DECK_TO_PLAY,choiseDeckCollisionsVertex, &magicKnightPlayingDeck.m_currentId);
+		ControlChoiceDeck(&scene, LOAD_DECK_TO_PLAY_SCENE,choiseDeckCollisionsVertex, &magicKnightPlayingDeck.m_currentId);
 		RenderChoiceDeck(choiseDeckCollisionsVertex, magicKnightDecks);
 
 
 		break;
 
-	case LOAD_DECK_TO_PLAY:
+	case LOAD_DECK_TO_PLAY_SCENE:
 
-		RenderWhileLoad(&scene, LOAD_DECK_TO_PLAY);
+		RenderWhileLoad(&scene, LOAD_DECK_TO_PLAY_SCENE, wordTexIds);
 		LoadMKdeck(&scene, magicKnightDecks, &magicKnightPlayingDeck);
 
 		break;
@@ -152,7 +162,7 @@ void MainFunction(void)
 		ControlMagicKnightMainGame(magicKnightWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
 			&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex);
 		RenderMagicKnightMainGame(magicKnightWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
-			&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex);
+			&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex, wordTexIds);
 
 		/*ControlTyping(magicKnigtWords, magicKnightWordLists, &magicKnightAction, wordCandidates, &wordNum,&endAttackEffect);
 		RenderMasicKnightWordLists(fontIds, magicKnigtWords, magicKnightWordLists, &magicKnightAction, wordCandidates,&wordNum,&endAttackEffect);
