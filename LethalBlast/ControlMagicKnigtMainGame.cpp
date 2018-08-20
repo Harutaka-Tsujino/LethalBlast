@@ -9,15 +9,10 @@
 //CustomVertex handWordCollisionsVertex[HAND_WORD_MAX*RECT_VERTEX_NUM];
 //CustomVertex magicKnightActionCollisionsVertex[MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX*RECT_VERTEX_NUM];
 
-void ControlMagicKnightMainGame(WordData* pMagicKnightWordDatas ,MagicKnightDeck* pMagicKnightDecks, 
+void ControlMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck* pMagicKnightDecks, 
 	MagicKnightPlayingDeck* pMagicKnightPlayingDeck, MagicKnightAction* pMagicKnightAction,
 	ImagesCustomVertex* pHandWordCollisionsVertex, ImagesCustomVertex* pMagicKnightActionCollisionsVertex)
 {
-	for (int magicKnightDeckWord = 0; magicKnightDeckWord < DECK_WORD_MAX; ++magicKnightDeckWord)
-	{
-		pMagicKnightPlayingDeck->m_deckWordId[magicKnightDeckWord] = ファイアー;///////////////////////////////////////////////////////////////////////////////////////
-	}
-
 	//必殺技を発動している
 	if (pMagicKnightAction->useAction)
 	{
@@ -37,32 +32,32 @@ void ControlMagicKnightMainGame(WordData* pMagicKnightWordDatas ,MagicKnightDeck
 		/*プレイ開始時の手札やデッキなどの初期化 開始*/
 		MAGIC_KNIGHT_WORD* pWordShuffleBuf = (MAGIC_KNIGHT_WORD*)malloc(sizeof(MAGIC_KNIGHT_WORD)*pMagicKnightDecks[pMagicKnightPlayingDeck->m_currentId].m_wordNum);
 
-		//重複しないようにするためデッキの単語識別子をバッファーに保存する
-		for (int deckWordNum = 0; deckWordNum < pMagicKnightDecks[pMagicKnightPlayingDeck->m_currentId].m_wordNum; ++deckWordNum)
-		{
-			pWordShuffleBuf[deckWordNum] = pMagicKnightDecks[pMagicKnightPlayingDeck->m_currentId].m_wordIds[deckWordNum];
-		}
+		////重複しないようにするためデッキの単語識別子をバッファーに保存する
+		//for (int deckWordNum = 0; deckWordNum < pMagicKnightDecks[pMagicKnightPlayingDeck->m_currentId].m_wordNum; ++deckWordNum)
+		//{
+		//	pWordShuffleBuf[deckWordNum] = pMagicKnightDecks[pMagicKnightPlayingDeck->m_currentId].m_wordIds[deckWordNum];
+		//}
 
-		//デッキの中の単語識別子をシャッフルする
-		for (int deckWordNum = 0; deckWordNum < DECK_WORD_MAX; deckWordNum++)
-		{
-			int unshuffledDeckWordNum = pMagicKnightDecks[pMagicKnightPlayingDeck->m_currentId].m_wordNum - deckWordNum;
+		////デッキの中の単語識別子をシャッフルする
+		//for (int deckWordNum = 0; deckWordNum < DECK_WORD_MAX; deckWordNum++)
+		//{
+		//	int unshuffledDeckWordNum = pMagicKnightDecks[pMagicKnightPlayingDeck->m_currentId].m_wordNum - deckWordNum;
 
-			if (unshuffledDeckWordNum == 0)
-			{
-				break;
-			}
+		//	if (unshuffledDeckWordNum == 0)
+		//	{
+		//		break;
+		//	}
 
-			int chosenNum = rand() % (unshuffledDeckWordNum);
+		//	int chosenNum = rand() % (unshuffledDeckWordNum);
 
-			pMagicKnightPlayingDeck->m_deckWordId[deckWordNum] = pWordShuffleBuf[chosenNum];
+		//	pMagicKnightPlayingDeck->m_deckWordId[deckWordNum] = pWordShuffleBuf[chosenNum];
 
-			//一度選ばれたものは選ばれる範囲から外す
-			for (int backShift = chosenNum; backShift < unshuffledDeckWordNum; ++backShift)
-			{
-				pWordShuffleBuf[backShift] = pWordShuffleBuf[backShift + 1];
-			}
-		}
+		//	//一度選ばれたものは選ばれる範囲から外す
+		//	for (int backShift = chosenNum; backShift < unshuffledDeckWordNum; ++backShift)
+		//	{
+		//		pWordShuffleBuf[backShift] = pWordShuffleBuf[backShift + 1];
+		//	}
+		//}
 
 		//開始のドロー
 		for (int drawNum = 0; drawNum < HAND_WORD_MAX; ++drawNum)
@@ -155,8 +150,14 @@ void ControlMagicKnightMainGame(WordData* pMagicKnightWordDatas ,MagicKnightDeck
 				continue;
 			}
 
+			//VOID_W0RD
+			if (!pMagicKnightPlayingDeck->m_handWordId[handWord])
+			{
+				break;
+			}
+
 			//必殺技のスペースを探す
-			for (int actionComponentWord = 0; MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX; ++actionComponentWord)
+			for (int actionComponentWord = 0; actionComponentWord< MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX; ++actionComponentWord)
 			{
 				if (pMagicKnightAction->m_componentWordIds[actionComponentWord] == (MAGIC_KNIGHT_WORD)NULL)
 				{
@@ -169,11 +170,15 @@ void ControlMagicKnightMainGame(WordData* pMagicKnightWordDatas ,MagicKnightDeck
 			//スペースがなかったら
 			if (actionWordSpacePlace == ACTION_WORD_FULL)
 			{
-				continue;
+				break;
 			}
 
 			//必殺技に代入
 			pMagicKnightAction->m_componentWordIds[actionWordSpacePlace] = pMagicKnightPlayingDeck->m_handWordId[handWord];
+			pMagicKnightPlayingDeck->m_handWordId[handWord] = VOID_WORD;
+
+			//手札の位置
+			pMagicKnightAction->m_handPos[actionWordSpacePlace] = handWord;
 		}
 
 		//必殺技
@@ -186,8 +191,15 @@ void ControlMagicKnightMainGame(WordData* pMagicKnightWordDatas ,MagicKnightDeck
 				continue;
 			}
 
+			if (pMagicKnightAction->m_componentWordIds[actionConponentWord] == (MAGIC_KNIGHT_WORD)NULL)
+			{
+				break;
+			}
+
 			//リムーブ
+			pMagicKnightPlayingDeck->m_handWordId[(pMagicKnightAction->m_handPos[actionConponentWord])] = pMagicKnightAction->m_componentWordIds[actionConponentWord];
 			pMagicKnightAction->m_componentWordIds[actionConponentWord] = (MAGIC_KNIGHT_WORD)NULL;
+			pMagicKnightAction->m_handPos[actionConponentWord] = 0;
 		}
 	}
 	/*マウスカーソルとの当たり判定チェック及びその時の処理 終了*/
@@ -207,6 +219,20 @@ void ControlMagicKnightMainGame(WordData* pMagicKnightWordDatas ,MagicKnightDeck
 		}
 		/*必殺技が完成したときの処理　終了*/
 	}
+
+	return;
+}
+
+void LoadMKdeck(SCENE* scene, MagicKnightDeck* pMagicKnightDecks, MagicKnightPlayingDeck* pMagicKnightPlayingDeck)
+{
+	int currentDeck = pMagicKnightPlayingDeck->m_currentId;
+
+	for (int word=0; word < DECK_WORD_MAX; ++word)
+	{
+		pMagicKnightPlayingDeck->m_deckWordId[word] = pMagicKnightDecks[currentDeck].m_wordIds[word];
+	}
+
+	*scene = GAME_SCENE;
 
 	return;
 }

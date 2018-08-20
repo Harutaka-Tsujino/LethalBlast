@@ -5,4 +5,4 @@
 #include"ControlCharaChoice.h"
 #include"ControlMagicKnightMainGame.h"
 
-void ControlChoiceDeck(SCENE* scene,ImagesCustomVertex* pChoiseDeckCollisionsVertex, MagicKnightPlayingDeck* pMagicKnightPlayingDeck);
+void ControlChoiceDeck(SCENE* scene, SCENE destScene, ImagesCustomVertex* pChoiseDeckCollisionsVertex, int* pDeckNum);

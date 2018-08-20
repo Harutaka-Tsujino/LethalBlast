@@ -11,10 +11,9 @@
 
 void RenderMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck* pMagicKnightDecks,
 	MagicKnightPlayingDeck* pMagicKnightPlayingDeck, MagicKnightAction* pMagicKnightAction,
-	ImagesCustomVertex* pHandWordCollisionsVertex, ImagesCustomVertex* pMagicKnightActionCollisionsVertex)
+	ImagesCustomVertex* pHandWordCollisionsVertex, ImagesCustomVertex* pMagicKnightActionCollisionsVertex, TEXTUREID* wordTexIds)
 {
 	static TEXTUREID collisionTestTexId;
-	
 	static int frameCount = INIT_FRAME;
 
 	if (frameCount == INIT_FRAME)
@@ -26,13 +25,44 @@ void RenderMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck*
 
 	for (int handWord = 0; handWord < HAND_WORD_MAX; ++handWord)
 	{
-		DrawImage(pHandWordCollisionsVertex[handWord].ImageVertex, collisionTestTexId);
+		DrawImage(pHandWordCollisionsVertex[handWord].ImageVertex, wordTexIds[(pMagicKnightPlayingDeck->m_handWordId[handWord])]);
 	}
 
 	for (int actionComponentWord = 0; actionComponentWord < MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX; ++actionComponentWord)
 	{
-		DrawImage(pMagicKnightActionCollisionsVertex[actionComponentWord].ImageVertex, collisionTestTexId);
+		DrawImage(pMagicKnightActionCollisionsVertex[actionComponentWord].ImageVertex, wordTexIds[(pMagicKnightAction->m_componentWordIds[actionComponentWord])]);
 	}
+
+	return;
+}
+
+void RenderWhileLoad(SCENE* scene,SCENE destScene, TEXTUREID* wordTexIds)
+{
+	static TEXTUREID LoadTexId;
+
+	static int frameCount = INIT_FRAME;
+
+	if (frameCount == INIT_FRAME)
+	{
+		RoadTexture("texture/Load/LoadScene.png", &LoadTexId);
+		RoadTexture("Texture/MKWord/VOID_WORD.png", &wordTexIds[VOID_WORD]);
+		RoadTexture("Texture/MKWord/ファイアー.png", &wordTexIds[ファイアー]);
+		RoadTexture("Texture/MKWord/ウォーター.png", &wordTexIds[ウォーター]);
+		RoadTexture("Texture/MKWord/ウィンド.png", &wordTexIds[ウィンド]);
+		RoadTexture("Texture/MKWord/シャイニング.png", &wordTexIds[シャイニング]);
+		RoadTexture("Texture/MKWord/ダークネス.png", &wordTexIds[ダークネス]);
+		RoadTexture("Texture/MKWord/クロス.png", &wordTexIds[クロス]);
+		RoadTexture("Texture/MKWord/クロスファイアー.png", &wordTexIds[クロスファイアー]);
+		frameCount = 0;
+	}
+
+	CustomVertex LoadScene[4];
+
+	CustomImageVerticies(LoadScene, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f);
+
+	DrawImage(LoadScene, LoadTexId);
+
+	*scene = destScene;
 
 	return;
 }
