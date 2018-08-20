@@ -46,20 +46,20 @@ void MainFunction(void)
 	static WeaponMasterDeck weaponMasterWordDecks[8];
 	static WeaponMasterActionData weaponMasterActionWords[WEAPON_MASTER_ACTION_LISTS];
 	static ImagesCustomVertex weaponMasterDeckVerticies[40];
-	static PlayerState player[JOB_MAX];
-	static EnemyState enemy[ENEMY_TYPE_MAX];
+	/*static PlayerState player[JOB_MAX];
+	static EnemyState enemy[ENEMY_TYPE_MAX];*/
 	static int wordNum = 0;
 	static bool endAttackEffect = false;
-
+	static int cursol = 1;
 	static int playerType;
 	static int playerATKDamage;
-	static int enemyType = BOSS;
+	/*static int enemyType = BOSS;*/
 	static bool initHPFlag = true;
 	static bool initMagicKnightActionFlag;
 	static int count = 0;
 	static int CTCount = 0;
 	static int page = 1;
-static WordData magicKnightWordDatas[MAGIC_KNIGHT_WORD_MAX];
+	static WordData magicKnightWordDatas[MAGIC_KNIGHT_WORD_MAX];
 	static MagicKnightDeck magicKnightDecks[MAGIC_KNIGHT_DECKS_MAX];
 	static MagicKnightPlayingDeck magicKnightPlayingDeck;
 	static MagicKnightAction magicKnightAction;

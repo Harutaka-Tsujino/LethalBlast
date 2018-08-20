@@ -23,7 +23,9 @@ void RenderWeaponMasterAction(WeaponMasterWordData* pWeaponMasterWordData,Weapon
 		{
 		case 0:
 			CustomImageVerticies(pageTransition, 1050.f, 500.f, 25 / 2.f, 25 / 2.f);
-			
+
+			RotateImageDeg(pageTransition, pageTransition, 180.f);
+
 			if (pPage != 1)
 			{
 				DrawImage(pageTransition, textureIds[WEAPON_MASTER_PAGE_CURSOL_TEX]);
