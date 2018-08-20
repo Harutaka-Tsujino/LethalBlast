@@ -63,6 +63,7 @@
     <ClCompile Include="ControlMagicKnigtMainGame.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="RenderMagicKnigtMainGame.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -146,6 +147,7 @@
     <ClInclude Include="ControlMagicKnightMainGame.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="RenderMagicKnigtMainGame.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
