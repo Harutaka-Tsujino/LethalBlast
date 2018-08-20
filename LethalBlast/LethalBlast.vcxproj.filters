@@ -151,6 +151,9 @@
     <Text Include="Enum\MagicKnightWordEnum.txt">
       <Filter>リソース ファイル</Filter>
     </Text>
+    <Text Include="Files\Enum\WeaponMasterWordEnum.txt">
+      <Filter>リソース ファイル</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\..\OneDrive\Desktop\sam_pc_roma.gif">

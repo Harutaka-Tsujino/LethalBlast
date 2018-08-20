@@ -171,6 +171,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Enum\MagicKnightWordEnum.txt" />
+    <Text Include="Files\Enum\WeaponMasterWordEnum.txt" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\..\OneDrive\Desktop\sam_pc_roma.gif" />
