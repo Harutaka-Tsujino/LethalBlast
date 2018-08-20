@@ -101,7 +101,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -129,6 +129,7 @@
     <ClCompile Include="ControlGame.cpp" />
     <ClCompile Include="ControlHome.cpp" />
     <ClCompile Include="ControlHP.cpp" />
+    <ClCompile Include="ControlItemDrop.cpp" />
     <ClCompile Include="ControlMagicKnigtMainGame.cpp" />
     <ClCompile Include="ControlModifyWord.cpp" />
     <ClCompile Include="ControlPV.cpp" />
@@ -156,6 +157,7 @@
     <ClInclude Include="ControlGame.h" />
     <ClInclude Include="ControlHome.h" />
     <ClInclude Include="ControlHP.h" />
+    <ClInclude Include="ControlItemDrop.h" />
     <ClInclude Include="ControlMagicKnightMainGame.h" />
     <ClInclude Include="ControlModifyWord.h" />
     <ClInclude Include="ControlPV.h" />
