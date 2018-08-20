@@ -166,21 +166,6 @@ static WordData magicKnightWordDatas[MAGIC_KNIGHT_WORD_MAX];
 		LoadMKdeck(&scene, magicKnightDecks, &magicKnightPlayingDeck);
 
 		break;
-
-	case GAME_SCENE:
-
-		ControlGame(&scene);
-		RenderGame(&scene);
-
-		ControlMagicKnightMainGame(magicKnightWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
-			&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex);
-		RenderMagicKnightMainGame(magicKnightWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
-			&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex, wordTexIds);
-
-		/*ControlTyping(magicKnigtWords, magicKnightWordLists, &magicKnightAction, wordCandidates, &wordNum,&endAttackEffect);
-		RenderMasicKnightWordLists(fontIds, magicKnigtWords, magicKnightWordLists, &magicKnightAction, wordCandidates,&wordNum,&endAttackEffect);
-		ControlHP(player, enemy, &playerATKDamage, &playerType, &enemyType, &initHPFlag,&count,&CTCount, &magicKnightAction, &initMagicKnightActionFlag);
-		RenderHP(player, enemy,&count,&CTCount, playerType, &enemyType);*/
 		
 	case GAME_SCENE:
 
@@ -193,8 +178,9 @@ static WordData magicKnightWordDatas[MAGIC_KNIGHT_WORD_MAX];
 	/*	ControlMagicKnightMainGame(magicKnightWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
 			&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex);
 		RenderMagicKnightMainGame(magicKnightWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
-			&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex, wordTexIds);*/
-
+			&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex, wordTexIds);
+		ControlHP(player, enemy, &playerATKDamage, &playerType, &enemyType, &initHPFlag, &count, &CTCount, &magicKnightAction, &initMagicKnightActionFlag);
+		RenderHP(player, enemy, &count, &CTCount, playerType, &enemyType);*/
 	}
 
 	return;
