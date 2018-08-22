@@ -23,7 +23,7 @@ void ControlAlterDeck(SCENE* scene,WordData* pMagicKnightWordDatas, MagicKnightD
 	const float MOUSE_CURSOR_SCALE = 0.5f;
 	CustomImageVerticies(mouseCursorCollisionVertex, (float)g_mouseState.absolutePos.x, (float)g_mouseState.absolutePos.y, MOUSE_CURSOR_SCALE, MOUSE_CURSOR_SCALE);
 
-	const float WORD_COLLISION_SCALE_X = (DISPLAY_WIDTH*0.75) / 32;
+	const float WORD_COLLISION_SCALE_X = (DISPLAY_WIDTH) / 32;
 	const float WORD_COLLISION_SCALE_Y = WORD_COLLISION_SCALE_X / 2;
 
 	float listWordPosX = WORD_COLLISION_SCALE_X*2;

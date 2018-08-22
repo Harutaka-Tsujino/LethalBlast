@@ -11,7 +11,12 @@ enum HOME_TEX
 	CHARA_CHOICE_PORTAL_TEX,
 	MODIFY_PORTAL_TEX,
 	QUEST_PORTAL_TEX,
+	PAGE_1_TEX,
+	PAGE_2_TEX,
+	PAGE_3_TEX,
+	PAGE_4_TEX,
+	PAGE_5_TEX,
 	HOME_TEX_MAX
 };
 
-void RenderHome(CustomVertex* deckAlterPortal, CustomVertex* modifyWordPortal, CustomVertex* mainGamePortal, CustomVertex* charaChoicePortal);
+void RenderHome(CustomVertex* deckAlterPortal, CustomVertex* modifyWordPortal, CustomVertex* mainGamePortal, CustomVertex* charaChoicePortal, TEXTUREID* wordTexIds);

@@ -35,8 +35,6 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdSh
 //メッセージループでループさせる関数
 void MainFunction(void)
 {
-	srand((unsigned int)time(NULL));
-
 	static SCENE scene = (SCENE)0;
 
 	static TEXTUREID textureIds[ALL_TEX_MAX];
@@ -93,6 +91,7 @@ void MainFunction(void)
 
 		ControlPV(&scene);
 		RenderPV(&scene);
+		srand((unsigned int)time(NULL));
 
 		break;
 
@@ -121,7 +120,7 @@ void MainFunction(void)
 		ControlHome(&scene, magicKnightWordDatas, magicKnightDecks,
 			&magicKnightPlayingDeck, &magicKnightAction,
 			deckAlterPortal, modifyWordPortal, mainGamePortal, charaChoicePortal);
-		RenderHome(deckAlterPortal, modifyWordPortal, mainGamePortal, charaChoicePortal);
+		RenderHome(deckAlterPortal, modifyWordPortal, mainGamePortal, charaChoicePortal, wordTexIds);
 
 		break;
 
@@ -171,15 +170,15 @@ void MainFunction(void)
 
 		ControlGame(&scene);
 		RenderGame(&scene);
-		ControlWeaponMasterAction(weaponMasterWords, weaponMasterWordDecks, weaponMasterActionWords,
+		/*ControlWeaponMasterAction(weaponMasterWords, weaponMasterWordDecks, weaponMasterActionWords,
 			weaponMasterDeckVerticies, &page);
 		RenderWeaponMasterAction(weaponMasterWords, weaponMasterWordDecks, weaponMasterActionWords,
-			weaponMasterDeckVerticies, page);
-	/*	ControlMagicKnightMainGame(magicKnightWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
+			weaponMasterDeckVerticies, page);*/
+		ControlMagicKnightMainGame(magicKnightWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
 			&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex);
 		RenderMagicKnightMainGame(magicKnightWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
 			&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex, wordTexIds);
-		ControlHP(player, enemy, &playerATKDamage, &playerType, &enemyType, &initHPFlag, &count, &CTCount, &magicKnightAction, &initMagicKnightActionFlag);
+		/*ControlHP(player, enemy, &playerATKDamage, &playerType, &enemyType, &initHPFlag, &count, &CTCount, &magicKnightAction, &initMagicKnightActionFlag);
 		RenderHP(player, enemy, &count, &CTCount, playerType, &enemyType);*/
 	}
 
