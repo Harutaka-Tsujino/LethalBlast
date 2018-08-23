@@ -35,7 +35,7 @@ typedef struct
 	int m_cost;
 
 	//特殊属性の倍率
-	int m_elementMultiPlus;
+	int m_plusDamage;
 
 	//所持しているかどうか
 	int m_have;
