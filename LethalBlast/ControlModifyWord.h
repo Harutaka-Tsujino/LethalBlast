@@ -6,4 +6,4 @@
 
 void ControlModify(SCENE* scene, WordData* pMagicKnightWordDatas, MagicKnightDeck* pMagicKnightDecks,
 	ImagesCustomVertex* pChoiseWordCollisionsVertex, CustomVertex* pWordDatasBackVertices, CustomVertex* pEndModifyVertices, CustomVertex* pBackgroundVertices,
-	int* modifyWordBox, ImagesCustomVertex* modifyBoxVertices, CustomVertex* decideModify);
+	int* modifyWordBox, ImagesCustomVertex* modifyBoxVertices, CustomVertex* decideModify, bool* clickedWord);

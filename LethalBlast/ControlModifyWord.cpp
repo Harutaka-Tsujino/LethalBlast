@@ -5,18 +5,19 @@
 
 void ControlModify(SCENE* scene, WordData* pMagicKnightWordDatas, MagicKnightDeck* pMagicKnightDecks,
 	ImagesCustomVertex* pChoiseWordCollisionsVertex, CustomVertex* pWordDatasBackVertices, CustomVertex* pEndModifyVertices, CustomVertex* pBackgroundVertices,
-	int* modifyWordBox, ImagesCustomVertex* modifyBoxVertices,CustomVertex* decideModify)
+	int* modifyWordBox, ImagesCustomVertex* modifyBoxVertices,CustomVertex* decideModify,bool* clickedWord)
 {
 	static int frameCount = -1;
 
 	if (frameCount == -1)
 	{
-		ZeroMemory(modifyWordBox, sizeof(int) * 2);
+		memset(clickedWord, 0, sizeof(bool)*MAGIC_KNIGHT_WORD_MAX);
+		ZeroMemory(modifyWordBox, sizeof(int) * MATERIALS_NUM);
 
 		frameCount = 0;
 	}
 
-	for (int modifyBox = 0; modifyBox < 2; ++modifyBox)
+	for (int modifyBox = 0; modifyBox < MATERIALS_NUM; ++modifyBox)
 	{
 		CustomImageVerticies(modifyBoxVertices[modifyBox].ImageVertex, DISPLAY_WIDTH / 15.f + ((DISPLAY_WIDTH / 5.f)*(modifyBox)),
 			DISPLAY_HEIGHT -DISPLAY_HEIGHT / 8.f, DISPLAY_WIDTH / 20.f, DISPLAY_WIDTH / 40.f);
@@ -60,6 +61,16 @@ void ControlModify(SCENE* scene, WordData* pMagicKnightWordDatas, MagicKnightDec
 		}
 	}
 
+	if (wordSlidePosY > 0)
+	{
+		wordSlidePosY = 0;
+	}
+
+	if (wordSlidePosY < (int)(-WORD_COLLISION_SCALE_X * 4 * (MAGIC_KNIGHT_WORD_MAX / (WORD_NEW_LINE - 1))))
+	{
+		wordSlidePosY = (int)(-WORD_COLLISION_SCALE_X * 4 * (MAGIC_KNIGHT_WORD_MAX / (WORD_NEW_LINE - 1)));
+	}
+
 	for (int wordDatas = 0; wordDatas < MAGIC_KNIGHT_WORD_MAX; ++wordDatas)
 	{
 		if (pMagicKnightWordDatas[wordDatas].m_have)
@@ -86,11 +97,23 @@ void ControlModify(SCENE* scene, WordData* pMagicKnightWordDatas, MagicKnightDec
 			{
 				if (!RectToRectCollisionCheak(pBackgroundVertices, mouseCursorCollisionVertex))
 				{
-					for (int modifyBox = 0; modifyBox < 2; ++modifyBox)
+					for (int modifyBox = 0; modifyBox < MATERIALS_NUM; ++modifyBox)
 					{
 						if (modifyWordBox[modifyBox] == 0)
 						{
+							if (modifyBox == 1 && modifyWordBox[0] == wordDatas)
+							{
+								break;
+							}
+
+							if (modifyBox == 0 && modifyWordBox[1] == wordDatas)
+							{
+								break;
+							}
+
 							modifyWordBox[modifyBox] = wordDatas;
+
+							clickedWord[wordDatas] = true;
 
 							break;
 						}
@@ -99,17 +122,19 @@ void ControlModify(SCENE* scene, WordData* pMagicKnightWordDatas, MagicKnightDec
 			}
 		}
 
-		for (int modifyBox = 0; modifyBox < 2; ++modifyBox)
+		for (int modifyBox = 0; modifyBox < MATERIALS_NUM; ++modifyBox)
 		{
 			if (RectToRectCollisionCheak(modifyBoxVertices[modifyBox].ImageVertex, mouseCursorCollisionVertex))
 			{
+				clickedWord[modifyWordBox[modifyBox]] = false;
+
 				modifyWordBox[modifyBox] = 0;
 			}
 		}
 
 		if (RectToRectCollisionCheak(mouseCursorCollisionVertex, decideModify))
 		{
-			for (int modifyBox = 0; modifyBox < 2; ++modifyBox)
+			for (int modifyBox = 0; modifyBox < MATERIALS_NUM; ++modifyBox)
 			{
 				if (!modifyWordBox[modifyBox])
 				{
@@ -143,6 +168,9 @@ void ControlModify(SCENE* scene, WordData* pMagicKnightWordDatas, MagicKnightDec
 
 		if (RectToRectCollisionCheak(mouseCursorCollisionVertex, pEndModifyVertices))
 		{
+			memset(clickedWord, 0, sizeof(bool)*MAGIC_KNIGHT_WORD_MAX);
+			memset(modifyWordBox, 0, sizeof(int)*MATERIALS_NUM);
+
 			*scene = HOME_SCENE;
 		}
 	}

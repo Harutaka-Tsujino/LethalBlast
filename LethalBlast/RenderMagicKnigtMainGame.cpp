@@ -58,7 +58,7 @@ void RenderWhileLoad(SCENE* scene,SCENE destScene, TEXTUREID* wordTexIds)
 
 	CustomVertex LoadScene[4];
 
-	CustomImageVerticies(LoadScene, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f);
+	CustomImageVerticies(LoadScene, DISPLAY_WIDTH / 2.f-15, DISPLAY_HEIGHT / 2.f-35, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f);
 
 	DrawImage(LoadScene, LoadTexId);
 

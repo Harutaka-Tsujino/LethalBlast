@@ -4,11 +4,9 @@
 #include"ControlMagicKnightMainGame.h"
 
 void ControlAlterDeck(SCENE* scene,WordData* pMagicKnightWordDatas, MagicKnightDeck* pMagicKnightDecks, ImagesCustomVertex* pChoiseWordCollisionsVertex,ImagesCustomVertex* pDeckComponentCollisionsVertex,
-	CustomVertex* pEndDeckAlterVertices, CustomVertex* pBackgroundVertices,CustomVertex* pWordDatasBackVertices,int* pDeckNumToAlter)
+	CustomVertex* pEndDeckAlterVertices, CustomVertex* pBackgroundVertices,CustomVertex* pWordDatasBackVertices,int* pDeckNumToAlter,bool* clickedWord)
 {
 	static int frameCount = -1;
-
-	static bool clickedWord[MAGIC_KNIGHT_WORD_MAX];
 
 	if (frameCount == -1)
 	{
@@ -59,6 +57,16 @@ void ControlAlterDeck(SCENE* scene,WordData* pMagicKnightWordDatas, MagicKnightD
 		}
 	}
 
+	if (wordSlidePosY > 0)
+	{
+		wordSlidePosY = 0;
+	}
+
+	if (wordSlidePosY < (int)(-WORD_COLLISION_SCALE_X * 4 * (MAGIC_KNIGHT_WORD_MAX / (WORD_NEW_LINE-1))))
+	{
+		wordSlidePosY = (int)(-WORD_COLLISION_SCALE_X * 4 * (MAGIC_KNIGHT_WORD_MAX / (WORD_NEW_LINE-1)));
+	}
+
 	for (int wordDatas = 0; wordDatas < MAGIC_KNIGHT_WORD_MAX; ++wordDatas)
 	{
 		if (pMagicKnightWordDatas[wordDatas].m_have)
@@ -92,6 +100,16 @@ void ControlAlterDeck(SCENE* scene,WordData* pMagicKnightWordDatas, MagicKnightD
 
 	const int DECK_COMPONENT_NEW_LINE = 20;
 
+	if (deckComponentSlidePosX > 0)
+	{
+		deckComponentSlidePosX = 0;
+	}
+
+	if (deckComponentSlidePosX <(int)(-WORD_COLLISION_SCALE_X*4*(DECK_COMPONENT_NEW_LINE-1)))
+	{
+		deckComponentSlidePosX = (int)(-WORD_COLLISION_SCALE_X * 4 * (DECK_COMPONENT_NEW_LINE-1));
+	}
+
 	for (int wordDatas = 0; wordDatas < DECK_WORD_MAX; ++wordDatas)
 	{
 		CustomImageVerticies(pDeckComponentCollisionsVertex[wordDatas].ImageVertex, deckComponentPosX + deckComponentSlidePosX, deckComponentPosY, WORD_COLLISION_SCALE_X, WORD_COLLISION_SCALE_Y);
@@ -101,7 +119,7 @@ void ControlAlterDeck(SCENE* scene,WordData* pMagicKnightWordDatas, MagicKnightD
 		if (!((wordDatas + 1) % (DECK_COMPONENT_NEW_LINE)))
 		{
 			deckComponentPosX = WORD_COLLISION_SCALE_X * 2;
-			deckComponentPosY += (WORD_COLLISION_SCALE_X * 4);
+			deckComponentPosY += (WORD_COLLISION_SCALE_X * 1.9);
 		}
 	}
 
@@ -151,23 +169,9 @@ void ControlAlterDeck(SCENE* scene,WordData* pMagicKnightWordDatas, MagicKnightD
 
 		if (RectToRectCollisionCheak(mouseCursorCollisionVertex, pEndDeckAlterVertices))
 		{
+			memset(clickedWord, 0, sizeof(bool)*MAGIC_KNIGHT_WORD_MAX);
+
 			*scene = HOME_SCENE;
-		}
-	}
-
-	for (int wordDatas = 0; wordDatas < MAGIC_KNIGHT_WORD_MAX; ++wordDatas)
-	{
-		if (clickedWord[wordDatas])
-		{
-			pChoiseWordCollisionsVertex[wordDatas].ImageVertex->m_color = GetColor(255, 255, 0, 0);
-		}
-	}
-
-	for (int wordDatas = 0; wordDatas < DECK_WORD_MAX; ++wordDatas)
-	{
-		if (pMagicKnightDecks[(*pDeckNumToAlter)].m_wordIds[wordDatas])
-		{
-			pDeckComponentCollisionsVertex[wordDatas].ImageVertex->m_color = GetColor(255, 255, 0, 0);
 		}
 	}
 

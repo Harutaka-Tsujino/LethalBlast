@@ -60,7 +60,7 @@ void RenderHome(CustomVertex* deckAlterPortal, CustomVertex* modifyWordPortal, C
 			pageScale[page].m_x = (double)PAGE_SCALE_RATIO_X* randNum;
 			pageScale[page].m_y = (double)PAGE_SCALE_RATIO_Y* randNum;
 
-			CustomImageVerticies(pageVertices[page].ImageVertex, (float)(rand() % DISPLAY_WIDTH), (float)(rand() % DISPLAY_HEIGHT), 0,(float)pageScale[page].m_y, GetColor(0, 255, 255, 128));
+			CustomImageVerticies(pageVertices[page].ImageVertex, (float)(rand() % DISPLAY_WIDTH), (float)(rand() % DISPLAY_HEIGHT), 0,(float)pageScale[page].m_y, GetColor(0, 255, 255, 255));
 
 			pageTexture[page] = wordTexIds[rand() % (MAGIC_KNIGHT_WORD_MAX - 1) + 1];
 		}
@@ -79,7 +79,7 @@ void RenderHome(CustomVertex* deckAlterPortal, CustomVertex* modifyWordPortal, C
 
 			for (int vertices = 0; vertices < RECT_VERTEX_NUM; ++vertices)
 			{
-				pageVertices[page].ImageVertex[vertices].m_color = GetColor((UCHAR)(ALPHA_MAX * (1.f - ((float)(pageLife[page] - PAGE_LIFE + PAGE_LIFE_HEYDAY) / PAGE_LIFE_HEYDAY))), 255, 255, 128);
+				pageVertices[page].ImageVertex[vertices].m_color = GetColor((UCHAR)(ALPHA_MAX * (1.f - ((float)(pageLife[page] - PAGE_LIFE + PAGE_LIFE_HEYDAY) / PAGE_LIFE_HEYDAY))), 255, 255, 255);
 			}
 			
 			SetImageTuTv(pageVertices[page].ImageVertex, pageVertices[page].ImageVertex, 0.f, 0.f, (float)pageScale[page].m_x * (1.f - (float)(pageLife[page] -PAGE_LIFE+ PAGE_LIFE_HEYDAY) / PAGE_LIFE_HEYDAY), 1.f, (float)pageScale[page].m_x, 1.f);
@@ -89,7 +89,7 @@ void RenderHome(CustomVertex* deckAlterPortal, CustomVertex* modifyWordPortal, C
 		{
 			for (int vertices = 0; vertices < RECT_VERTEX_NUM; ++vertices)
 			{
-				pageVertices[page].ImageVertex[vertices].m_color = GetColor((UCHAR)(ALPHA_MAX * (float)(pageLife[page] / (float)(PAGE_LIFE-PAGE_LIFE_HEYDAY))), 255, 255, 128);
+				pageVertices[page].ImageVertex[vertices].m_color = GetColor((UCHAR)(ALPHA_MAX * (float)(pageLife[page] / (float)(PAGE_LIFE-PAGE_LIFE_HEYDAY))), 255, 255, 255);
 			}
 		}
 

@@ -33,7 +33,7 @@ void ControlHome(SCENE* scene,WordData* pMagicKnightWordDatas, MagicKnightDeck* 
 	CustomImageVerticies(mouseCursorCollisionVertex, (float)g_mouseState.absolutePos.x, (float)g_mouseState.absolutePos.y, MOUSE_CURSOR_SCALE, MOUSE_CURSOR_SCALE);
 
 	const float MAIN_GAME_PORTAL_SCALE = DISPLAY_WIDTH / 10.f;
-	CustomImageVerticies(pMainGamePortal, DISPLAY_WIDTH*0.625f, DISPLAY_HEIGHT*0.625f, MAIN_GAME_PORTAL_SCALE, MAIN_GAME_PORTAL_SCALE, 0xf0f0f0f0);
+	CustomImageVerticies(pMainGamePortal, DISPLAY_WIDTH*0.625f, DISPLAY_HEIGHT*0.625f, MAIN_GAME_PORTAL_SCALE, MAIN_GAME_PORTAL_SCALE, 0xe5f0f0f0);
 
 	if (g_mouseState.mousePush[LEFT_CLICK])
 	{
@@ -70,7 +70,7 @@ void ControlHome(SCENE* scene,WordData* pMagicKnightWordDatas, MagicKnightDeck* 
 		}
 	}
 
-	CustomImageVerticies(pCharaChoicePortal, DISPLAY_HEIGHT*0.08f, DISPLAY_HEIGHT*0.04f, DISPLAY_HEIGHT*0.08f, DISPLAY_HEIGHT*0.04f,0xd0ff0000);
+	CustomImageVerticies(pCharaChoicePortal, DISPLAY_HEIGHT*0.08f, DISPLAY_HEIGHT*0.04f, DISPLAY_HEIGHT*0.08f, DISPLAY_HEIGHT*0.04f,0xe6ffeeee);
 
 	if (g_mouseState.mousePush[LEFT_CLICK])
 	{
@@ -106,7 +106,7 @@ void LoadMagicKnightWordDatas(WordData* pMagicKnightWordDatas)
 		//外部ファイルからの入力
 		fscanf(pWordStatesFile, "%[^,],%[^,],%[^,],%x,%d,%d,%d,%d,%d", pMagicKnightWordDatas[wordsNum].m_word, elemental, attack, &pMagicKnightWordDatas[wordsNum].m_specialAbilities,
 			&pMagicKnightWordDatas[wordsNum].m_matterials[0], &pMagicKnightWordDatas[wordsNum].m_matterials[1],
-			&pMagicKnightWordDatas[wordsNum].m_cost, &pMagicKnightWordDatas[wordsNum].m_elementMultiPlus, &pMagicKnightWordDatas[wordsNum].m_have);
+			&pMagicKnightWordDatas[wordsNum].m_cost, &pMagicKnightWordDatas[wordsNum].m_plusDamage, &pMagicKnightWordDatas[wordsNum].m_have);
 
 		//￥ｎの対処
 		if (wordsNum > VOID_WORD + 1)

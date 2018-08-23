@@ -83,6 +83,7 @@ void MainFunction(void)
 	static int modifyWordBox[2];
 	ImagesCustomVertex modifyBoxVertices[2];
 	CustomVertex decideModify[4];
+	static bool clickedWord[MAGIC_KNIGHT_WORD_MAX];
 
 	//シーン分岐
 	switch (scene)
@@ -134,9 +135,9 @@ void MainFunction(void)
 	case ALTER_DECK_SCENE:
 
 		ControlAlterDeck(&scene, magicKnightWordDatas, magicKnightDecks, choiseWordCollisionsVertex,
-			deckComponentCollisionsVertex, endAlterDeckVertices, backgroundVertices, wordDatasBackVertices, &deckNumToAlter);
+			deckComponentCollisionsVertex, endAlterDeckVertices, backgroundVertices, wordDatasBackVertices, &deckNumToAlter, clickedWord);
 		RenderAlterDeck(choiseWordCollisionsVertex, deckComponentCollisionsVertex, endAlterDeckVertices,
-			backgroundVertices, wordDatasBackVertices, wordTexIds, magicKnightWordDatas, magicKnightDecks,&deckNumToAlter);
+			backgroundVertices, wordDatasBackVertices, wordTexIds, magicKnightWordDatas, magicKnightDecks,&deckNumToAlter, clickedWord);
 
 		break;
 
@@ -144,10 +145,10 @@ void MainFunction(void)
 
 		ControlModify(&scene, magicKnightWordDatas, magicKnightDecks,
 			choiseWordCollisionsVertex, wordDatasBackVertices, endModifyVertices, backgroundVertices,
-			modifyWordBox, modifyBoxVertices, decideModify);
+			modifyWordBox, modifyBoxVertices, decideModify, clickedWord);
 		RenderModify(magicKnightWordDatas, choiseWordCollisionsVertex,
 			wordDatasBackVertices, endModifyVertices, backgroundVertices,
-			modifyWordBox, modifyBoxVertices, decideModify, wordTexIds);
+			modifyWordBox, modifyBoxVertices, decideModify, wordTexIds, clickedWord);
 
 		break;
 
