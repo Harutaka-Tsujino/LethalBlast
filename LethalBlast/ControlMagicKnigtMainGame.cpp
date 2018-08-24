@@ -57,6 +57,8 @@ void ControlMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck
 	{
 		//構造体の初期化 全て0を代入する
 		memset(pMagicKnightAction,0,sizeof(MagicKnightAction));
+
+		//VOID_WORDだけ
 		memset(pMagicKnightWordDatas, 0, sizeof(WordData));
 
 		/*プレイ開始時の手札やデッキなどの初期化 開始*/
@@ -115,8 +117,8 @@ void ControlMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck
 	CustomImageVerticies(mouseCursorCollisionVertex,(float)g_mouseState.absolutePos.x, (float)g_mouseState.absolutePos.y, MOUSE_CURSOR_SCALE, MOUSE_CURSOR_SCALE);
 
 	//手札
-	const float HAND_WORD_COLLISION_WIDTH = (float)(DISPLAY_WIDTH / 20);
-	const float HAND_WORD_COLLISION_HEIGHT = HAND_WORD_COLLISION_WIDTH / 2;
+	const float HAND_WORD_COLLISION_WIDTH = (float)(DISPLAY_WIDTH / 10);
+	const float HAND_WORD_COLLISION_HEIGHT = HAND_WORD_COLLISION_WIDTH / 5;
 	const float HAND_POS_Y = (float)(DISPLAY_HEIGHT / 2);
 	const float CIRCULATE_POS_X = DISPLAY_WIDTH * 1.3f;
 
@@ -150,13 +152,13 @@ void ControlMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck
 	/*手札のリストをずらす処理 終了*/
 
 	//必殺技
-	const float ACTION_COMPONENT_WORD_COLLISION_WIDTH = (float)(DISPLAY_WIDTH / 20);
-	const float ACTION_COMPONENT_WORD_COLLISION_HEIGHT = ACTION_COMPONENT_WORD_COLLISION_WIDTH / 2;
+	const float ACTION_COMPONENT_WORD_COLLISION_WIDTH = (float)(DISPLAY_WIDTH / 18);
+	const float ACTION_COMPONENT_WORD_COLLISION_HEIGHT = ACTION_COMPONENT_WORD_COLLISION_WIDTH / 3;
 
 	for (int actionComponentWord = 0; actionComponentWord < MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX; ++actionComponentWord)
 	{
 		CustomImageVerticies(pMagicKnightActionCollisionsVertex[actionComponentWord].ImageVertex,
-			(DISPLAY_WIDTH / 3) + (ACTION_COMPONENT_WORD_COLLISION_WIDTH*2)*actionComponentWord, DISPLAY_HEIGHT - (ACTION_COMPONENT_WORD_COLLISION_HEIGHT*2),
+			(DISPLAY_WIDTH / 4) + (ACTION_COMPONENT_WORD_COLLISION_WIDTH*2)*actionComponentWord+20, DISPLAY_HEIGHT - (ACTION_COMPONENT_WORD_COLLISION_HEIGHT*2)-15,
 			ACTION_COMPONENT_WORD_COLLISION_WIDTH, ACTION_COMPONENT_WORD_COLLISION_HEIGHT);
 	}
 	/*マウスカーソルとの当たり判定用の頂点設定 終了*/

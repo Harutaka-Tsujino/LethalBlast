@@ -21,9 +21,8 @@
 #pragma comment(lib,"winmm.lib")
 #pragma comment(lib,"DX9Lib/DirectX9Library.lib")
 
-
-#define DISPLAY_WIDTH 1280
-#define DISPLAY_HEIGHT 720
+#define DISPLAY_WIDTH 1920
+#define DISPLAY_HEIGHT 1080
 
 /** @def
 * LPDIRECTINPUTDEVICE8の変数g_pDirectInputDeviceの要素数に用いる
@@ -96,8 +95,8 @@ enum INPUT_DEVICE
 *		  FPSを調整しながらメッセージループの中で,キーボードとマウスの入力状態取得,画面の削除,描画の準備,引数で渡された関数の呼び出し,\n 
 *		  描画の終了宣言,バックバッファーに描画が行われたことの伝達,キーボードとマウスの入力状態の保存を行う
 */
-INT CreateWindowAndRepeatToControlAndRender(HINSTANCE hInst, const CHAR *appName, VOID(*func)(VOID), 
-	INT displayWidth = 1280, INT displayHeight = 720, BOOL cullPolygon = TRUE);
+INT CreateWindowAndRepeatToControlAndRender(HINSTANCE hInst, const CHAR *appName, VOID(*func)(VOID),
+	INT displayWidth = DISPLAY_WIDTH, INT displayHeight = DISPLAY_HEIGHT, BOOL window = true, BOOL cullPolygon = TRUE);
 
 /**
 * @fn
@@ -112,7 +111,7 @@ INT CreateWindowAndRepeatToControlAndRender(HINSTANCE hInst, const CHAR *appName
 * @detail wndclass構造体の初期化と登録,ウィンドウの生成,ウィンドウを表示することの設定,ウィンドウの更新をする設定\n
 *		  MSG構造体のクリアを行う
 */
-VOID CreateWindowOverall(HWND *hWnd, MSG *msg, HINSTANCE hInst, const CHAR *appName, INT displayWidth, INT displayHeight);
+VOID CreateWindowOverall(HWND *hWnd, MSG *msg, HINSTANCE hInst, const CHAR *appName, INT displayWidth, INT displayHeight,BOOL window);
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT iMsg, WPARAM wParam, LPARAM lParam);
 
@@ -133,9 +132,9 @@ enum COORDINATEFPS_ACTION
 
 INT CoordinateFPS(INT action, UINT frame = 60);
 
-HRESULT InitDirect3D(VOID);
+HRESULT InitDirect3D(BOOL window, HWND hWnd);
 
-VOID SetBuckBufferOverall(VOID);
+VOID SetBuckBufferOverall(BOOL window, HWND hWnd);
 
 HRESULT InitDirect3DDevice(HWND hWnd, BOOL cullPolygon);
 
@@ -269,7 +268,6 @@ typedef struct
 //! マウスのカーソル位置ボタンの入力状態
 extern MouseState g_mouseState;
 
-#define RECT_VERTEX_NUM 4
 
 //startPosTuTv,scaleTuTvなどは画像の座標,scaleImageは画像のサイズ
 VOID CustomImageVerticies(CustomVertex *pCustomVertex, FLOAT posX, FLOAT posY, FLOAT scaleX, FLOAT scaleY,
@@ -313,7 +311,7 @@ RENDER_FUNC_RETURN_VAL RoadTexture(const CHAR *pTexturePass, TEXTUREID *pTexture
 RENDER_FUNC_RETURN_VAL DrawImage(CustomVertex *pCustomVertex, TEXTUREID textureId);
 
 //thicknessは文字の太さ
-RENDER_FUNC_RETURN_VAL SetFont(INT scaleX, UINT scaleY, const CHAR *pFontType, FONTID *pFontId, UINT thickness, INT charSet = DEFAULT_CHARSET);
+RENDER_FUNC_RETURN_VAL SetFont(INT scaleX, UINT scaleY, const CHAR *pFontType, FONTID *pFontId, UINT thickness, INT charSet= SHIFTJIS_CHARSET);
 
 //pTextは文字列の先頭アドレス
 RENDER_FUNC_RETURN_VAL WriteText(INT posX, INT posY, const CHAR *pText, UINT format, FONTID pFontId, DWORD color = 0xFFFFFFFF);

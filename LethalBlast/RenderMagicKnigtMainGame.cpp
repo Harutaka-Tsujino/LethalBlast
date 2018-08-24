@@ -1,3 +1,5 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include"DX9Lib.h"
 #include"WinMain.h"
 #include"ControlCharaChoice.h"
@@ -46,13 +48,23 @@ void RenderWhileLoad(SCENE* scene,SCENE destScene, TEXTUREID* wordTexIds)
 	{
 		RoadTexture("texture/Load/LoadScene.png", &LoadTexId);
 		RoadTexture("Texture/MKWord/VOID_WORD.png", &wordTexIds[VOID_WORD]);
-		RoadTexture("Texture/MKWord/ファイアー.png", &wordTexIds[ファイアー]);
-		RoadTexture("Texture/MKWord/ウォーター.png", &wordTexIds[ウォーター]);
-		RoadTexture("Texture/MKWord/ウィンド.png", &wordTexIds[ウィンド]);
-		RoadTexture("Texture/MKWord/シャイニング.png", &wordTexIds[シャイニング]);
-		RoadTexture("Texture/MKWord/ダークネス.png", &wordTexIds[ダークネス]);
-		RoadTexture("Texture/MKWord/クロス.png", &wordTexIds[クロス]);
-		RoadTexture("Texture/MKWord/クロスファイアー.png", &wordTexIds[クロスファイアー]);
+
+		
+		FILE* pWordTexPathsFile;
+
+		pWordTexPathsFile = fopen("Files/TexturePaths/MKWordTexPaths.csv", "r");
+
+		for (int word = VOID_WORD + 1; word < MAGIC_KNIGHT_WORD_MAX; ++word)
+		{
+			char mkWordPath[60];
+
+			fscanf(pWordTexPathsFile, "%s,", mkWordPath);
+
+			RoadTexture(mkWordPath, &wordTexIds[word]);
+		}
+
+ 		fclose(pWordTexPathsFile);
+
 		frameCount = 0;
 	}
 

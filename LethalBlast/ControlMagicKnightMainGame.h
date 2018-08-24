@@ -4,7 +4,7 @@
 enum MAGIC_KNIGHT_WORD
 {
 	VOID_WORD,
-#include "Files/Enum/MagicKnightWordEnum.txt"
+#include"Files/Enum/MagicKnightWordEnum.txt"
 };
 
 //単語の名前の文字数最大値

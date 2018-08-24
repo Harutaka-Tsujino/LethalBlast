@@ -8,6 +8,7 @@
 #define ALL_FONT_MAX 255
 #define DEFAULT_COLOR 0xFFFFFFFF
 #define WEPON_MASTER_CHOICE_TEXT_WIDTH 212
+#define RECT_VERTEX_NUM 4 
 
 //初期化を行うときのフレームカウント
 #define INIT_FRAME -1

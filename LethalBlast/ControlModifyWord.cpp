@@ -19,8 +19,8 @@ void ControlModify(SCENE* scene, WordData* pMagicKnightWordDatas, MagicKnightDec
 
 	for (int modifyBox = 0; modifyBox < MATERIALS_NUM; ++modifyBox)
 	{
-		CustomImageVerticies(modifyBoxVertices[modifyBox].ImageVertex, DISPLAY_WIDTH / 15.f + ((DISPLAY_WIDTH / 5.f)*(modifyBox)),
-			DISPLAY_HEIGHT -DISPLAY_HEIGHT / 8.f, DISPLAY_WIDTH / 20.f, DISPLAY_WIDTH / 40.f);
+		CustomImageVerticies(modifyBoxVertices[modifyBox].ImageVertex, DISPLAY_WIDTH / 5.f + ((DISPLAY_WIDTH / 4.f)*(modifyBox)),
+			DISPLAY_HEIGHT -DISPLAY_HEIGHT / 5.8f, DISPLAY_WIDTH / 10.f, DISPLAY_WIDTH / 50.f);
 	}
 
 	CustomImageVerticies(decideModify, DISPLAY_WIDTH*0.65f, DISPLAY_HEIGHT-DISPLAY_HEIGHT / 8.f, DISPLAY_WIDTH / 20.f, DISPLAY_WIDTH / 40.f);
@@ -31,13 +31,13 @@ void ControlModify(SCENE* scene, WordData* pMagicKnightWordDatas, MagicKnightDec
 	const float MOUSE_CURSOR_SCALE = 0.5f;
 	CustomImageVerticies(mouseCursorCollisionVertex, (float)g_mouseState.absolutePos.x, (float)g_mouseState.absolutePos.y, MOUSE_CURSOR_SCALE, MOUSE_CURSOR_SCALE);
 
-	const float WORD_COLLISION_SCALE_X = DISPLAY_WIDTH / 32;
-	const float WORD_COLLISION_SCALE_Y = WORD_COLLISION_SCALE_X / 2;
+	const float WORD_COLLISION_SCALE_X = DISPLAY_WIDTH / 14;
+	const float WORD_COLLISION_SCALE_Y = WORD_COLLISION_SCALE_X / 5;
 
-	float listWordPosX = WORD_COLLISION_SCALE_X * 2;
-	float listWordPosY = WORD_COLLISION_SCALE_X * 2;
+	float listWordPosX = (float)(WORD_COLLISION_SCALE_X * 1.3);
+	float listWordPosY = WORD_COLLISION_SCALE_X;
 
-	const int WORD_NEW_LINE = 7;
+	const int WORD_NEW_LINE = 4;
 
 	memset(pChoiseWordCollisionsVertex, 0, sizeof(ImagesCustomVertex)*MAGIC_KNIGHT_WORD_MAX);
 
@@ -47,6 +47,16 @@ void ControlModify(SCENE* scene, WordData* pMagicKnightWordDatas, MagicKnightDec
 	CustomImageVerticies(pWordDatasBackVertices, DISPLAY_WIDTH*0.875f, DISPLAY_HEIGHT / 2.f, DISPLAY_WIDTH*0.125f, DISPLAY_HEIGHT / 2.f, 0xFFF5F5F5);
 
 	CustomImageVerticies(pBackgroundVertices, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT*(0.65f + 0.175f), DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT*0.175f, 0xFFFFD500);
+
+	int haveWordNum = 0;
+
+	for (int wordDatas = 0; wordDatas < MAGIC_KNIGHT_WORD_MAX; ++wordDatas)
+	{
+		if (pMagicKnightWordDatas[wordDatas].m_have)
+		{
+			haveWordNum++;
+		}
+	}
 
 	if (!RectToRectCollisionCheak(pWordDatasBackVertices, mouseCursorCollisionVertex))
 	{
@@ -66,23 +76,27 @@ void ControlModify(SCENE* scene, WordData* pMagicKnightWordDatas, MagicKnightDec
 		wordSlidePosY = 0;
 	}
 
-	if (wordSlidePosY < (int)(-WORD_COLLISION_SCALE_X * 4 * (MAGIC_KNIGHT_WORD_MAX / (WORD_NEW_LINE - 1))))
+	if (wordSlidePosY < (int)(-WORD_COLLISION_SCALE_X * 1.2 * (haveWordNum / (WORD_NEW_LINE))))
 	{
-		wordSlidePosY = (int)(-WORD_COLLISION_SCALE_X * 4 * (MAGIC_KNIGHT_WORD_MAX / (WORD_NEW_LINE - 1)));
+		wordSlidePosY = (int)(-WORD_COLLISION_SCALE_X * 1.2 * (haveWordNum / (WORD_NEW_LINE)));
 	}
+
+	haveWordNum = 0;
 
 	for (int wordDatas = 0; wordDatas < MAGIC_KNIGHT_WORD_MAX; ++wordDatas)
 	{
 		if (pMagicKnightWordDatas[wordDatas].m_have)
 		{
+			haveWordNum++;
+
 			CustomImageVerticies(pChoiseWordCollisionsVertex[wordDatas].ImageVertex, listWordPosX, listWordPosY + wordSlidePosY, WORD_COLLISION_SCALE_X, WORD_COLLISION_SCALE_Y);
 
-			listWordPosX += (WORD_COLLISION_SCALE_X * 4);
+			listWordPosX += (float)(WORD_COLLISION_SCALE_X * 2.3);
 
-			if (!((wordDatas + 1) % (WORD_NEW_LINE)))
+			if (!((haveWordNum) % (WORD_NEW_LINE)))
 			{
-				listWordPosX = WORD_COLLISION_SCALE_X * 2;
-				listWordPosY += (WORD_COLLISION_SCALE_X * 4);
+				listWordPosX = (float)(WORD_COLLISION_SCALE_X * 1.3);
+				listWordPosY += (float)(WORD_COLLISION_SCALE_X * 1.2);
 			}
 		}
 	}
