@@ -12,10 +12,11 @@
 #include"RenderCharaChoice.h"
 //#include"ControlWordListsAndTyping.h"
 //#include"RenderWordListsAndTyping.h"
-//#include"ControlHP.h"
-//#include"RenderHP.h"
+#include"ControlHP.h"
+#include"RenderHP.h"
 #include"ControlWeaponMasterAction.h"
 #include"RenderWeaponMasterAction.h"
+
 #include"ControlDeckChoice.h"
 #include"RenderDeckChoice.h"
 #include"ControlMagicKnightMainGame.h"
@@ -40,23 +41,28 @@ void MainFunction(void)
 	static TEXTUREID textureIds[ALL_TEX_MAX];
 	static FONTID fontIds[ALL_FONT_MAX];
 
+
 	static WeaponMasterWordData weaponMasterWords[WEAPON_MASTER_WORD_MAX];
 	static WeaponMasterDeck weaponMasterWordDecks[8];
 	static WeaponMasterActionData weaponMasterActionWords[WEAPON_MASTER_ACTION_LISTS];
 	static ImagesCustomVertex weaponMasterDeckVerticies[40];
-	/*static PlayerState player[JOB_MAX];
-	static EnemyState enemy[ENEMY_TYPE_MAX];*/
+	static PlayerState player[JOB_MAX];
+	static EnemyState enemy[ENEMY_TYPE_MAX];
 	static int wordNum = 0;
 	static bool endAttackEffect = false;
 	static int cursol = 1;
+
+	static WordData magicKnigtWords[MAGIC_KNIGHT_WORD_MAX];
+
+
 	static int playerType;
-	static int playerATKDamage;
-	/*static int enemyType = BOSS;*/
-	static bool initHPFlag = true;
-	static bool initMagicKnightActionFlag;
-	static int count = 0;
+	static int playerATKDamage = 0;
+	static ENEMY_TYPE enemyType = SPIDER_ROBOT;
+	static int frameCount = 0;
 	static int CTCount = 0;
+
 	static int page = 1;
+
 	static WordData magicKnightWordDatas[MAGIC_KNIGHT_WORD_MAX];
 	static MagicKnightDeck magicKnightDecks[MAGIC_KNIGHT_DECKS_MAX];
 	static MagicKnightPlayingDeck magicKnightPlayingDeck;
@@ -92,7 +98,7 @@ void MainFunction(void)
 
 		ControlPV(&scene);
 		RenderPV(&scene);
-		srand((unsigned int)time(NULL));
+
 
 		break;
 
@@ -179,8 +185,13 @@ void MainFunction(void)
 			&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex);
 		RenderMagicKnightMainGame(magicKnightWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
 			&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex, wordTexIds);
-		/*ControlHP(player, enemy, &playerATKDamage, &playerType, &enemyType, &initHPFlag, &count, &CTCount, &magicKnightAction, &initMagicKnightActionFlag);
-		RenderHP(player, enemy, &count, &CTCount, playerType, &enemyType);*/
+
+
+		ControlHP(player, enemy, &playerATKDamage, (PLAYERTYPE)playerType, enemyType,&frameCount,&CTCount, &magicKnightAction, magicKnightWordDatas);
+		RenderHP(player, enemy,&frameCount,&CTCount);
+		
+		break;
+
 	}
 
 	return;
