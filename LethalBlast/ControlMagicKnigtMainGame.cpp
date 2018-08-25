@@ -108,6 +108,7 @@ void ControlMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck
 		frameCount = 0;
 	}
 
+
 	/*マウスカーソルとの当たり判定用の頂点設定 開始*/
 
 	//マウスカーソル
@@ -122,34 +123,51 @@ void ControlMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck
 	const float HAND_POS_Y = (float)(DISPLAY_HEIGHT / 2);
 	const float CIRCULATE_POS_X = DISPLAY_WIDTH * 1.3f;
 
-	/*手札のリストをずらす処理 開始*/
-	static int degree = 0;
-
-	if (g_keyState.keyHold[DIK_COMMA])
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	if ( frameCount < 120)
 	{
-		degree-=2;
+		for (int handWord = 0; handWord < HAND_WORD_MAX; ++handWord)
+		{
+			CustomImageVerticies(pHandWordCollisionsVertex[handWord].ImageVertex,
+				DISPLAY_WIDTH - 200, HAND_POS_Y,
+				HAND_WORD_COLLISION_WIDTH, HAND_WORD_COLLISION_HEIGHT);
+
+			CirculateImageDeg(pHandWordCollisionsVertex[handWord].ImageVertex,
+				pHandWordCollisionsVertex[handWord].ImageVertex, (float)(((360 / HAND_WORD_MAX)*(handWord-3)) + 3*(-frameCount-1)), CIRCULATE_POS_X, HAND_POS_Y);
+		}
 	}
 
-	if (g_keyState.keyHold[DIK_PERIOD])
+	else
 	{
-		degree+=2;
-	}
+		/*手札のリストをずらす処理 開始*/
+		static int degree = 0;
 
-	if (degree == 360 || degree == -360)
-	{
-		degree = 0;
-	}
+		if (g_keyState.keyHold[DIK_COMMA])
+		{
+			degree -= 2;
+		}
 
-	for (int handWord = 0; handWord < HAND_WORD_MAX; ++handWord)
-	{
-		CustomImageVerticies(pHandWordCollisionsVertex[handWord].ImageVertex,
-			DISPLAY_WIDTH-200, HAND_POS_Y,
-			HAND_WORD_COLLISION_WIDTH, HAND_WORD_COLLISION_HEIGHT);
+		if (g_keyState.keyHold[DIK_PERIOD])
+		{
+			degree += 2;
+		}
 
-		CirculateImageDeg(pHandWordCollisionsVertex[handWord].ImageVertex,
-			pHandWordCollisionsVertex[handWord].ImageVertex, (float)(((360 / HAND_WORD_MAX)*handWord)+ degree), CIRCULATE_POS_X, HAND_POS_Y);
+		if (degree == 360 || degree == -360)
+		{
+			degree = 0;
+		}
+
+		for (int handWord = 0; handWord < HAND_WORD_MAX; ++handWord)
+		{
+			CustomImageVerticies(pHandWordCollisionsVertex[handWord].ImageVertex,
+				DISPLAY_WIDTH - 200, HAND_POS_Y,
+				HAND_WORD_COLLISION_WIDTH, HAND_WORD_COLLISION_HEIGHT);
+
+			CirculateImageDeg(pHandWordCollisionsVertex[handWord].ImageVertex,
+				pHandWordCollisionsVertex[handWord].ImageVertex, (float)(((360 / HAND_WORD_MAX)*(handWord-3)) + degree), CIRCULATE_POS_X, HAND_POS_Y);
+		}
+		/*手札のリストをずらす処理 終了*/
 	}
-	/*手札のリストをずらす処理 終了*/
 
 	//必殺技
 	const float ACTION_COMPONENT_WORD_COLLISION_WIDTH = (float)(DISPLAY_WIDTH / 18);
@@ -169,71 +187,75 @@ void ControlMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck
 	const int ACTION_WORD_FULL = 5;
 	int actionWordSpacePlace = ACTION_WORD_FULL;
 
-	//左クリックされたら
-	if (g_mouseState.mousePush[LEFT_CLICK])
+	if (frameCount >= 120)
 	{
-		//手札の数だけ調べる
-		for (int handWord = 0; handWord < HAND_WORD_MAX; ++handWord)
+		//左クリックされたら
+		if (g_mouseState.mousePush[LEFT_CLICK])
 		{
-			//当たっていない
-			if (!RectToRectCollisionCheak(&mouseCursorCollisionVertex[0],
-				pHandWordCollisionsVertex[handWord].ImageVertex))
+			//手札の数だけ調べる
+			for (int handWord = 0; handWord < HAND_WORD_MAX; ++handWord)
 			{
-				continue;
-			}
-
-			//VOID_W0RD
-			if (!pMagicKnightPlayingDeck->m_handWordId[handWord])
-			{
-				break;
-			}
-
-			//必殺技のスペースを探す
-			for (int actionComponentWord = 0; actionComponentWord< MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX; ++actionComponentWord)
-			{
-				if (pMagicKnightAction->m_componentWordIds[actionComponentWord] == (MAGIC_KNIGHT_WORD)NULL)
+				//当たっていない
+				if (!RectToRectCollisionCheak(&mouseCursorCollisionVertex[0],
+					pHandWordCollisionsVertex[handWord].ImageVertex))
 				{
-					actionWordSpacePlace = actionComponentWord;
+					continue;
+				}
 
+				//VOID_W0RD
+				if (!pMagicKnightPlayingDeck->m_handWordId[handWord])
+				{
 					break;
 				}
+
+				//必殺技のスペースを探す
+				for (int actionComponentWord = 0; actionComponentWord < MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX; ++actionComponentWord)
+				{
+					if (pMagicKnightAction->m_componentWordIds[actionComponentWord] == (MAGIC_KNIGHT_WORD)NULL)
+					{
+						actionWordSpacePlace = actionComponentWord;
+
+						break;
+					}
+				}
+
+				//スペースがなかったら
+				if (actionWordSpacePlace == ACTION_WORD_FULL)
+				{
+					break;
+				}
+
+				//必殺技に代入
+				pMagicKnightAction->m_componentWordIds[actionWordSpacePlace] = pMagicKnightPlayingDeck->m_handWordId[handWord];
+				pMagicKnightPlayingDeck->m_handWordId[handWord] = VOID_WORD;
+
+				//手札の位置
+				pMagicKnightAction->m_handPos[actionWordSpacePlace] = handWord;
 			}
 
-			//スペースがなかったら
-			if (actionWordSpacePlace == ACTION_WORD_FULL)
+			//必殺技
+			for (int actionConponentWord = 0; actionConponentWord < MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX; ++actionConponentWord)
 			{
-				break;
+				//当たっていなかったら
+				if (!RectToRectCollisionCheak(&mouseCursorCollisionVertex[0],
+					pMagicKnightActionCollisionsVertex[actionConponentWord].ImageVertex))
+				{
+					continue;
+				}
+
+				if (pMagicKnightAction->m_componentWordIds[actionConponentWord] == (MAGIC_KNIGHT_WORD)NULL)
+				{
+					break;
+				}
+
+				//リムーブ
+				pMagicKnightPlayingDeck->m_handWordId[(pMagicKnightAction->m_handPos[actionConponentWord])] = pMagicKnightAction->m_componentWordIds[actionConponentWord];
+				pMagicKnightAction->m_componentWordIds[actionConponentWord] = (MAGIC_KNIGHT_WORD)NULL;
+				pMagicKnightAction->m_handPos[actionConponentWord] = 0;
 			}
-
-			//必殺技に代入
-			pMagicKnightAction->m_componentWordIds[actionWordSpacePlace] = pMagicKnightPlayingDeck->m_handWordId[handWord];
-			pMagicKnightPlayingDeck->m_handWordId[handWord] = VOID_WORD;
-
-			//手札の位置
-			pMagicKnightAction->m_handPos[actionWordSpacePlace] = handWord;
-		}
-
-		//必殺技
-		for (int actionConponentWord = 0; actionConponentWord < MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX; ++actionConponentWord)
-		{
-			//当たっていなかったら
-			if (!RectToRectCollisionCheak(&mouseCursorCollisionVertex[0],
-				pMagicKnightActionCollisionsVertex[actionConponentWord].ImageVertex))
-			{
-				continue;
-			}
-
-			if (pMagicKnightAction->m_componentWordIds[actionConponentWord] == (MAGIC_KNIGHT_WORD)NULL)
-			{
-				break;
-			}
-
-			//リムーブ
-			pMagicKnightPlayingDeck->m_handWordId[(pMagicKnightAction->m_handPos[actionConponentWord])] = pMagicKnightAction->m_componentWordIds[actionConponentWord];
-			pMagicKnightAction->m_componentWordIds[actionConponentWord] = (MAGIC_KNIGHT_WORD)NULL;
-			pMagicKnightAction->m_handPos[actionConponentWord] = 0;
 		}
 	}
+
 	/*マウスカーソルとの当たり判定チェック及びその時の処理 終了*/
 
 	//ENTERまたは右クリックで必殺技完成の合図
@@ -252,6 +274,11 @@ void ControlMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck
 		/*必殺技が完成したときの処理　終了*/
 	}
 
+	if (frameCount < 120)
+	{
+		frameCount++;
+	}
+
 	return;
 }
 
@@ -264,7 +291,7 @@ void LoadMKdeck(SCENE* scene, MagicKnightDeck* pMagicKnightDecks, MagicKnightPla
 		pMagicKnightPlayingDeck->m_handWordId[word] = pMagicKnightDecks[currentDeck].m_wordIds[word];
 	}
 
-	*scene = GAME_SCENE;
+	*scene = SELECT_STAGE_SCENE;
 
 	return;
 }

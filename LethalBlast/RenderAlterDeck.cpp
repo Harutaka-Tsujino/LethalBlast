@@ -21,6 +21,7 @@ void RenderAlterDeck(ImagesCustomVertex* pChoiseWordCollisionsVertex, ImagesCust
 		RoadTexture("Texture/AlterDeck/DeckAlterBackground2.png", &alterDeckTexId[ALTER_BACK_2_TEX]);
 		RoadTexture("Texture/AlterDeck/DeckAlterBackground3.png", &alterDeckTexId[ALTER_BACK_3_TEX]);
 		RoadTexture("Texture/AlterDeck/RedFrame.png", &alterDeckTexId[ALTER_CLICKED_EFFECT_TEX]);
+		RoadTexture("Texture/AlterDeck/UnderAlterWordBoard.png", &alterDeckTexId[UNDER_ALTER_WORD_BOARD_TEX]);
 
 		frameCount = 0;
 	}
@@ -32,6 +33,7 @@ void RenderAlterDeck(ImagesCustomVertex* pChoiseWordCollisionsVertex, ImagesCust
 	
 	for (int wordNum = 0; wordNum < MAGIC_KNIGHT_WORD_MAX; ++wordNum)
 	{
+		DrawImage(pChoiseWordCollisionsVertex[wordNum].ImageVertex, alterDeckTexId[UNDER_ALTER_WORD_BOARD_TEX]);
 		DrawImage(pChoiseWordCollisionsVertex[wordNum].ImageVertex, wordTexIds[wordNum]);
 
 		if (clickedWord[wordNum])
@@ -44,13 +46,17 @@ void RenderAlterDeck(ImagesCustomVertex* pChoiseWordCollisionsVertex, ImagesCust
 
 	for (int deckNum = 0; deckNum < DECK_WORD_MAX; ++deckNum)
 	{
-		DrawImage(pDeckComponentCollisionsVertex[deckNum].ImageVertex, wordTexIds[(pMagicKnightDecks[(*pDeckNumToAlter)].m_wordIds[deckNum])]);
+		DrawImage(pDeckComponentCollisionsVertex[deckNum].ImageVertex, alterDeckTexId[UNDER_ALTER_WORD_BOARD_TEX]);
+
+		if (pMagicKnightDecks[(*pDeckNumToAlter)].m_wordIds[deckNum])
+		{
+			DrawImage(pDeckComponentCollisionsVertex[deckNum].ImageVertex, wordTexIds[(pMagicKnightDecks[(*pDeckNumToAlter)].m_wordIds[deckNum])]);
+		}
 	}
 
 	DrawImage(alterBackVertices, alterDeckTexId[ALTER_BACK_3_TEX]);
 
 	DrawImage(endDeckAlterVertices, alterDeckTexId[EXIT_ALTER_TEX]);
-
 
 	return;
 }

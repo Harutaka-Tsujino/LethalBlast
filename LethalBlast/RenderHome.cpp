@@ -5,18 +5,21 @@
 #include"ControlGame.h"
 #include"RenderHome.h"
 
-void RenderHome(CustomVertex* deckAlterPortal, CustomVertex* modifyWordPortal, CustomVertex* mainGamePortal, CustomVertex* charaChoicePortal,TEXTUREID* wordTexIds)
+void RenderHome(SCENE* scene,CustomVertex* deckAlterPortal, CustomVertex* modifyWordPortal, CustomVertex* mainGamePortal, CustomVertex* charaChoicePortal,TEXTUREID* wordTexIds)
 {
 	static int frameCount = -1;
 
 	static TEXTUREID homeTextures[HOME_TEX_MAX];
 
-	const int PAGE_MAX = 15;
-	const int PAGE_LIFE = 600;
-	const int PAGE_LIFE_HEYDAY = 400;
+	const int PAGE_MAX = 8;
+	const int PAGE_LIFE = 150;
+	const int PAGE_LIFE_HEYDAY = 10;
 	static int pageLife[PAGE_MAX];
 	static TEXTUREID pageTexture[PAGE_MAX];
 	static ImagesCustomVertex pageVertices[PAGE_MAX];
+
+	const int BACK_NUM = 6;
+	static int backFrameCount[BACK_NUM];
 
 	if (frameCount == -1)
 	{
@@ -36,8 +39,112 @@ void RenderHome(CustomVertex* deckAlterPortal, CustomVertex* modifyWordPortal, C
 		RoadTexture("Texture/Home/Page3.png", &homeTextures[PAGE_3_TEX]);
 		RoadTexture("Texture/Home/Page4.png", &homeTextures[PAGE_4_TEX]);
 		RoadTexture("Texture/Home/Page5.png", &homeTextures[PAGE_5_TEX]);
+		RoadTexture("Texture/Home/HomeBackground1.png", &homeTextures[HOME_BACK_1_TEX]);
+		RoadTexture("Texture/Home/HomeBackground01.png", &homeTextures[HOME_BACK_01_TEX]);
+		RoadTexture("Texture/Home/HomeBackground02.png", &homeTextures[HOME_BACK_02_TEX]);
+		RoadTexture("Texture/Home/HomeBackground03.png", &homeTextures[HOME_BACK_03_TEX]);
+		RoadTexture("Texture/Home/HomeBackground04.png", &homeTextures[HOME_BACK_04_TEX]);
+		RoadTexture("Texture/Home/HomeBackground05.png", &homeTextures[HOME_BACK_05_TEX]);
+		RoadTexture("Texture/Home/HomeBackground06.png", &homeTextures[HOME_BACK_06_TEX]);
+
+		ZeroMemory(backFrameCount, sizeof(int)*BACK_NUM);
 
 		frameCount = 0;
+	}
+
+	static ImagesCustomVertex back[BACK_NUM];
+
+	const float DRAW_SPACE = 14.f;
+	
+	if (DRAW_SPACE<=frameCount)
+	{
+		if (frameCount<DRAW_SPACE * 2)
+		{
+			CustomImageVerticies(back[1].ImageVertex, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f
+				, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, 
+				GetColor((UCHAR)(255 * ((backFrameCount[1] + 1) / DRAW_SPACE)), 255, 255, 255));
+
+			backFrameCount[1]++;
+		}
+
+		DrawImage(back[1].ImageVertex, homeTextures[HOME_BACK_02_TEX]);
+	}
+
+	if (DRAW_SPACE*2 <= frameCount)
+	{
+		if (frameCount<DRAW_SPACE * 3 )
+		{
+			CustomImageVerticies(back[2].ImageVertex, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f,
+				((DISPLAY_WIDTH / 2.f)*((backFrameCount[2] + 1) / DRAW_SPACE)), DISPLAY_HEIGHT / 2.f,
+				0xFFFFFFFF,
+				(DISPLAY_WIDTH / 2.f) - ((DISPLAY_WIDTH / 2.f)*((backFrameCount[2] + 1) / DRAW_SPACE)),DISPLAY_HEIGHT / 2.f, 
+				(DISPLAY_WIDTH / 2.f)*((backFrameCount[2] + 1) / DRAW_SPACE), (float)DISPLAY_HEIGHT,(float)DISPLAY_WIDTH, (float)DISPLAY_HEIGHT);
+
+			backFrameCount[2]++;
+		}
+
+		DrawImage(back[2].ImageVertex, homeTextures[HOME_BACK_03_TEX]);
+	}
+
+	if (DRAW_SPACE*3 <= frameCount)
+	{
+		if (frameCount<DRAW_SPACE * 4)
+		{
+			CustomImageVerticies(back[3].ImageVertex, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f,
+				(DISPLAY_WIDTH/2.f)*((backFrameCount[3] + 1) / DRAW_SPACE), DISPLAY_HEIGHT / 2.f,
+				0xFFFFFFFF,
+				0.f, 0.f,
+				DISPLAY_WIDTH*((backFrameCount[3] + 1) / DRAW_SPACE), (float)DISPLAY_HEIGHT, (float)DISPLAY_WIDTH, (float)DISPLAY_HEIGHT);
+
+			backFrameCount[3]++;
+		}
+
+		DrawImage(back[3].ImageVertex, homeTextures[HOME_BACK_04_TEX]);
+	}
+
+	if (DRAW_SPACE*4 <= frameCount)
+	{
+		if (frameCount<DRAW_SPACE * 5 )
+		{
+			CustomImageVerticies(back[4].ImageVertex, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, 
+				(DISPLAY_WIDTH/2.f) * ((backFrameCount[4] + 1) / DRAW_SPACE), DISPLAY_HEIGHT / 2.f,
+				0xFFFFFFFF,
+				DISPLAY_WIDTH - DISPLAY_WIDTH * ((backFrameCount[4] + 1) / DRAW_SPACE), 0.f,
+				DISPLAY_WIDTH * ((backFrameCount[4] + 1) / DRAW_SPACE), (float)DISPLAY_HEIGHT, (float)DISPLAY_WIDTH, (float)DISPLAY_HEIGHT);
+
+			backFrameCount[4]++;
+		}
+
+		DrawImage(back[4].ImageVertex, homeTextures[HOME_BACK_05_TEX]);
+	}
+
+	if (DRAW_SPACE*5 <= frameCount)
+	{
+		if (frameCount<DRAW_SPACE * 6)
+		{
+			CustomImageVerticies(back[5].ImageVertex, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f,
+				DISPLAY_WIDTH / 2.f, (DISPLAY_HEIGHT/2.f) * ((backFrameCount[5] + 1) / DRAW_SPACE),
+				0xFFFFFFFF,
+				0.f, DISPLAY_HEIGHT - DISPLAY_HEIGHT * ((backFrameCount[5] + 1) / DRAW_SPACE),
+				(float)DISPLAY_WIDTH, DISPLAY_HEIGHT * ((backFrameCount[5] + 1) / DRAW_SPACE),
+				(float)DISPLAY_WIDTH, (float)DISPLAY_HEIGHT);
+
+			backFrameCount[5]++;
+		}
+
+		DrawImage(back[5].ImageVertex, homeTextures[HOME_BACK_06_TEX]);
+	}
+
+	if (DRAW_SPACE * 6 <= frameCount)
+	{
+		if (frameCount<DRAW_SPACE * 7)
+		{
+			CustomImageVerticies(back[0].ImageVertex, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, GetColor((UCHAR)(255 * ((backFrameCount[0] + 1) / DRAW_SPACE)), 255, 255, 255));
+
+			backFrameCount[0]++;
+		}
+
+		DrawImage(back[0].ImageVertex, homeTextures[HOME_BACK_1_TEX]);
 	}
 
 	const float PAGE_SCALE_RATIO_X= 25.f;
@@ -60,7 +167,7 @@ void RenderHome(CustomVertex* deckAlterPortal, CustomVertex* modifyWordPortal, C
 			pageScale[page].m_x = (double)PAGE_SCALE_RATIO_X* randNum;
 			pageScale[page].m_y = (double)PAGE_SCALE_RATIO_Y* randNum;
 
-			CustomImageVerticies(pageVertices[page].ImageVertex, (float)(rand() % DISPLAY_WIDTH), (float)(rand() % DISPLAY_HEIGHT), 0,(float)pageScale[page].m_y, GetColor(0, 255, 255, 255));
+			CustomImageVerticies(pageVertices[page].ImageVertex, (float)(rand() % DISPLAY_WIDTH), (float)(rand() % DISPLAY_HEIGHT), 0,(float)pageScale[page].m_y, GetColor(0, 255,255,255));
 
 			pageTexture[page] = wordTexIds[rand() % (MAGIC_KNIGHT_WORD_MAX - 1) + 1];
 		}
@@ -89,7 +196,7 @@ void RenderHome(CustomVertex* deckAlterPortal, CustomVertex* modifyWordPortal, C
 		{
 			for (int vertices = 0; vertices < RECT_VERTEX_NUM; ++vertices)
 			{
-				pageVertices[page].ImageVertex[vertices].m_color = GetColor((UCHAR)(ALPHA_MAX * (float)(pageLife[page] / (float)(PAGE_LIFE-PAGE_LIFE_HEYDAY))), 255, 255, 255);
+				pageVertices[page].ImageVertex[vertices].m_color = GetColor((UCHAR)(ALPHA_MAX * (float)(pageLife[page] / (float)(PAGE_LIFE-PAGE_LIFE_HEYDAY))), 255,255, 255);
 			}
 		}
 
@@ -104,6 +211,25 @@ void RenderHome(CustomVertex* deckAlterPortal, CustomVertex* modifyWordPortal, C
 	for (int page = 0; page < PAGE_MAX; ++page)
 	{
 		pageLife[page] -= 1;
+	}
+
+	if (frameCount < 7*DRAW_SPACE)
+	{
+		frameCount++;
+	}
+
+	if (*scene != HOME_SCENE)
+	{
+		frameCount = 0;
+
+		for (int page = 0; page < PAGE_MAX; ++page)
+		{
+			pageLife[page] = rand() % PAGE_LIFE;
+
+			pageTexture[page] = NULL;
+
+			ZeroMemory(backFrameCount, sizeof(int)*BACK_NUM);
+		}
 	}
 
 	return;

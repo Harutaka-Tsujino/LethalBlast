@@ -27,10 +27,12 @@
 #include"RenderHome.h"
 #include"ControlModifyWord.h"
 #include"RenderModifyWord.h"
+#include"ControlStageSelect.h"
+#include"RenderStageSelect.h"
 
 INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdShow)
 {
-	return CreateWindowAndRepeatToControlAndRender(hInst, "Lethal Blast", MainFunction, DISPLAY_WIDTH, DISPLAY_HEIGHT, FALSE,FALSE);
+	return CreateWindowAndRepeatToControlAndRender(hInst, "Lethal Blast", MainFunction, DISPLAY_WIDTH, DISPLAY_HEIGHT, TRUE,FALSE);
 }
 
 //メッセージループでループさせる関数
@@ -91,6 +93,9 @@ void MainFunction(void)
 	CustomVertex decideModify[4];
 	static bool clickedWord[MAGIC_KNIGHT_WORD_MAX];
 
+	ImagesCustomVertex stageSelectPortals[STAGE_MAX];
+	static int selectedStage;
+
 	//シーン分岐
 	switch (scene)
 	{
@@ -126,8 +131,8 @@ void MainFunction(void)
 
 		ControlHome(&scene, magicKnightWordDatas, magicKnightDecks,
 			&magicKnightPlayingDeck, &magicKnightAction,
-			deckAlterPortal, modifyWordPortal, mainGamePortal, charaChoicePortal);
-		RenderHome(deckAlterPortal, modifyWordPortal, mainGamePortal, charaChoicePortal, wordTexIds);
+			deckAlterPortal, modifyWordPortal, mainGamePortal, charaChoicePortal, wordTexIds);
+		RenderHome(&scene,deckAlterPortal, modifyWordPortal, mainGamePortal, charaChoicePortal, wordTexIds);
 
 		break;
 
@@ -173,6 +178,13 @@ void MainFunction(void)
 
 		break;
 		
+	case SELECT_STAGE_SCENE:
+
+		ControlStageSelect(&scene, stageSelectPortals, &selectedStage);
+		RenderStageSelect(stageSelectPortals);
+
+		break;
+
 	case GAME_SCENE:
 
 		ControlGame(&scene);

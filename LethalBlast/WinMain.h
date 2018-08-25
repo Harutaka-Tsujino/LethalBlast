@@ -54,6 +54,9 @@ enum SCENE
 	//デッキのロード画面
 	LOAD_DECK_TO_PLAY_SCENE,
 
+	//ステージのセレクトシーン
+	SELECT_STAGE_SCENE,
+
 	//メインゲーム画面
 	GAME_SCENE,
 

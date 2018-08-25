@@ -20,6 +20,7 @@ void RenderModify(WordData* pMagicKnightWordDatas,ImagesCustomVertex* pChoiseWor
 		RoadTexture("Texture/AlterDeck/DeckAlterBackground2.png", &modifyTexId[MODIFY_BACK_2_TEX]);
 		RoadTexture("Texture/AlterDeck/DeckAlterBackground3.png", &modifyTexId[MODIFY_BACK_3_TEX]);
 		RoadTexture("Texture/AlterDeck/RedFrame.png", &modifyTexId[MODIFY_CLICKED_EFFECT_TEX]);
+		RoadTexture("Texture/AlterDeck/UnderAlterWordBoard.png", &modifyTexId[UNDER_MODIFY_WORD_BOARD_TEX]);
 
 		frameCount = 0;
 	}
@@ -31,6 +32,7 @@ void RenderModify(WordData* pMagicKnightWordDatas,ImagesCustomVertex* pChoiseWor
 
 	for (int word = 0; word < MAGIC_KNIGHT_WORD_MAX; ++word)
 	{
+		DrawImage(pChoiseWordCollisionsVertex[word].ImageVertex, modifyTexId[UNDER_MODIFY_WORD_BOARD_TEX]);
 		DrawImage(pChoiseWordCollisionsVertex[word].ImageVertex, wordTexIds[word]);
 
 		if (clickedWord[word])
@@ -43,7 +45,12 @@ void RenderModify(WordData* pMagicKnightWordDatas,ImagesCustomVertex* pChoiseWor
 
 	for (int word = 0; word < 2; ++word)
 	{
-		DrawImage(modifyBoxVertices[word].ImageVertex, wordTexIds[modifyWordBox[word]]);
+		DrawImage(modifyBoxVertices[word].ImageVertex, modifyTexId[UNDER_MODIFY_WORD_BOARD_TEX]);
+
+		if (modifyWordBox[word])
+		{
+			DrawImage(modifyBoxVertices[word].ImageVertex, wordTexIds[modifyWordBox[word]]);
+		}
 	}
 
 	DrawImage(modifyBackVertices, modifyTexId[MODIFY_BACK_3_TEX]);
