@@ -12,10 +12,21 @@ enum WEAPON_MASTER_ACTION_TEX
 
 	WEAPON_MASTER_FONT_TEX,
 
+	WEAPON_MASTER_FRAME_TEX,
+
+	LIST_BG_TEX,
+
 	WEAPON_MASTER_ACTION_TEX_MAX,
 };
 
-void RenderWeaponMasterAction(WeaponMasterWordData* pWeaponMasterWordData, WeaponMasterDeck* pWeaponMasterDeck, WeaponMasterActionData* pWeaponMasterActionWords,
-	ImagesCustomVertex* pWeaponMasterDeckVerticies, int pPage);
+enum WEAPON_MASTER_ACTION_FONT
+{
+	PAGE_FONT,
 
-void PageTransitionForWeaponMasterWordLists(ImagesCustomVertex* pWeaponMasterDeckVerticies, int wordLists);
+	PAGE_FONT_MAX,
+
+	FONT_MAX,
+};
+
+void RenderWeaponMasterAction(ImagesCustomVertex* pWeaponMasterDeckVerticies, ImagesCustomVertex* pWeaponMasterAction,
+	WeaponMasterDeck* pWeaponMasterDeck, WeaponMasterActionData* pWeaponMasterActionDatas, int pPage, TEXTUREID* pWmFontIds);

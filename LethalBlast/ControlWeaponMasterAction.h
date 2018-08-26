@@ -6,10 +6,14 @@
 
 enum WEAPON_MASTER_WORD_LISTS
 {
+	SPACE_WORD,
 	#include"Files/Enum/WeaponMasterWordEnum.txt"
 };
 
 #define WORD_NAME 40
+
+//修飾時の素材の数
+#define MATERIALS_NUM 2
 
 typedef struct
 {
@@ -28,16 +32,24 @@ typedef struct
 	 //特殊効果ビットフラグ
 	 unsigned long m_specialAbilities;
 
+	 //修飾時の素材
+	 int m_matterials[MATERIALS_NUM];
+
 	 //コスト
 	 int m_cost;
 
-	 //ダメージ
-	 int m_damage;
+	 //特殊属性の倍率
+	 int m_elementMultiPlus;
+
+	 //所持しているかどうか
+	 int m_have;
 }WeaponMasterWordData;
 
 #define DECK_WORD_MAX 40
 
 #define DECK_NAME 40
+
+#define WEAPON_MASTER_DECK_MAX 8
 
 typedef struct
 {
@@ -59,8 +71,6 @@ typedef struct
 	//コスト
 	int m_cost;
 
-	//ダメージ
-	int m_damage;
 }WeaponMasterDeck;
 
 #define WEAPON_MASTER_ACTION_LISTS 10
@@ -69,6 +79,9 @@ typedef struct
 {
 	//構成している単語の識別子
 	WEAPON_MASTER_WORD_LISTS m_componentWordIds[WEAPON_MASTER_ACTION_LISTS];
+
+	//入れた単語が手札の何番目にあったか
+	int m_handPos[WEAPON_MASTER_ACTION_LISTS];
 
 	//特殊属性別の合計数
 	char m_elementTotals[ELEMENT_ATTRIBUTES_MAX];
@@ -84,7 +97,9 @@ typedef struct
 
 }WeaponMasterActionData;
 
-void ControlWeaponMasterAction(WeaponMasterWordData* pWeaponMasterWordData, WeaponMasterDeck* pWeaponMasterDeck, WeaponMasterActionData* pWeaponMasterActionWords,
-	ImagesCustomVertex* pWeaponMasterDeckVerticies, int* pPage);
+void ControlWeaponMasterAction(WeaponMasterWordData* pWeaponMasterWordData, WeaponMasterDeck* pWeaponMasterDeck, WeaponMasterActionData* pWeaponMasterActionDatas,
+	ImagesCustomVertex* pWeaponMasterDeckVerticies, ImagesCustomVertex* pWeaponMasterAction, int *pPage);
+
+void WeaponMasterInputInfoToAction(WeaponMasterDeck* pWeaponMasterDeck, WeaponMasterActionData* pWeaponMasterActionDatas, ImagesCustomVertex* pWeaponMasterAction, CustomVertex* mouseState);
 
 void WeaponMasterWordListsPageTransition(ImagesCustomVertex* pWeaponMasterDeckVerticies, int wordLists);

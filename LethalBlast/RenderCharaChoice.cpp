@@ -19,7 +19,6 @@ void RenderCharaChoiceInit(TEXTUREID* textureIds, FONTID* fontIds)
 	{
 		RoadTexture("Texture/CharaChoice/CharaChoiceBackGround.png",&textureIds[CHARA_CHOICE_BACKGROUND]);
 		RoadTexture("Texture/CharaChoice/cursol.png", &textureIds[CHARA_CHOICE_CURSOL]);
-		RoadTexture("Texture/CharaChoice/NecromancerAndSummonur.png", &textureIds[CHARA_CHOICE_NECROMANCER_AND_SUMMONER]);
 		RoadTexture("Texture/CharaChoice/MagicKnight.png", &textureIds[CHARA_CHOICE_MAGIC_KNIGHT]);
 		RoadTexture("Texture/CharaChoice/WaeponMaster.png", &textureIds[CHARA_CHOICE_WEAPON_MASTER]);
 
@@ -53,11 +52,6 @@ void RenderCharaChoiceBackGround(TEXTUREID* textureIds, FONTID* fontIds, int* cu
 			WriteText(WEPON_MASTER_CHOICE_TEXT_WIDTH*3+25, 600, "マジックナイト", DT_LEFT, fontIds[0]);
 
 			break;
-
-		case 2:
-			WriteText(WEPON_MASTER_CHOICE_TEXT_WIDTH*5+25, 600, "ダブルキャスター", DT_LEFT, fontIds[0]);
-
-			break;
 		}
 	}
 
@@ -78,15 +72,6 @@ void RenderCharaChoiceBackGround(TEXTUREID* textureIds, FONTID* fontIds, int* cu
 
 		CustomImageVerticies(CharaChoiceCharaImage, DISPLAY_WIDTH / 4.f, DISPLAY_HEIGHT / 3.f, DISPLAY_WIDTH / 4.f, DISPLAY_HEIGHT / 3.f);
 		DrawImage(CharaChoiceCharaImage, textureIds[CHARA_CHOICE_MAGIC_KNIGHT]);
-	}
-
-	if (*cursol == 3)
-	{
-		CustomImageVerticies(CharaChoiceCursol, WEPON_MASTER_CHOICE_TEXT_WIDTH*4+25.f, 600.f, 25.f, 25.f);
-		DrawImage(CharaChoiceCursol, textureIds[CHARA_CHOICE_CURSOL]);
-
-		CustomImageVerticies(CharaChoiceCharaImage, DISPLAY_WIDTH / 4.f, DISPLAY_HEIGHT / 3.f, DISPLAY_WIDTH / 4.f, DISPLAY_HEIGHT / 3.f);
-		DrawImage(CharaChoiceCharaImage, textureIds[CHARA_CHOICE_NECROMANCER_AND_SUMMONER]);
 	}
 
 }

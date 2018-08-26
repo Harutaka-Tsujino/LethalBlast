@@ -2,14 +2,13 @@
 
 #define MOUSE_SCALE 0.5f
 
-void ControlCharaChoice(SCENE* scene, int* cursol,int* playerType)
+void ControlCharaChoice(SCENE* scene, int* cursol, PLAYERTYPE* playerType)
 {
 	//フォントの矩形の作成
-	CustomVertex MouseObj[4], ObjA[4], ObjB[4], ObjC[4];
+	CustomVertex MouseObj[4], ObjA[4], ObjB[4];
 	CustomImageVerticies(MouseObj, (float)g_mouseState.absolutePos.x, (float)g_mouseState.absolutePos.y, MOUSE_SCALE, MOUSE_SCALE);
 	CustomImageVerticies(ObjA, WEPON_MASTER_CHOICE_TEXT_WIDTH, 600.f, WEPON_MASTER_CHOICE_TEXT_WIDTH, 20.f);
 	CustomImageVerticies(ObjB, WEPON_MASTER_CHOICE_TEXT_WIDTH*3, 600.f, WEPON_MASTER_CHOICE_TEXT_WIDTH, 20.f);
-	CustomImageVerticies(ObjC, WEPON_MASTER_CHOICE_TEXT_WIDTH*5, 600.f, WEPON_MASTER_CHOICE_TEXT_WIDTH, 20.f);
 
 	//マウスの当たり判定でカーソルを動かす
 	if (RectToRectCollisionCheak(MouseObj,ObjA))
@@ -23,12 +22,6 @@ void ControlCharaChoice(SCENE* scene, int* cursol,int* playerType)
 		*cursol = 2;
 		*playerType = MAGIC_KNIGHT;
 	}
-	
-	if (RectToRectCollisionCheak(MouseObj, ObjC))
-	{
-		*cursol = 3;
-		*playerType = NECROMAMCERANDSUMMONUR;
-	}
 
 	//カーソル移動処理
 	if (g_keyState.keyPush[DIK_LEFT])
@@ -39,21 +32,10 @@ void ControlCharaChoice(SCENE* scene, int* cursol,int* playerType)
 			*playerType = WEAPON_MASTER;
 		}
 
-		if (*cursol == 3)
-		{
-			*cursol = 2;
-			*playerType = MAGIC_KNIGHT;
-		}
 	}
 
 	if (g_keyState.keyPush[DIK_RIGHT])
 	{
-		if (*cursol == 2)
-		{
-			*cursol = 3;
-			*playerType = NECROMAMCERANDSUMMONUR;
-		}
-
 		if (*cursol == 1)
 		{
 			*cursol = 2;
@@ -62,7 +44,7 @@ void ControlCharaChoice(SCENE* scene, int* cursol,int* playerType)
 	}
 
 	//カーソルがあるところでエンターが押されたらゲーム画面へ移行
-	for (int i = 1;i < 4;i++)
+	for (int i = 1;i < 3;i++)
 	{
 		if (*cursol == i)
 		{
