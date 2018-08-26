@@ -32,7 +32,7 @@
 
 INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdShow)
 {
-	return CreateWindowAndRepeatToControlAndRender(hInst, "Lethal Blast", MainFunction, DISPLAY_WIDTH, DISPLAY_HEIGHT, TRUE,FALSE);
+	return CreateWindowAndRepeatToControlAndRender(hInst, "Lethal Blast", MainFunction, DISPLAY_WIDTH, DISPLAY_HEIGHT, FALSE , FALSE);
 }
 
 //メッセージループでループさせる関数
@@ -83,7 +83,7 @@ void MainFunction(void)
 	CustomVertex deckAlterPortal[4];
 	CustomVertex modifyWordPortal[4]; 
 	CustomVertex mainGamePortal[4];
-	CustomVertex charaChoicePortal[4];
+	static CustomVertex charaChoicePortal[4];
 
 	static TEXTUREID wordTexIds[MAGIC_KNIGHT_WORD_MAX];
 
@@ -103,7 +103,6 @@ void MainFunction(void)
 
 		ControlPV(&scene);
 		RenderPV(&scene);
-
 
 		break;
 
@@ -173,15 +172,15 @@ void MainFunction(void)
 
 	case LOAD_DECK_TO_PLAY_SCENE:
 
-		RenderWhileLoad(&scene, LOAD_DECK_TO_PLAY_SCENE, wordTexIds);
+		RenderWhileLoad(&scene, GAME_SCENE, wordTexIds);
 		LoadMKdeck(&scene, magicKnightDecks, &magicKnightPlayingDeck);
 
 		break;
 		
 	case SELECT_STAGE_SCENE:
 
-		ControlStageSelect(&scene, stageSelectPortals, &selectedStage);
-		RenderStageSelect(stageSelectPortals);
+		ControlStageSelect(&scene, stageSelectPortals, &selectedStage, charaChoicePortal);
+		RenderStageSelect(stageSelectPortals, charaChoicePortal);
 
 		break;
 

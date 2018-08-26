@@ -6,6 +6,15 @@
 
 void ControlChoiceDeck(SCENE* scene, SCENE destScene, ImagesCustomVertex* pChoiseDeckCollisionsVertex, int* pDeckNum)
 {
+	static int frameCount = INIT_FRAME;
+
+	if (frameCount == INIT_FRAME)
+	{
+		frameCount = 0;
+	}
+
+	const int MOVE_DECK_FRAME = 20;
+
 	/*マウスカーソルとの当たり判定用の頂点設定 開始*/
 
 	//マウス
@@ -24,10 +33,15 @@ void ControlChoiceDeck(SCENE* scene, SCENE destScene, ImagesCustomVertex* pChois
 	for (int deckNum = 0; deckNum < MAGIC_KNIGHT_DECKS_MAX; ++deckNum)
 	{
 		CustomImageVerticies(pChoiseDeckCollisionsVertex[deckNum].ImageVertex,
-			DECK_COLLISION_POS_X +(DECK_COLLISION_POS_X*2*(deckNum%DECKS_HALF_NUM)), DECK_COLLISION_POS_Y+(DECK_COLLISION_POS_Y*2*(deckNum / DECKS_HALF_NUM)),
+			DECK_COLLISION_POS_X +(DECK_COLLISION_POS_X*2*(deckNum%DECKS_HALF_NUM)*(frameCount/(float)MOVE_DECK_FRAME)), DECK_COLLISION_POS_Y+(DECK_COLLISION_POS_Y*2*(deckNum / DECKS_HALF_NUM)*(frameCount / (float)MOVE_DECK_FRAME)),
 			DECK_COLLISON_WEIGHT, DECK_COLLISON_HEIGHT);
 	}
 	/*マウスカーソルとの当たり判定用の頂点設定 終了*/
+
+	if (frameCount <MOVE_DECK_FRAME)
+	{
+		frameCount++;
+	}
 
 	/*マウスカーソルとの当たり判定及びその後の処理 開始*/
 	if (g_mouseState.mousePush[LEFT_CLICK] || g_keyState.keyPush[DIK_RETURN])
@@ -39,6 +53,8 @@ void ControlChoiceDeck(SCENE* scene, SCENE destScene, ImagesCustomVertex* pChois
 				*pDeckNum = deckNum;
 
 				*scene = destScene;
+
+				frameCount = 0;
 
 				break;
 			}

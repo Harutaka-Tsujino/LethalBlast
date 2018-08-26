@@ -6,7 +6,7 @@
 #include"ControlHome.h"
 #include"ControlStageSelect.h"
 
-void ControlStageSelect(SCENE* pScene, ImagesCustomVertex* pStageSelectPortals, int* pSelectedStage)
+void ControlStageSelect(SCENE* pScene, ImagesCustomVertex* pStageSelectPortals, int* pSelectedStage,CustomVertex* pBackPortal)
 {
 	static int frameCount = INIT_FRAME;
 
@@ -20,32 +20,69 @@ void ControlStageSelect(SCENE* pScene, ImagesCustomVertex* pStageSelectPortals, 
 	const float MOUSE_CURSOR_SCALE = 0.5f;
 	CustomImageVerticies(mouseCursorCollisionVertex, (float)g_mouseState.absolutePos.x, (float)g_mouseState.absolutePos.y, MOUSE_CURSOR_SCALE, MOUSE_CURSOR_SCALE);
 
+	const int MOVE_PORTAL_FRAME = 15;
+
+	CustomImageVerticies(pStageSelectPortals[CAVE_STAGE].ImageVertex, (DISPLAY_WIDTH / 6.f) * 0, (DISPLAY_HEIGHT / 2.f)*(2 - frameCount / (float)MOVE_PORTAL_FRAME),
+		DISPLAY_WIDTH / 3.f, DISPLAY_WIDTH*2.f, GetColor(255, 18, 18, 18));
+
+	CustomImageVerticies(pStageSelectPortals[RUIN_STAGE].ImageVertex, (DISPLAY_WIDTH / 6.f) * 3, (DISPLAY_HEIGHT / 2.f)*(2 - frameCount / (float)MOVE_PORTAL_FRAME),
+		DISPLAY_WIDTH*1.f, DISPLAY_WIDTH*2.f, 0xFFEA0D0D);
+
+	CustomImageVerticies(pStageSelectPortals[FOREST_STAGE].ImageVertex, (DISPLAY_WIDTH / 6.f) * 7.05, (DISPLAY_HEIGHT / 2.f)*(2 - frameCount / (float)MOVE_PORTAL_FRAME),
+		DISPLAY_WIDTH / 3.f, DISPLAY_WIDTH*2.f, GetColor(255, 18, 18, 18));
+
 	for (int stage = 0; stage < STAGE_MAX; ++stage)
 	{
-		CustomImageVerticies(pStageSelectPortals[stage].ImageVertex, (DISPLAY_WIDTH / 2.f)*(stage), DISPLAY_HEIGHT / 2.f,
-		DISPLAY_WIDTH/6.f, DISPLAY_WIDTH*2.f, GetColor(255, 80* stage, 155, 255));
-
-		RotateImageDeg(pStageSelectPortals[stage].ImageVertex, pStageSelectPortals[stage].ImageVertex,45);
+		RotateImageDeg(pStageSelectPortals[stage].ImageVertex, pStageSelectPortals[stage].ImageVertex, (float)(-15 + 30 * stage)*(2 - frameCount / (float)MOVE_PORTAL_FRAME));
 	}
 
-	for (int stage = 0; stage < STAGE_MAX; ++stage)
+	if (frameCount < MOVE_PORTAL_FRAME)
 	{
+		frameCount++;
+	}
 
-		if (CheckRotatedRectsCollision(mouseCursorCollisionVertex, pStageSelectPortals[stage].ImageVertex))
-		{
-			pStageSelectPortals[stage].ImageVertex->m_color = 0xFFFFFFFF;
-		}
+	if (!g_mouseState.mousePush[LEFT_CLICK])
+	{
+		return;
+	}
 
-		if (!g_mouseState.mousePush[LEFT_CLICK])
-		{
-			break;
-		}
+	if (CheckRotatedRectsCollision(mouseCursorCollisionVertex, pBackPortal))
+	{
+		*pScene = HOME_SCENE;
 
-		if (CheckRotatedRectsCollision(mouseCursorCollisionVertex, pStageSelectPortals[stage].ImageVertex))
-		{
-			*pSelectedStage = stage;
-			*pScene = GAME_SCENE;
-		}
+		frameCount = 0;
+
+		return;
+	}
+
+	if (CheckRotatedRectsCollision(mouseCursorCollisionVertex, pStageSelectPortals[CAVE_STAGE].ImageVertex))
+	{
+		*pSelectedStage = CAVE_STAGE;
+		*pScene = CHOSE_DECK_TO_BATTLE_SCENE;
+
+		frameCount = 0;
+
+		return;
+	}
+
+	if (CheckRotatedRectsCollision(mouseCursorCollisionVertex, pStageSelectPortals[FOREST_STAGE].ImageVertex))
+	{
+		*pSelectedStage = FOREST_STAGE;
+		*pScene = CHOSE_DECK_TO_BATTLE_SCENE;
+
+		frameCount = 0;
+
+		return;
+	}
+
+	if (CheckRotatedRectsCollision(mouseCursorCollisionVertex, pStageSelectPortals[RUIN_STAGE].ImageVertex))
+	{
+		*pSelectedStage = RUIN_STAGE;
+		*pScene = CHOSE_DECK_TO_BATTLE_SCENE;
+
+		frameCount = 0;
+
+		return;
 	}
 
 	return;

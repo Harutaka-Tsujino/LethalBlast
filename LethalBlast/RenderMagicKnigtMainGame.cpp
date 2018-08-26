@@ -67,7 +67,7 @@ void RenderMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck*
 		frameAlpha = 255;
 	}
 
-	CustomImageVerticies(frameVertices, DISPLAY_WIDTH / 2.2f, DISPLAY_HEIGHT*0.97f, DISPLAY_WIDTH*0.34f, DISPLAY_HEIGHT*0.14f, GetColor(frameAlpha, 255, 255, 255));
+	CustomImageVerticies(frameVertices, DISPLAY_WIDTH / 2.32f, DISPLAY_HEIGHT*0.97f, DISPLAY_WIDTH*0.4f, DISPLAY_HEIGHT*0.14f, GetColor(frameAlpha, 255, 255, 255));
 
 	DrawImage(frameVertices, collisionTestTexId[MK_ACTION_WORD_FRAME]);
 

@@ -4,7 +4,7 @@
 #include"ControlStageSelect.h"
 #include"RenderStageSelect.h"
 
-void RenderStageSelect(ImagesCustomVertex* pStageSelectPortals)
+void RenderStageSelect(ImagesCustomVertex* pStageSelectPortals, CustomVertex* pBackPortal)
 {
 	static int frameCount = INIT_FRAME;
 	//static TEXTUREID stageSelectTexIds[STAGE_SELECT_TEX_MAX];
@@ -14,10 +14,10 @@ void RenderStageSelect(ImagesCustomVertex* pStageSelectPortals)
 		frameCount = 0;
 	}
 
-	for (int stage = 0; stage < STAGE_MAX; ++stage)
-	{
-		DrawImage(pStageSelectPortals[stage].ImageVertex, NULL);
-	}
+	DrawImage(pStageSelectPortals[RUIN_STAGE].ImageVertex, NULL);
+	DrawImage(pStageSelectPortals[FOREST_STAGE].ImageVertex, NULL);
+	DrawImage(pStageSelectPortals[CAVE_STAGE].ImageVertex, NULL);
+	DrawImage(pBackPortal, NULL);
 
 	return;
 }

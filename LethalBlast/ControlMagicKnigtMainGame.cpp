@@ -170,13 +170,13 @@ void ControlMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck
 	}
 
 	//必殺技
-	const float ACTION_COMPONENT_WORD_COLLISION_WIDTH = (float)(DISPLAY_WIDTH / 18);
-	const float ACTION_COMPONENT_WORD_COLLISION_HEIGHT = ACTION_COMPONENT_WORD_COLLISION_WIDTH / 3;
+	const float ACTION_COMPONENT_WORD_COLLISION_WIDTH = (float)(DISPLAY_WIDTH / 15);
+	const float ACTION_COMPONENT_WORD_COLLISION_HEIGHT = ACTION_COMPONENT_WORD_COLLISION_WIDTH / 4;
 
 	for (int actionComponentWord = 0; actionComponentWord < MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX; ++actionComponentWord)
 	{
 		CustomImageVerticies(pMagicKnightActionCollisionsVertex[actionComponentWord].ImageVertex,
-			(DISPLAY_WIDTH / 4) + (ACTION_COMPONENT_WORD_COLLISION_WIDTH*2)*actionComponentWord+20, DISPLAY_HEIGHT - (ACTION_COMPONENT_WORD_COLLISION_HEIGHT*2)-15,
+			(DISPLAY_WIDTH*0.17f) + (ACTION_COMPONENT_WORD_COLLISION_WIDTH*2)*actionComponentWord+20, DISPLAY_HEIGHT*0.975f - (ACTION_COMPONENT_WORD_COLLISION_HEIGHT*2),
 			ACTION_COMPONENT_WORD_COLLISION_WIDTH, ACTION_COMPONENT_WORD_COLLISION_HEIGHT);
 	}
 	/*マウスカーソルとの当たり判定用の頂点設定 終了*/
@@ -291,7 +291,7 @@ void LoadMKdeck(SCENE* scene, MagicKnightDeck* pMagicKnightDecks, MagicKnightPla
 		pMagicKnightPlayingDeck->m_handWordId[word] = pMagicKnightDecks[currentDeck].m_wordIds[word];
 	}
 
-	*scene = SELECT_STAGE_SCENE;
+	*scene = GAME_SCENE;
 
 	return;
 }

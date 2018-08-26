@@ -56,7 +56,7 @@ void ControlHome(SCENE* scene,WordData* pMagicKnightWordDatas, MagicKnightDeck* 
 	{
 		if (RectToRectCollisionCheak(mouseCursorCollisionVertex, pMainGamePortal))
 		{
-			*scene = CHOSE_DECK_TO_BATTLE_SCENE;
+			*scene = SELECT_STAGE_SCENE;
 		}
 	}
 
