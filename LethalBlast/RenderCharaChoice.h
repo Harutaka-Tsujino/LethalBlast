@@ -49,14 +49,12 @@ void RenderCharaChoice(SCENE* scene,int* cursol);
 /*
 *画像読み込みやフォントの設定をしている関数
 *(引数1)TEXTUREID* textureIds	画像情報をこの配列の中身に入れている
-*(引数2) FONTID* fontIds	フォントの情報をこの配列の中身に入れている
 */
-void RenderCharaChoiceInit(TEXTUREID* textureIds, FONTID* fontIds);
+void RenderCharaChoiceInit(TEXTUREID* textureIds);
 
 /*
 *画像やフォントの描画関数
 *(引数1)TEXTUREID* textureIds	画像情報をこの配列の中身に入れている
-*(引数2) FONTID* fontIds	フォントの情報をこの配列の中身に入れている
-*(引数3)int* cursol	キャラ選択のための変数
+*(引数2)int* cursol	キャラ選択のための変数
 */
-void RenderCharaChoiceBackGround(TEXTUREID* textureIds, FONTID* fontIds,int* cursol);
+void RenderCharaChoiceBackGround(TEXTUREID* textureIds,int* cursol);

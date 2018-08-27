@@ -98,7 +98,7 @@ typedef struct
 }WeaponMasterActionData;
 
 void ControlWeaponMasterAction(WeaponMasterWordData* pWeaponMasterWordData, WeaponMasterDeck* pWeaponMasterDeck, WeaponMasterActionData* pWeaponMasterActionDatas,
-	ImagesCustomVertex* pWeaponMasterDeckVerticies, ImagesCustomVertex* pWeaponMasterAction, int *pPage);
+	ImagesCustomVertex* pWeaponMasterDeckVerticies, ImagesCustomVertex* pWeaponMasterAction, bool* scrollEffect, int *pPage);
 
 void WeaponMasterInputInfoToAction(WeaponMasterDeck* pWeaponMasterDeck, WeaponMasterActionData* pWeaponMasterActionDatas, ImagesCustomVertex* pWeaponMasterAction, CustomVertex* mouseState);
 

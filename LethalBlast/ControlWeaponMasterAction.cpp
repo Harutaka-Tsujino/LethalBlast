@@ -1,7 +1,7 @@
 #include"ControlWeaponMasterAction.h"
 
 void ControlWeaponMasterAction(WeaponMasterWordData* pWeaponMasterWordData, WeaponMasterDeck* pWeaponMasterDeck, WeaponMasterActionData* pWeaponMasterActionDatas,
-	ImagesCustomVertex* pWeaponMasterDeckVerticies, ImagesCustomVertex* pWeaponMasterAction, int *pPage)
+	ImagesCustomVertex* pWeaponMasterDeckVerticies, ImagesCustomVertex* pWeaponMasterAction,bool* scrollEffect, int *pPage)
 {
 
 	//必殺技が発動中ならこの後の処理を行わない
@@ -16,323 +16,328 @@ void ControlWeaponMasterAction(WeaponMasterWordData* pWeaponMasterWordData, Weap
 	CustomVertex pageTransition[4];
 	CustomImageVerticies(mouseState, (float)g_mouseState.absolutePos.x, (float)g_mouseState.absolutePos.y, MOUSE_SCALE, MOUSE_SCALE);
 
-	//ページ遷移用のカーソルの設定
+	//ページ遷移用の当たり判定
 	for (int rectForPageTransition = 0;rectForPageTransition < 2;rectForPageTransition++)
-	{
-		switch (rectForPageTransition)
 		{
-		case 0:
-			CustomImageVerticies(pageTransition, DISPLAY_WIDTH - (DISPLAY_WIDTH / 5.f), DISPLAY_HEIGHT / 1.4f, DISPLAY_WIDTH / 75.f, DISPLAY_WIDTH / 75.f);
-
-			if (RectToRectCollisionCheak(mouseState, pageTransition))
+			switch (rectForPageTransition)
 			{
-				if (g_mouseState.mousePush[LEFT_CLICK])
+			case 0:
+				CustomImageVerticies(pageTransition, DISPLAY_WIDTH - (DISPLAY_WIDTH / 5.f), DISPLAY_HEIGHT / 1.4f, DISPLAY_WIDTH / 75.f, DISPLAY_WIDTH / 75.f);
+
+				if (RectToRectCollisionCheak(mouseState, pageTransition))
 				{
-					if (*pPage == 2)
+					if (g_mouseState.mousePush[LEFT_CLICK])
 					{
-						*pPage = 1;
-					}
+						if (*pPage == 2)
+						{
+							*pPage = 1;
+							*scrollEffect = true;
+						}
 
-					if (*pPage == 3)
-					{
-						*pPage = 2;
-					}
+						if (*pPage == 3)
+						{
+							*pPage = 2;
+							*scrollEffect = true;
+						}
 
-					if (*pPage == 4)
-					{
-						*pPage = 3;
+						if (*pPage == 4)
+						{
+							*pPage = 3;
+							*scrollEffect = true;
+						}
 					}
-				}
 				
-			}
+				}
 
-			break;
+				break;
 
-		case 1:
-			CustomImageVerticies(pageTransition, DISPLAY_WIDTH - (DISPLAY_WIDTH / 15.f), DISPLAY_HEIGHT / 1.4f, DISPLAY_WIDTH / 75.f, DISPLAY_WIDTH / 75.f);
+			case 1:
+				CustomImageVerticies(pageTransition, DISPLAY_WIDTH - (DISPLAY_WIDTH / 15.f), DISPLAY_HEIGHT / 1.4f, DISPLAY_WIDTH / 75.f, DISPLAY_WIDTH / 75.f);
 
-			if (RectToRectCollisionCheak(mouseState, pageTransition))
-			{
-				if (g_mouseState.mousePush[LEFT_CLICK])
+				if (RectToRectCollisionCheak(mouseState, pageTransition))
 				{
-					if (*pPage == 3)
+					if (g_mouseState.mousePush[LEFT_CLICK])
 					{
-						(*pPage) = 4;
-					}
+						if (*pPage == 3)
+						{
+							(*pPage) = 4;
+							*scrollEffect = true;
+						}
 
-					if (*pPage == 2)
-					{
-						(*pPage) = 3;
-					}
+						if (*pPage == 2)
+						{
+							(*pPage) = 3;
+							*scrollEffect = true;
+						}
 
-					if (*pPage == 1)
-					{
-						(*pPage) = 2;
+						if (*pPage == 1)
+						{
+							(*pPage) = 2;
+							*scrollEffect = true;
+						}
 					}
 				}
+		
+				break;
 			}
-			
-
-			break;
 		}
-	}
-
 
 	//当たり判定用のCustomVertexの設定
 	switch (*pPage)
-	{
-	case 1:
-
-		for (int wordLists = 0;wordLists < 10;wordLists++)
 		{
-			WeaponMasterWordListsPageTransition(pWeaponMasterDeckVerticies, wordLists);
-			if (g_mouseState.mousePush[LEFT_CLICK])
+		case 1:
+
+			for (int wordLists = 0;wordLists < 10;wordLists++)
 			{
-				//当たっていない
-				if (!RectToRectCollisionCheak(mouseState, pWeaponMasterDeckVerticies[wordLists].ImageVertex))
+				WeaponMasterWordListsPageTransition(pWeaponMasterDeckVerticies, wordLists);
+				if (g_mouseState.mousePush[LEFT_CLICK])
 				{
-					continue;
-				}
-
-				//SPACE_WORD
-				if (!pWeaponMasterDeck->m_wordIds[wordLists])
-				{
-					break;
-				}
-
-				const int WEAPON_MASTER_ACTION_WORDS_FULL = 10;
-				int weaponMasterActionWordSpace = 10;
-
-				//スペースを探す
-				for (int toTakeAction = 0;toTakeAction < WEAPON_MASTER_ACTION_LISTS;++toTakeAction)
-				{
-					if (pWeaponMasterActionDatas->m_componentWordIds[toTakeAction] == (WEAPON_MASTER_WORD_LISTS)NULL)
-					{
-						weaponMasterActionWordSpace = toTakeAction;
-
-						break;
-					}
-				}
-
-				//スペースがなかったら
-				if (weaponMasterActionWordSpace == WEAPON_MASTER_ACTION_WORDS_FULL)
-				{
-					break;
-				}
-
-				//必殺技を代入
-				pWeaponMasterActionDatas->m_componentWordIds[weaponMasterActionWordSpace] = pWeaponMasterDeck->m_wordIds[wordLists];
-				pWeaponMasterDeck->m_wordIds[wordLists] = SPACE_WORD;
-
-				//手札の位置
-				pWeaponMasterActionDatas->m_handPos[weaponMasterActionWordSpace] = wordLists;
-
-				//必殺技
-				for (int actionConponentWord = 0; actionConponentWord < WEAPON_MASTER_ACTION_LISTS; ++actionConponentWord)
-				{
-					//当たっていなかったら
-					if (!RectToRectCollisionCheak(mouseState, pWeaponMasterAction[actionConponentWord].ImageVertex))
+					//当たっていない
+					if (!RectToRectCollisionCheak(mouseState, pWeaponMasterDeckVerticies[wordLists].ImageVertex))
 					{
 						continue;
 					}
 
-					if (pWeaponMasterActionDatas->m_componentWordIds[actionConponentWord] == (WEAPON_MASTER_WORD_LISTS)NULL)
+					//SPACE_WORD
+					if (!pWeaponMasterDeck->m_wordIds[wordLists])
 					{
 						break;
 					}
 
-					//リムーブ
-					pWeaponMasterDeck->m_wordIds[(pWeaponMasterActionDatas->m_handPos[actionConponentWord])] = pWeaponMasterActionDatas->m_componentWordIds[actionConponentWord];
-					pWeaponMasterActionDatas->m_componentWordIds[actionConponentWord] = (WEAPON_MASTER_WORD_LISTS)NULL;
-					pWeaponMasterActionDatas->m_handPos[actionConponentWord] = 0;
-				}
+					const int WEAPON_MASTER_ACTION_WORDS_FULL = 10;
+					int weaponMasterActionWordSpace = 10;
 
+					//スペースを探す
+					for (int toTakeAction = 0;toTakeAction < WEAPON_MASTER_ACTION_LISTS;++toTakeAction)
+					{
+						if (pWeaponMasterActionDatas->m_componentWordIds[toTakeAction] == (WEAPON_MASTER_WORD_LISTS)NULL)
+						{
+							weaponMasterActionWordSpace = toTakeAction;
+
+							break;
+						}
+					}
+
+					//スペースがなかったら
+					if (weaponMasterActionWordSpace == WEAPON_MASTER_ACTION_WORDS_FULL)
+					{
+						break;
+					}
+
+					//必殺技を代入
+					pWeaponMasterActionDatas->m_componentWordIds[weaponMasterActionWordSpace] = pWeaponMasterDeck->m_wordIds[wordLists];
+					pWeaponMasterDeck->m_wordIds[wordLists] = SPACE_WORD;
+
+					//手札の位置
+					pWeaponMasterActionDatas->m_handPos[weaponMasterActionWordSpace] = wordLists;
+
+					//必殺技
+					for (int actionConponentWord = 0; actionConponentWord < WEAPON_MASTER_ACTION_LISTS; ++actionConponentWord)
+					{
+						//当たっていなかったら
+						if (!RectToRectCollisionCheak(mouseState, pWeaponMasterAction[actionConponentWord].ImageVertex))
+						{
+							continue;
+						}
+
+						if (pWeaponMasterActionDatas->m_componentWordIds[actionConponentWord] == (WEAPON_MASTER_WORD_LISTS)NULL)
+						{
+							break;
+						}
+
+						//リムーブ
+						pWeaponMasterDeck->m_wordIds[(pWeaponMasterActionDatas->m_handPos[actionConponentWord])] = pWeaponMasterActionDatas->m_componentWordIds[actionConponentWord];
+						pWeaponMasterActionDatas->m_componentWordIds[actionConponentWord] = (WEAPON_MASTER_WORD_LISTS)NULL;
+						pWeaponMasterActionDatas->m_handPos[actionConponentWord] = 0;
+					}
+
+				}
 			}
-		}
 
-		WeaponMasterInputInfoToAction(pWeaponMasterDeck, pWeaponMasterActionDatas, pWeaponMasterAction, mouseState);
+			WeaponMasterInputInfoToAction(pWeaponMasterDeck, pWeaponMasterActionDatas, pWeaponMasterAction, mouseState);
 
-		break;
+			break;
 
-	case 2:
+		case 2:
 
-		for (int wordLists = 10;wordLists < 20;wordLists++)
-		{
-			WeaponMasterWordListsPageTransition(pWeaponMasterDeckVerticies, wordLists);
-			if (g_mouseState.mousePush[LEFT_CLICK])
+			for (int wordLists = 10;wordLists < 20;wordLists++)
 			{
-				//当たっていない
-				if (!RectToRectCollisionCheak(mouseState, pWeaponMasterDeckVerticies[wordLists].ImageVertex))
+				WeaponMasterWordListsPageTransition(pWeaponMasterDeckVerticies, wordLists);
+				if (g_mouseState.mousePush[LEFT_CLICK])
 				{
-					continue;
-				}
-
-				//SPACE_WORD
-				if (!pWeaponMasterDeck->m_wordIds[wordLists])
-				{
-					break;
-				}
-
-				const int WEAPON_MASTER_ACTION_WORDS_FULL = 10;
-				int weaponMasterActionWordSpace = 10;
-
-				//スペースを探す
-				for (int toTakeAction = 0;toTakeAction < WEAPON_MASTER_ACTION_LISTS;++toTakeAction)
-				{
-					if (pWeaponMasterActionDatas->m_componentWordIds[toTakeAction] == (WEAPON_MASTER_WORD_LISTS)NULL)
-					{
-						weaponMasterActionWordSpace = toTakeAction;
-
-						break;
-					}
-				}
-
-				//スペースがなかったら
-				if (weaponMasterActionWordSpace == WEAPON_MASTER_ACTION_WORDS_FULL)
-				{
-					break;
-				}
-
-				//必殺技を代入
-				pWeaponMasterActionDatas->m_componentWordIds[weaponMasterActionWordSpace] = pWeaponMasterDeck->m_wordIds[wordLists];
-				pWeaponMasterDeck->m_wordIds[wordLists] = SPACE_WORD;
-
-				//手札の位置
-				pWeaponMasterActionDatas->m_handPos[weaponMasterActionWordSpace] = wordLists;
-
-				//必殺技
-				for (int actionConponentWord = 0; actionConponentWord < WEAPON_MASTER_ACTION_LISTS; ++actionConponentWord)
-				{
-					//当たっていなかったら
-					if (!RectToRectCollisionCheak(mouseState, pWeaponMasterAction[actionConponentWord].ImageVertex))
+					//当たっていない
+					if (!RectToRectCollisionCheak(mouseState, pWeaponMasterDeckVerticies[wordLists].ImageVertex))
 					{
 						continue;
 					}
 
-					if (pWeaponMasterActionDatas->m_componentWordIds[actionConponentWord] == (WEAPON_MASTER_WORD_LISTS)NULL)
+					//SPACE_WORD
+					if (!pWeaponMasterDeck->m_wordIds[wordLists])
 					{
 						break;
 					}
 
-					//リムーブ
-					pWeaponMasterDeck->m_wordIds[(pWeaponMasterActionDatas->m_handPos[actionConponentWord])] = pWeaponMasterActionDatas->m_componentWordIds[actionConponentWord];
-					pWeaponMasterActionDatas->m_componentWordIds[actionConponentWord] = (WEAPON_MASTER_WORD_LISTS)NULL;
-					pWeaponMasterActionDatas->m_handPos[actionConponentWord] = 0;
+					const int WEAPON_MASTER_ACTION_WORDS_FULL = 10;
+					int weaponMasterActionWordSpace = 10;
+
+					//スペースを探す
+					for (int toTakeAction = 0;toTakeAction < WEAPON_MASTER_ACTION_LISTS;++toTakeAction)
+					{
+						if (pWeaponMasterActionDatas->m_componentWordIds[toTakeAction] == (WEAPON_MASTER_WORD_LISTS)NULL)
+						{
+							weaponMasterActionWordSpace = toTakeAction;
+
+							break;
+						}
+					}
+
+					//スペースがなかったら
+					if (weaponMasterActionWordSpace == WEAPON_MASTER_ACTION_WORDS_FULL)
+					{
+						break;
+					}
+
+					//必殺技を代入
+					pWeaponMasterActionDatas->m_componentWordIds[weaponMasterActionWordSpace] = pWeaponMasterDeck->m_wordIds[wordLists];
+					pWeaponMasterDeck->m_wordIds[wordLists] = SPACE_WORD;
+
+					//手札の位置
+					pWeaponMasterActionDatas->m_handPos[weaponMasterActionWordSpace] = wordLists;
+
+					//必殺技
+					for (int actionConponentWord = 0; actionConponentWord < WEAPON_MASTER_ACTION_LISTS; ++actionConponentWord)
+					{
+						//当たっていなかったら
+						if (!RectToRectCollisionCheak(mouseState, pWeaponMasterAction[actionConponentWord].ImageVertex))
+						{
+							continue;
+						}
+
+						if (pWeaponMasterActionDatas->m_componentWordIds[actionConponentWord] == (WEAPON_MASTER_WORD_LISTS)NULL)
+						{
+							break;
+						}
+
+						//リムーブ
+						pWeaponMasterDeck->m_wordIds[(pWeaponMasterActionDatas->m_handPos[actionConponentWord])] = pWeaponMasterActionDatas->m_componentWordIds[actionConponentWord];
+						pWeaponMasterActionDatas->m_componentWordIds[actionConponentWord] = (WEAPON_MASTER_WORD_LISTS)NULL;
+						pWeaponMasterActionDatas->m_handPos[actionConponentWord] = 0;
+					}
+
 				}
-
 			}
-		}
 
-		WeaponMasterInputInfoToAction(pWeaponMasterDeck, pWeaponMasterActionDatas, pWeaponMasterAction, mouseState);
+			WeaponMasterInputInfoToAction(pWeaponMasterDeck, pWeaponMasterActionDatas, pWeaponMasterAction, mouseState);
 
-		break;
+			break;
 
-	case 3:
+		case 3:
 
-		for (int wordLists = 20;wordLists < 30;wordLists++)
-		{
-			WeaponMasterWordListsPageTransition(pWeaponMasterDeckVerticies, wordLists);
-			if (g_mouseState.mousePush[LEFT_CLICK])
+			for (int wordLists = 20;wordLists < 30;wordLists++)
 			{
-				//当たっていない
-				if (!RectToRectCollisionCheak(mouseState, pWeaponMasterDeckVerticies[wordLists].ImageVertex))
+				WeaponMasterWordListsPageTransition(pWeaponMasterDeckVerticies, wordLists);
+				if (g_mouseState.mousePush[LEFT_CLICK])
 				{
-					continue;
-				}
-
-				//SPACE_WORD
-				if (!pWeaponMasterDeck->m_wordIds[wordLists])
-				{
-					break;
-				}
-
-				const int WEAPON_MASTER_ACTION_WORDS_FULL = 10;
-				int weaponMasterActionWordSpace = 10;
-
-				//スペースを探す
-				for (int toTakeAction = 0;toTakeAction < WEAPON_MASTER_ACTION_LISTS;++toTakeAction)
-				{
-					if (pWeaponMasterActionDatas->m_componentWordIds[toTakeAction] == (WEAPON_MASTER_WORD_LISTS)NULL)
+					//当たっていない
+					if (!RectToRectCollisionCheak(mouseState, pWeaponMasterDeckVerticies[wordLists].ImageVertex))
 					{
-						weaponMasterActionWordSpace = toTakeAction;
+						continue;
+					}
 
+					//SPACE_WORD
+					if (!pWeaponMasterDeck->m_wordIds[wordLists])
+					{
 						break;
 					}
+
+					const int WEAPON_MASTER_ACTION_WORDS_FULL = 10;
+					int weaponMasterActionWordSpace = 10;
+
+					//スペースを探す
+					for (int toTakeAction = 0;toTakeAction < WEAPON_MASTER_ACTION_LISTS;++toTakeAction)
+					{
+						if (pWeaponMasterActionDatas->m_componentWordIds[toTakeAction] == (WEAPON_MASTER_WORD_LISTS)NULL)
+						{
+							weaponMasterActionWordSpace = toTakeAction;
+
+							break;
+						}
+					}
+
+					//スペースがなかったら
+					if (weaponMasterActionWordSpace == WEAPON_MASTER_ACTION_WORDS_FULL)
+					{
+						break;
+					}
+
+					//必殺技を代入
+					pWeaponMasterActionDatas->m_componentWordIds[weaponMasterActionWordSpace] = pWeaponMasterDeck->m_wordIds[wordLists];
+					pWeaponMasterDeck->m_wordIds[wordLists] = SPACE_WORD;
+
+					//手札の位置
+					pWeaponMasterActionDatas->m_handPos[weaponMasterActionWordSpace] = wordLists;
+
 				}
-
-				//スペースがなかったら
-				if (weaponMasterActionWordSpace == WEAPON_MASTER_ACTION_WORDS_FULL)
-				{
-					break;
-				}
-
-				//必殺技を代入
-				pWeaponMasterActionDatas->m_componentWordIds[weaponMasterActionWordSpace] = pWeaponMasterDeck->m_wordIds[wordLists];
-				pWeaponMasterDeck->m_wordIds[wordLists] = SPACE_WORD;
-
-				//手札の位置
-				pWeaponMasterActionDatas->m_handPos[weaponMasterActionWordSpace] = wordLists;
-
 			}
-		}
 
-		WeaponMasterInputInfoToAction(pWeaponMasterDeck, pWeaponMasterActionDatas, pWeaponMasterAction, mouseState);
+			WeaponMasterInputInfoToAction(pWeaponMasterDeck, pWeaponMasterActionDatas, pWeaponMasterAction, mouseState);
 
-		break;
+			break;
 
-	case 4:
+		case 4:
 
-		for (int wordLists = 30;wordLists < 40;wordLists++)
-		{
-			WeaponMasterWordListsPageTransition(pWeaponMasterDeckVerticies, wordLists);
-			if (g_mouseState.mousePush[LEFT_CLICK])
+			for (int wordLists = 30;wordLists < 40;wordLists++)
 			{
-				//当たっていない
-				if (!RectToRectCollisionCheak(mouseState, pWeaponMasterDeckVerticies[wordLists].ImageVertex))
+				WeaponMasterWordListsPageTransition(pWeaponMasterDeckVerticies, wordLists);
+				if (g_mouseState.mousePush[LEFT_CLICK])
 				{
-					continue;
-				}
-
-				//SPACE_WORD
-				if (!pWeaponMasterDeck->m_wordIds[wordLists])
-				{
-					break;
-				}
-
-				const int WEAPON_MASTER_ACTION_WORDS_FULL = 10;
-				int weaponMasterActionWordSpace = 10;
-
-				//スペースを探す
-				for (int toTakeAction = 0;toTakeAction < WEAPON_MASTER_ACTION_LISTS;++toTakeAction)
-				{
-					if (pWeaponMasterActionDatas->m_componentWordIds[toTakeAction] == (WEAPON_MASTER_WORD_LISTS)NULL)
+					//当たっていない
+					if (!RectToRectCollisionCheak(mouseState, pWeaponMasterDeckVerticies[wordLists].ImageVertex))
 					{
-						weaponMasterActionWordSpace = toTakeAction;
+						continue;
+					}
 
+					//SPACE_WORD
+					if (!pWeaponMasterDeck->m_wordIds[wordLists])
+					{
 						break;
 					}
+
+					const int WEAPON_MASTER_ACTION_WORDS_FULL = 10;
+					int weaponMasterActionWordSpace = 10;
+
+					//スペースを探す
+					for (int toTakeAction = 0;toTakeAction < WEAPON_MASTER_ACTION_LISTS;++toTakeAction)
+					{
+						if (pWeaponMasterActionDatas->m_componentWordIds[toTakeAction] == (WEAPON_MASTER_WORD_LISTS)NULL)
+						{
+							weaponMasterActionWordSpace = toTakeAction;
+
+							break;
+						}
+					}
+
+					//スペースがなかったら
+					if (weaponMasterActionWordSpace == WEAPON_MASTER_ACTION_WORDS_FULL)
+					{
+						break;
+					}
+
+					//必殺技を代入
+					pWeaponMasterActionDatas->m_componentWordIds[weaponMasterActionWordSpace] = pWeaponMasterDeck->m_wordIds[wordLists];
+					pWeaponMasterDeck->m_wordIds[wordLists] = SPACE_WORD;
+
+					//手札の位置
+					pWeaponMasterActionDatas->m_handPos[weaponMasterActionWordSpace] = wordLists;
+
 				}
-
-				//スペースがなかったら
-				if (weaponMasterActionWordSpace == WEAPON_MASTER_ACTION_WORDS_FULL)
-				{
-					break;
-				}
-
-				//必殺技を代入
-				pWeaponMasterActionDatas->m_componentWordIds[weaponMasterActionWordSpace] = pWeaponMasterDeck->m_wordIds[wordLists];
-				pWeaponMasterDeck->m_wordIds[wordLists] = SPACE_WORD;
-
-				//手札の位置
-				pWeaponMasterActionDatas->m_handPos[weaponMasterActionWordSpace] = wordLists;
-
 			}
+
+			WeaponMasterInputInfoToAction(pWeaponMasterDeck, pWeaponMasterActionDatas, pWeaponMasterAction, mouseState);
+
+			break;
 		}
-
-		WeaponMasterInputInfoToAction(pWeaponMasterDeck, pWeaponMasterActionDatas, pWeaponMasterAction, mouseState);
-
-		break;
-	}
+	
 
 	if (g_mouseState.mousePush[RIGHT_CLICK] || g_keyState.keyPush[DIK_RETURN])
 	{

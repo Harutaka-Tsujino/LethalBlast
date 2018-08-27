@@ -2,7 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="ControlAlterDeck.cpp" />
-    <ClCompile Include="ControlCharaChoicecpp.cpp" />
     <ClCompile Include="ControlDeckChoice.cpp" />
     <ClCompile Include="ControlGame.cpp" />
     <ClCompile Include="ControlHome.cpp" />
@@ -29,6 +28,7 @@
     <ClCompile Include="WinMain.cpp" />
     <ClCompile Include="ControlStageSelect.cpp" />
     <ClCompile Include="RenderStageSelect.cpp" />
+    <ClCompile Include="ControlCharaChoice.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ControlAlterDeck.h" />

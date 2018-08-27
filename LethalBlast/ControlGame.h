@@ -53,3 +53,20 @@ double Dot(Vect vectA, Vect vectB);
 *(戻り値)double ベクトル二つで形成される符号ありの平行四辺形
 */
 double Cross(Vect vectA, Vect vectB);
+
+/*
+*画像を横幅で切り取る
+*(引数)startTu posTu	スタート座標からの距離分描画する
+*/
+void SetTuCustomVertex(CustomVertex* pCustomVertex, FLOAT xPos, FLOAT yPos, FLOAT startTu, FLOAT posTu, FLOAT imageSizeTu);
+
+/*
+*画像を縦幅で切り取る
+*(引数)startTv posTv	スタート座標からの距離分描画する
+*/
+void SetTvCustomVertex(CustomVertex* pCustomVertex, FLOAT xPos, FLOAT xScale, FLOAT yPos, FLOAT yScale, FLOAT startTv, FLOAT posTv, FLOAT imageSizeTv);
+
+/*
+*ポリゴンの色を設定する
+*/
+void GetCustomVerTexColor(CustomVertex* pCustomVertex, DWORD color);

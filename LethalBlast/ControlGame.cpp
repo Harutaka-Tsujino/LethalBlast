@@ -136,3 +136,28 @@ double Cross(Vect vectA, Vect vectB)
 
 	return cross;
 }
+
+void SetTuCustomVertex(CustomVertex* pCustomVertex, FLOAT xPos, FLOAT yPos, FLOAT startTu, FLOAT posTu, FLOAT imageSizeTu)
+{
+	pCustomVertex[0] = { xPos,yPos, 0.f,1.f,0xFFFFFFFF, startTu / imageSizeTu, 0.f };
+	pCustomVertex[1] = { xPos,yPos, 0.f,1.f,0xFFFFFFFF, (startTu + posTu) / imageSizeTu, 1.f };
+	pCustomVertex[2] = { xPos,yPos, 0.f,1.f,0xFFFFFFFF, (startTu + posTu) / imageSizeTu, 1.f };
+	pCustomVertex[3] = { xPos,yPos, 0.f,1.f,0xFFFFFFFF, startTu / imageSizeTu, 0.f };
+
+}
+
+void SetTvCustomVertex(CustomVertex* pCustomVertex, FLOAT xPos,  FLOAT yPos, FLOAT startTv, FLOAT posTv, FLOAT imageSizeTv)
+{
+	pCustomVertex[0] = { xPos ,yPos , 0.f, 1.f, 0xFFFFFFFF, 0.f ,startTv / imageSizeTv };
+	pCustomVertex[1] = { xPos ,yPos , 0.f, 1.f, 0xFFFFFFFF, 1.f ,startTv / imageSizeTv };
+	pCustomVertex[2] = { xPos ,yPos , 0.f, 1.f, 0xFFFFFFFF, 1.f ,(startTv + posTv) / imageSizeTv };
+	pCustomVertex[3] = { xPos ,yPos , 0.f, 1.f, 0xFFFFFFFF, 0.f ,(startTv + posTv) / imageSizeTv };
+}																							  
+
+void GetCustomVerTexColor(CustomVertex* pCustomVertex,DWORD color)
+{
+	for (int i = 0;i < 4;++i)
+	{
+		pCustomVertex->m_color = color;
+	}
+}

@@ -32,7 +32,7 @@
 
 INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdShow)
 {
-	return CreateWindowAndRepeatToControlAndRender(hInst, "Lethal Blast", MainFunction, DISPLAY_WIDTH, DISPLAY_HEIGHT, FALSE , FALSE);
+	return CreateWindowAndRepeatToControlAndRender(hInst, "Lethal Blast", MainFunction, DISPLAY_WIDTH, DISPLAY_HEIGHT, TRUE , FALSE);
 }
 
 //メッセージループでループさせる関数
@@ -96,6 +96,7 @@ void MainFunction(void)
 
 	ImagesCustomVertex stageSelectPortals[STAGE_MAX];
 	static int selectedStage;
+	static bool scrollEffect = false;
 
 	//シーン分岐
 	switch (scene)
@@ -206,8 +207,8 @@ void MainFunction(void)
 		{
 		case WEAPON_MASTER:
 			ControlWeaponMasterAction(weaponMasterWords, weaponMasterWordDecks, weaponMasterActionWords,
-				weaponMasterDeckVerticies,weaponMasterActionVerticies, &page);
-			RenderWeaponMasterAction(weaponMasterDeckVerticies, weaponMasterActionVerticies, weaponMasterWordDecks, weaponMasterActionWords, page, weaponMasterWordIds);
+				weaponMasterDeckVerticies,weaponMasterActionVerticies, &scrollEffect, &page);
+			RenderWeaponMasterAction(weaponMasterDeckVerticies, weaponMasterActionVerticies, weaponMasterWordDecks, weaponMasterActionWords, page, &scrollEffect, weaponMasterWordIds);
 
 			break;
 

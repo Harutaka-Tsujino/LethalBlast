@@ -16,6 +16,8 @@ enum WEAPON_MASTER_ACTION_TEX
 
 	LIST_BG_TEX,
 
+	LIST_SCROLL_TEX,
+
 	WEAPON_MASTER_ACTION_TEX_MAX,
 };
 
@@ -29,4 +31,4 @@ enum WEAPON_MASTER_ACTION_FONT
 };
 
 void RenderWeaponMasterAction(ImagesCustomVertex* pWeaponMasterDeckVerticies, ImagesCustomVertex* pWeaponMasterAction,
-	WeaponMasterDeck* pWeaponMasterDeck, WeaponMasterActionData* pWeaponMasterActionDatas, int pPage, TEXTUREID* pWmFontIds);
+	WeaponMasterDeck* pWeaponMasterDeck, WeaponMasterActionData* pWeaponMasterActionDatas, int pPage, bool* scrollEffect, TEXTUREID* pWmFontIds);
