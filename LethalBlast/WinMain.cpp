@@ -214,9 +214,9 @@ void MainFunction(void)
 
 		case MAGIC_KNIGHT:
 			ControlMagicKnightMainGame(magicKnightWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
-				&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex);
+				&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex, hominEffect);
 			RenderMagicKnightMainGame(magicKnightWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
-				&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex, wordTexIds);
+				&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex, wordTexIds, hominEffect);
 
 			break;
 		}
