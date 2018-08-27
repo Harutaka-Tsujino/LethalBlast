@@ -45,9 +45,10 @@ void MainFunction(void)
 
 
 	static WeaponMasterWordData weaponMasterWords[WEAPON_MASTER_WORD_MAX];
-	static WeaponMasterDeck weaponMasterWordDecks[8];
+	static WeaponMasterDeck weaponMasterWordDecks[WEAPON_MASTER_DECK_MAX];
 	static WeaponMasterActionData weaponMasterActionWords[WEAPON_MASTER_ACTION_LISTS];
-	static ImagesCustomVertex weaponMasterDeckVerticies[40];
+	static ImagesCustomVertex weaponMasterDeckVerticies[DECK_WORD_MAX];
+	static ImagesCustomVertex weaponMasterActionVerticies[WEAPON_MASTER_ACTION_LISTS];
 	static PlayerState player[JOB_MAX];
 	static EnemyState enemy[ENEMY_TYPE_MAX];
 	static int wordNum = 0;
@@ -56,8 +57,7 @@ void MainFunction(void)
 
 	static WordData magicKnigtWords[MAGIC_KNIGHT_WORD_MAX];
 
-
-	static int playerType;
+	static PLAYERTYPE playerType;
 	static int playerATKDamage = 0;
 	static ENEMY_TYPE enemyType = SPIDER_ROBOT;
 	static int frameCount = 0;
@@ -86,6 +86,7 @@ void MainFunction(void)
 	static CustomVertex charaChoicePortal[4];
 
 	static TEXTUREID wordTexIds[MAGIC_KNIGHT_WORD_MAX];
+	static TEXTUREID weaponMasterWordIds[WEAPON_MASTER_WORD_MAX];
 
 	CustomVertex endModifyVertices[4];
 	static int modifyWordBox[2];
@@ -132,7 +133,8 @@ void MainFunction(void)
 
 		ControlHome(&scene, magicKnightWordDatas, magicKnightDecks,
 			&magicKnightPlayingDeck, &magicKnightAction,
-			deckAlterPortal, modifyWordPortal, mainGamePortal, charaChoicePortal, wordTexIds);
+			weaponMasterWords, weaponMasterWordDecks,
+			deckAlterPortal, modifyWordPortal, mainGamePortal, charaChoicePortal, wordTexIds, weaponMasterWordIds, &playerType);
 		RenderHome(&scene,deckAlterPortal, modifyWordPortal, mainGamePortal, charaChoicePortal, wordTexIds);
 
 		break;
@@ -175,7 +177,18 @@ void MainFunction(void)
 	case LOAD_DECK_TO_PLAY_SCENE:
 
 		RenderWhileLoad(&scene, GAME_SCENE, wordTexIds);
-		LoadMKdeck(&scene, magicKnightDecks, &magicKnightPlayingDeck);
+
+		switch (playerType)
+		{
+		case WEAPON_MASTER:
+
+			break;
+
+		case MAGIC_KNIGHT:
+			LoadMKdeck(&scene, magicKnightDecks, &magicKnightPlayingDeck);
+
+			break;
+		}
 
 		break;
 		
@@ -190,15 +203,23 @@ void MainFunction(void)
 
 		ControlGame(&scene);
 		RenderGame(&scene);
-		/*ControlWeaponMasterAction(weaponMasterWords, weaponMasterWordDecks, weaponMasterActionWords,
-			weaponMasterDeckVerticies, &page);
-		RenderWeaponMasterAction(weaponMasterWords, weaponMasterWordDecks, weaponMasterActionWords,
-			weaponMasterDeckVerticies, page);*/
-		ControlMagicKnightMainGame(magicKnightWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
-			&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex, hominEffect);
-		RenderMagicKnightMainGame(magicKnightWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
-			&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex, wordTexIds, hominEffect);
+	switch (playerType)
+		{
+		case WEAPON_MASTER:
+			ControlWeaponMasterAction(weaponMasterWords, weaponMasterWordDecks, weaponMasterActionWords,
+				weaponMasterDeckVerticies,weaponMasterActionVerticies, &page);
+			RenderWeaponMasterAction(weaponMasterDeckVerticies, weaponMasterActionVerticies, weaponMasterWordDecks, weaponMasterActionWords, page, weaponMasterWordIds);
 
+			break;
+
+		case MAGIC_KNIGHT:
+			ControlMagicKnightMainGame(magicKnightWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
+				&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex);
+			RenderMagicKnightMainGame(magicKnightWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
+				&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex, wordTexIds);
+
+			break;
+		}
 
 		ControlHP(player, enemy, &playerATKDamage, (PLAYERTYPE)playerType, enemyType,&frameCount,&CTCount, &magicKnightAction, magicKnightWordDatas);
 		RenderHP(player, enemy,&frameCount,&CTCount);
@@ -206,6 +227,6 @@ void MainFunction(void)
 		break;
 
 	}
-
+	
 	return;
 }

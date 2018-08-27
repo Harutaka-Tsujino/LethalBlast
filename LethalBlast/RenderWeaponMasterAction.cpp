@@ -1,28 +1,48 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include"RenderWeaponMasterAction.h"
 
-void RenderWeaponMasterAction(WeaponMasterWordData* pWeaponMasterWordData,WeaponMasterDeck* pWeaponMasterDeck, WeaponMasterActionData* pWeaponMasterActionWords,
-	ImagesCustomVertex* pWeaponMasterDeckVerticies,int pPage)
+void RenderWeaponMasterAction(ImagesCustomVertex* pWeaponMasterDeckVerticies, ImagesCustomVertex* pWeaponMasterAction,
+	WeaponMasterDeck* pWeaponMasterDeck, WeaponMasterActionData* pWeaponMasterActionDatas, int pPage,TEXTUREID* pWmFontIds)
 {
 	static TEXTUREID textureIds[WEAPON_MASTER_ACTION_TEX_MAX];
+	static FONTID fontIds[FONT_MAX];
+
+	const float SET_FONT_SCALE = DISPLAY_WIDTH / 51.f;
 
 	static int isFirstFrame = INIT_FRAME;
 
 	if (isFirstFrame == INIT_FRAME)
 	{
 		RoadTexture("Texture/MainGame/PageCursol.png", &textureIds[WEAPON_MASTER_PAGE_CURSOL_TEX]);
-		RoadTexture("Texture/MainGame/Font.png", &textureIds[WEAPON_MASTER_FONT_TEX]);
+		RoadTexture("Texture/MainGame/frame.png", &textureIds[WEAPON_MASTER_FRAME_TEX]);
+		RoadTexture("Texture/MainGame/ListBG.png", &textureIds[LIST_BG_TEX]);
+		SetFont((int)SET_FONT_SCALE, (UINT)SET_FONT_SCALE, "Files/Font/SoukouMincho-Font/SoukouMincho.ttf", &fontIds[PAGE_FONT], 10);
+		SetFont((int)SET_FONT_SCALE, (UINT)SET_FONT_SCALE, "Files/Font/SoukouMincho-Font/SoukouMincho.ttf", &fontIds[PAGE_FONT_MAX], 10);
 
 		isFirstFrame = 0;
 	}
 
 	CustomVertex pageTransition[RECT_VERTEX_NUM];
+	CustomVertex listBG[4];
+	CustomVertex ActionFrame[4];
+
+	const float ACTION_COMPONENT_WORD_COLLISION_WIDTH = (float)(DISPLAY_WIDTH / 30);
+	const float ACTION_COMPONENT_WORD_COLLISION_HEIGHT = ACTION_COMPONENT_WORD_COLLISION_WIDTH;
+
+	CustomImageVerticies(ActionFrame, (DISPLAY_WIDTH / 2.4f) + (ACTION_COMPONENT_WORD_COLLISION_WIDTH * 2), DISPLAY_HEIGHT - (ACTION_COMPONENT_WORD_COLLISION_HEIGHT * 2),
+		ACTION_COMPONENT_WORD_COLLISION_WIDTH*13, ACTION_COMPONENT_WORD_COLLISION_HEIGHT);
+
+	CustomImageVerticies(listBG, DISPLAY_WIDTH - (DISPLAY_WIDTH / 7.f), DISPLAY_HEIGHT / 2.6f, DISPLAY_WIDTH / 9.f, DISPLAY_HEIGHT / 2.6f);
+
+	DrawImage(ActionFrame, textureIds[WEAPON_MASTER_FRAME_TEX]);
+	DrawImage(listBG, textureIds[LIST_BG_TEX]);
 
 	for (int rectForPageTransition = 0;rectForPageTransition < 2;rectForPageTransition++)
 	{
 		switch (rectForPageTransition)
 		{
 		case 0:
-			CustomImageVerticies(pageTransition, 1050.f, 500.f, 25 / 2.f, 25 / 2.f);
+			CustomImageVerticies(pageTransition, DISPLAY_WIDTH - (DISPLAY_WIDTH / 5.f), DISPLAY_HEIGHT / 1.4f, DISPLAY_WIDTH / 75.f, DISPLAY_WIDTH / 75.f);
 
 			RotateImageDeg(pageTransition, pageTransition, 180.f);
 
@@ -34,7 +54,7 @@ void RenderWeaponMasterAction(WeaponMasterWordData* pWeaponMasterWordData,Weapon
 			break;
 
 		case 1:
-			CustomImageVerticies(pageTransition, 1150.f, 500.f, 25 / 2.f, 25 / 2.f);
+			CustomImageVerticies(pageTransition, DISPLAY_WIDTH - (DISPLAY_WIDTH / 15.f), DISPLAY_HEIGHT / 1.4f, DISPLAY_WIDTH / 75.f, DISPLAY_WIDTH / 75.f);
 			
 			if (pPage != 4)
 			{
@@ -51,8 +71,10 @@ void RenderWeaponMasterAction(WeaponMasterWordData* pWeaponMasterWordData,Weapon
 
 		for (int wordLists = 0;wordLists < 10;wordLists++)
 		{
-			PageTransitionForWeaponMasterWordLists(pWeaponMasterDeckVerticies, wordLists);
-			DrawImage(pWeaponMasterDeckVerticies[wordLists].ImageVertex, textureIds[WEAPON_MASTER_FONT_TEX]);
+			if (pWeaponMasterDeck->m_wordIds[wordLists] != SPACE_WORD)
+			{
+				DrawImage(pWeaponMasterDeckVerticies[wordLists].ImageVertex, pWmFontIds[(pWeaponMasterDeck->m_wordIds[wordLists])]);
+			}
 		}
 
 		break;
@@ -61,8 +83,10 @@ void RenderWeaponMasterAction(WeaponMasterWordData* pWeaponMasterWordData,Weapon
 
 		for (int wordLists = 10;wordLists < 20;wordLists++)
 		{
-			PageTransitionForWeaponMasterWordLists(pWeaponMasterDeckVerticies, wordLists);
-			DrawImage(pWeaponMasterDeckVerticies[wordLists].ImageVertex, textureIds[WEAPON_MASTER_FONT_TEX]);
+			if (pWeaponMasterDeck->m_wordIds[wordLists] != SPACE_WORD)
+			{
+				DrawImage(pWeaponMasterDeckVerticies[wordLists].ImageVertex, pWmFontIds[(pWeaponMasterDeck->m_wordIds[wordLists])]);
+			}
 		}
 
 		break;
@@ -71,8 +95,10 @@ void RenderWeaponMasterAction(WeaponMasterWordData* pWeaponMasterWordData,Weapon
 
 		for (int wordLists = 20;wordLists < 30;wordLists++)
 		{
-			PageTransitionForWeaponMasterWordLists(pWeaponMasterDeckVerticies, wordLists);
-			DrawImage(pWeaponMasterDeckVerticies[wordLists].ImageVertex, textureIds[WEAPON_MASTER_FONT_TEX]);
+			if (pWeaponMasterDeck->m_wordIds[wordLists] != SPACE_WORD)
+			{
+				DrawImage(pWeaponMasterDeckVerticies[wordLists].ImageVertex, pWmFontIds[(pWeaponMasterDeck->m_wordIds[wordLists])]);
+			}
 		}
 
 		break;
@@ -81,97 +107,29 @@ void RenderWeaponMasterAction(WeaponMasterWordData* pWeaponMasterWordData,Weapon
 
 		for (int wordLists = 30;wordLists < 40;wordLists++)
 		{
-			PageTransitionForWeaponMasterWordLists(pWeaponMasterDeckVerticies, wordLists);
-			DrawImage(pWeaponMasterDeckVerticies[wordLists].ImageVertex, textureIds[WEAPON_MASTER_FONT_TEX]);
+			if (pWeaponMasterDeck->m_wordIds[wordLists] != SPACE_WORD)
+			{
+				DrawImage(pWeaponMasterDeckVerticies[wordLists].ImageVertex, pWmFontIds[(pWeaponMasterDeck->m_wordIds[wordLists])]);
+			}
 		}
 
 		break;
 	}
-}
 
-void PageTransitionForWeaponMasterWordLists(ImagesCustomVertex* pWeaponMasterDeckVerticies, int wordLists)
-{
-	switch (wordLists)
+	const float PAGE_TRANSISTION_FONT_WIDTH = (float)(DISPLAY_WIDTH / 30);
+	const float PAGE_TRANSISTION_FONT_HEIGHT = PAGE_TRANSISTION_FONT_WIDTH;
+	char pageFont[] = "\0";
+
+	sprintf(pageFont, "%d", pPage);
+
+	WriteText(PAGE_TRANSISTION_FONT_WIDTH * 26.5f, PAGE_TRANSISTION_FONT_WIDTH * 12.f, "/4", DT_RIGHT, fontIds[PAGE_FONT_MAX]);
+	WriteText(PAGE_TRANSISTION_FONT_WIDTH*25.5f, PAGE_TRANSISTION_FONT_HEIGHT * 12.f, pageFont, DT_RIGHT, fontIds[PAGE_FONT]);
+
+	for (int inputWordData = 0;inputWordData < WEAPON_MASTER_ACTION_LISTS;++inputWordData)
 	{
-	case 0:
-	case 10:
-	case 20:
-	case 30:
-
-		CustomImageVerticies(pWeaponMasterDeckVerticies[wordLists].ImageVertex, 1050.f, 50.f, 50 / 2.f, 50 / 2.f);
-		break;
-
-	case 1:
-	case 11:
-	case 21:
-	case 31:
-
-		CustomImageVerticies(pWeaponMasterDeckVerticies[wordLists].ImageVertex, 1150.f, 50.f, 50 / 2.f, 50 / 2.f);
-		break;
-
-	case 2:
-	case 12:
-	case 22:
-	case 32:
-
-		CustomImageVerticies(pWeaponMasterDeckVerticies[wordLists].ImageVertex, 1050.f, 150.f, 50 / 2.f, 50 / 2.f);
-		break;
-
-	case 3:
-	case 13:
-	case 23:
-	case 33:
-
-		CustomImageVerticies(pWeaponMasterDeckVerticies[wordLists].ImageVertex, 1150.f, 150.f, 50 / 2.f, 50 / 2.f);
-		break;
-
-	case 4:
-	case 14:
-	case 24:
-	case 34:
-
-		CustomImageVerticies(pWeaponMasterDeckVerticies[wordLists].ImageVertex, 1050.f, 250.f, 50 / 2.f, 50 / 2.f);
-		break;
-
-	case 5:
-	case 15:
-	case 25:
-	case 35:
-
-		CustomImageVerticies(pWeaponMasterDeckVerticies[wordLists].ImageVertex, 1150.f, 250.f, 50 / 2.f, 50 / 2.f);
-		break;
-
-	case 6:
-	case 16:
-	case 26:
-	case 36:
-
-		CustomImageVerticies(pWeaponMasterDeckVerticies[wordLists].ImageVertex, 1050.f, 350.f, 50 / 2.f, 50 / 2.f);
-		break;
-
-	case 7:
-	case 17:
-	case 27:
-	case 37:
-
-		CustomImageVerticies(pWeaponMasterDeckVerticies[wordLists].ImageVertex, 1150.f, 350.f, 50 / 2.f, 50 / 2.f);
-		break;
-
-	case 8:
-	case 18:
-	case 28:
-	case 38:
-
-		CustomImageVerticies(pWeaponMasterDeckVerticies[wordLists].ImageVertex, 1050.f, 450.f, 50 / 2.f, 50 / 2.f);
-		break;
-
-	case 9:
-	case 19:
-	case 29:
-	case 39:
-
-		CustomImageVerticies(pWeaponMasterDeckVerticies[wordLists].ImageVertex, 1150.f, 450.f, 50 / 2.f, 50 / 2.f);
-		break;
-
+		if (pWeaponMasterActionDatas->m_componentWordIds[inputWordData] != SPACE_WORD)
+		{
+			DrawImage(pWeaponMasterAction[inputWordData].ImageVertex, pWmFontIds[(pWeaponMasterActionDatas->m_componentWordIds[inputWordData])]);
+		}
 	}
 }

@@ -9,7 +9,7 @@
 
 #include <windows.h>
 #include <stdio.h>
-#include<d3dx9.h>
+#include <d3dx9.h>
 #include <dinput.h>
 #include <memory.h>
 #include "DX9Lib.h"
