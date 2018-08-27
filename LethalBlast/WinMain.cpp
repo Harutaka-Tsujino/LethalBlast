@@ -32,7 +32,7 @@
 
 INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdShow)
 {
-	return CreateWindowAndRepeatToControlAndRender(hInst, "Lethal Blast", MainFunction, DISPLAY_WIDTH, DISPLAY_HEIGHT, TRUE, FALSE);
+	return CreateWindowAndRepeatToControlAndRender(hInst, "Lethal Blast", MainFunction, DISPLAY_WIDTH, DISPLAY_HEIGHT, FALSE, FALSE);
 }
 
 //メッセージループでループさせる関数
@@ -57,7 +57,7 @@ void MainFunction(void)
 
 	static WordData magicKnigtWords[MAGIC_KNIGHT_WORD_MAX];
 
-	static PLAYERTYPE playerType;
+	static PLAYERTYPE playerType = WEAPON_MASTER;
 	static int playerATKDamage = 0;
 	static ENEMY_TYPE enemyType = SPIDER_ROBOT;
 	static int frameCount = 0;
