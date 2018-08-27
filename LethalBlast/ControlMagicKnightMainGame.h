@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include"ControlGame.h"
+
 //魔法剣士の単語
 enum MAGIC_KNIGHT_WORD
 {
@@ -114,8 +116,19 @@ typedef struct
 	bool useAction;
 }MagicKnightAction;
 
+#define SELECT_EFFECT_MAX 5
+
+typedef struct
+{
+	CustomVertex m_rect[RECT_VERTEX_NUM];
+	Vect m_HomingVect;
+	int m_count;
+	int m_actionPos;
+	bool m_valid;
+}HomingEffect;
+
 void ControlMagicKnightMainGame(WordData* pWordDatas, MagicKnightDeck* pMagicKnightDecks, 
 	MagicKnightPlayingDeck* pMagicKnightPlayingDeck, MagicKnightAction* pMagicKnightAction,
-	ImagesCustomVertex* pHandWordCollisionsVertex, ImagesCustomVertex* pMagicKnightActionCollisionsVertex);
+	ImagesCustomVertex* pHandWordCollisionsVertex, ImagesCustomVertex* pMagicKnightActionCollisionsVertex, HomingEffect* pHominEffect);
 
 void LoadMKdeck(SCENE* scene, MagicKnightDeck* pMagicKnightDecks, MagicKnightPlayingDeck* pMagicKnightPlayingDeck);

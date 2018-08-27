@@ -32,7 +32,7 @@
 
 INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdShow)
 {
-	return CreateWindowAndRepeatToControlAndRender(hInst, "Lethal Blast", MainFunction, DISPLAY_WIDTH, DISPLAY_HEIGHT, FALSE , FALSE);
+	return CreateWindowAndRepeatToControlAndRender(hInst, "Lethal Blast", MainFunction, DISPLAY_WIDTH, DISPLAY_HEIGHT, TRUE, FALSE);
 }
 
 //メッセージループでループさせる関数
@@ -95,6 +95,8 @@ void MainFunction(void)
 
 	ImagesCustomVertex stageSelectPortals[STAGE_MAX];
 	static int selectedStage;
+
+	static HomingEffect hominEffect[SELECT_EFFECT_MAX];
 
 	//シーン分岐
 	switch (scene)
@@ -193,9 +195,9 @@ void MainFunction(void)
 		RenderWeaponMasterAction(weaponMasterWords, weaponMasterWordDecks, weaponMasterActionWords,
 			weaponMasterDeckVerticies, page);*/
 		ControlMagicKnightMainGame(magicKnightWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
-			&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex);
+			&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex, hominEffect);
 		RenderMagicKnightMainGame(magicKnightWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
-			&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex, wordTexIds);
+			&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex, wordTexIds, hominEffect);
 
 
 		ControlHP(player, enemy, &playerATKDamage, (PLAYERTYPE)playerType, enemyType,&frameCount,&CTCount, &magicKnightAction, magicKnightWordDatas);

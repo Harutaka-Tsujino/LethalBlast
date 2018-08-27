@@ -14,7 +14,7 @@
 
 void RenderMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck* pMagicKnightDecks,
 	MagicKnightPlayingDeck* pMagicKnightPlayingDeck, MagicKnightAction* pMagicKnightAction,
-	ImagesCustomVertex* pHandWordCollisionsVertex, ImagesCustomVertex* pMagicKnightActionCollisionsVertex, TEXTUREID* wordTexIds)
+	ImagesCustomVertex* pHandWordCollisionsVertex, ImagesCustomVertex* pMagicKnightActionCollisionsVertex, TEXTUREID* wordTexIds, HomingEffect* pHominEffect)
 {
 	static TEXTUREID collisionTestTexId[MK_MAIN_GAME_TEX_MAX];
 	static int frameCount = INIT_FRAME;
@@ -23,6 +23,7 @@ void RenderMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck*
 	{
 		RoadTexture("texture/MainGame/WordUnderBoard.png", &collisionTestTexId[MK_UNDER_WORD_BOARD]);
 		RoadTexture("texture/MainGame/MKActionWordFrame.png", &collisionTestTexId[MK_ACTION_WORD_FRAME]);
+		RoadTexture("texture/Effect/SelectWordEffect.png", &collisionTestTexId[MK_SELECT_WORD_EFFECT_TEX]);
 
 		frameCount = 0;
 	}
@@ -73,9 +74,37 @@ void RenderMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck*
 
 	for (int actionComponentWord = 0; actionComponentWord < MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX; ++actionComponentWord)
 	{
+		bool hideActionComponent= false;
+
+		for (int effect = 0; effect < SELECT_EFFECT_MAX; ++effect)
+		{
+			if (pHominEffect[effect].m_valid)
+			{
+				if (pHominEffect[effect].m_actionPos == actionComponentWord)
+				{
+					hideActionComponent = true;
+
+					break;
+				}
+			}
+		}
+
+		if (hideActionComponent)
+		{
+			continue;
+		}
+
 		if ((pMagicKnightAction->m_componentWordIds[actionComponentWord]))
 		{
 			DrawImage(pMagicKnightActionCollisionsVertex[actionComponentWord].ImageVertex, wordTexIds[(pMagicKnightAction->m_componentWordIds[actionComponentWord])]);
+		}
+	}
+
+	for (int effect = 0; effect < SELECT_EFFECT_MAX; ++effect)
+	{
+		if (pHominEffect[effect].m_valid)
+		{
+			DrawImage(pHominEffect[effect].m_rect, collisionTestTexId[MK_SELECT_WORD_EFFECT_TEX]);
 		}
 	}
 

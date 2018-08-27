@@ -1,5 +1,7 @@
 ﻿#include"DX9Lib.h"
 #include"WinMain.h"
+#include"ControlGame.h"
+#include"ControlStageSelect.h"
 #include"ControlCharaChoice.h"
 #include"ControlMagicKnightMainGame.h"
 
@@ -11,7 +13,7 @@
 
 void ControlMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck* pMagicKnightDecks, 
 	MagicKnightPlayingDeck* pMagicKnightPlayingDeck, MagicKnightAction* pMagicKnightAction,
-	ImagesCustomVertex* pHandWordCollisionsVertex, ImagesCustomVertex* pMagicKnightActionCollisionsVertex)
+	ImagesCustomVertex* pHandWordCollisionsVertex, ImagesCustomVertex* pMagicKnightActionCollisionsVertex,HomingEffect* pHominEffect)
 {
 	//必殺技を発動している
 	if (pMagicKnightAction->useAction)
@@ -105,6 +107,9 @@ void ControlMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck
 		/*プレイ開始時の手札やデッキなどの初期化 終了*/
 
 		//フレームカウントを0にすることによって後の計算時が簡単に行える
+
+		ZeroMemory(pHominEffect, sizeof(HomingEffect)*SELECT_EFFECT_MAX);
+
 		frameCount = 0;
 	}
 
@@ -225,6 +230,29 @@ void ControlMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck
 					break;
 				}
 
+				for (int effect = 0; effect < SELECT_EFFECT_MAX; ++effect)
+				{
+					if (!pHominEffect[effect].m_valid)
+					{
+						float handPosX = pHandWordCollisionsVertex[handWord].ImageVertex[0].m_x + HAND_WORD_COLLISION_WIDTH;
+						float handPosY = pHandWordCollisionsVertex[handWord].ImageVertex[0].m_y + HAND_WORD_COLLISION_HEIGHT;
+
+						float actionWordPosX = pMagicKnightActionCollisionsVertex[actionWordSpacePlace].ImageVertex[0].m_x + ACTION_COMPONENT_WORD_COLLISION_WIDTH;
+						float actionWordPosY = pMagicKnightActionCollisionsVertex[actionWordSpacePlace].ImageVertex[0].m_y + ACTION_COMPONENT_WORD_COLLISION_HEIGHT;
+
+						CalculateDistanceBetweenTwoPointsXY(&pHominEffect[effect].m_HomingVect, handPosX, handPosY, actionWordPosX, actionWordPosY);
+
+						const float effectScale = 40;
+						CustomImageVerticies(pHominEffect[effect].m_rect, handPosX, handPosY, effectScale, effectScale);
+
+						pHominEffect[effect].m_actionPos = actionWordSpacePlace;
+
+						pHominEffect[effect].m_valid = true;
+
+						break;
+					}
+				}
+
 				//必殺技に代入
 				pMagicKnightAction->m_componentWordIds[actionWordSpacePlace] = pMagicKnightPlayingDeck->m_handWordId[handWord];
 				pMagicKnightPlayingDeck->m_handWordId[handWord] = VOID_WORD;
@@ -272,6 +300,27 @@ void ControlMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck
 			(pMagicKnightAction->useAction) = true;
 		}
 		/*必殺技が完成したときの処理　終了*/
+	}
+
+	const int EFFECT_FRAME = 15;
+
+	for (int effect = 0; effect < SELECT_EFFECT_MAX; ++effect)
+	{
+		if (pHominEffect[effect].m_valid)
+		{
+			MoveImage(pHominEffect[effect].m_rect, pHominEffect[effect].m_rect,
+				(float)(pHominEffect[effect].m_HomingVect.m_x*(1 / (float)EFFECT_FRAME)),
+				(float)(pHominEffect[effect].m_HomingVect.m_y*(1 / (float)EFFECT_FRAME)));
+
+			pHominEffect[effect].m_count++;
+
+			if (pHominEffect[effect].m_count > EFFECT_FRAME)
+			{
+				pHominEffect[effect].m_count = 0;
+
+				pHominEffect[effect].m_valid = false;
+			}
+		}
 	}
 
 	if (frameCount < 120)
