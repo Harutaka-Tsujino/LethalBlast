@@ -57,7 +57,7 @@ void MainFunction(void)
 
 	static WordData magicKnigtWords[MAGIC_KNIGHT_WORD_MAX];
 
-	static PLAYERTYPE playerType;
+	static PLAYERTYPE playerType = WEAPON_MASTER;
 	static int playerATKDamage = 0;
 	static ENEMY_TYPE enemyType = SPIDER_ROBOT;
 	static int frameCount = 0;
@@ -81,7 +81,7 @@ void MainFunction(void)
 	CustomVertex wordDatasBackVertices[4];
 
 	CustomVertex deckAlterPortal[4];
-	CustomVertex modifyWordPortal[4]; 
+	CustomVertex modifyWordPortal[4];
 	CustomVertex mainGamePortal[4];
 	static CustomVertex charaChoicePortal[4];
 
@@ -97,7 +97,7 @@ void MainFunction(void)
 	ImagesCustomVertex stageSelectPortals[STAGE_MAX];
 	static int selectedStage;
 	static bool scrollEffect = false;
-
+	static HomingEffect hominEffect[SELECT_EFFECT_MAX];
 	//シーン分岐
 	switch (scene)
 	{
@@ -202,8 +202,7 @@ void MainFunction(void)
 
 		ControlGame(&scene);
 		RenderGame(&scene);
-		
-		switch (playerType)
+	switch (playerType)
 		{
 		case WEAPON_MASTER:
 			ControlWeaponMasterAction(weaponMasterWords, weaponMasterWordDecks, weaponMasterActionWords,
@@ -214,9 +213,9 @@ void MainFunction(void)
 
 		case MAGIC_KNIGHT:
 			ControlMagicKnightMainGame(magicKnightWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
-				&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex);
+				&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex, hominEffect);
 			RenderMagicKnightMainGame(magicKnightWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
-				&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex, wordTexIds);
+				&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex, wordTexIds, hominEffect);
 
 			break;
 		}

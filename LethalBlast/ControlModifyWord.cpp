@@ -42,7 +42,7 @@ void ControlModify(SCENE* scene, WordData* pMagicKnightWordDatas, MagicKnightDec
 	memset(pChoiseWordCollisionsVertex, 0, sizeof(ImagesCustomVertex)*MAGIC_KNIGHT_WORD_MAX);
 
 	static int wordSlidePosY = 0;
-	const int SLIDE_SPEED = 13;
+	const int SLIDE_SPEED = 40;
 
 	CustomImageVerticies(pWordDatasBackVertices, DISPLAY_WIDTH*0.875f, DISPLAY_HEIGHT / 2.f, DISPLAY_WIDTH*0.125f, DISPLAY_HEIGHT / 2.f, 0xFFF5F5F5);
 
@@ -60,12 +60,12 @@ void ControlModify(SCENE* scene, WordData* pMagicKnightWordDatas, MagicKnightDec
 
 	if (!RectToRectCollisionCheak(pWordDatasBackVertices, mouseCursorCollisionVertex))
 	{
-		if (g_keyState.keyHold[DIK_COMMA])
+		if (g_keyState.keyHold[DIK_COMMA] || g_mouseState.directInputMouseState.lZ>0)
 		{
 			wordSlidePosY += SLIDE_SPEED;
 		}
 
-		if (g_keyState.keyHold[DIK_PERIOD])
+		if (g_keyState.keyHold[DIK_PERIOD] || g_mouseState.directInputMouseState.lZ<0)
 		{
 			wordSlidePosY -= SLIDE_SPEED;
 		}

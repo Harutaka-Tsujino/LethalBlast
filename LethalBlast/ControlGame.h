@@ -40,7 +40,7 @@ double CalculateDistanceBetweenTwoPoints(double pointAPosX, double pointAPosY, d
 *2点間の距離をベクトルで求める
 *(引数)Vect* dest この構造体に生成したベクトルを詰める
 */
-void CalculateDistanceBetweenTwoPointsXY(Vect* dest, double pointAPosX, double pointAPosY, double pointBPosX, double pointBPosY);
+void CalculateDistanceBetweenTwoPointsXY(Vect* dest, double pointOPosX, double pointOPosY, double pointDstPosX, double pointDstPosY);
 
 /*
 *内積を算出する

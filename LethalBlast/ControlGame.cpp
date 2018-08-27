@@ -113,9 +113,19 @@ double CalculateDistanceBetweenTwoPoints(double pointAPosX, double pointAPosY, d
 	return pointsDistance;
 }
 
-void CalculateDistanceBetweenTwoPointsXY(Vect* dest,double pointAPosX, double pointAPosY, double pointBPosX, double pointBPosY)
+//void CalculateDistanceBetweenTwoPointsXY(Vect* dest,double pointAPosX, double pointAPosY, double pointBPosX, double pointBPosY)
+//{
+//	Vect pointsDistance = { sqrt(pow(pointAPosX - pointBPosX, 2)),sqrt(pow(pointAPosY - pointBPosY, 2)) };
+//
+//	dest->m_x = pointsDistance.m_x;
+//	dest->m_y = pointsDistance.m_y;
+//
+//	return;
+//}
+
+void CalculateDistanceBetweenTwoPointsXY(Vect* dest, double pointOPosX, double pointOPosY, double pointDstPosX, double pointDstPosY)
 {
-	Vect pointsDistance = { sqrt(pow(pointAPosX - pointBPosX, 2)),sqrt(pow(pointAPosY - pointBPosY, 2)) };
+	Vect pointsDistance = { pointDstPosX - pointOPosX,pointDstPosY - pointOPosY};
 
 	dest->m_x = pointsDistance.m_x;
 	dest->m_y = pointsDistance.m_y;

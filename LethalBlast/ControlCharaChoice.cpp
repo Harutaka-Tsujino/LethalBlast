@@ -11,6 +11,13 @@ void ControlCharaChoice(SCENE* scene, int* cursol, PLAYERTYPE* playerType)
 	CustomImageVerticies(ObjA, DISPLAY_WIDTH / 4.f, DISPLAY_HEIGHT / 2.f, DISPLAY_WIDTH / 4.f, DISPLAY_HEIGHT / 2.f);
 	CustomImageVerticies(ObjB, DISPLAY_WIDTH - (DISPLAY_WIDTH / 4.f), DISPLAY_HEIGHT / 2.f, DISPLAY_WIDTH / 4.f, DISPLAY_HEIGHT / 2.f);
 
+	static int frameCount = INIT_FRAME;
+
+	if (frameCount == INIT_FRAME)
+	{
+		frameCount = 0;
+	}
+
 	//マウスの当たり判定でカーソルを動かす
 	if (RectToRectCollisionCheak(MouseObj,ObjA))
 	{
@@ -19,6 +26,19 @@ void ControlCharaChoice(SCENE* scene, int* cursol, PLAYERTYPE* playerType)
 	}
 
 	if (RectToRectCollisionCheak(MouseObj, ObjB))
+	{
+		*cursol = 2;
+		*playerType = MAGIC_KNIGHT;
+	}
+
+	//カーソル移動処理
+	if (g_keyState.keyPush[DIK_LEFT])
+	{
+		*cursol = 1;
+		*playerType = WEAPON_MASTER;
+	}
+
+	if (g_keyState.keyPush[DIK_RIGHT])
 	{
 		*cursol = 2;
 		*playerType = MAGIC_KNIGHT;
