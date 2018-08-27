@@ -46,6 +46,7 @@ void RenderHome(SCENE* scene,CustomVertex* deckAlterPortal, CustomVertex* modify
 		RoadTexture("Texture/Home/HomeBackground04.png", &homeTextures[HOME_BACK_04_TEX]);
 		RoadTexture("Texture/Home/HomeBackground05.png", &homeTextures[HOME_BACK_05_TEX]);
 		RoadTexture("Texture/Home/HomeBackground06.png", &homeTextures[HOME_BACK_06_TEX]);
+		RoadTexture("Texture/MainGame/Enemy/EDoubleCaster.png",&homeTextures[HOME_MAIN_CHARA_TEX]);
 
 		ZeroMemory(backFrameCount, sizeof(int)*BACK_NUM);
 
@@ -202,6 +203,11 @@ void RenderHome(SCENE* scene,CustomVertex* deckAlterPortal, CustomVertex* modify
 
 		DrawImage(pageVertices[page].ImageVertex, pageTexture[page]);
 	}
+
+	CustomVertex MainChara[RECT_VERTEX_NUM];
+	CustomImageVerticies(MainChara, DISPLAY_WIDTH / 4.f, DISPLAY_HEIGHT * 0.56f, DISPLAY_WIDTH / 4.f, DISPLAY_WIDTH / 4.f,GetColor(255,229,220,220));
+
+	DrawImage(MainChara, homeTextures[HOME_MAIN_CHARA_TEX]);
 
 	DrawImage(deckAlterPortal, homeTextures[ALTER_PORTAL_TEX]);
 	DrawImage(modifyWordPortal, homeTextures[MODIFY_PORTAL_TEX]);

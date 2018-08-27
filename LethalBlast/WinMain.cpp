@@ -32,7 +32,7 @@
 
 INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdShow)
 {
-	return CreateWindowAndRepeatToControlAndRender(hInst, "Lethal Blast", MainFunction, DISPLAY_WIDTH, DISPLAY_HEIGHT, FALSE, FALSE);
+	return CreateWindowAndRepeatToControlAndRender(hInst, "Lethal Blast", MainFunction, DISPLAY_WIDTH, DISPLAY_HEIGHT, TRUE, FALSE);
 }
 
 //メッセージループでループさせる関数
@@ -81,7 +81,7 @@ void MainFunction(void)
 	CustomVertex wordDatasBackVertices[4];
 
 	CustomVertex deckAlterPortal[4];
-	CustomVertex modifyWordPortal[4]; 
+	CustomVertex modifyWordPortal[4];
 	CustomVertex mainGamePortal[4];
 	static CustomVertex charaChoicePortal[4];
 

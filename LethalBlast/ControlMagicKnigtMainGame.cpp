@@ -147,17 +147,17 @@ void ControlMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck
 		/*手札のリストをずらす処理 開始*/
 		static int degree = 0;
 
-		if (g_keyState.keyHold[DIK_COMMA])
+		if (g_keyState.keyHold[DIK_COMMA] || g_mouseState.directInputMouseState.lZ>0)
 		{
-			degree -= 2;
+			degree -= 9;
 		}
 
-		if (g_keyState.keyHold[DIK_PERIOD])
+		if (g_keyState.keyHold[DIK_PERIOD] || g_mouseState.directInputMouseState.lZ<0)
 		{
-			degree += 2;
+			degree += 9;
 		}
 
-		if (degree == 360 || degree == -360)
+		if (degree >= 360 || degree <= -360)
 		{
 			degree = 0;
 		}

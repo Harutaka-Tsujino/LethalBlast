@@ -1,71 +1,202 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="ControlAlterDeck.cpp" />
-    <ClCompile Include="ControlCharaChoicecpp.cpp" />
-    <ClCompile Include="ControlDeckChoice.cpp" />
-    <ClCompile Include="ControlGame.cpp" />
-    <ClCompile Include="ControlHome.cpp" />
-    <ClCompile Include="ControlHP.cpp" />
-    <ClCompile Include="ControlItemDrop.cpp" />
-    <ClCompile Include="ControlMagicKnigtMainGame.cpp" />
-    <ClCompile Include="ControlModifyWord.cpp" />
-    <ClCompile Include="ControlPV.cpp" />
-    <ClCompile Include="ControlTitle.cpp" />
-    <ClCompile Include="ControlWeaponMasterAction.cpp" />
-    <ClCompile Include="ControlWordListsAndTyping.cpp" />
-    <ClCompile Include="RenderAlterDeck.cpp" />
-    <ClCompile Include="RenderCharaChoice.cpp" />
-    <ClCompile Include="RenderDeckChoice.cpp" />
-    <ClCompile Include="RenderGame.cpp" />
-    <ClCompile Include="RenderHome.cpp" />
-    <ClCompile Include="RenderHP.cpp" />
-    <ClCompile Include="RenderMagicKnigtMainGame.cpp" />
-    <ClCompile Include="RenderModifyWord.cpp" />
-    <ClCompile Include="RenderPV.cpp" />
-    <ClCompile Include="RenderTitle.cpp" />
-    <ClCompile Include="RenderWeaponMasterAction.cpp" />
-    <ClCompile Include="RenderWordListsAndTyping.cpp" />
-    <ClCompile Include="WinMain.cpp" />
-    <ClCompile Include="ControlStageSelect.cpp" />
-    <ClCompile Include="RenderStageSelect.cpp" />
+    <ClCompile Include="ControlAlterDeck.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ControlCharaChoicecpp.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ControlDeckChoice.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ControlGame.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ControlHome.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ControlHP.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ControlItemDrop.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ControlMagicKnigtMainGame.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ControlModifyWord.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ControlPV.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ControlStageSelect.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ControlTitle.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ControlWeaponMasterAction.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ControlWordListsAndTyping.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderAlterDeck.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderCharaChoice.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderDeckChoice.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderGame.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderHome.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderHP.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderMagicKnigtMainGame.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderModifyWord.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderPV.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderStageSelect.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderTitle.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderWeaponMasterAction.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderWordListsAndTyping.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="WinMain.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ControlAlterDeck.h" />
-    <ClInclude Include="ControlCharaChoice.h" />
-    <ClInclude Include="ControlDeckChoice.h" />
-    <ClInclude Include="ControlGame.h" />
-    <ClInclude Include="ControlHome.h" />
-    <ClInclude Include="ControlHP.h" />
-    <ClInclude Include="ControlItemDrop.h" />
-    <ClInclude Include="ControlMagicKnightMainGame.h" />
-    <ClInclude Include="ControlModifyWord.h" />
-    <ClInclude Include="ControlPV.h" />
-    <ClInclude Include="ControlTitle.h" />
-    <ClInclude Include="ControlWeaponMasterAction.h" />
-    <ClInclude Include="ControlWordListsAndTyping.h" />
-    <ClInclude Include="DX9Lib.h" />
-    <ClInclude Include="RenderAlterDeck.h" />
-    <ClInclude Include="RenderCharaChoice.h" />
-    <ClInclude Include="RenderDeckChoice.h" />
-    <ClInclude Include="RenderGame.h" />
-    <ClInclude Include="RenderHome.h" />
-    <ClInclude Include="RenderHP.h" />
-    <ClInclude Include="RenderMagicKnigtMainGame.h" />
-    <ClInclude Include="RenderModifyWord.h" />
-    <ClInclude Include="RenderPV.h" />
-    <ClInclude Include="RenderTitle.h" />
-    <ClInclude Include="RenderWeaponMasterAction.h" />
-    <ClInclude Include="RenderWordListsAndTyping.h" />
-    <ClInclude Include="WinMain.h" />
-    <ClInclude Include="ControlStageSelect.h" />
-    <ClInclude Include="RenderStageSelect.h" />
+    <ClInclude Include="ControlAlterDeck.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ControlCharaChoice.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ControlDeckChoice.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ControlGame.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ControlHome.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ControlItemDrop.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ControlHP.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ControlPV.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ControlModifyWord.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ControlMagicKnightMainGame.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ControlStageSelect.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ControlTitle.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ControlWordListsAndTyping.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ControlWeaponMasterAction.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="DX9Lib.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderAlterDeck.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderCharaChoice.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderDeckChoice.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderGame.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderHome.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderMagicKnigtMainGame.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderModifyWord.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderHP.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderPV.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderStageSelect.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderTitle.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderWeaponMasterAction.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderWordListsAndTyping.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="WinMain.h">
+      <Filter>Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\..\OneDrive\Desktop\sam_pc_roma.gif" />
+    <Text Include="Enum\MagicKnightWordEnum.txt">
+      <Filter>External</Filter>
+    </Text>
+    <Text Include="Files\Enum\WeaponMasterWordEnum.txt">
+      <Filter>External</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Enum\MagicKnightWordEnum.txt" />
-    <Text Include="Files\Enum\WeaponMasterWordEnum.txt" />
+    <Filter Include="Header">
+      <UniqueIdentifier>{cbb421ef-9ad9-4f05-a062-31e098bb67d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External">
+      <UniqueIdentifier>{2186b47a-46df-4cab-9b3c-5925cccf1db4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{1a90e3af-def2-4cc8-89ef-6db7a6554a88}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\OneDrive\Desktop\sam_pc_roma.gif">
+      <Filter>External</Filter>
+    </Image>
   </ItemGroup>
 </Project>

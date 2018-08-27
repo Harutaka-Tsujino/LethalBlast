@@ -36,7 +36,7 @@ void ControlAlterDeck(SCENE* scene,WordData* pMagicKnightWordDatas, MagicKnightD
 	memset(pDeckComponentCollisionsVertex, 0, sizeof(ImagesCustomVertex)*MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX);
 
 	static int wordSlidePosY = 0;
-	const int SLIDE_SPEED = 13;
+	const int SLIDE_SPEED = 40;
 
 	CustomImageVerticies(pBackgroundVertices, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT*(0.65f + 0.175f), DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT*0.175f, 0xFFFFD500);
 	CustomImageVerticies(pWordDatasBackVertices, DISPLAY_WIDTH*0.875f, DISPLAY_HEIGHT / 2.f, DISPLAY_WIDTH*0.125f, DISPLAY_HEIGHT / 2.f, 0xFFF5F5F5);
@@ -45,12 +45,12 @@ void ControlAlterDeck(SCENE* scene,WordData* pMagicKnightWordDatas, MagicKnightD
 	{
 		if (!RectToRectCollisionCheak(pWordDatasBackVertices, mouseCursorCollisionVertex))
 		{
-			if (g_keyState.keyHold[DIK_COMMA])
+			if (g_keyState.keyHold[DIK_COMMA]||g_mouseState.directInputMouseState.lZ>0)
 			{
 				wordSlidePosY += SLIDE_SPEED;
 			}
 
-			if (g_keyState.keyHold[DIK_PERIOD])
+			if (g_keyState.keyHold[DIK_PERIOD] || g_mouseState.directInputMouseState.lZ<0)
 			{
 				wordSlidePosY -= SLIDE_SPEED;
 			}
@@ -101,12 +101,12 @@ void ControlAlterDeck(SCENE* scene,WordData* pMagicKnightWordDatas, MagicKnightD
 
 	if (RectToRectCollisionCheak(pBackgroundVertices, mouseCursorCollisionVertex))
 	{
-		if (g_keyState.keyHold[DIK_COMMA])
+		if (g_keyState.keyHold[DIK_COMMA] || g_mouseState.directInputMouseState.lZ>0)
 		{
 			deckComponentSlidePosX += SLIDE_SPEED;
 		}
 
-		if (g_keyState.keyHold[DIK_PERIOD])
+		if (g_keyState.keyHold[DIK_PERIOD] || g_mouseState.directInputMouseState.lZ<0)
 		{
 			deckComponentSlidePosX -= SLIDE_SPEED;
 		}
@@ -119,14 +119,15 @@ void ControlAlterDeck(SCENE* scene,WordData* pMagicKnightWordDatas, MagicKnightD
 		deckComponentSlidePosX = 0;
 	}
 
-	if (deckComponentSlidePosX <(int)(-WORD_COLLISION_SCALE_X*4*(DECK_COMPONENT_NEW_LINE-1)))
+	if (deckComponentSlidePosX <(int)(-WORD_COLLISION_SCALE_X*2*(DECK_COMPONENT_NEW_LINE-1)))
 	{
-		deckComponentSlidePosX = (int)(-WORD_COLLISION_SCALE_X * 4 * (DECK_COMPONENT_NEW_LINE-1));
+		deckComponentSlidePosX = (int)(-WORD_COLLISION_SCALE_X * 2 * (DECK_COMPONENT_NEW_LINE-1));
 	}
 
 	for (int wordDatas = 0; wordDatas < DECK_WORD_MAX; ++wordDatas)
 	{
-		CustomImageVerticies(pDeckComponentCollisionsVertex[wordDatas].ImageVertex, deckComponentPosX + deckComponentSlidePosX, deckComponentPosY, WORD_COLLISION_SCALE_X, WORD_COLLISION_SCALE_Y);
+		CustomImageVerticies(pDeckComponentCollisionsVertex[wordDatas].ImageVertex, deckComponentPosX + deckComponentSlidePosX, deckComponentPosY, 
+			WORD_COLLISION_SCALE_X, WORD_COLLISION_SCALE_Y);
 
 		deckComponentPosX += (float)(WORD_COLLISION_SCALE_X * 2.3);
 
