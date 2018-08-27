@@ -242,7 +242,7 @@ void ControlMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck
 
 						CalculateDistanceBetweenTwoPointsXY(&pHominEffect[effect].m_HomingVect, handPosX, handPosY, actionWordPosX, actionWordPosY);
 
-						const float effectScale = 40;
+						const float effectScale = DISPLAY_HEIGHT/50.f;
 						CustomImageVerticies(pHominEffect[effect].m_rect, handPosX, handPosY, effectScale, effectScale);
 
 						pHominEffect[effect].m_actionPos = actionWordSpacePlace;
