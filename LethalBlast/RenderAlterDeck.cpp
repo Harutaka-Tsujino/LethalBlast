@@ -75,6 +75,8 @@ void RenderAlterDeck(ImagesCustomVertex* pChoiseWordCollisionsVertex, ImagesCust
 	const float MOUSE_CURSOR_SCALE = 0.5f;
 	CustomImageVerticies(mouseCursorCollisionVertex, (float)g_mouseState.absolutePos.x, (float)g_mouseState.absolutePos.y, MOUSE_CURSOR_SCALE, MOUSE_CURSOR_SCALE);
 
+	const DWORD FONT_COLOR = 0xFF000000;
+
 	for (int wordDatas = 0; wordDatas < MAGIC_KNIGHT_WORD_MAX; ++wordDatas)
 	{
 		if (!RectToRectCollisionCheak(pBackgroundVertices, mouseCursorCollisionVertex))
@@ -90,31 +92,31 @@ void RenderAlterDeck(ImagesCustomVertex* pChoiseWordCollisionsVertex, ImagesCust
 					{
 					case FIRE_ELEMENT:
 
-						WriteText(ELEMENT_POS_X, ELEMENT_POS_Y, "特殊 火", DT_CENTER, fontId);
+						WriteText(ELEMENT_POS_X, ELEMENT_POS_Y, "特殊 火", DT_CENTER, fontId, FONT_COLOR);
 
 						break;
 
 					case WATER_ELEMENT:
 
-						WriteText(ELEMENT_POS_X, ELEMENT_POS_Y, "特殊 水", DT_CENTER, fontId);
+						WriteText(ELEMENT_POS_X, ELEMENT_POS_Y, "特殊 水", DT_CENTER, fontId, FONT_COLOR);
 
 						break;
 
 					case WIND_ELEMENT:
 
-						WriteText(ELEMENT_POS_X, ELEMENT_POS_Y, "特殊 風", DT_CENTER, fontId);
+						WriteText(ELEMENT_POS_X, ELEMENT_POS_Y, "特殊 風", DT_CENTER, fontId, FONT_COLOR);
 
 						break;
 
 					case DARKNESS_ELEMENT:
 
-						WriteText(ELEMENT_POS_X, ELEMENT_POS_Y, "特殊 闇", DT_CENTER, fontId);
+						WriteText(ELEMENT_POS_X, ELEMENT_POS_Y, "特殊 闇", DT_CENTER, fontId, FONT_COLOR);
 
 						break;
 
 					case SHINING_ELEMENT:
 
-						WriteText(ELEMENT_POS_X, ELEMENT_POS_Y, "特殊 光", DT_CENTER, fontId);
+						WriteText(ELEMENT_POS_X, ELEMENT_POS_Y, "特殊 光", DT_CENTER, fontId, FONT_COLOR);
 
 						break;
 					}
@@ -126,19 +128,19 @@ void RenderAlterDeck(ImagesCustomVertex* pChoiseWordCollisionsVertex, ImagesCust
 					{
 					case SLASH_ATTACK:
 
-						WriteText(ATTACK_POS_X, ATTACK_POS_Y, "物理 斬", DT_CENTER, fontId);
+						WriteText(ATTACK_POS_X, ATTACK_POS_Y, "物理 斬", DT_CENTER, fontId, FONT_COLOR);
 
 						break;
 
 					case SMASH_ATTACK:
 
-						WriteText(ATTACK_POS_X, ATTACK_POS_Y, "物理 打", DT_CENTER, fontId);
+						WriteText(ATTACK_POS_X, ATTACK_POS_Y, "物理 打", DT_CENTER, fontId, FONT_COLOR);
 
 						break;
 
 					case PENETRATION_ATTACK:
 
-						WriteText(ATTACK_POS_X, ATTACK_POS_Y, "物理 突", DT_CENTER, fontId);
+						WriteText(ATTACK_POS_X, ATTACK_POS_Y, "物理 突", DT_CENTER, fontId, FONT_COLOR);
 
 						break;
 					}
@@ -146,7 +148,7 @@ void RenderAlterDeck(ImagesCustomVertex* pChoiseWordCollisionsVertex, ImagesCust
 					char cost[20] = "コスト";
 					sprintf(&cost[6], "%d", pMagicKnightWordDatas[wordDatas].m_cost);
 
-					WriteText((int)(DISPLAY_WIDTH*0.8f), (int)(DISPLAY_HEIGHT*0.3f), cost, DT_CENTER, fontId);
+					WriteText((int)(DISPLAY_WIDTH*0.8f), (int)(DISPLAY_HEIGHT*0.3f), cost, DT_CENTER, fontId, FONT_COLOR);
 
 					break;
 				}

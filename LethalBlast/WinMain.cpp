@@ -107,6 +107,8 @@ void MainFunction(void)
 	{
 	case PV_SCENE:
 
+		srand((UINT)time(NULL));
+
 		ControlPV(&scene);
 		RenderPV(&scene);
 

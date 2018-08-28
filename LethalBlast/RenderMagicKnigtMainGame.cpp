@@ -118,13 +118,14 @@ void RenderMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck*
 
 void RenderWhileLoad(SCENE* scene,SCENE destScene, TEXTUREID* wordTexIds)
 {
-	static TEXTUREID LoadTexId;
+	static TEXTUREID LoadTexId[2];
 
 	static int frameCount = INIT_FRAME;
 
 	if (frameCount == INIT_FRAME)
 	{
-		RoadTexture("texture/Load/LoadScene.png", &LoadTexId);
+		RoadTexture("texture/Load/LoadScene1.png", &LoadTexId[0]);
+		RoadTexture("texture/Load/LoadScene2.png", &LoadTexId[1]);
 
 		frameCount = 0;
 	}
@@ -133,7 +134,7 @@ void RenderWhileLoad(SCENE* scene,SCENE destScene, TEXTUREID* wordTexIds)
 
 	CustomImageVerticies(LoadScene, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f);
 
-	DrawImage(LoadScene, LoadTexId);
+	DrawImage(LoadScene, LoadTexId[rand()%2]);
 
 	*scene = destScene;
 
