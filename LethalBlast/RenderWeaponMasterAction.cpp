@@ -30,8 +30,8 @@ void RenderWeaponMasterAction(ImagesCustomVertex* pWeaponMasterDeckVerticies, Im
 
 	if (*scrollEffect)
 	{
-		const float listBGPosX1 = (DISPLAY_WIDTH - (DISPLAY_WIDTH / 7.f) - (DISPLAY_WIDTH / 9.f));
-		const float listBGposX2 = (DISPLAY_WIDTH - (DISPLAY_WIDTH / 7.f) + (DISPLAY_WIDTH / 9.f));
+		const float listBGPosX1 = (DISPLAY_WIDTH - (DISPLAY_WIDTH / 7.f) + (DISPLAY_WIDTH / 9.f));
+		const float listBGposX2 = (DISPLAY_WIDTH - (DISPLAY_WIDTH / 7.f) - (DISPLAY_WIDTH / 9.f));
 
 		static int scrollEffectCnt = 0;
 		static float scrollPosY = 0.f;
@@ -40,26 +40,26 @@ void RenderWeaponMasterAction(ImagesCustomVertex* pWeaponMasterDeckVerticies, Im
 		CustomImageVerticies(scroll, DISPLAY_WIDTH - (DISPLAY_WIDTH / 7.f), scrollPosY, DISPLAY_WIDTH / 9.f, DISPLAY_HEIGHT / 30.f);
 		SetTvCustomVertex(listBG, listBGPosX1, listBGposX2, listBGposX2, listBGPosX1,
 			scrollPosY, scrollPosY, (DISPLAY_HEIGHT / 2.6f) + (DISPLAY_HEIGHT / 2.6f), (DISPLAY_HEIGHT / 2.6f) + (DISPLAY_HEIGHT / 2.6f),
-			scrollTv, scrollTv, 500.f);
+			scrollTv, 500.f , 500.f);
 
 		scrollEffectCnt++;
 
-		if (scrollEffectCnt <= 30)
+		if (scrollEffectCnt <= 10)
 		{
-			scrollPosY += ((DISPLAY_HEIGHT / 2.6f) + (DISPLAY_HEIGHT / 2.6f)) / 30.f;
-			scrollTv += 10.f;
+			scrollPosY += ((DISPLAY_HEIGHT / 2.6f) + (DISPLAY_HEIGHT / 2.6f)) / 10.f;
+			scrollTv += 500.f / 10.f;
 		}
 
-		if (31 <= scrollEffectCnt && scrollEffectCnt <= 60)
+		if (41 <= scrollEffectCnt && scrollEffectCnt <= 50)
 		{
-			scrollPosY -= ((DISPLAY_HEIGHT / 2.6f) + (DISPLAY_HEIGHT / 2.6f)) / 30.f;
-			scrollTv -= 10.f;
+			scrollPosY -= ((DISPLAY_HEIGHT / 2.6f) + (DISPLAY_HEIGHT / 2.6f)) / 10.f;
+			scrollTv -= 500.f / 10.f;
 		}
 
 		DrawImage(listBG, textureIds[LIST_BG_TEX]);
 		DrawImage(scroll, textureIds[LIST_SCROLL_TEX]);
 
-		if (scrollEffectCnt == 60)
+		if (scrollEffectCnt == 50)
 		{
 			*scrollEffect = false;
 			scrollPosY = 0.f;
@@ -72,8 +72,10 @@ void RenderWeaponMasterAction(ImagesCustomVertex* pWeaponMasterDeckVerticies, Im
 	{
 		//デッキ内の文字リストの背景の頂点設定
 		CustomImageVerticies(listBG, DISPLAY_WIDTH - (DISPLAY_WIDTH / 7.f), DISPLAY_HEIGHT / 2.6f, DISPLAY_WIDTH / 9.f, DISPLAY_HEIGHT / 2.6f);
+		CustomImageVerticies(scroll, DISPLAY_WIDTH - (DISPLAY_WIDTH / 7.f), DISPLAY_HEIGHT / 40.f, DISPLAY_WIDTH / 9.f, DISPLAY_HEIGHT / 40.f);
 
 		DrawImage(listBG, textureIds[LIST_BG_TEX]);
+		DrawImage(scroll, textureIds[LIST_SCROLL_TEX]);
 
 		for (int rectForPageTransition = 0;rectForPageTransition < 2;rectForPageTransition++)
 		{

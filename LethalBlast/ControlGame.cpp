@@ -162,10 +162,10 @@ void SetTvCustomVertex(CustomVertex* pCustomVertex, FLOAT x1Pos, FLOAT x2Pos, FL
 	FLOAT y1Pos, FLOAT y2Pos, FLOAT y3Pos, FLOAT y4Pos,
 	FLOAT startTv, FLOAT posTv, FLOAT imageSizeTv)
 {
-	pCustomVertex[0] = { x1Pos , y1Pos , 0.f , 1.f , 0xFFFFFFFF , 0.f , startTv / imageSizeTv };
+	pCustomVertex[0] = { x1Pos , y1Pos , 0.f , 1.f , 0xFFFFFFFF , 1.f , startTv / imageSizeTv };
 	pCustomVertex[1] = { x2Pos , y2Pos , 0.f , 1.f , 0xFFFFFFFF , 0.f , startTv / imageSizeTv };
-	pCustomVertex[2] = { x3Pos , y3Pos , 0.f , 1.f , 0xFFFFFFFF , 1.f , (startTv + posTv) / imageSizeTv };
-	pCustomVertex[3] = { x4Pos , y4Pos , 0.f , 1.f , 0xFFFFFFFF , 1.f , (startTv + posTv) / imageSizeTv };
+	pCustomVertex[2] = { x3Pos , y3Pos , 0.f , 1.f , 0xFFFFFFFF , 0.f , posTv / imageSizeTv };
+	pCustomVertex[3] = { x4Pos , y4Pos , 0.f , 1.f , 0xFFFFFFFF , 1.f , posTv / imageSizeTv };
 }																							  
 
 void GetCustomVerTexColor(CustomVertex* pCustomVertex,DWORD color)

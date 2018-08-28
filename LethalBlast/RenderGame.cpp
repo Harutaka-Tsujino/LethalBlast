@@ -14,7 +14,7 @@ void RenderGame(SCENE* scene)
 	//初回フレーム時に画像の読み込みを行う
 	if (isFirstFrame)
 	{
-		RoadTexture("Texture/MainGame/MainGameBackground0.png", &mainGameTextureIds[BACKGROUND_0_TEXTURE]);
+		RoadTexture("Texture/MainGame/mainBG.png", &mainGameTextureIds[BACKGROUND_0_TEXTURE]);
 
 		isFirstFrame = false;
 	}
