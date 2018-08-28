@@ -58,14 +58,17 @@ double Cross(Vect vectA, Vect vectB);
 *画像を横幅で切り取る
 *(引数)startTu posTu	スタート座標からの距離分描画する
 */
-void SetTuCustomVertex(CustomVertex* pCustomVertex, FLOAT xPos, FLOAT yPos, FLOAT startTu, FLOAT posTu, FLOAT imageSizeTu);
+void SetTuCustomVertex(CustomVertex* pCustomVertex, FLOAT x1Pos, FLOAT x2Pos, FLOAT x3Pos, FLOAT x4Pos,
+	FLOAT y1Pos, FLOAT y2Pos, FLOAT y3Pos, FLOAT y4Pos,
+	FLOAT startTu, FLOAT posTu, FLOAT imageSizeTu);
 
 /*
 *画像を縦幅で切り取る
 *(引数)startTv posTv	スタート座標からの距離分描画する
 */
-void SetTvCustomVertex(CustomVertex* pCustomVertex, FLOAT xPos, FLOAT xScale, FLOAT yPos, FLOAT yScale, FLOAT startTv, FLOAT posTv, FLOAT imageSizeTv);
-
+void SetTvCustomVertex(CustomVertex* pCustomVertex, FLOAT x1Pos, FLOAT x2Pos, FLOAT x3Pos, FLOAT x4Pos,
+	FLOAT y1Pos, FLOAT y2Pos, FLOAT y3Pos, FLOAT y4Pos,
+	FLOAT startTv, FLOAT posTv, FLOAT imageSizeTv);
 /*
 *ポリゴンの色を設定する
 */

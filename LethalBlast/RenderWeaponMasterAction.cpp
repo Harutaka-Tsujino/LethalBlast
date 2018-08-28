@@ -30,24 +30,29 @@ void RenderWeaponMasterAction(ImagesCustomVertex* pWeaponMasterDeckVerticies, Im
 
 	if (*scrollEffect)
 	{
+		const float listBGPosX1 = (DISPLAY_WIDTH - (DISPLAY_WIDTH / 7.f) - (DISPLAY_WIDTH / 9.f));
+		const float listBGposX2 = (DISPLAY_WIDTH - (DISPLAY_WIDTH / 7.f) + (DISPLAY_WIDTH / 9.f));
+
 		static int scrollEffectCnt = 0;
 		static float scrollPosY = 0.f;
 		static float scrollTv = 0.f;
 
 		CustomImageVerticies(scroll, DISPLAY_WIDTH - (DISPLAY_WIDTH / 7.f), scrollPosY, DISPLAY_WIDTH / 9.f, DISPLAY_HEIGHT / 30.f);
-		SetTvCustomVertex(listBG, DISPLAY_WIDTH - (DISPLAY_WIDTH / 7.f), , DISPLAY_HEIGHT / 2.6f, 300.f, 0.f, scrollTv, 500.f);
+		SetTvCustomVertex(listBG, listBGPosX1, listBGposX2, listBGposX2, listBGPosX1,
+			scrollPosY, scrollPosY, (DISPLAY_HEIGHT / 2.6f) + (DISPLAY_HEIGHT / 2.6f), (DISPLAY_HEIGHT / 2.6f) + (DISPLAY_HEIGHT / 2.6f),
+			scrollTv, scrollTv, 500.f);
 
 		scrollEffectCnt++;
 
 		if (scrollEffectCnt <= 30)
 		{
-			scrollPosY += 30.f;
+			scrollPosY += ((DISPLAY_HEIGHT / 2.6f) + (DISPLAY_HEIGHT / 2.6f)) / 30.f;
 			scrollTv += 10.f;
 		}
 
 		if (31 <= scrollEffectCnt && scrollEffectCnt <= 60)
 		{
-			scrollPosY -= 30.f;
+			scrollPosY -= ((DISPLAY_HEIGHT / 2.6f) + (DISPLAY_HEIGHT / 2.6f)) / 30.f;
 			scrollTv -= 10.f;
 		}
 
