@@ -31,8 +31,8 @@ void RenderCharaChoiceBackGround(TEXTUREID* textureIds, int* cursol)
 	CustomVertex CharaChoiceCharaImage[4];
 
 	//背景の描画
-	CustomImageVerticies(CharaChoiceBackGround, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f);
-	DrawImage(CharaChoiceBackGround, textureIds[CHARA_CHOICE_BACKGROUND]);
+	CustomImageVerticies(CharaChoiceBackGround, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f,GetColor(255,244,12,12));
+	DrawImage(CharaChoiceBackGround, NULL);
 
 	
 	CustomImageVerticies(CharaChoiceCharaImage, DISPLAY_WIDTH / 4.f, DISPLAY_HEIGHT / 2.f, DISPLAY_WIDTH / 4.f, DISPLAY_HEIGHT / 2.f);
@@ -42,4 +42,3 @@ void RenderCharaChoiceBackGround(TEXTUREID* textureIds, int* cursol)
 	DrawImage(CharaChoiceCharaImage, textureIds[CHARA_CHOICE_MAGIC_KNIGHT]);
 
 }
-
