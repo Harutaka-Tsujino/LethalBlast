@@ -90,7 +90,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="WinMain.h" />
     <ClInclude Include="RenderWordListsAndTyping.h">
       <Filter>ヘッダ</Filter>
     </ClInclude>
@@ -176,6 +175,9 @@
       <Filter>ヘッダ</Filter>
     </ClInclude>
     <ClInclude Include="RenderHome.h">
+      <Filter>ヘッダ</Filter>
+    </ClInclude>
+    <ClInclude Include="WinMain.h">
       <Filter>ヘッダ</Filter>
     </ClInclude>
   </ItemGroup>
