@@ -124,6 +124,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ControlAlterDeck.cpp" />
+    <ClCompile Include="ControlBattle.cpp" />
     <ClCompile Include="ControlCharaChoice.cpp" />
     <ClCompile Include="ControlDeckChoice.cpp" />
     <ClCompile Include="ControlGame.cpp" />
@@ -154,6 +155,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ControlAlterDeck.h" />
+    <ClInclude Include="ControlBattle.h" />
     <ClInclude Include="ControlCharaChoice.h" />
     <ClInclude Include="ControlDeckChoice.h" />
     <ClInclude Include="ControlGame.h" />

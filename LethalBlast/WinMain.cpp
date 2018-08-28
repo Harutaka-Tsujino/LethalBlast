@@ -98,6 +98,10 @@ void MainFunction(void)
 	static int selectedStage;
 	static bool scrollEffect = false;
 	static HomingEffect hominEffect[SELECT_EFFECT_MAX];
+	static VSData battleData; 
+	static EnemyST enemyState;
+	static int enemyActionNum;
+
 	//シーン分岐
 	switch (scene)
 	{
@@ -213,7 +217,9 @@ void MainFunction(void)
 
 		case MAGIC_KNIGHT:
 			ControlMagicKnightMainGame(magicKnightWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
-				&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex, hominEffect);
+				&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex, hominEffect,
+				&battleData,&enemyState,enemyActionNum);
+
 			RenderMagicKnightMainGame(magicKnightWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
 				&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex, wordTexIds, hominEffect);
 

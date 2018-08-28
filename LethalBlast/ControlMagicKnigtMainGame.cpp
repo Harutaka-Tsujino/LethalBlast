@@ -4,6 +4,7 @@
 #include"ControlStageSelect.h"
 #include"ControlCharaChoice.h"
 #include"ControlMagicKnightMainGame.h"
+#include"ControlBattle.h"
 
 //static MagicKnightDeck magicKnightDecks[MAGIC_KNIGHT_DECKS_MAX];
 //static MagicKnightPlayingDeck magicKnightPlayingDeck;
@@ -11,9 +12,10 @@
 //CustomVertex handWordCollisionsVertex[HAND_WORD_MAX*RECT_VERTEX_NUM];
 //CustomVertex magicKnightActionCollisionsVertex[MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX*RECT_VERTEX_NUM];
 
-void ControlMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck* pMagicKnightDecks, 
+void ControlMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck* pMagicKnightDecks,
 	MagicKnightPlayingDeck* pMagicKnightPlayingDeck, MagicKnightAction* pMagicKnightAction,
-	ImagesCustomVertex* pHandWordCollisionsVertex, ImagesCustomVertex* pMagicKnightActionCollisionsVertex,HomingEffect* pHominEffect)
+	ImagesCustomVertex* pHandWordCollisionsVertex, ImagesCustomVertex* pMagicKnightActionCollisionsVertex, HomingEffect* pHominEffect,
+	VSData* battleData, EnemyST* enemyState, int enemyActionNum)
 {
 	//必殺技を発動している
 	if (pMagicKnightAction->useAction)
@@ -110,7 +112,11 @@ void ControlMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck
 
 		ZeroMemory(pHominEffect, sizeof(HomingEffect)*SELECT_EFFECT_MAX);
 
-		frameCount = 0;
+		ZeroMemory(enemyState, sizeof(EnemyST));
+
+		enemyState->m_cTBlank = 60;
+		enemyState->m_cTNum = 10;
+		enemyState->m_enemyAction->m_ActionDamage = 100;
 	}
 
 
@@ -323,9 +329,21 @@ void ControlMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck
 		}
 	}
 
+	ControlBattle(pMagicKnightWordDatas, &frameCount, battleData, pMagicKnightAction, *enemyState, enemyActionNum);
+
 	if (frameCount < 120)
 	{
 		frameCount++;
+	}
+
+	if (battleData->m_playerWon||battleData->m_enemyWon)
+	{
+		frameCount = 0;
+
+		battleData->m_playerWon = 0;
+
+		battleData->m_enemyWon = 0;
+
 	}
 
 	return;
