@@ -168,12 +168,12 @@ void CalcWeakResistDamage(ActionDamage* action, ActionDamage* enemyAction)//////
 
 		if (enemyAction->m_ActionElements[WATER_ELEMENT])
 		{
-			action->m_ActionDamage *= ELEMENT_RESIST;
+			action->m_ActionDamage = (UINT)(action->m_ActionDamage * ELEMENT_RESIST);
 		}
 
 		if (enemyAction->m_ActionElements[WIND_ELEMENT])
 		{
-			action->m_ActionDamage *= ELEMENT_WEAK;
+			action->m_ActionDamage = (UINT)(action->m_ActionDamage * ELEMENT_WEAK);
 		}
 
 		break;
@@ -182,12 +182,12 @@ void CalcWeakResistDamage(ActionDamage* action, ActionDamage* enemyAction)//////
 
 		if (enemyAction->m_ActionElements[WIND_ELEMENT])
 		{
-			action->m_ActionDamage *= ELEMENT_RESIST;
+			action->m_ActionDamage = (UINT)(action->m_ActionDamage * ELEMENT_RESIST);
 		}
 
 		if (enemyAction->m_ActionElements[FIRE_ELEMENT])
 		{
-			action->m_ActionDamage *= ELEMENT_WEAK;
+			action->m_ActionDamage = (UINT)(action->m_ActionDamage * ELEMENT_WEAK);
 		}
 
 		break;
@@ -196,12 +196,12 @@ void CalcWeakResistDamage(ActionDamage* action, ActionDamage* enemyAction)//////
 
 		if (enemyAction->m_ActionElements[FIRE_ELEMENT])
 		{
-			action->m_ActionDamage *= ELEMENT_RESIST;
+			action->m_ActionDamage = (UINT)(action->m_ActionDamage * ELEMENT_RESIST);
 		}
 
 		if (enemyAction->m_ActionElements[WATER_ELEMENT])
 		{
-			action->m_ActionDamage *= ELEMENT_WEAK;
+			action->m_ActionDamage = (UINT)(action->m_ActionDamage * ELEMENT_WEAK);
 		}
 
 		break;
@@ -210,7 +210,7 @@ void CalcWeakResistDamage(ActionDamage* action, ActionDamage* enemyAction)//////
 
 		if (enemyAction->m_ActionElements[DARKNESS_ELEMENT])
 		{
-			action->m_ActionDamage *= ELEMENT_WEAK;
+			action->m_ActionDamage= (UINT)(action->m_ActionDamage * ELEMENT_WEAK);
 		}
 
 		break;
@@ -219,7 +219,7 @@ void CalcWeakResistDamage(ActionDamage* action, ActionDamage* enemyAction)//////
 
 		if (enemyAction->m_ActionElements[SHINING_ELEMENT])
 		{
-			action->m_ActionDamage *= ELEMENT_WEAK;
+			action->m_ActionDamage = (UINT)(action->m_ActionDamage * ELEMENT_WEAK);
 		}
 
 		break;
@@ -231,12 +231,12 @@ void CalcWeakResistDamage(ActionDamage* action, ActionDamage* enemyAction)//////
 
 		if (enemyAction->m_ActionAttacks[SMASH_ATTACK])
 		{
-			action->m_ActionDamage *= ATTACK_RESIST;
+			action->m_ActionDamage=(UINT)(action->m_ActionDamage * ATTACK_RESIST);
 		}
 
 		if (enemyAction->m_ActionAttacks[PENETRATION_ATTACK])
 		{
-			action->m_ActionDamage *= ATTACK_WEAK;
+			action->m_ActionDamage = (UINT)(action->m_ActionDamage * ATTACK_WEAK);
 		}
 
 		break;
@@ -245,12 +245,12 @@ void CalcWeakResistDamage(ActionDamage* action, ActionDamage* enemyAction)//////
 
 		if (enemyAction->m_ActionAttacks[PENETRATION_ATTACK])
 		{
-			action->m_ActionDamage *= ATTACK_RESIST;
+			action->m_ActionDamage = (UINT)(action->m_ActionDamage * ATTACK_RESIST);
 		}
 
 		if (enemyAction->m_ActionAttacks[SLASH_ATTACK])
 		{
-			action->m_ActionDamage *= ATTACK_WEAK;
+			action->m_ActionDamage = (UINT)(action->m_ActionDamage * ATTACK_WEAK);
 		}
 
 		break;
@@ -259,12 +259,12 @@ void CalcWeakResistDamage(ActionDamage* action, ActionDamage* enemyAction)//////
 
 		if (enemyAction->m_ActionAttacks[SLASH_ATTACK])
 		{
-			action->m_ActionDamage *= ATTACK_RESIST;
+			action->m_ActionDamage = (UINT)(action->m_ActionDamage * ATTACK_RESIST);
 		}
 
 		if (enemyAction->m_ActionAttacks[SMASH_ATTACK])
 		{
-			action->m_ActionDamage *= ATTACK_WEAK;
+			action->m_ActionDamage = (UINT)(action->m_ActionDamage * ATTACK_WEAK);
 		}
 
 		break;
