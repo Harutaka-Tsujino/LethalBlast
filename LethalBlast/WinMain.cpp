@@ -29,6 +29,7 @@
 #include"RenderModifyWord.h"
 #include"ControlStageSelect.h"
 #include"RenderStageSelect.h"
+#include"OperateResult.h"
 
 INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdShow)
 {
@@ -101,6 +102,8 @@ void MainFunction(void)
 	static VSData battleData; 
 	static EnemyST enemyState;
 	static int enemyActionNum;
+
+	static bool isClear=0;
 
 	//シーン分岐
 	switch (scene)
@@ -182,6 +185,7 @@ void MainFunction(void)
 	case LOAD_DECK_TO_PLAY_SCENE:
 
 		RenderWhileLoad(&scene, GAME_SCENE, wordTexIds);
+		LoadMKdeck(&scene, magicKnightDecks, &magicKnightPlayingDeck);
 
 		switch (playerType)
 		{
@@ -190,7 +194,6 @@ void MainFunction(void)
 			break;
 
 		case MAGIC_KNIGHT:
-			LoadMKdeck(&scene, magicKnightDecks, &magicKnightPlayingDeck);
 
 			break;
 		}
@@ -218,9 +221,9 @@ void MainFunction(void)
 			break;
 
 		case MAGIC_KNIGHT:
-			ControlMagicKnightMainGame(magicKnightWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
+			ControlMagicKnightMainGame(&scene,magicKnightWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
 				&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex, hominEffect,
-				&battleData,&enemyState,enemyActionNum);
+				&battleData,&enemyState,enemyActionNum, &isClear);
 
 			RenderMagicKnightMainGame(magicKnightWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
 				&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex, wordTexIds, hominEffect);
@@ -233,6 +236,11 @@ void MainFunction(void)
 		
 		break;
 
+	case RESULT_SCENE:
+
+		OperateResultScene(&scene, isClear);
+
+		break;
 	}
 	
 	return;

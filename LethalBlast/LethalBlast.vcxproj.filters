@@ -88,6 +88,9 @@
     <ClCompile Include="RenderGame.cpp">
       <Filter>ソース</Filter>
     </ClCompile>
+    <ClCompile Include="OperateResult.cpp">
+      <Filter>ソース</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderWordListsAndTyping.h">
@@ -178,6 +181,9 @@
       <Filter>ヘッダ</Filter>
     </ClInclude>
     <ClInclude Include="WinMain.h">
+      <Filter>ヘッダ</Filter>
+    </ClInclude>
+    <ClInclude Include="OperateResult.h">
       <Filter>ヘッダ</Filter>
     </ClInclude>
   </ItemGroup>

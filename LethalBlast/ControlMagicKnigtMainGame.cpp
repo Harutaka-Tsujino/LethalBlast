@@ -12,10 +12,10 @@
 //CustomVertex handWordCollisionsVertex[HAND_WORD_MAX*RECT_VERTEX_NUM];
 //CustomVertex magicKnightActionCollisionsVertex[MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX*RECT_VERTEX_NUM];
 
-void ControlMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck* pMagicKnightDecks,
+void ControlMagicKnightMainGame(SCENE* scene,WordData* pMagicKnightWordDatas, MagicKnightDeck* pMagicKnightDecks,
 	MagicKnightPlayingDeck* pMagicKnightPlayingDeck, MagicKnightAction* pMagicKnightAction,
 	ImagesCustomVertex* pHandWordCollisionsVertex, ImagesCustomVertex* pMagicKnightActionCollisionsVertex, HomingEffect* pHominEffect,
-	VSData* battleData, EnemyST* enemyState, int enemyActionNum)
+	VSData* battleData, EnemyST* enemyState, int enemyActionNum,bool* isClear)
 {
 	//必殺技を発動している
 	if (pMagicKnightAction->useAction)
@@ -118,7 +118,6 @@ void ControlMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck
 		enemyState->m_cTNum = 10;
 		enemyState->m_enemyAction->m_ActionDamage = 100;
 	}
-
 
 	/*マウスカーソルとの当たり判定用の頂点設定 開始*/
 
@@ -336,14 +335,26 @@ void ControlMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck
 		frameCount++;
 	}
 
-	if (battleData->m_playerWon||battleData->m_enemyWon)
+	if (battleData->m_enemyWon)
 	{
-		frameCount = 0;
+		frameCount = INIT_FRAME;
+		
+		*isClear = false;
+
+		battleData->m_enemyWon = 0;
+		
+		*scene = RESULT_SCENE;
+	}
+
+	if (battleData->m_playerWon)
+	{
+		frameCount = INIT_FRAME;
+
+		*isClear = true;
 
 		battleData->m_playerWon = 0;
 
-		battleData->m_enemyWon = 0;
-
+		*scene = RESULT_SCENE;
 	}
 
 	return;

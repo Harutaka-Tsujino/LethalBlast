@@ -59,6 +59,9 @@ enum SCENE
 	//メインゲーム画面
 	GAME_SCENE,
 
+	//リザルトシーン
+	RESULT_SCENE,
+
 	//シーンの最大数
 	SCENE_MAX
 };
