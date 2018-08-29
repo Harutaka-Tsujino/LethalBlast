@@ -77,9 +77,9 @@
 
 				break;
 			}
-
-			ZeroMemory(pMagicKnightAction, sizeof(MagicKnightAction));
 		}
+
+		ZeroMemory(pMagicKnightAction, sizeof(MagicKnightAction));
 
 		playerAction.m_ActionAttacks[actionAttack] = true;
 		playerAction.m_ActionElements[actionElement] = true;

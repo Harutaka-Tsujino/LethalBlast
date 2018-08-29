@@ -4,4 +4,4 @@
 /*PVの描画
 *(引数)SCENE* scene　シーン遷移のための変数
 */
-void ControlPV(SCENE* scene);
+void OperatePV(SCENE* scene);

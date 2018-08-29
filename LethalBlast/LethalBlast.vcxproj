@@ -133,7 +133,6 @@
     <ClCompile Include="ControlItemDrop.cpp" />
     <ClCompile Include="ControlMagicKnigtMainGame.cpp" />
     <ClCompile Include="ControlModifyWord.cpp" />
-    <ClCompile Include="ControlPV.cpp" />
     <ClCompile Include="OperateResult.cpp" />
     <ClCompile Include="ControlStageSelect.cpp" />
     <ClCompile Include="ControlTitle.cpp" />
@@ -147,7 +146,7 @@
     <ClCompile Include="RenderHP.cpp" />
     <ClCompile Include="RenderMagicKnigtMainGame.cpp" />
     <ClCompile Include="RenderModifyWord.cpp" />
-    <ClCompile Include="RenderPV.cpp" />
+    <ClCompile Include="OperatePV.cpp" />
     <ClCompile Include="RenderStageSelect.cpp" />
     <ClCompile Include="RenderTitle.cpp" />
     <ClCompile Include="RenderWeaponMasterAction.cpp" />
@@ -165,7 +164,6 @@
     <ClInclude Include="ControlItemDrop.h" />
     <ClInclude Include="ControlMagicKnightMainGame.h" />
     <ClInclude Include="ControlModifyWord.h" />
-    <ClInclude Include="ControlPV.h" />
     <ClInclude Include="OperateResult.h" />
     <ClInclude Include="ControlStageSelect.h" />
     <ClInclude Include="ControlTitle.h" />
@@ -180,7 +178,7 @@
     <ClInclude Include="RenderHP.h" />
     <ClInclude Include="RenderMagicKnigtMainGame.h" />
     <ClInclude Include="RenderModifyWord.h" />
-    <ClInclude Include="RenderPV.h" />
+    <ClInclude Include="OperatePV.h" />
     <ClInclude Include="RenderStageSelect.h" />
     <ClInclude Include="RenderTitle.h" />
     <ClInclude Include="RenderWeaponMasterAction.h" />

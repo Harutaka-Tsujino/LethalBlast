@@ -34,9 +34,6 @@
     <ClCompile Include="ControlStageSelect.cpp">
       <Filter>ソース</Filter>
     </ClCompile>
-    <ClCompile Include="ControlPV.cpp">
-      <Filter>ソース</Filter>
-    </ClCompile>
     <ClCompile Include="ControlTitle.cpp">
       <Filter>ソース</Filter>
     </ClCompile>
@@ -53,9 +50,6 @@
       <Filter>ソース</Filter>
     </ClCompile>
     <ClCompile Include="RenderModifyWord.cpp">
-      <Filter>ソース</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderPV.cpp">
       <Filter>ソース</Filter>
     </ClCompile>
     <ClCompile Include="RenderTitle.cpp">
@@ -91,6 +85,9 @@
     <ClCompile Include="OperateResult.cpp">
       <Filter>ソース</Filter>
     </ClCompile>
+    <ClCompile Include="OperatePV.cpp">
+      <Filter>ソース</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderWordListsAndTyping.h">
@@ -103,9 +100,6 @@
       <Filter>ヘッダ</Filter>
     </ClInclude>
     <ClInclude Include="RenderModifyWord.h">
-      <Filter>ヘッダ</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderPV.h">
       <Filter>ヘッダ</Filter>
     </ClInclude>
     <ClInclude Include="RenderStageSelect.h">
@@ -147,9 +141,6 @@
     <ClInclude Include="ControlModifyWord.h">
       <Filter>ヘッダ</Filter>
     </ClInclude>
-    <ClInclude Include="ControlPV.h">
-      <Filter>ヘッダ</Filter>
-    </ClInclude>
     <ClInclude Include="ControlStageSelect.h">
       <Filter>ヘッダ</Filter>
     </ClInclude>
@@ -184,6 +175,9 @@
       <Filter>ヘッダ</Filter>
     </ClInclude>
     <ClInclude Include="OperateResult.h">
+      <Filter>ヘッダ</Filter>
+    </ClInclude>
+    <ClInclude Include="OperatePV.h">
       <Filter>ヘッダ</Filter>
     </ClInclude>
   </ItemGroup>
