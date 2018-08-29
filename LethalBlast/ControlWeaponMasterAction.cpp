@@ -3,11 +3,54 @@
 void ControlWeaponMasterAction(WeaponMasterWordData* pWeaponMasterWordData, WeaponMasterDeck* pWeaponMasterDeck, WeaponMasterActionData* pWeaponMasterActionDatas,
 	ImagesCustomVertex* pWeaponMasterDeckVerticies, ImagesCustomVertex* pWeaponMasterAction,bool* scrollEffect, int *pPage)
 {
+	static int isFirstFrame = INIT_FRAME;
+
+	static WeaponMasterDeck weaponMasterDeckBuffer[DECK_WORD_MAX];
+
+	if (isFirstFrame == INIT_FRAME)
+	{
+		memset(&weaponMasterDeckBuffer, 0, sizeof(WeaponMasterDeck));
+
+		for (int buf = 0;buf < DECK_WORD_MAX;++buf)
+		{
+			weaponMasterDeckBuffer->m_wordIds[buf] = pWeaponMasterDeck->m_wordIds[buf];
+		}
+
+		isFirstFrame = 0;
+	}
 
 	//•KŽE‹Z‚ª”­“®’†‚È‚ç‚±‚ÌŒã‚Ìˆ—‚ðs‚í‚È‚¢
 	if (pWeaponMasterActionDatas->m_useAction)
 	{
-		return;
+		ZeroMemory(pWeaponMasterActionDatas, sizeof(WeaponMasterActionData));
+
+		bool haveHand = false;
+
+		for (int hand = 0; hand < DECK_WORD_MAX; ++hand)
+		{
+			if (pWeaponMasterDeck->m_wordIds[hand])
+			{
+				haveHand = true;
+			}
+
+			if (haveHand)
+			{
+				break;
+			}
+
+			else
+			{
+				if (hand != DECK_WORD_MAX - 1)
+				{
+					continue;
+				}
+
+				for (int word = 0; word < DECK_WORD_MAX; ++word)
+				{
+					pWeaponMasterDeck->m_wordIds[word] = weaponMasterDeckBuffer->m_wordIds[word];
+				}
+			}
+		}
 	}
 
 	const float MOUSE_SCALE = 0.5;
