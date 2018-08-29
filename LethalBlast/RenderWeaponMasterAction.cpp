@@ -30,19 +30,22 @@ void RenderWeaponMasterAction(ImagesCustomVertex* pWeaponMasterDeckVerticies, Im
 
 	if (*scrollEffect)
 	{
-		const float listBGPosX1 = (DISPLAY_WIDTH - (DISPLAY_WIDTH / 7.f) + (DISPLAY_WIDTH / 9.f));
-		const float listBGposX2 = (DISPLAY_WIDTH - (DISPLAY_WIDTH / 7.f) - (DISPLAY_WIDTH / 9.f));
+		const float listBGPosX1 = (DISPLAY_WIDTH - (DISPLAY_WIDTH / 7.5f) + (DISPLAY_WIDTH / 9.f));
+		const float listBGposX2 = (DISPLAY_WIDTH - (DISPLAY_WIDTH / 7.5f) - (DISPLAY_WIDTH / 9.f));
 
 		static int scrollEffectCnt = 0;
 		static float scrollPosY = 0.f;
 		static float scrollTv = 0.f;
 
-		CustomImageVerticies(scroll, DISPLAY_WIDTH - (DISPLAY_WIDTH / 7.f), scrollPosY, DISPLAY_WIDTH / 9.f, DISPLAY_HEIGHT / 30.f);
+		CustomImageVerticies(scroll, DISPLAY_WIDTH - (DISPLAY_WIDTH / 7.5f), scrollPosY, DISPLAY_WIDTH / 8.f, DISPLAY_HEIGHT / 30.f);
 		SetTvCustomVertex(listBG, listBGPosX1, listBGposX2, listBGposX2, listBGPosX1,
 			scrollPosY, scrollPosY, (DISPLAY_HEIGHT / 2.6f) + (DISPLAY_HEIGHT / 2.6f), (DISPLAY_HEIGHT / 2.6f) + (DISPLAY_HEIGHT / 2.6f),
 			scrollTv, 500.f , 500.f);
-
-		scrollEffectCnt++;
+		
+		if (scrollEffectCnt <= 40)
+		{
+			scrollEffectCnt++;
+		}
 
 		if (scrollEffectCnt <= 10)
 		{
@@ -50,7 +53,7 @@ void RenderWeaponMasterAction(ImagesCustomVertex* pWeaponMasterDeckVerticies, Im
 			scrollTv += 500.f / 10.f;
 		}
 
-		if (41 <= scrollEffectCnt && scrollEffectCnt <= 50)
+		if (31 <= scrollEffectCnt && scrollEffectCnt <= 40)
 		{
 			scrollPosY -= ((DISPLAY_HEIGHT / 2.6f) + (DISPLAY_HEIGHT / 2.6f)) / 10.f;
 			scrollTv -= 500.f / 10.f;
@@ -59,7 +62,7 @@ void RenderWeaponMasterAction(ImagesCustomVertex* pWeaponMasterDeckVerticies, Im
 		DrawImage(listBG, textureIds[LIST_BG_TEX]);
 		DrawImage(scroll, textureIds[LIST_SCROLL_TEX]);
 
-		if (scrollEffectCnt == 50)
+		if (scrollEffectCnt == 40)
 		{
 			*scrollEffect = false;
 			scrollPosY = 0.f;
@@ -71,8 +74,8 @@ void RenderWeaponMasterAction(ImagesCustomVertex* pWeaponMasterDeckVerticies, Im
 	if (!*scrollEffect)
 	{
 		//デッキ内の文字リストの背景の頂点設定
-		CustomImageVerticies(listBG, DISPLAY_WIDTH - (DISPLAY_WIDTH / 7.f), DISPLAY_HEIGHT / 2.6f, DISPLAY_WIDTH / 9.f, DISPLAY_HEIGHT / 2.6f);
-		CustomImageVerticies(scroll, DISPLAY_WIDTH - (DISPLAY_WIDTH / 7.f), DISPLAY_HEIGHT / 40.f, DISPLAY_WIDTH / 9.f, DISPLAY_HEIGHT / 40.f);
+		CustomImageVerticies(listBG, DISPLAY_WIDTH - (DISPLAY_WIDTH / 7.5f), DISPLAY_HEIGHT / 2.6f, DISPLAY_WIDTH / 9.f, DISPLAY_HEIGHT / 2.6f);
+		CustomImageVerticies(scroll, DISPLAY_WIDTH - (DISPLAY_WIDTH / 7.5f), DISPLAY_HEIGHT / 40.f, DISPLAY_WIDTH / 8.f, DISPLAY_HEIGHT / 40.f);
 
 		DrawImage(listBG, textureIds[LIST_BG_TEX]);
 		DrawImage(scroll, textureIds[LIST_SCROLL_TEX]);
@@ -82,7 +85,7 @@ void RenderWeaponMasterAction(ImagesCustomVertex* pWeaponMasterDeckVerticies, Im
 			switch (rectForPageTransition)
 			{
 			case 0:
-				CustomImageVerticies(pageTransition, DISPLAY_WIDTH - (DISPLAY_WIDTH / 5.f), DISPLAY_HEIGHT / 1.4f, DISPLAY_WIDTH / 75.f, DISPLAY_WIDTH / 75.f);
+				CustomImageVerticies(pageTransition, DISPLAY_WIDTH - (DISPLAY_WIDTH / 5.f), DISPLAY_HEIGHT / 1.37f, DISPLAY_WIDTH / 76.f, DISPLAY_WIDTH / 90.f);
 
 				RotateImageDeg(pageTransition, pageTransition, 180.f);
 
@@ -94,7 +97,7 @@ void RenderWeaponMasterAction(ImagesCustomVertex* pWeaponMasterDeckVerticies, Im
 				break;
 
 			case 1:
-				CustomImageVerticies(pageTransition, DISPLAY_WIDTH - (DISPLAY_WIDTH / 15.f), DISPLAY_HEIGHT / 1.4f, DISPLAY_WIDTH / 75.f, DISPLAY_WIDTH / 75.f);
+				CustomImageVerticies(pageTransition, DISPLAY_WIDTH - (DISPLAY_WIDTH / 15.f), DISPLAY_HEIGHT / 1.37f, DISPLAY_WIDTH / 76.f, DISPLAY_WIDTH / 90.f);
 
 				if (pPage != 4)
 				{
@@ -158,12 +161,12 @@ void RenderWeaponMasterAction(ImagesCustomVertex* pWeaponMasterDeckVerticies, Im
 
 		const float PAGE_TRANSISTION_FONT_WIDTH = (float)(DISPLAY_WIDTH / 30);
 		const float PAGE_TRANSISTION_FONT_HEIGHT = PAGE_TRANSISTION_FONT_WIDTH;
-		char pageFont[] = "\0";
+		char pageFont[4];
 
 		sprintf(pageFont, "%d", pPage);
 
-		WriteText(PAGE_TRANSISTION_FONT_WIDTH * 26.5f, PAGE_TRANSISTION_FONT_WIDTH * 12.f, "/4", DT_RIGHT, fontIds[PAGE_FONT_MAX]);
-		WriteText(PAGE_TRANSISTION_FONT_WIDTH*25.5f, PAGE_TRANSISTION_FONT_HEIGHT * 12.f, pageFont, DT_RIGHT, fontIds[PAGE_FONT]);
+		WriteText(PAGE_TRANSISTION_FONT_WIDTH * 26.5f, PAGE_TRANSISTION_FONT_WIDTH * 12.3f, "/4", DT_RIGHT, fontIds[PAGE_FONT_MAX]);
+		WriteText(PAGE_TRANSISTION_FONT_WIDTH*25.5f, PAGE_TRANSISTION_FONT_HEIGHT * 12.3f, pageFont, DT_RIGHT, fontIds[PAGE_FONT]);
 		
 	}
 

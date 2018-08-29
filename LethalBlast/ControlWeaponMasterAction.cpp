@@ -19,7 +19,7 @@ void ControlWeaponMasterAction(WeaponMasterWordData* pWeaponMasterWordData, Weap
 		isFirstFrame = 0;
 	}
 
-	//•KŽE‹Z‚ª”­“®’†‚È‚ç‚±‚ÌŒã‚Ìˆ—‚ðs‚í‚È‚¢
+	//•KŽE‹Z‚ª”­“®
 	if (pWeaponMasterActionDatas->m_useAction)
 	{
 		ZeroMemory(pWeaponMasterActionDatas, sizeof(WeaponMasterActionData));
@@ -65,7 +65,7 @@ void ControlWeaponMasterAction(WeaponMasterWordData* pWeaponMasterWordData, Weap
 			switch (rectForPageTransition)
 			{
 			case 0:
-				CustomImageVerticies(pageTransition, DISPLAY_WIDTH - (DISPLAY_WIDTH / 5.f), DISPLAY_HEIGHT / 1.4f, DISPLAY_WIDTH / 75.f, DISPLAY_WIDTH / 75.f);
+				CustomImageVerticies(pageTransition, DISPLAY_WIDTH - (DISPLAY_WIDTH / 5.f), DISPLAY_HEIGHT / 1.37f, DISPLAY_WIDTH / 76.f, DISPLAY_WIDTH / 90.f);
 
 				if (RectToRectCollisionCheak(mouseState, pageTransition))
 				{
@@ -95,7 +95,7 @@ void ControlWeaponMasterAction(WeaponMasterWordData* pWeaponMasterWordData, Weap
 				break;
 
 			case 1:
-				CustomImageVerticies(pageTransition, DISPLAY_WIDTH - (DISPLAY_WIDTH / 15.f), DISPLAY_HEIGHT / 1.4f, DISPLAY_WIDTH / 75.f, DISPLAY_WIDTH / 75.f);
+				CustomImageVerticies(pageTransition, DISPLAY_WIDTH - (DISPLAY_WIDTH / 15.f), DISPLAY_HEIGHT / 1.37f, DISPLAY_WIDTH / 76.f, DISPLAY_WIDTH / 90.f);
 
 				if (RectToRectCollisionCheak(mouseState, pageTransition))
 				{
