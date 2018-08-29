@@ -6,8 +6,7 @@
 #include"WinMain.h"
 #include"ControlTitle.h"
 #include"RenderTitle.h"
-#include"ControlPV.h"
-#include"RenderPV.h"
+#include"OperatePV.h"
 #include"ControlCharaChoice.h"
 #include"RenderCharaChoice.h"
 //#include"ControlWordListsAndTyping.h"
@@ -103,17 +102,23 @@ void MainFunction(void)
 	static EnemyST enemyState;
 	static int enemyActionNum;
 
-	static bool isClear=0;
+	static bool isClear=false;
+
+	static bool makeRandSeed = true;
 
 	//シーン分岐
 	switch (scene)
 	{
 	case PV_SCENE:
 
-		srand((UINT)time(NULL));
+		if (makeRandSeed == true)
+		{
+			srand((UINT)time(NULL));
 
-		ControlPV(&scene);
-		RenderPV(&scene);
+			makeRandSeed = false;
+		}
+
+		OperatePV(&scene);
 
 		break;
 

@@ -26,8 +26,8 @@ void TitleRenderInit(TEXTUREID* textureIds)
 	//一回だけ読み込む
 	if (isFirstFrame)
 	{
-		RoadTexture("Texture/Title/TitleBackground.png", &textureIds[TITLE_BG_TEX]);
-		RoadTexture("Texture/Title/TitleRogo.png", &textureIds[TITLE_ROGO_TEX]);
+		RoadTexture("Texture/PV/LBtitlerogo_k008.png", &textureIds[TITLE_BG_TEX]);
+		RoadTexture("Texture/PV/LBtitlerogo_k007.png", &textureIds[TITLE_ROGO_TEX]);
 
 		isFirstFrame = false;
 	}
@@ -37,26 +37,27 @@ void TitleRogoCanFadeIn(TEXTUREID* textureIds)
 {
 	CustomVertex TitleRogo[4];
 
-	//タイトルロゴのｘ、y座標
-	float TetleRogoPosX = DISPLAY_WIDTH / 2.f;
-	float TetleRogoPosY = DISPLAY_HEIGHT / 2.5f;
+	////タイトルロゴのｘ、y座標
+	//float TetleRogoPosX = DISPLAY_WIDTH / 2.f;
+	//float TetleRogoPosY = DISPLAY_HEIGHT / 2.5f;
 
-	//アルファ値を変えるためのカウント
-	static int alphaCount = 0;
+	////アルファ値を変えるためのカウント
+	//static int alphaCount = 0;
 
-	//透明度の変数
-	static unsigned char alpha = 0;
-	
-	//ここからフェードイン処理
-	alphaCount++;
+	////透明度の変数
+	//static unsigned char alpha = 0;
+	//
+	////ここからフェードイン処理
+	//alphaCount++;
 
-	if (alphaCount <= 75)
-	{
-		alpha += 255 / 75;
-	}
-	//ここまでフェードイン処理
+	//if (alphaCount <= 75)
+	//{
+	//	alpha += 255 / 75;
+	//}
+	////ここまでフェードイン処理
 
-	CustomImageVerticies(TitleRogo, TetleRogoPosX, TetleRogoPosY, 600.f, 600.f, GetColor(alpha, 0xFF, 0xFF, 0xFF));
+	CustomImageVerticies(TitleRogo, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f);
+
 	DrawImage(TitleRogo, textureIds[TITLE_ROGO_TEX]);
 }
 
@@ -66,7 +67,7 @@ void PressEnterFont(FONTID* fontIds)
 
 	if (alphaCount == -1)
 	{ 
-		SetFont(50, 50, "MS ゴシック", fontIds, 20,1);
+		SetFont(50, 50,"HGP明朝B", fontIds, 20);
 
 		alphaCount = 0;
 	}
@@ -98,7 +99,7 @@ void PressEnterFont(FONTID* fontIds)
 
 	//ここまで点滅処理
 
-	WriteText(DISPLAY_WIDTH / 2, 600, "Press Enter", DT_CENTER, fontIds[PRESS_ENTER_FONT], GetColor((UCHAR)alpha, 0xFF, 0xFF, 0xFF));
+	WriteText(DISPLAY_WIDTH / 2, DISPLAY_HEIGHT*0.85f, "PRESS ENTER", DT_CENTER, fontIds[PRESS_ENTER_FONT], GetColor((UCHAR)alpha, 0xFF, 0xFF, 0xFF));
 
 	return;
 }
