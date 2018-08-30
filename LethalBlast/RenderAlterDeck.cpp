@@ -9,7 +9,6 @@ void RenderAlterDeck(ImagesCustomVertex* pChoiseWordCollisionsVertex, ImagesCust
 	CustomVertex* endDeckAlterVertices,CustomVertex* pBackgroundVertices, CustomVertex* pWordDatasBackVertices,
 	TEXTUREID* wordTexIds, WordData* pMagicKnightWordDatas, MagicKnightDeck* pMagicKnightDecks, int* pDeckNumToAlter, bool* clickedWord)
 {
-	static TEXTUREID collisionTestTexId;
 	static TEXTUREID alterDeckTexId[ALTER_DECK_TEX_MAX];
 	
 	static FONTID fontId;
@@ -18,14 +17,13 @@ void RenderAlterDeck(ImagesCustomVertex* pChoiseWordCollisionsVertex, ImagesCust
 
 	if (frameCount == INIT_FRAME)
 	{
-		RoadTexture("Texture/TestRect.png", &collisionTestTexId);
 		RoadTexture("Texture/AlterDeck/EndAlterDeck.png", &alterDeckTexId[EXIT_ALTER_TEX]);
-		RoadTexture("Texture/AlterDeck/DeckAlterBackground1.png", &alterDeckTexId[ALTER_BACK_1_TEX]);
+		RoadTexture("Texture/AlterDeck/DeckAlterBackground1.jpg", &alterDeckTexId[ALTER_BACK_1_TEX]);
 		RoadTexture("Texture/AlterDeck/DeckAlterBackground2.png", &alterDeckTexId[ALTER_BACK_2_TEX]);
 		RoadTexture("Texture/AlterDeck/DeckAlterBackground3.png", &alterDeckTexId[ALTER_BACK_3_TEX]);
 		RoadTexture("Texture/AlterDeck/RedFrame.png", &alterDeckTexId[ALTER_CLICKED_EFFECT_TEX]);
 		RoadTexture("Texture/AlterDeck/UnderAlterWordBoard.png", &alterDeckTexId[UNDER_ALTER_WORD_BOARD_TEX]);
-		RoadTexture("Texture/AlterDeck/DeckAlterTag.png", &alterDeckTexId[DECK_ALTER_TAG_TEX]);
+		RoadTexture("Texture/AlterDeck/DeckAlterTag.jpg", &alterDeckTexId[DECK_ALTER_TAG_TEX]);
 
 		SetFont(DISPLAY_WIDTH / 70, DISPLAY_WIDTH / 70, "HGP明朝B", &fontId,0);
 

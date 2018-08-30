@@ -5,7 +5,7 @@ void OperatePV(SCENE* scene)
 {
 	static int frameCount = -1;
 
-	const int TEX_MAX = 38;
+	const int TEX_MAX = 36;
 	static TEXTUREID PVTex[TEX_MAX];
 
 	if (frameCount == -1)
@@ -44,10 +44,8 @@ void OperatePV(SCENE* scene)
 		RoadTexture("Texture/PV/LBtitlerogo_031.png", &PVTex[31]);
 		RoadTexture("Texture/PV/LBtitlerogo_032.png", &PVTex[32]);
 		RoadTexture("Texture/PV/LBtitlerogo_033.png", &PVTex[33]);
-		RoadTexture("Texture/PV/LBtitlerogo_k002.png", &PVTex[34]);
-		RoadTexture("Texture/PV/LBtitlerogo_k003.png", &PVTex[35]);
-		RoadTexture("Texture/PV/LBtitlerogo_k007.png", &PVTex[36]);
-		RoadTexture("Texture/PV/LBtitlerogo_k008.png", &PVTex[37]);
+		RoadTexture("Texture/PV/LBtitlerogo_k007.png", &PVTex[34]);
+		RoadTexture("Texture/PV/LBtitlerogo_k008.png", &PVTex[35]);
 
 		frameCount = 0;
 	}
@@ -77,8 +75,8 @@ void OperatePV(SCENE* scene)
 
 	if (frameCount >= 126)
 	{
-		DrawImage(PVBack, PVTex[37]);
-		DrawImage(PV, PVTex[36]);
+		DrawImage(PVBack, PVTex[35]);
+		DrawImage(PV, PVTex[34]);
 	}
 
 	if (frameCount>=186||g_keyState.keyPush[DIK_RETURN] || g_mouseState.mousePush[LEFT_CLICK])

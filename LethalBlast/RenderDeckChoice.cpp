@@ -11,14 +11,14 @@ void RenderChoiceDeck(ImagesCustomVertex* pChoiseDeckCollisionsVertex, MagicKnig
 
 	if (frameCount == INIT_FRAME)
 	{
-		RoadTexture("texture/DeckChoice/Deck0.png", &deckTexIds[0]);
-		RoadTexture("texture/DeckChoice/Deck1.png", &deckTexIds[1]);
-		RoadTexture("texture/DeckChoice/Deck2.png", &deckTexIds[2]);
-		RoadTexture("texture/DeckChoice/Deck3.png", &deckTexIds[3]);
-		RoadTexture("texture/DeckChoice/Deck4.png", &deckTexIds[4]);
-		RoadTexture("texture/DeckChoice/Deck5.png", &deckTexIds[5]);
-		RoadTexture("texture/DeckChoice/Deck6.png", &deckTexIds[6]);
-		RoadTexture("texture/DeckChoice/Deck7.png", &deckTexIds[7]);
+		RoadTexture("texture/DeckChoice/Deck0.jpg", &deckTexIds[0]);
+		RoadTexture("texture/DeckChoice/Deck1.jpg", &deckTexIds[1]);
+		RoadTexture("texture/DeckChoice/Deck2.jpg", &deckTexIds[2]);
+		RoadTexture("texture/DeckChoice/Deck3.jpg", &deckTexIds[3]);
+		RoadTexture("texture/DeckChoice/Deck4.jpg", &deckTexIds[4]);
+		RoadTexture("texture/DeckChoice/Deck5.jpg", &deckTexIds[5]);
+		RoadTexture("texture/DeckChoice/Deck6.jpg", &deckTexIds[6]);
+		RoadTexture("texture/DeckChoice/Deck7.jpg", &deckTexIds[7]);
 
 		frameCount = 0;
 	}

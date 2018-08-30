@@ -19,12 +19,12 @@ void RenderModify(WordData* pMagicKnightWordDatas,ImagesCustomVertex* pChoiseWor
 	{
 		RoadTexture("Texture/AlterDeck/EndAlterDeck.png",&modifyTexId[END_MODIFY_TEX]);
 		RoadTexture("Texture/AlterDeck/EndAlterDeck.png", &modifyTexId[DECIDE_MODIFY_TEX]);
-		RoadTexture("Texture/AlterDeck/DeckAlterBackground1.png", &modifyTexId[MODIFY_BACK_1_TEX]);
+		RoadTexture("Texture/AlterDeck/DeckAlterBackground1.jpg", &modifyTexId[MODIFY_BACK_1_TEX]);
 		RoadTexture("Texture/AlterDeck/DeckAlterBackground2.png", &modifyTexId[MODIFY_BACK_2_TEX]);
 		RoadTexture("Texture/AlterDeck/DeckAlterBackground3.png", &modifyTexId[MODIFY_BACK_3_TEX]);
 		RoadTexture("Texture/AlterDeck/RedFrame.png", &modifyTexId[MODIFY_CLICKED_EFFECT_TEX]);
 		RoadTexture("Texture/AlterDeck/UnderAlterWordBoard.png", &modifyTexId[UNDER_MODIFY_WORD_BOARD_TEX]);
-		RoadTexture("Texture/Modify/ModifyTag.png", &modifyTexId[MODIFY_TAG_TEX]);
+		RoadTexture("Texture/Modify/ModifyTag.jpg", &modifyTexId[MODIFY_TAG_TEX]);
 
 		SetFont(DISPLAY_WIDTH / 70, DISPLAY_WIDTH / 70, "HGP明朝B", &fontId, 0);
 

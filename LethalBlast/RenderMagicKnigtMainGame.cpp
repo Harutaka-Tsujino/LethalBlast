@@ -127,8 +127,8 @@ void RenderWhileLoad(SCENE* scene,SCENE destScene, TEXTUREID* wordTexIds)
 
 	if (frameCount == INIT_FRAME)
 	{
-		RoadTexture("texture/Load/LoadScene1.png", &LoadTexId[0]);
-		RoadTexture("texture/Load/LoadScene2.png", &LoadTexId[1]);
+		RoadTexture("texture/Load/LoadScene1.jpg", &LoadTexId[0]);
+		RoadTexture("texture/Load/LoadScene2.jpg", &LoadTexId[1]);
 
 		frameCount = 0;
 	}

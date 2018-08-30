@@ -35,11 +35,6 @@ void RenderHome(SCENE* scene, CustomVertex* deckAlterPortal, CustomVertex* modif
 		RoadTexture("Texture/Home/CharaChoicePortal.png", &homeTextures[CHARA_CHOICE_PORTAL_TEX]);
 		RoadTexture("Texture/Home/MainGamePortal.png", &homeTextures[QUEST_PORTAL_TEX]);
 		RoadTexture("Texture/Home/ModifyWordPortal.png", &homeTextures[MODIFY_PORTAL_TEX]);
-		RoadTexture("Texture/Home/Page1.png", &homeTextures[PAGE_1_TEX]);
-		RoadTexture("Texture/Home/Page2.png", &homeTextures[PAGE_2_TEX]);
-		RoadTexture("Texture/Home/Page3.png", &homeTextures[PAGE_3_TEX]);
-		RoadTexture("Texture/Home/Page4.png", &homeTextures[PAGE_4_TEX]);
-		RoadTexture("Texture/Home/Page5.png", &homeTextures[PAGE_5_TEX]);
 		RoadTexture("Texture/Home/HomeBackground1.png", &homeTextures[HOME_BACK_1_TEX]);
 		RoadTexture("Texture/Home/HomeBackground01.png", &homeTextures[HOME_BACK_01_TEX]);
 		RoadTexture("Texture/Home/HomeBackground02.png", &homeTextures[HOME_BACK_02_TEX]);
