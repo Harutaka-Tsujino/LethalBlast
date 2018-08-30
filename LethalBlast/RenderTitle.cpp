@@ -87,7 +87,7 @@ void PressEnterFont(FONTID* fontIds)
 	}
 
 	//カウントが以上になったら初期化する
-	if (alpha == 0)
+	if (alpha >= 102)
 	{
 		alphaCount = 0;
 	}

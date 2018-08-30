@@ -15,7 +15,7 @@
 void ControlMagicKnightMainGame(SCENE* scene,WordData* pMagicKnightWordDatas, MagicKnightDeck* pMagicKnightDecks,
 	MagicKnightPlayingDeck* pMagicKnightPlayingDeck, MagicKnightAction* pMagicKnightAction,
 	ImagesCustomVertex* pHandWordCollisionsVertex, ImagesCustomVertex* pMagicKnightActionCollisionsVertex, HomingEffect* pHominEffect,
-	VSData* battleData, EnemyST* enemyState, int enemyActionNum,bool* isClear)
+	VSData* battleData, EnemyST* enemyState, int enemyActionNum,bool* isClear, CustomVertex* resultMask)
 {
 	//必殺技を発動している
 	if (pMagicKnightAction->useAction)
@@ -134,227 +134,262 @@ void ControlMagicKnightMainGame(SCENE* scene,WordData* pMagicKnightWordDatas, Ma
 	const float CIRCULATE_POS_X = DISPLAY_WIDTH * 1.3f;
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	if ( frameCount < 120)
+	if (!(battleData->m_playerWon || battleData->m_enemyWon))
 	{
-		for (int handWord = 0; handWord < HAND_WORD_MAX; ++handWord)
+		if (frameCount < 120)
 		{
-			CustomImageVerticies(pHandWordCollisionsVertex[handWord].ImageVertex,
-				DISPLAY_WIDTH - 200, HAND_POS_Y,
-				HAND_WORD_COLLISION_WIDTH, HAND_WORD_COLLISION_HEIGHT);
-
-			CirculateImageDeg(pHandWordCollisionsVertex[handWord].ImageVertex,
-				pHandWordCollisionsVertex[handWord].ImageVertex, (float)(((360 / HAND_WORD_MAX)*(handWord-3)) + 3*(-frameCount-1)), CIRCULATE_POS_X, HAND_POS_Y);
-		}
-	}
-
-	else
-	{
-		/*手札のリストをずらす処理 開始*/
-		static int degree = 0;
-
-		if (g_keyState.keyHold[DIK_COMMA] || g_mouseState.directInputMouseState.lZ>0)
-		{
-			degree -= 9;
-		}
-
-		if (g_keyState.keyHold[DIK_PERIOD] || g_mouseState.directInputMouseState.lZ<0)
-		{
-			degree += 9;
-		}
-
-		if (degree >= 360 || degree <= -360)
-		{
-			degree = 0;
-		}
-
-		for (int handWord = 0; handWord < HAND_WORD_MAX; ++handWord)
-		{
-			CustomImageVerticies(pHandWordCollisionsVertex[handWord].ImageVertex,
-				DISPLAY_WIDTH - 200, HAND_POS_Y,
-				HAND_WORD_COLLISION_WIDTH, HAND_WORD_COLLISION_HEIGHT);
-
-			CirculateImageDeg(pHandWordCollisionsVertex[handWord].ImageVertex,
-				pHandWordCollisionsVertex[handWord].ImageVertex, (float)(((360 / HAND_WORD_MAX)*(handWord-3)) + degree), CIRCULATE_POS_X, HAND_POS_Y);
-		}
-		/*手札のリストをずらす処理 終了*/
-	}
-
-	//必殺技
-	const float ACTION_COMPONENT_WORD_COLLISION_WIDTH = (float)(DISPLAY_WIDTH / 15);
-	const float ACTION_COMPONENT_WORD_COLLISION_HEIGHT = ACTION_COMPONENT_WORD_COLLISION_WIDTH / 4;
-
-	for (int actionComponentWord = 0; actionComponentWord < MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX; ++actionComponentWord)
-	{
-		CustomImageVerticies(pMagicKnightActionCollisionsVertex[actionComponentWord].ImageVertex,
-			(DISPLAY_WIDTH*0.17f) + (ACTION_COMPONENT_WORD_COLLISION_WIDTH*2)*actionComponentWord+20, DISPLAY_HEIGHT*0.975f - (ACTION_COMPONENT_WORD_COLLISION_HEIGHT*2),
-			ACTION_COMPONENT_WORD_COLLISION_WIDTH, ACTION_COMPONENT_WORD_COLLISION_HEIGHT);
-	}
-	/*マウスカーソルとの当たり判定用の頂点設定 終了*/
-
-	/*マウスカーソルとの当たり判定チェック及びその時の処理 開始*/
-
-	//手札
-	const int ACTION_WORD_FULL = 5;
-	int actionWordSpacePlace = ACTION_WORD_FULL;
-
-	if (frameCount >= 120)
-	{
-		//左クリックされたら
-		if (g_mouseState.mousePush[LEFT_CLICK])
-		{
-			//手札の数だけ調べる
 			for (int handWord = 0; handWord < HAND_WORD_MAX; ++handWord)
 			{
-				//当たっていない
-				if (!RectToRectCollisionCheak(&mouseCursorCollisionVertex[0],
-					pHandWordCollisionsVertex[handWord].ImageVertex))
-				{
-					continue;
-				}
+				CustomImageVerticies(pHandWordCollisionsVertex[handWord].ImageVertex,
+					DISPLAY_WIDTH - 200, HAND_POS_Y,
+					HAND_WORD_COLLISION_WIDTH, HAND_WORD_COLLISION_HEIGHT);
 
-				//VOID_W0RD
-				if (!pMagicKnightPlayingDeck->m_handWordId[handWord])
-				{
-					break;
-				}
+				CirculateImageDeg(pHandWordCollisionsVertex[handWord].ImageVertex,
+					pHandWordCollisionsVertex[handWord].ImageVertex, (float)(((360 / HAND_WORD_MAX)*(handWord - 3)) + 3 * (-frameCount - 1)), CIRCULATE_POS_X, HAND_POS_Y);
+			}
+		}
 
-				//必殺技のスペースを探す
-				for (int actionComponentWord = 0; actionComponentWord < MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX; ++actionComponentWord)
-				{
-					if (pMagicKnightAction->m_componentWordIds[actionComponentWord] == (MAGIC_KNIGHT_WORD)NULL)
-					{
-						actionWordSpacePlace = actionComponentWord;
+		else
+		{
+			/*手札のリストをずらす処理 開始*/
+			static int degree = 0;
 
-						break;
-					}
-				}
-
-				//スペースがなかったら
-				if (actionWordSpacePlace == ACTION_WORD_FULL)
-				{
-					break;
-				}
-
-				for (int effect = 0; effect < SELECT_EFFECT_MAX; ++effect)
-				{
-					if (!pHominEffect[effect].m_valid)
-					{
-						float handPosX = pHandWordCollisionsVertex[handWord].ImageVertex[0].m_x + HAND_WORD_COLLISION_WIDTH;
-						float handPosY = pHandWordCollisionsVertex[handWord].ImageVertex[0].m_y + HAND_WORD_COLLISION_HEIGHT;
-
-						float actionWordPosX = pMagicKnightActionCollisionsVertex[actionWordSpacePlace].ImageVertex[0].m_x + ACTION_COMPONENT_WORD_COLLISION_WIDTH;
-						float actionWordPosY = pMagicKnightActionCollisionsVertex[actionWordSpacePlace].ImageVertex[0].m_y + ACTION_COMPONENT_WORD_COLLISION_HEIGHT;
-
-						CalculateDistanceBetweenTwoPointsXY(&pHominEffect[effect].m_HomingVect, handPosX, handPosY, actionWordPosX, actionWordPosY);
-
-						const float effectScale = DISPLAY_HEIGHT/50.f;
-						CustomImageVerticies(pHominEffect[effect].m_rect, handPosX, handPosY, effectScale, effectScale);
-
-						pHominEffect[effect].m_actionPos = actionWordSpacePlace;
-
-						pHominEffect[effect].m_valid = true;
-
-						break;
-					}
-				}
-
-				//必殺技に代入
-				pMagicKnightAction->m_componentWordIds[actionWordSpacePlace] = pMagicKnightPlayingDeck->m_handWordId[handWord];
-				pMagicKnightPlayingDeck->m_handWordId[handWord] = VOID_WORD;
-
-				//手札の位置
-				pMagicKnightAction->m_handPos[actionWordSpacePlace] = handWord;
+			if (g_keyState.keyHold[DIK_COMMA] || g_mouseState.directInputMouseState.lZ > 0)
+			{
+				degree -= 9;
 			}
 
-			//必殺技
+			if (g_keyState.keyHold[DIK_PERIOD] || g_mouseState.directInputMouseState.lZ < 0)
+			{
+				degree += 9;
+			}
+
+			if (degree >= 360 || degree <= -360)
+			{
+				degree = 0;
+			}
+
+			for (int handWord = 0; handWord < HAND_WORD_MAX; ++handWord)
+			{
+				CustomImageVerticies(pHandWordCollisionsVertex[handWord].ImageVertex,
+					DISPLAY_WIDTH - 200, HAND_POS_Y,
+					HAND_WORD_COLLISION_WIDTH, HAND_WORD_COLLISION_HEIGHT);
+
+				CirculateImageDeg(pHandWordCollisionsVertex[handWord].ImageVertex,
+					pHandWordCollisionsVertex[handWord].ImageVertex, (float)(((360 / HAND_WORD_MAX)*(handWord - 3)) + degree), CIRCULATE_POS_X, HAND_POS_Y);
+			}
+			/*手札のリストをずらす処理 終了*/
+		}
+
+		//必殺技
+		const float ACTION_COMPONENT_WORD_COLLISION_WIDTH = (float)(DISPLAY_WIDTH / 15);
+		const float ACTION_COMPONENT_WORD_COLLISION_HEIGHT = ACTION_COMPONENT_WORD_COLLISION_WIDTH / 4;
+
+		for (int actionComponentWord = 0; actionComponentWord < MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX; ++actionComponentWord)
+		{
+			CustomImageVerticies(pMagicKnightActionCollisionsVertex[actionComponentWord].ImageVertex,
+				(DISPLAY_WIDTH*0.17f) + (ACTION_COMPONENT_WORD_COLLISION_WIDTH * 2)*actionComponentWord + 20, DISPLAY_HEIGHT*0.975f - (ACTION_COMPONENT_WORD_COLLISION_HEIGHT * 2),
+				ACTION_COMPONENT_WORD_COLLISION_WIDTH, ACTION_COMPONENT_WORD_COLLISION_HEIGHT);
+		}
+		/*マウスカーソルとの当たり判定用の頂点設定 終了*/
+
+		/*マウスカーソルとの当たり判定チェック及びその時の処理 開始*/
+
+		//手札
+		const int ACTION_WORD_FULL = 5;
+		int actionWordSpacePlace = ACTION_WORD_FULL;
+
+		if (frameCount >= 120)
+		{
+			//左クリックされたら
+			if (g_mouseState.mousePush[LEFT_CLICK])
+			{
+				//手札の数だけ調べる
+				for (int handWord = 0; handWord < HAND_WORD_MAX; ++handWord)
+				{
+					//当たっていない
+					if (!RectToRectCollisionCheak(&mouseCursorCollisionVertex[0],
+						pHandWordCollisionsVertex[handWord].ImageVertex))
+					{
+						continue;
+					}
+
+					//VOID_W0RD
+					if (!pMagicKnightPlayingDeck->m_handWordId[handWord])
+					{
+						break;
+					}
+
+					//必殺技のスペースを探す
+					for (int actionComponentWord = 0; actionComponentWord < MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX; ++actionComponentWord)
+					{
+						if (pMagicKnightAction->m_componentWordIds[actionComponentWord] == (MAGIC_KNIGHT_WORD)NULL)
+						{
+							actionWordSpacePlace = actionComponentWord;
+
+							break;
+						}
+					}
+
+					//スペースがなかったら
+					if (actionWordSpacePlace == ACTION_WORD_FULL)
+					{
+						break;
+					}
+
+					for (int effect = 0; effect < SELECT_EFFECT_MAX; ++effect)
+					{
+						if (!pHominEffect[effect].m_valid)
+						{
+							float handPosX = pHandWordCollisionsVertex[handWord].ImageVertex[0].m_x + HAND_WORD_COLLISION_WIDTH;
+							float handPosY = pHandWordCollisionsVertex[handWord].ImageVertex[0].m_y + HAND_WORD_COLLISION_HEIGHT;
+
+							float actionWordPosX = pMagicKnightActionCollisionsVertex[actionWordSpacePlace].ImageVertex[0].m_x + ACTION_COMPONENT_WORD_COLLISION_WIDTH;
+							float actionWordPosY = pMagicKnightActionCollisionsVertex[actionWordSpacePlace].ImageVertex[0].m_y + ACTION_COMPONENT_WORD_COLLISION_HEIGHT;
+
+							CalculateDistanceBetweenTwoPointsXY(&pHominEffect[effect].m_HomingVect, handPosX, handPosY, actionWordPosX, actionWordPosY);
+
+							const float effectScale = DISPLAY_HEIGHT / 50.f;
+							CustomImageVerticies(pHominEffect[effect].m_rect, handPosX, handPosY, effectScale, effectScale);
+
+							pHominEffect[effect].m_actionPos = actionWordSpacePlace;
+
+							pHominEffect[effect].m_valid = true;
+
+							break;
+						}
+					}
+
+					//必殺技に代入
+					pMagicKnightAction->m_componentWordIds[actionWordSpacePlace] = pMagicKnightPlayingDeck->m_handWordId[handWord];
+					pMagicKnightPlayingDeck->m_handWordId[handWord] = VOID_WORD;
+
+					//手札の位置
+					pMagicKnightAction->m_handPos[actionWordSpacePlace] = handWord;
+				}
+
+				//必殺技
+				for (int actionConponentWord = 0; actionConponentWord < MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX; ++actionConponentWord)
+				{
+					//当たっていなかったら
+					if (!RectToRectCollisionCheak(&mouseCursorCollisionVertex[0],
+						pMagicKnightActionCollisionsVertex[actionConponentWord].ImageVertex))
+					{
+						continue;
+					}
+
+					if (pMagicKnightAction->m_componentWordIds[actionConponentWord] == (MAGIC_KNIGHT_WORD)NULL)
+					{
+						break;
+					}
+
+					//リムーブ
+					pMagicKnightPlayingDeck->m_handWordId[(pMagicKnightAction->m_handPos[actionConponentWord])] = pMagicKnightAction->m_componentWordIds[actionConponentWord];
+					pMagicKnightAction->m_componentWordIds[actionConponentWord] = (MAGIC_KNIGHT_WORD)NULL;
+					pMagicKnightAction->m_handPos[actionConponentWord] = 0;
+				}
+			}
+		}
+
+		/*マウスカーソルとの当たり判定チェック及びその時の処理 終了*/
+
+		//ENTERまたは右クリックで必殺技完成の合図
+		if (g_keyState.keyPush[DIK_RETURN] || g_mouseState.mousePush[RIGHT_CLICK])
+		{
+			/*必殺技が完成したときの処理　開始*/
 			for (int actionConponentWord = 0; actionConponentWord < MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX; ++actionConponentWord)
 			{
-				//当たっていなかったら
-				if (!RectToRectCollisionCheak(&mouseCursorCollisionVertex[0],
-					pMagicKnightActionCollisionsVertex[actionConponentWord].ImageVertex))
-				{
-					continue;
-				}
+				MAGIC_KNIGHT_WORD magicKnightWord = pMagicKnightAction->m_componentWordIds[actionConponentWord];
 
-				if (pMagicKnightAction->m_componentWordIds[actionConponentWord] == (MAGIC_KNIGHT_WORD)NULL)
-				{
-					break;
-				}
-
-				//リムーブ
-				pMagicKnightPlayingDeck->m_handWordId[(pMagicKnightAction->m_handPos[actionConponentWord])] = pMagicKnightAction->m_componentWordIds[actionConponentWord];
-				pMagicKnightAction->m_componentWordIds[actionConponentWord] = (MAGIC_KNIGHT_WORD)NULL;
-				pMagicKnightAction->m_handPos[actionConponentWord] = 0;
+				(pMagicKnightAction->m_attackTotals[(pMagicKnightWordDatas[magicKnightWord].m_attack)]) += 1;
+				(pMagicKnightAction->m_elementTotals[(pMagicKnightWordDatas[magicKnightWord].m_element)]) += 1;
+				(pMagicKnightAction->m_specialAbilities) |= (pMagicKnightWordDatas[magicKnightWord].m_specialAbilities);
+				(pMagicKnightAction->useAction) = true;
 			}
+			/*必殺技が完成したときの処理　終了*/
 		}
-	}
 
-	/*マウスカーソルとの当たり判定チェック及びその時の処理 終了*/
+		const int EFFECT_FRAME = 15;
 
-	//ENTERまたは右クリックで必殺技完成の合図
-	if (g_keyState.keyPush[DIK_RETURN] || g_mouseState.mousePush[RIGHT_CLICK])
-	{
-		/*必殺技が完成したときの処理　開始*/
-		for (int actionConponentWord	 = 0; actionConponentWord < MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX; ++actionConponentWord)
+		for (int effect = 0; effect < SELECT_EFFECT_MAX; ++effect)
 		{
-			MAGIC_KNIGHT_WORD magicKnightWord = pMagicKnightAction->m_componentWordIds[actionConponentWord];
-
-			(pMagicKnightAction->m_attackTotals[(pMagicKnightWordDatas[magicKnightWord].m_attack)]) += 1;
-			(pMagicKnightAction->m_elementTotals[(pMagicKnightWordDatas[magicKnightWord].m_element)]) += 1;
-			(pMagicKnightAction->m_specialAbilities) |= (pMagicKnightWordDatas[magicKnightWord].m_specialAbilities);
-			(pMagicKnightAction->useAction) = true;
-		}
-		/*必殺技が完成したときの処理　終了*/
-	}
-
-	const int EFFECT_FRAME = 15;
-
-	for (int effect = 0; effect < SELECT_EFFECT_MAX; ++effect)
-	{
-		if (pHominEffect[effect].m_valid)
-		{
-			MoveImage(pHominEffect[effect].m_rect, pHominEffect[effect].m_rect,
-				(float)(pHominEffect[effect].m_HomingVect.m_x*(1 / (float)EFFECT_FRAME)),
-				(float)(pHominEffect[effect].m_HomingVect.m_y*(1 / (float)EFFECT_FRAME)));
-
-			pHominEffect[effect].m_count++;
-
-			if (pHominEffect[effect].m_count > EFFECT_FRAME)
+			if (pHominEffect[effect].m_valid)
 			{
-				pHominEffect[effect].m_count = 0;
+				MoveImage(pHominEffect[effect].m_rect, pHominEffect[effect].m_rect,
+					(float)(pHominEffect[effect].m_HomingVect.m_x*(1 / (float)EFFECT_FRAME)),
+					(float)(pHominEffect[effect].m_HomingVect.m_y*(1 / (float)EFFECT_FRAME)));
 
-				pHominEffect[effect].m_valid = false;
+				pHominEffect[effect].m_count++;
+
+				if (pHominEffect[effect].m_count > EFFECT_FRAME)
+				{
+					pHominEffect[effect].m_count = 0;
+
+					pHominEffect[effect].m_valid = false;
+				}
 			}
 		}
+
+		ControlBattle(pMagicKnightWordDatas, &frameCount, battleData, pMagicKnightAction, *enemyState, enemyActionNum);
 	}
 
-	ControlBattle(pMagicKnightWordDatas, &frameCount, battleData, pMagicKnightAction, *enemyState, enemyActionNum);
+	CustomImageVerticies(resultMask, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, GetColor(0, 0, 0, 0));
 
 	if (frameCount < 120)
 	{
 		frameCount++;
 	}
 
+	const int MASK_FRAME_MAX=60;
+
 	if (battleData->m_enemyWon)
 	{
-		frameCount = INIT_FRAME;
-		
-		*isClear = false;
+		static int maskFrameCount = 0;
 
-		battleData->m_enemyWon = 0;
+		GetCustomVerTexColor(resultMask, GetColor(4 * maskFrameCount, 0, 0, 0));
+
+		if (maskFrameCount < MASK_FRAME_MAX)
+		{
+			++maskFrameCount;
+		}
 		
-		*scene = RESULT_SCENE;
+		else
+		{
+			if (g_mouseState.mousePush[LEFT_CLICK] || g_keyState.keyPush[DIK_RETURN])
+			{
+				frameCount = INIT_FRAME;
+				maskFrameCount = 0;
+				*isClear = false;
+				battleData->m_enemyWon = 0;
+
+				*scene = HOME_SCENE;
+			}
+		}
 	}
 
 	if (battleData->m_playerWon)
 	{
-		frameCount = INIT_FRAME;
+		static int maskFrameCount = 0;
 
-		*isClear = true;
+		GetCustomVerTexColor(resultMask, GetColor(4 * maskFrameCount, 0, 0, 0));
 
-		battleData->m_playerWon = 0;
+		if (maskFrameCount < MASK_FRAME_MAX)
+		{
+			++maskFrameCount;
+		}
 
-		*scene = RESULT_SCENE;
+		else
+		{
+			if (g_mouseState.mousePush[LEFT_CLICK] || g_keyState.keyPush[DIK_RETURN])
+			{
+				frameCount = INIT_FRAME;
+				maskFrameCount = 0;
+				*isClear = true;
+				battleData->m_playerWon = 0;
+
+				*scene = HOME_SCENE;
+			}
+		}
 	}
 
 	return;

@@ -8,15 +8,18 @@
 void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, MagicKnightDeck* pMagicKnightDecks,
 	MagicKnightPlayingDeck* pMagicKnightPlayingDeck, MagicKnightAction* pMagicKnightAction,
 	WeaponMasterWordData* pWeaponMAsterWordDatas, WeaponMasterDeck* pWeaponMasterDecks,
-	CustomVertex* pDeckAlterPortal, CustomVertex* pModifyWordPortal, CustomVertex* pMainGamePortal, CustomVertex* pCharaChoicePortal, TEXTUREID* wordTexIds, TEXTUREID* weaponMasterWordIds, PLAYERTYPE* playerType)
+	CustomVertex* pDeckAlterPortal, CustomVertex* pModifyWordPortal, CustomVertex* pMainGamePortal,
+	CustomVertex* pCharaChoicePortal, TEXTUREID* wordTexIds, TEXTUREID* weaponMasterWordIds, PLAYERTYPE* playerType,
+	bool* initializedTex)
 {
 	static int frameCount = -1;
-
-	if (frameCount == -1)
+	
+	switch (*playerType)
 	{
-		switch (*playerType)
+	case WEAPON_MASTER:
+
+		if (!(*initializedTex))
 		{
-		case WEAPON_MASTER:
 			LoadWeaponMasterWordDatas(pWeaponMAsterWordDatas);
 			WeaponMasterLoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck1.csv", 0);
 			WeaponMasterLoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck2.csv", 1);
@@ -27,9 +30,16 @@ void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, MagicKnightDeck*
 			WeaponMasterLoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck7.csv", 6);
 			WeaponMasterLoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck8.csv", 7);
 			LordTextureWeaponMaster(weaponMasterWordIds);
-			break;
 
-		case MAGIC_KNIGHT:
+			*initializedTex = true;
+		}
+		
+		break;
+	
+	case MAGIC_KNIGHT:
+
+		if (!(*initializedTex))
+		{
 			LoadMagicKnightWordDatas(pMagicKnightWordDatas);
 			LoadDeck(pMagicKnightWordDatas, pMagicKnightDecks, "Files/Deck/MKDeck1.csv", 0);
 			LoadDeck(pMagicKnightWordDatas, pMagicKnightDecks, "Files/Deck/MKDeck2.csv", 1);
@@ -51,16 +61,15 @@ void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, MagicKnightDeck*
 				char mkWordPath[60];
 
 				fscanf(pWordTexPathsFile, "%s,", mkWordPath);
-
 				RoadTexture(mkWordPath, &wordTexIds[word]);
 			}
 
 			fclose(pWordTexPathsFile);
 
-			break;
+			*initializedTex = true;
 		}
 
-		frameCount = 0;
+		break;
 	}
 
 	//マウスカーソル
@@ -114,6 +123,18 @@ void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, MagicKnightDeck*
 		if (RectToRectCollisionCheak(mouseCursorCollisionVertex, pCharaChoicePortal))
 		{
 			*scene = CHARA_CHOICE_SCENE;
+
+			*initializedTex = false;
+
+			for (int word = 0; word < WEAPON_MASTER_WORD_MAX; ++word)
+			{
+				SAFE_RELEASE(weaponMasterWordIds[word]);
+			}
+
+			for (int word = 0; word < MAGIC_KNIGHT_WORD_MAX; ++word)
+			{
+				SAFE_RELEASE(wordTexIds[word]);
+			}
 		}
 	}
 
