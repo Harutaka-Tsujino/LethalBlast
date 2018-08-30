@@ -10,6 +10,7 @@ enum MK_MAIN_GAME_TEX
 
 void RenderMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck* pMagicKnightDecks,
 	MagicKnightPlayingDeck* pMagicKnightPlayingDeck, MagicKnightAction* pMagicKnightAction,
-	ImagesCustomVertex* pHandWordCollisionsVertex, ImagesCustomVertex* pMagicKnightActionCollisionsVertex, TEXTUREID* wordTexIds, HomingEffect* pHominEffect);
+	ImagesCustomVertex* pHandWordCollisionsVertex, ImagesCustomVertex* pMagicKnightActionCollisionsVertex, TEXTUREID* wordTexIds, HomingEffect* pHominEffect,
+	CustomVertex* resultMask);
 
 void RenderWhileLoad(SCENE* scene, SCENE destScene, TEXTUREID* wordTexIds);

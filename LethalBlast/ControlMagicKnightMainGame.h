@@ -132,6 +132,6 @@ typedef struct
 void ControlMagicKnightMainGame(SCENE* scene, WordData* pMagicKnightWordDatas, MagicKnightDeck* pMagicKnightDecks,
 	MagicKnightPlayingDeck* pMagicKnightPlayingDeck, MagicKnightAction* pMagicKnightAction,
 	ImagesCustomVertex* pHandWordCollisionsVertex, ImagesCustomVertex* pMagicKnightActionCollisionsVertex, HomingEffect* pHominEffect,
-	VSData* battleData, EnemyST* enemyState, int enemyActionNum, bool* isClear);
+	VSData* battleData, EnemyST* enemyState, int enemyActionNum, bool* isClear, CustomVertex* resultMask);
 
 void LoadMKdeck(SCENE* scene, MagicKnightDeck* pMagicKnightDecks, MagicKnightPlayingDeck* pMagicKnightPlayingDeck);

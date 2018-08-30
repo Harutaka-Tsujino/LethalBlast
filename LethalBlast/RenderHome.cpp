@@ -5,7 +5,8 @@
 #include"ControlGame.h"
 #include"RenderHome.h"
 
-void RenderHome(SCENE* scene,CustomVertex* deckAlterPortal, CustomVertex* modifyWordPortal, CustomVertex* mainGamePortal, CustomVertex* charaChoicePortal,TEXTUREID* wordTexIds)
+void RenderHome(SCENE* scene, CustomVertex* deckAlterPortal, CustomVertex* modifyWordPortal,
+	CustomVertex* mainGamePortal, CustomVertex* charaChoicePortal, TEXTUREID* wordTexIds, PLAYERTYPE* playerType)
 {
 	static int frameCount = -1;
 
@@ -46,7 +47,7 @@ void RenderHome(SCENE* scene,CustomVertex* deckAlterPortal, CustomVertex* modify
 		RoadTexture("Texture/Home/HomeBackground04.png", &homeTextures[HOME_BACK_04_TEX]);
 		RoadTexture("Texture/Home/HomeBackground05.png", &homeTextures[HOME_BACK_05_TEX]);
 		RoadTexture("Texture/Home/HomeBackground06.png", &homeTextures[HOME_BACK_06_TEX]);
-		RoadTexture("Texture/MainGame/Enemy/EDoubleCaster.png",&homeTextures[HOME_MAIN_CHARA_TEX]);
+		RoadTexture("Texture/MainGame/Enemy/EDoubleCaster.png", &homeTextures[HOME_MAIN_CHARA_TEX]);
 
 		ZeroMemory(backFrameCount, sizeof(int)*BACK_NUM);
 
@@ -56,13 +57,13 @@ void RenderHome(SCENE* scene,CustomVertex* deckAlterPortal, CustomVertex* modify
 	static ImagesCustomVertex back[BACK_NUM];
 
 	const float DRAW_SPACE = 14.f;
-	
-	if (DRAW_SPACE<=frameCount)
+
+	if (DRAW_SPACE <= frameCount)
 	{
-		if (frameCount<DRAW_SPACE * 2)
+		if (frameCount < DRAW_SPACE * 2)
 		{
 			CustomImageVerticies(back[1].ImageVertex, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f
-				, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, 
+				, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f,
 				GetColor((UCHAR)(255 * ((backFrameCount[1] + 1) / DRAW_SPACE)), 255, 255, 255));
 
 			backFrameCount[1]++;
@@ -71,15 +72,15 @@ void RenderHome(SCENE* scene,CustomVertex* deckAlterPortal, CustomVertex* modify
 		DrawImage(back[1].ImageVertex, homeTextures[HOME_BACK_02_TEX]);
 	}
 
-	if (DRAW_SPACE*2 <= frameCount)
+	if (DRAW_SPACE * 2 <= frameCount)
 	{
-		if (frameCount<DRAW_SPACE * 3 )
+		if (frameCount < DRAW_SPACE * 3)
 		{
 			CustomImageVerticies(back[2].ImageVertex, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f,
 				((DISPLAY_WIDTH / 2.f)*((backFrameCount[2] + 1) / DRAW_SPACE)), DISPLAY_HEIGHT / 2.f,
 				0xFFFFFFFF,
-				(DISPLAY_WIDTH / 2.f) - ((DISPLAY_WIDTH / 2.f)*((backFrameCount[2] + 1) / DRAW_SPACE)),DISPLAY_HEIGHT / 2.f, 
-				(DISPLAY_WIDTH / 2.f)*((backFrameCount[2] + 1) / DRAW_SPACE), (float)DISPLAY_HEIGHT,(float)DISPLAY_WIDTH, (float)DISPLAY_HEIGHT);
+				(DISPLAY_WIDTH / 2.f) - ((DISPLAY_WIDTH / 2.f)*((backFrameCount[2] + 1) / DRAW_SPACE)), DISPLAY_HEIGHT / 2.f,
+				(DISPLAY_WIDTH / 2.f)*((backFrameCount[2] + 1) / DRAW_SPACE), (float)DISPLAY_HEIGHT, (float)DISPLAY_WIDTH, (float)DISPLAY_HEIGHT);
 
 			backFrameCount[2]++;
 		}
@@ -87,12 +88,12 @@ void RenderHome(SCENE* scene,CustomVertex* deckAlterPortal, CustomVertex* modify
 		DrawImage(back[2].ImageVertex, homeTextures[HOME_BACK_03_TEX]);
 	}
 
-	if (DRAW_SPACE*3 <= frameCount)
+	if (DRAW_SPACE * 3 <= frameCount)
 	{
-		if (frameCount<DRAW_SPACE * 4)
+		if (frameCount < DRAW_SPACE * 4)
 		{
 			CustomImageVerticies(back[3].ImageVertex, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f,
-				(DISPLAY_WIDTH/2.f)*((backFrameCount[3] + 1) / DRAW_SPACE), DISPLAY_HEIGHT / 2.f,
+				(DISPLAY_WIDTH / 2.f)*((backFrameCount[3] + 1) / DRAW_SPACE), DISPLAY_HEIGHT / 2.f,
 				0xFFFFFFFF,
 				0.f, 0.f,
 				DISPLAY_WIDTH*((backFrameCount[3] + 1) / DRAW_SPACE), (float)DISPLAY_HEIGHT, (float)DISPLAY_WIDTH, (float)DISPLAY_HEIGHT);
@@ -103,12 +104,12 @@ void RenderHome(SCENE* scene,CustomVertex* deckAlterPortal, CustomVertex* modify
 		DrawImage(back[3].ImageVertex, homeTextures[HOME_BACK_04_TEX]);
 	}
 
-	if (DRAW_SPACE*4 <= frameCount)
+	if (DRAW_SPACE * 4 <= frameCount)
 	{
-		if (frameCount<DRAW_SPACE * 5 )
+		if (frameCount < DRAW_SPACE * 5)
 		{
-			CustomImageVerticies(back[4].ImageVertex, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, 
-				(DISPLAY_WIDTH/2.f) * ((backFrameCount[4] + 1) / DRAW_SPACE), DISPLAY_HEIGHT / 2.f,
+			CustomImageVerticies(back[4].ImageVertex, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f,
+				(DISPLAY_WIDTH / 2.f) * ((backFrameCount[4] + 1) / DRAW_SPACE), DISPLAY_HEIGHT / 2.f,
 				0xFFFFFFFF,
 				DISPLAY_WIDTH - DISPLAY_WIDTH * ((backFrameCount[4] + 1) / DRAW_SPACE), 0.f,
 				DISPLAY_WIDTH * ((backFrameCount[4] + 1) / DRAW_SPACE), (float)DISPLAY_HEIGHT, (float)DISPLAY_WIDTH, (float)DISPLAY_HEIGHT);
@@ -119,12 +120,12 @@ void RenderHome(SCENE* scene,CustomVertex* deckAlterPortal, CustomVertex* modify
 		DrawImage(back[4].ImageVertex, homeTextures[HOME_BACK_05_TEX]);
 	}
 
-	if (DRAW_SPACE*5 <= frameCount)
+	if (DRAW_SPACE * 5 <= frameCount)
 	{
-		if (frameCount<DRAW_SPACE * 6)
+		if (frameCount < DRAW_SPACE * 6)
 		{
 			CustomImageVerticies(back[5].ImageVertex, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f,
-				DISPLAY_WIDTH / 2.f, (DISPLAY_HEIGHT/2.f) * ((backFrameCount[5] + 1) / DRAW_SPACE),
+				DISPLAY_WIDTH / 2.f, (DISPLAY_HEIGHT / 2.f) * ((backFrameCount[5] + 1) / DRAW_SPACE),
 				0xFFFFFFFF,
 				0.f, DISPLAY_HEIGHT - DISPLAY_HEIGHT * ((backFrameCount[5] + 1) / DRAW_SPACE),
 				(float)DISPLAY_WIDTH, DISPLAY_HEIGHT * ((backFrameCount[5] + 1) / DRAW_SPACE),
@@ -138,7 +139,7 @@ void RenderHome(SCENE* scene,CustomVertex* deckAlterPortal, CustomVertex* modify
 
 	if (DRAW_SPACE * 6 <= frameCount)
 	{
-		if (frameCount<DRAW_SPACE * 7)
+		if (frameCount < DRAW_SPACE * 7)
 		{
 			CustomImageVerticies(back[0].ImageVertex, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, GetColor((UCHAR)(255 * ((backFrameCount[0] + 1) / DRAW_SPACE)), 255, 255, 255));
 
@@ -148,7 +149,7 @@ void RenderHome(SCENE* scene,CustomVertex* deckAlterPortal, CustomVertex* modify
 		DrawImage(back[0].ImageVertex, homeTextures[HOME_BACK_1_TEX]);
 	}
 
-	const float PAGE_SCALE_RATIO_X= 25.f;
+	const float PAGE_SCALE_RATIO_X = 25.f;
 	const float PAGE_SCALE_RATIO_Y = 5.f;
 
 	static Vect pageScale[PAGE_MAX];
@@ -157,51 +158,54 @@ void RenderHome(SCENE* scene,CustomVertex* deckAlterPortal, CustomVertex* modify
 	const int RAND_NUM_WIDTH = 5;
 	const int RAND_NUM_UNDER = 4;
 
-	for (int page = 0; page < PAGE_MAX; ++page)
+	if (*playerType == MAGIC_KNIGHT)
 	{
-		if (pageLife[page] == 0)
+		for (int page = 0; page < PAGE_MAX; ++page)
 		{
-			pageLife[page] = PAGE_LIFE;
-
-			int randNum = rand() % RAND_NUM_WIDTH + RAND_NUM_UNDER;
-
-			pageScale[page].m_x = (double)PAGE_SCALE_RATIO_X* randNum;
-			pageScale[page].m_y = (double)PAGE_SCALE_RATIO_Y* randNum;
-
-			CustomImageVerticies(pageVertices[page].ImageVertex, (float)(rand() % DISPLAY_WIDTH), (float)(rand() % DISPLAY_HEIGHT), 0,(float)pageScale[page].m_y, GetColor(0, 255,255,255));
-
-			pageTexture[page] = wordTexIds[rand() % (MAGIC_KNIGHT_WORD_MAX - 1) + 1];
-		}
-
-		if (!pageTexture[page])
-		{
-			continue;
-		}
-
-		if (pageLife[page] >= (PAGE_LIFE - PAGE_LIFE_HEYDAY))
-		{
-			for (int vertices = 1; vertices < RECT_VERTEX_NUM - 1; ++vertices)
+			if (pageLife[page] == 0)
 			{
-				pageVertices[page].ImageVertex[vertices].m_x += ((float)pageScale[page].m_x*(1.f / PAGE_LIFE_HEYDAY));
+				pageLife[page] = PAGE_LIFE;
+
+				int randNum = rand() % RAND_NUM_WIDTH + RAND_NUM_UNDER;
+
+				pageScale[page].m_x = (double)PAGE_SCALE_RATIO_X* randNum;
+				pageScale[page].m_y = (double)PAGE_SCALE_RATIO_Y* randNum;
+
+				CustomImageVerticies(pageVertices[page].ImageVertex, (float)(rand() % DISPLAY_WIDTH), (float)(rand() % DISPLAY_HEIGHT), 0, (float)pageScale[page].m_y, GetColor(0, 255, 255, 255));
+
+				pageTexture[page] = wordTexIds[rand() % (MAGIC_KNIGHT_WORD_MAX - 1) + 1];
 			}
 
-			for (int vertices = 0; vertices < RECT_VERTEX_NUM; ++vertices)
+			if (!pageTexture[page])
 			{
-				pageVertices[page].ImageVertex[vertices].m_color = GetColor((UCHAR)(ALPHA_MAX * (1.f - ((float)(pageLife[page] - PAGE_LIFE + PAGE_LIFE_HEYDAY) / PAGE_LIFE_HEYDAY))), 255, 255, 255);
+				continue;
 			}
-			
-			SetImageTuTv(pageVertices[page].ImageVertex, pageVertices[page].ImageVertex, 0.f, 0.f, (float)pageScale[page].m_x * (1.f - (float)(pageLife[page] -PAGE_LIFE+ PAGE_LIFE_HEYDAY) / PAGE_LIFE_HEYDAY), 1.f, (float)pageScale[page].m_x, 1.f);
-		}
 
-		else
-		{
-			for (int vertices = 0; vertices < RECT_VERTEX_NUM; ++vertices)
+			if (pageLife[page] >= (PAGE_LIFE - PAGE_LIFE_HEYDAY))
 			{
-				pageVertices[page].ImageVertex[vertices].m_color = GetColor((UCHAR)(ALPHA_MAX * (float)(pageLife[page] / (float)(PAGE_LIFE-PAGE_LIFE_HEYDAY))), 255,255, 255);
-			}
-		}
+				for (int vertices = 1; vertices < RECT_VERTEX_NUM - 1; ++vertices)
+				{
+					pageVertices[page].ImageVertex[vertices].m_x += ((float)pageScale[page].m_x*(1.f / PAGE_LIFE_HEYDAY));
+				}
 
-		DrawImage(pageVertices[page].ImageVertex, pageTexture[page]);
+				for (int vertices = 0; vertices < RECT_VERTEX_NUM; ++vertices)
+				{
+					pageVertices[page].ImageVertex[vertices].m_color = GetColor((UCHAR)(ALPHA_MAX * (1.f - ((float)(pageLife[page] - PAGE_LIFE + PAGE_LIFE_HEYDAY) / PAGE_LIFE_HEYDAY))), 255, 255, 255);
+				}
+
+				SetImageTuTv(pageVertices[page].ImageVertex, pageVertices[page].ImageVertex, 0.f, 0.f, (float)pageScale[page].m_x * (1.f - (float)(pageLife[page] - PAGE_LIFE + PAGE_LIFE_HEYDAY) / PAGE_LIFE_HEYDAY), 1.f, (float)pageScale[page].m_x, 1.f);
+			}
+
+			else
+			{
+				for (int vertices = 0; vertices < RECT_VERTEX_NUM; ++vertices)
+				{
+					pageVertices[page].ImageVertex[vertices].m_color = GetColor((UCHAR)(ALPHA_MAX * (float)(pageLife[page] / (float)(PAGE_LIFE - PAGE_LIFE_HEYDAY))), 255, 255, 255);
+				}
+			}
+
+			DrawImage(pageVertices[page].ImageVertex, pageTexture[page]);
+		}
 	}
 
 	CustomVertex MainChara[RECT_VERTEX_NUM];

@@ -14,7 +14,8 @@
 
 void RenderMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck* pMagicKnightDecks,
 	MagicKnightPlayingDeck* pMagicKnightPlayingDeck, MagicKnightAction* pMagicKnightAction,
-	ImagesCustomVertex* pHandWordCollisionsVertex, ImagesCustomVertex* pMagicKnightActionCollisionsVertex, TEXTUREID* wordTexIds, HomingEffect* pHominEffect)
+	ImagesCustomVertex* pHandWordCollisionsVertex, ImagesCustomVertex* pMagicKnightActionCollisionsVertex, TEXTUREID* wordTexIds, HomingEffect* pHominEffect,
+	CustomVertex* resultMask)
 {
 	static TEXTUREID collisionTestTexId[MK_MAIN_GAME_TEX_MAX];
 	static int frameCount = INIT_FRAME;
@@ -112,6 +113,8 @@ void RenderMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck*
 	{
 		frameCount++;
 	}
+
+	DrawImage(resultMask, NULL);
 
 	return;
 }

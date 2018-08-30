@@ -101,10 +101,11 @@ void MainFunction(void)
 	static VSData battleData; 
 	static EnemyST enemyState;
 	static int enemyActionNum;
-
 	static bool isClear=false;
-
 	static bool makeRandSeed = true;
+	static CustomVertex resultMask[RECT_VERTEX_NUM];
+
+	static bool initializedTex = false;
 
 	//シーン分岐
 	switch (scene)
@@ -147,8 +148,12 @@ void MainFunction(void)
 		ControlHome(&scene, magicKnightWordDatas, magicKnightDecks,
 			&magicKnightPlayingDeck, &magicKnightAction,
 			weaponMasterWords, weaponMasterWordDecks,
-			deckAlterPortal, modifyWordPortal, mainGamePortal, charaChoicePortal, wordTexIds, weaponMasterWordIds, &playerType);
-		RenderHome(&scene,deckAlterPortal, modifyWordPortal, mainGamePortal, charaChoicePortal, wordTexIds);
+			deckAlterPortal, modifyWordPortal, mainGamePortal, charaChoicePortal, wordTexIds, weaponMasterWordIds, &playerType, &initializedTex);
+
+		if (initializedTex)
+		{
+			RenderHome(&scene, deckAlterPortal, modifyWordPortal, mainGamePortal, charaChoicePortal, wordTexIds, &playerType);
+		}
 
 		break;
 
@@ -228,10 +233,10 @@ void MainFunction(void)
 		case MAGIC_KNIGHT:
 			ControlMagicKnightMainGame(&scene,magicKnightWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
 				&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex, hominEffect,
-				&battleData,&enemyState,enemyActionNum, &isClear);
+				&battleData,&enemyState,enemyActionNum, &isClear, resultMask);
 
 			RenderMagicKnightMainGame(magicKnightWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
-				&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex, wordTexIds, hominEffect);
+				&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex, wordTexIds, hominEffect, resultMask);
 
 			break;
 		}

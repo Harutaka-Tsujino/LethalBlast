@@ -27,4 +27,5 @@ enum HOME_TEX
 	HOME_TEX_MAX
 };
 
-void RenderHome(SCENE* scene,CustomVertex* deckAlterPortal, CustomVertex* modifyWordPortal, CustomVertex* mainGamePortal, CustomVertex* charaChoicePortal, TEXTUREID* wordTexIds);
+void RenderHome(SCENE* scene,CustomVertex* deckAlterPortal, CustomVertex* modifyWordPortal, CustomVertex* mainGamePortal,
+	CustomVertex* charaChoicePortal, TEXTUREID* wordTexIds, PLAYERTYPE* playerType);
