@@ -108,57 +108,14 @@ void RenderWeaponMasterAction(ImagesCustomVertex* pWeaponMasterDeckVerticies, Im
 			}
 		}
 
-		switch (pPage)
+		for (int wordLists = (pPage - 1) * 10;wordLists < (pPage) * 10;++wordLists)
 		{
-		case 1:
-
-			for (int wordLists = 0;wordLists < 10;wordLists++)
+			if (pWeaponMasterDeck->m_wordIds[wordLists] != SPACE_WORD)
 			{
-				if (pWeaponMasterDeck->m_wordIds[wordLists] != SPACE_WORD)
-				{
-					DrawImage(pWeaponMasterDeckVerticies[wordLists].ImageVertex, pWmFontIds[(pWeaponMasterDeck->m_wordIds[wordLists])]);
-				}
+				DrawImage(pWeaponMasterDeckVerticies[wordLists].ImageVertex, pWmFontIds[(pWeaponMasterDeck->m_wordIds[wordLists])]);
 			}
-
-			break;
-
-		case 2:
-
-			for (int wordLists = 10;wordLists < 20;wordLists++)
-			{
-				if (pWeaponMasterDeck->m_wordIds[wordLists] != SPACE_WORD)
-				{
-					DrawImage(pWeaponMasterDeckVerticies[wordLists].ImageVertex, pWmFontIds[(pWeaponMasterDeck->m_wordIds[wordLists])]);
-				}
-			}
-
-			break;
-
-		case 3:
-
-			for (int wordLists = 20;wordLists < 30;wordLists++)
-			{
-				if (pWeaponMasterDeck->m_wordIds[wordLists] != SPACE_WORD)
-				{
-					DrawImage(pWeaponMasterDeckVerticies[wordLists].ImageVertex, pWmFontIds[(pWeaponMasterDeck->m_wordIds[wordLists])]);
-				}
-			}
-
-			break;
-
-		case 4:
-
-			for (int wordLists = 30;wordLists < 40;wordLists++)
-			{
-				if (pWeaponMasterDeck->m_wordIds[wordLists] != SPACE_WORD)
-				{
-					DrawImage(pWeaponMasterDeckVerticies[wordLists].ImageVertex, pWmFontIds[(pWeaponMasterDeck->m_wordIds[wordLists])]);
-				}
-			}
-
-			break;
 		}
-
+		
 		const float PAGE_TRANSISTION_FONT_WIDTH = (float)(DISPLAY_WIDTH / 30);
 		const float PAGE_TRANSISTION_FONT_HEIGHT = PAGE_TRANSISTION_FONT_WIDTH;
 		char pageFont[4];
