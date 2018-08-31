@@ -13,10 +13,10 @@
 		(*frameCount) = 0;
 	}
 
-	if (*frameCount == 120)
+	/*if (*frameCount == 120)
 	{
 		ZeroMemory(battleData, sizeof(VSData));
-	}
+	}*/
 
 	if (pMagicKnightAction->useAction == true)
 	{
@@ -33,14 +33,19 @@
 		{
 			int actionComWId = pMagicKnightAction->m_componentWordIds[actionCom];
 
-			if (pMagicKnightWordDatas[actionComWId].m_attack != VOID_ATTACK&&!decideAttack)
+			if (!actionComWId)
+			{
+				continue;
+			}
+
+			if (!decideAttack)
 			{
 				actionAttack = pMagicKnightWordDatas[actionComWId].m_attack;
 
 				decideAttack = true;
 			}
 
-			if (pMagicKnightWordDatas[actionComWId].m_element != VOID_ELEMENT&&!decideElement)
+			if (!decideElement)
 			{
 				actionElement = pMagicKnightWordDatas[actionComWId].m_element;
 
@@ -123,9 +128,6 @@
 			cTCount = 0;
 			(*frameCount)++;
 		}
-
-		battleData->m_cTMax = enemyState.m_cTNum;
-		battleData->m_cTBlank = enemyState.m_cTBlank;
 
 		++cTCount;
 		battleData->m_cTCurrentCount = cTCount;

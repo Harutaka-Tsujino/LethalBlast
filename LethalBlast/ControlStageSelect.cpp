@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include"DX9Lib.h"
 #include"WinMain.h"
 #include"ControlGame.h"
@@ -6,7 +7,7 @@
 #include"ControlHome.h"
 #include"ControlStageSelect.h"
 
-void ControlStageSelect(SCENE* pScene, ImagesCustomVertex* pStageSelectPortals, int* pSelectedStage,CustomVertex* pBackPortal)
+void ControlStageSelect(SCENE* pScene, ImagesCustomVertex* pStageSelectPortals, int* pSelectedStage,CustomVertex* pBackPortal, StageDate* pStageData, EnemyST* pEnemyData)
 {
 	static int frameCount = INIT_FRAME;
 
@@ -55,30 +56,60 @@ void ControlStageSelect(SCENE* pScene, ImagesCustomVertex* pStageSelectPortals, 
 		return;
 	}
 
+	static bool initCave = false;
+
 	if (CheckRotatedRectsCollision(mouseCursorCollisionVertex, pStageSelectPortals[CAVE_STAGE].ImageVertex))
 	{
 		*pSelectedStage = CAVE_STAGE;
 		*pScene = CHOSE_DECK_TO_BATTLE_SCENE;
 
+		if (!initCave)
+		{
+			InitStageData(&pStageData[CAVE_STAGE], "Files/Stage/ForestStage.csv", FORSEST_FLOOR_MAX);
+			InitEnemyData(pEnemyData);
+
+			initCave = true;
+		}
+
 		frameCount = 0;
 
 		return;
 	}
+
+	static bool initForest = false;
 
 	if (CheckRotatedRectsCollision(mouseCursorCollisionVertex, pStageSelectPortals[FOREST_STAGE].ImageVertex))
 	{
 		*pSelectedStage = FOREST_STAGE;
 		*pScene = CHOSE_DECK_TO_BATTLE_SCENE;
 
+		if (!initForest)
+		{
+			InitStageData(&pStageData[FOREST_STAGE], "Files/Stage/ForestStage.csv", FORSEST_FLOOR_MAX);
+			InitEnemyData(pEnemyData);
+
+			initForest = true;
+		}
+
 		frameCount = 0;
 
 		return;
 	}
 
+	static bool initRuin = false;
+
 	if (CheckRotatedRectsCollision(mouseCursorCollisionVertex, pStageSelectPortals[RUIN_STAGE].ImageVertex))
 	{
 		*pSelectedStage = RUIN_STAGE;
 		*pScene = CHOSE_DECK_TO_BATTLE_SCENE;
+
+		if (!initRuin)
+		{
+			InitStageData(&pStageData[RUIN_STAGE], "Files/Stage/ForestStage.csv", FORSEST_FLOOR_MAX);
+			InitEnemyData(pEnemyData);
+
+			initForest = true;
+		}
 
 		frameCount = 0;
 
@@ -170,6 +201,70 @@ void CalcurateVectByPoints(Vect* dest, double pointOPosX, double pointOPosY, dou
 {
 	dest->m_x = pointDestPosX - pointOPosX;
 	dest->m_y = pointDestPosY - pointOPosY;
+
+	return;
+}
+
+void InitStageData(StageDate* pStageData, const char* filePath, int floorMax)
+{
+	FILE* pForesF;
+
+	pForesF = fopen(filePath, "r");
+
+	for (int floor = 0; floor < floorMax; ++floor)
+	{
+		fscanf(pForesF, "%d,", &pStageData->m_enemyId[floor]);
+
+		for (int drop = 0; drop < FLOOR_DROP_MAX; ++drop)
+		{
+			fscanf(pForesF, "%d,", &pStageData->m_dropWord[floor].m_mKDropId[drop]);
+		}
+
+		for (int drop = 0; drop < FLOOR_DROP_MAX; ++drop)
+		{
+			fscanf(pForesF, "%d,", &pStageData->m_dropWord[floor].m_wMDropId[drop]);
+		}
+
+		fscanf(pForesF, "%d,", &pStageData->m_clear[floor].m_mKClear);
+		fscanf(pForesF, "%d,", &pStageData->m_clear[floor].m_wMClear);
+	}
+
+	fclose(pForesF);
+
+	return;
+}
+
+void InitEnemyData(EnemyST* pEnemyData)
+{
+	FILE* pEnemySTF;
+
+	pEnemySTF= fopen("Files/EnemyStates/EnemyState.csv", "r");
+	
+	for (int enemy = VOID_ENEMY+1; enemy < ENEMY_MAX; ++enemy)
+	{
+		fscanf(pEnemySTF, "%[^,],%d,%d,", pEnemyData[enemy].m_name,
+			&pEnemyData[enemy].m_cTBlank, &pEnemyData[enemy].m_cTNum);
+
+		//fseek(pEnemySTF, sizeof(char), SEEK_CUR);
+
+		for (int action = 0; action < ENEMY_ACTION_MAX; ++action)
+		{
+			fscanf(pEnemySTF, " %[^,],%u,", pEnemyData[enemy].m_enemyAction[action].m_name,
+				&pEnemyData[enemy].m_enemyAction[action].m_ActionDamage);
+
+			for (int element = 0; element < ELEMENT_ATTRIBUTES_MAX - 1; ++element)
+			{
+				fscanf(pEnemySTF, "%d,", &pEnemyData[enemy].m_enemyAction[action].m_ActionElements[element]);
+			}
+
+			for (int attack = 0; attack < ATTACK_ATTRIBUTES_MAX - 1; ++attack)
+			{
+				fscanf(pEnemySTF, "%d,", &pEnemyData[enemy].m_enemyAction[action].m_ActionAttacks[attack]);
+			}
+		}
+	}
+
+	fclose(pEnemySTF);
 
 	return;
 }

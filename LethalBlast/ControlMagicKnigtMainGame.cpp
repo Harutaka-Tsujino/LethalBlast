@@ -15,7 +15,7 @@
 void ControlMagicKnightMainGame(SCENE* scene,WordData* pMagicKnightWordDatas, MagicKnightDeck* pMagicKnightDecks,
 	MagicKnightPlayingDeck* pMagicKnightPlayingDeck, MagicKnightAction* pMagicKnightAction,
 	ImagesCustomVertex* pHandWordCollisionsVertex, ImagesCustomVertex* pMagicKnightActionCollisionsVertex, HomingEffect* pHominEffect,
-	VSData* battleData, EnemyST* enemyState, int enemyActionNum,bool* isClear, CustomVertex* resultMask)
+	VSData* battleData,int enemyActionNum,bool* isClear, CustomVertex* resultMask, StageDate* pStageData, EnemyST* pEnemyData,int selectedStage)
 {
 	//必殺技を発動している
 	if (pMagicKnightAction->useAction)
@@ -111,12 +111,23 @@ void ControlMagicKnightMainGame(SCENE* scene,WordData* pMagicKnightWordDatas, Ma
 		//フレームカウントを0にすることによって後の計算時が簡単に行える
 
 		ZeroMemory(pHominEffect, sizeof(HomingEffect)*SELECT_EFFECT_MAX);
+	}
 
-		ZeroMemory(enemyState, sizeof(EnemyST));
+	////////////////////////////////////////////////////////////////////////////エネミーの初期化とか
+	static bool initEnemy = true;
+	static int currentFloor = 0;
+	static int currentEnemyId = pStageData[selectedStage].m_enemyId[currentFloor];
 
-		enemyState->m_cTBlank = 60;
-		enemyState->m_cTNum = 10;
-		enemyState->m_enemyAction->m_ActionDamage = 100;
+	if (initEnemy)
+	{
+		ZeroMemory(battleData, sizeof(VSData));
+
+		currentEnemyId = pStageData[selectedStage].m_enemyId[currentFloor];
+		battleData->m_cTBlank = pEnemyData[currentEnemyId].m_cTBlank;
+		battleData->m_cTMax = pEnemyData[currentEnemyId].m_cTNum;
+
+		++currentFloor;
+		initEnemy = false;
 	}
 
 	/*マウスカーソルとの当たり判定用の頂点設定 開始*/
@@ -330,7 +341,7 @@ void ControlMagicKnightMainGame(SCENE* scene,WordData* pMagicKnightWordDatas, Ma
 			}
 		}
 
-		ControlBattle(pMagicKnightWordDatas, &frameCount, battleData, pMagicKnightAction, *enemyState, enemyActionNum);
+		ControlBattle(pMagicKnightWordDatas, &frameCount, battleData, pMagicKnightAction, pEnemyData[currentEnemyId], enemyActionNum);
 	}
 
 	CustomImageVerticies(resultMask, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, GetColor(0, 0, 0, 0));
@@ -382,12 +393,13 @@ void ControlMagicKnightMainGame(SCENE* scene,WordData* pMagicKnightWordDatas, Ma
 		{
 			if (g_mouseState.mousePush[LEFT_CLICK] || g_keyState.keyPush[DIK_RETURN])
 			{
-				frameCount = INIT_FRAME;
+				//frameCount = INIT_FRAME;
 				maskFrameCount = 0;
 				*isClear = true;
 				battleData->m_playerWon = 0;
+				initEnemy = true;
 
-				*scene = HOME_SCENE;
+				//*scene = HOME_SCENE;
 			}
 		}
 	}

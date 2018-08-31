@@ -1,9 +1,5 @@
 #pragma once
 
-#include"DX9Lib.h"
-#include"WinMain.h"
-#include"ControlMagicKnightMainGame.h"
-#include"ControlBattle.h"
 
 #define MK_COST_1_DAMAGE 1500000
 #define MK_COST_1_PLUS__DAMAGE 50000
@@ -23,6 +19,13 @@
 #define ATTACK_WEAK 1.1f
 #define ATTACK_RESIST 0.8f
 
+enum ENEMY
+{
+	VOID_ENEMY,
+	å√ë„ï∫äÌêlå^,
+	ENEMY_MAX,
+};
+
 typedef struct
 {
 	int m_cTCurrentCount;
@@ -38,22 +41,30 @@ typedef struct
 	UINT m_enemyDamage;
 }VSData;
 
+#define ACTION_NAME_MAX 60
+
 typedef struct
 {
+	char m_name[ACTION_NAME_MAX];
 	bool m_ActionElements[ELEMENT_ATTRIBUTES_MAX];
 	bool m_ActionAttacks[ATTACK_ATTRIBUTES_MAX];
 	UINT m_ActionDamage;
 }ActionDamage;
 
+#define ENEMY_NAME_MAX 30
+#define ENEMY_ACTION_MAX 3
+
 typedef struct
 {
-	ActionDamage m_enemyAction[3];
+	char m_name[ENEMY_NAME_MAX];
+	ActionDamage m_enemyAction[ENEMY_ACTION_MAX];
 	int m_cTNum;
 	int m_cTBlank;
 }EnemyST;
+
+#include"ControlMagicKnightMainGame.h"
 
 void ControlBattle(WordData* pMagicKnightWordDatas, int* frameCount, VSData* battleData,
 	MagicKnightAction* pMagicKnightAction, EnemyST enemyState, int enemyActionNum);
 
 void CalcWeakResistDamage(ActionDamage* action, ActionDamage* enemyAction);
-

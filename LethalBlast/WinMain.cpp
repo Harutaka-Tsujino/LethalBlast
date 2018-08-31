@@ -101,7 +101,6 @@ void MainFunction(void)
 	static bool scrollEffect = false;
 	static HomingEffect hominEffect[SELECT_EFFECT_MAX];
 	static VSData battleData; 
-	static EnemyST enemyState;
 	static int enemyActionNum;
 	static bool isClear=false;
 	static bool makeRandSeed = true;
@@ -109,6 +108,9 @@ void MainFunction(void)
 
 	static bool initializedTex = false;
 	
+	static StageDate stageData[STAGE_MAX];
+	static EnemyST enemyData[ENEMY_MAX];
+
 	//シーン分岐
 	switch (scene)
 	{
@@ -228,7 +230,7 @@ void MainFunction(void)
 		
 	case SELECT_STAGE_SCENE:
 
-		ControlStageSelect(&scene, stageSelectPortals, &selectedStage, charaChoicePortal);
+		ControlStageSelect(&scene, stageSelectPortals, &selectedStage, charaChoicePortal, stageData, enemyData);
 		RenderStageSelect(stageSelectPortals, charaChoicePortal);
 
 		break;
@@ -247,9 +249,10 @@ void MainFunction(void)
 			break;
 
 		case MAGIC_KNIGHT:
-			ControlMagicKnightMainGame(&scene,magicKnightWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
+
+			ControlMagicKnightMainGame(&scene, magicKnightWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
 				&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex, hominEffect,
-				&battleData,&enemyState,enemyActionNum, &isClear, resultMask);
+				&battleData, enemyActionNum, &isClear, resultMask, stageData, enemyData, selectedStage);
 
 			RenderMagicKnightMainGame(magicKnightWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
 				&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex, wordTexIds, hominEffect, resultMask);
