@@ -165,8 +165,8 @@ void RenderWeaponMasterAction(ImagesCustomVertex* pWeaponMasterDeckVerticies, Im
 
 		sprintf(pageFont, "%d", pPage);
 
-		WriteText(PAGE_TRANSISTION_FONT_WIDTH * 26.5f, PAGE_TRANSISTION_FONT_WIDTH * 12.3f, "/4", DT_RIGHT, fontIds[PAGE_FONT_MAX]);
-		WriteText(PAGE_TRANSISTION_FONT_WIDTH*25.5f, PAGE_TRANSISTION_FONT_HEIGHT * 12.3f, pageFont, DT_RIGHT, fontIds[PAGE_FONT]);
+		WriteText((int)PAGE_TRANSISTION_FONT_WIDTH * 26.5f, (int)PAGE_TRANSISTION_FONT_WIDTH * 12.3f, "/4", DT_RIGHT, fontIds[PAGE_FONT_MAX]);
+		WriteText((int)PAGE_TRANSISTION_FONT_WIDTH * 25.5f, (int)PAGE_TRANSISTION_FONT_HEIGHT * 12.3f, pageFont, DT_RIGHT, fontIds[PAGE_FONT]);
 		
 	}
 

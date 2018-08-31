@@ -175,7 +175,7 @@ void RenderWeaponMasterAlterDeck(ImagesCustomVertex* pChoiseWordCollisionsVertex
 		RoadTexture("Texture/MainGame/ListBG.png", &weaponMasterAlterTextureIds[WM_ALTER_BACK_2_TEX]);
 		RoadTexture("Texture/AlterDeck/EndAlterDeck.png", &weaponMasterAlterTextureIds[EXIT_ALTER_TEX]);
 		RoadTexture("Texture/AlterDeck/RedFrame.png", &weaponMasterAlterTextureIds[ALTER_CLICKED_EFFECT_TEX]);
-		RoadTexture("Texture/AlterDeck/DeckAlterTag.png", &weaponMasterAlterTextureIds[DECK_ALTER_TAG_TEX]);
+		RoadTexture("Texture/AlterDeck/DeckAlterTag.jpg", &weaponMasterAlterTextureIds[DECK_ALTER_TAG_TEX]);
 		
 		SetFont(DISPLAY_WIDTH / 70, DISPLAY_WIDTH / 70, "HGP明朝B", &descriptionFontIds, 0);
 		
