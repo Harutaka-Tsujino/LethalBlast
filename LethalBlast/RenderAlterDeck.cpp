@@ -176,7 +176,8 @@ void RenderWeaponMasterAlterDeck(ImagesCustomVertex* pChoiseWordCollisionsVertex
 		RoadTexture("Texture/AlterDeck/EndAlterDeck.png", &weaponMasterAlterTextureIds[EXIT_ALTER_TEX]);
 		RoadTexture("Texture/AlterDeck/RedFrame.png", &weaponMasterAlterTextureIds[ALTER_CLICKED_EFFECT_TEX]);
 		RoadTexture("Texture/AlterDeck/DeckAlterTag.jpg", &weaponMasterAlterTextureIds[DECK_ALTER_TAG_TEX]);
-		
+		RoadTexture("Texture/AlterDeck/DescriptionBack.png", &weaponMasterAlterTextureIds[WM_ALTER_BACK_3_TEX]);
+
 		SetFont(DISPLAY_WIDTH / 70, DISPLAY_WIDTH / 70, "HGP明朝B", &descriptionFontIds, 0);
 		
 		isFirstFrame = 0;
@@ -225,75 +226,79 @@ void RenderWeaponMasterAlterDeck(ImagesCustomVertex* pChoiseWordCollisionsVertex
 
 	for (int wordDatas = 0; wordDatas < WEAPON_MASTER_WORD_MAX; ++wordDatas)
 	{
-		if (RectToRectCollisionCheak(mouseCursorCollisionVertex, pChoiseWordCollisionsVertex[wordDatas].ImageVertex))
+		if (RectToRectCollisionCheak(mouseCursorCollisionVertex, pWordDatasBackVertices))
 		{
-			const int ELEMENT_POS_X = (int)(DISPLAY_WIDTH*0.5f);
-			const int ELEMENT_POS_Y = (int)(DISPLAY_HEIGHT*0.8f);
-
-			switch (pWeaponMasterWordDatas[wordDatas].m_element)
+			if (RectToRectCollisionCheak(mouseCursorCollisionVertex, pChoiseWordCollisionsVertex[wordDatas].ImageVertex))
 			{
-			case FIRE_ELEMENT:
+				const int ELEMENT_POS_X = (int)(DISPLAY_WIDTH*0.5f);
+				const int ELEMENT_POS_Y = (int)(DISPLAY_HEIGHT*0.8f);
 
-				WriteText(ELEMENT_POS_X, ELEMENT_POS_Y, "特殊 火", DT_CENTER, descriptionFontIds, FONT_COLOR);
+				switch (pWeaponMasterWordDatas[wordDatas].m_element)
+				{
+				case FIRE_ELEMENT:
 
-				break;
+					WriteText(ELEMENT_POS_X, ELEMENT_POS_Y, "特殊 火", DT_CENTER, descriptionFontIds, FONT_COLOR);
 
-			case WATER_ELEMENT:
+					break;
 
-				WriteText(ELEMENT_POS_X, ELEMENT_POS_Y, "特殊 水", DT_CENTER, descriptionFontIds, FONT_COLOR);
+				case WATER_ELEMENT:
 
-				break;
+					WriteText(ELEMENT_POS_X, ELEMENT_POS_Y, "特殊 水", DT_CENTER, descriptionFontIds, FONT_COLOR);
 
-			case WIND_ELEMENT:
+					break;
 
-				WriteText(ELEMENT_POS_X, ELEMENT_POS_Y, "特殊 風", DT_CENTER, descriptionFontIds, FONT_COLOR);
+				case WIND_ELEMENT:
 
-				break;
+					WriteText(ELEMENT_POS_X, ELEMENT_POS_Y, "特殊 風", DT_CENTER, descriptionFontIds, FONT_COLOR);
 
-			case DARKNESS_ELEMENT:
+					break;
 
-				WriteText(ELEMENT_POS_X, ELEMENT_POS_Y, "特殊 闇", DT_CENTER, descriptionFontIds, FONT_COLOR);
+				case DARKNESS_ELEMENT:
 
-				break;
+					WriteText(ELEMENT_POS_X, ELEMENT_POS_Y, "特殊 闇", DT_CENTER, descriptionFontIds, FONT_COLOR);
 
-			case SHINING_ELEMENT:
+					break;
 
-				WriteText(ELEMENT_POS_X, ELEMENT_POS_Y, "特殊 光", DT_CENTER, descriptionFontIds, FONT_COLOR);
+				case SHINING_ELEMENT:
+
+					WriteText(ELEMENT_POS_X, ELEMENT_POS_Y, "特殊 光", DT_CENTER, descriptionFontIds, FONT_COLOR);
+
+					break;
+				}
+
+				const int ATTACK_POS_X = (int)(DISPLAY_WIDTH*0.65f);
+				const int ATTACK_POS_Y = (int)(DISPLAY_HEIGHT*0.8f);
+
+				switch (pWeaponMasterWordDatas[wordDatas].m_attack)
+				{
+				case SLASH_ATTACK:
+
+					WriteText(ATTACK_POS_X, ATTACK_POS_Y, "物理 斬", DT_CENTER, descriptionFontIds, FONT_COLOR);
+
+					break;
+
+				case SMASH_ATTACK:
+
+					WriteText(ATTACK_POS_X, ATTACK_POS_Y, "物理 打", DT_CENTER, descriptionFontIds, FONT_COLOR);
+
+					break;
+
+				case PENETRATION_ATTACK:
+
+					WriteText(ATTACK_POS_X, ATTACK_POS_Y, "物理 突", DT_CENTER, descriptionFontIds, FONT_COLOR);
+
+					break;
+				}
+
+				char cost[20] = "コスト";
+				sprintf(&cost[6], "%d", pWeaponMasterWordDatas[wordDatas].m_cost);
+
+				WriteText((int)(DISPLAY_WIDTH*0.8f), (int)(DISPLAY_HEIGHT*0.8f), cost, DT_CENTER, descriptionFontIds, FONT_COLOR);
 
 				break;
 			}
-
-			const int ATTACK_POS_X = (int)(DISPLAY_WIDTH*0.65f);
-			const int ATTACK_POS_Y = (int)(DISPLAY_HEIGHT*0.8f);
-
-			switch (pWeaponMasterWordDatas[wordDatas].m_attack)
-			{
-			case SLASH_ATTACK:
-
-				WriteText(ATTACK_POS_X, ATTACK_POS_Y, "物理 斬", DT_CENTER, descriptionFontIds, FONT_COLOR);
-
-				break;
-
-			case SMASH_ATTACK:
-
-				WriteText(ATTACK_POS_X, ATTACK_POS_Y, "物理 打", DT_CENTER, descriptionFontIds, FONT_COLOR);
-
-				break;
-
-			case PENETRATION_ATTACK:
-
-				WriteText(ATTACK_POS_X, ATTACK_POS_Y, "物理 突", DT_CENTER, descriptionFontIds, FONT_COLOR);
-
-				break;
-			}
-
-			char cost[20] = "コスト";
-			sprintf(&cost[6], "%d", pWeaponMasterWordDatas[wordDatas].m_cost);
-
-			WriteText((int)(DISPLAY_WIDTH*0.8f), (int)(DISPLAY_HEIGHT*0.8f), cost, DT_CENTER, descriptionFontIds, FONT_COLOR);
-
-			break;
 		}
+		
 	}
 
 	DrawImage(endDeckAlterVertices, weaponMasterAlterTextureIds[EXIT_ALTER_TEX]);
