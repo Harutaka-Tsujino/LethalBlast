@@ -127,11 +127,12 @@ typedef struct
 	bool m_valid;
 }HomingEffect;
 
+#include"ControlStageSelect.h"
 #include"ControlBattle.h"
 
 void ControlMagicKnightMainGame(SCENE* scene, WordData* pMagicKnightWordDatas, MagicKnightDeck* pMagicKnightDecks,
 	MagicKnightPlayingDeck* pMagicKnightPlayingDeck, MagicKnightAction* pMagicKnightAction,
 	ImagesCustomVertex* pHandWordCollisionsVertex, ImagesCustomVertex* pMagicKnightActionCollisionsVertex, HomingEffect* pHominEffect,
-	VSData* battleData, EnemyST* enemyState, int enemyActionNum, bool* isClear, CustomVertex* resultMask);
+	VSData* battleData, int enemyActionNum, bool* isClear, CustomVertex* resultMask, StageDate* pStageData, EnemyST* pEnemyData, int selectedStage);
 
 void LoadMKdeck(SCENE* scene, MagicKnightDeck* pMagicKnightDecks, MagicKnightPlayingDeck* pMagicKnightPlayingDeck);
