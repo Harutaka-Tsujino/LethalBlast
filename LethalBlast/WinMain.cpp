@@ -49,6 +49,7 @@ void MainFunction(void)
 	static WeaponMasterActionData weaponMasterActionWords[WEAPON_MASTER_ACTION_LISTS];
 	static ImagesCustomVertex weaponMasterDeckVerticies[DECK_WORD_MAX];
 	static ImagesCustomVertex weaponMasterActionVerticies[WEAPON_MASTER_ACTION_LISTS];
+	ImagesCustomVertex choiseWMWordCollisionsVertex[WEAPON_MASTER_WORD_MAX];
 	static PlayerState player[JOB_MAX];
 	static EnemyState enemy[ENEMY_TYPE_MAX];
 	static int wordNum = 0;
@@ -93,6 +94,7 @@ void MainFunction(void)
 	ImagesCustomVertex modifyBoxVertices[2];
 	CustomVertex decideModify[4];
 	static bool clickedWord[MAGIC_KNIGHT_WORD_MAX];
+	static bool clickedWeaponMasterWord[WEAPON_MASTER_WORD_MAX];
 
 	ImagesCustomVertex stageSelectPortals[STAGE_MAX];
 	static int selectedStage;
@@ -106,18 +108,18 @@ void MainFunction(void)
 	static CustomVertex resultMask[RECT_VERTEX_NUM];
 
 	static bool initializedTex = false;
-
+	
 	//シーン分岐
 	switch (scene)
 	{
 	case PV_SCENE:
+	
+	if (makeRandSeed == true)
+	{
+		srand((UINT)time(NULL));
 
-		if (makeRandSeed == true)
-		{
-			srand((UINT)time(NULL));
-
-			makeRandSeed = false;
-		}
+		makeRandSeed = false;
+	}
 
 		OperatePV(&scene);
 
@@ -166,11 +168,25 @@ void MainFunction(void)
 
 	case ALTER_DECK_SCENE:
 
-		ControlAlterDeck(&scene, magicKnightWordDatas, magicKnightDecks, choiseWordCollisionsVertex,
-			deckComponentCollisionsVertex, endAlterDeckVertices, backgroundVertices, wordDatasBackVertices, &deckNumToAlter, clickedWord);
-		RenderAlterDeck(choiseWordCollisionsVertex, deckComponentCollisionsVertex, endAlterDeckVertices,
-			backgroundVertices, wordDatasBackVertices, wordTexIds, magicKnightWordDatas, magicKnightDecks,&deckNumToAlter, clickedWord);
+		switch (playerType)
+		{
+		case WEAPON_MASTER:
+			ControlWeaponMasterAlterDeck(&scene, weaponMasterWords, weaponMasterWordDecks, choiseWMWordCollisionsVertex,
+				deckComponentCollisionsVertex, endAlterDeckVertices, backgroundVertices, wordDatasBackVertices, &deckNumToAlter, clickedWeaponMasterWord);
+			RenderWeaponMasterAlterDeck(choiseWMWordCollisionsVertex, deckComponentCollisionsVertex, endAlterDeckVertices,
+				backgroundVertices, wordDatasBackVertices, weaponMasterWordIds, weaponMasterWords, weaponMasterWordDecks, &deckNumToAlter, clickedWeaponMasterWord);
 
+			break;
+
+		case MAGIC_KNIGHT:
+			ControlAlterDeck(&scene, magicKnightWordDatas, magicKnightDecks, choiseWordCollisionsVertex,
+				deckComponentCollisionsVertex, endAlterDeckVertices, backgroundVertices, wordDatasBackVertices, &deckNumToAlter, clickedWord);
+			RenderAlterDeck(choiseWordCollisionsVertex, deckComponentCollisionsVertex, endAlterDeckVertices,
+				backgroundVertices, wordDatasBackVertices, wordTexIds, magicKnightWordDatas, magicKnightDecks, &deckNumToAlter, clickedWord);
+
+			break;
+		}
+		
 		break;
 
 	case MODIFY_WORD_SCENE:
