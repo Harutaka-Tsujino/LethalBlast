@@ -127,6 +127,7 @@
     <ClCompile Include="ControlBattle.cpp" />
     <ClCompile Include="ControlCharaChoice.cpp" />
     <ClCompile Include="ControlDeckChoice.cpp" />
+    <ClCompile Include="ControlEnemyAI.cpp" />
     <ClCompile Include="ControlGame.cpp" />
     <ClCompile Include="ControlHome.cpp" />
     <ClCompile Include="ControlHP.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="ControlBattle.h" />
     <ClInclude Include="ControlCharaChoice.h" />
     <ClInclude Include="ControlDeckChoice.h" />
+    <ClInclude Include="ControlEnemyAI.h" />
     <ClInclude Include="ControlGame.h" />
     <ClInclude Include="ControlHome.h" />
     <ClInclude Include="ControlHP.h" />

@@ -88,6 +88,9 @@
     <ClCompile Include="OperatePV.cpp">
       <Filter>ソース</Filter>
     </ClCompile>
+    <ClCompile Include="ControlEnemyAI.cpp">
+      <Filter>ソース</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderWordListsAndTyping.h">
@@ -178,6 +181,9 @@
       <Filter>ヘッダ</Filter>
     </ClInclude>
     <ClInclude Include="OperatePV.h">
+      <Filter>ヘッダ</Filter>
+    </ClInclude>
+    <ClInclude Include="ControlEnemyAI.h">
       <Filter>ヘッダ</Filter>
     </ClInclude>
   </ItemGroup>
