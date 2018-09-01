@@ -1,7 +1,6 @@
 ﻿#pragma once
 
 #include"WinMain.h"
-#include"ControlTitle.h"
 #include"DX9Lib.h"
 
 enum TITLETEX
@@ -29,7 +28,7 @@ enum TITLEFONT
 *メインのタイトルの描画関係の処理を行う関数
 *(引数1)SCENE* シーンを操作するため変数のアドレスを渡す
 */
-void TitleRender(SCENE *scene);
+void OperateTitle(SCENE *scene);
 
 /*
 *画像読み込みを行う関数

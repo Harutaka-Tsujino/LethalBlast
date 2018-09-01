@@ -1,8 +1,8 @@
-﻿#include"RenderTitle.h"
-#include<windows.h>
+﻿#include<windows.h>
 #include"DX9Lib.h"
+#include"OperateTitle.h"
 
-void TitleRender(SCENE *scene)
+void OperateTitle(SCENE *scene)
 {
 	static TEXTUREID textureIds[TITLE_TEX_MAX];
 	static FONTID fontIds[TITLE_FONT_MAX];
@@ -17,6 +17,24 @@ void TitleRender(SCENE *scene)
 	TitleRogoCanFadeIn(textureIds);
 
 	PressEnterFont(fontIds);
+
+	//クリックもしくはエンターを押したらゲーム画面に移行する
+	if (g_keyState.keyPush[DIK_RETURN] || g_mouseState.mousePush[LEFT_CLICK])
+	{
+		for (int tex =0;tex<TITLE_TEX_MAX;++tex)
+		{
+			SAFE_RELEASE(textureIds[tex]);
+		}
+
+		for (int font = 0; font < TITLE_FONT_MAX; ++font)
+		{
+			SAFE_RELEASE(fontIds[font]);
+		}
+
+		*scene = CHARA_CHOICE_SCENE;
+	}
+
+	return;
 }
 
 void TitleRenderInit(TEXTUREID* textureIds)

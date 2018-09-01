@@ -12,6 +12,7 @@ enum UI_TEX
 {
 	HP_BAR,
 	CT_BAR,
+	HP_FRAME,
 	UI_TEX_MAX
 };
 
