@@ -145,6 +145,8 @@ void ControlMagicKnightMainGame(SCENE* scene,WordData* pMagicKnightWordDatas, Ma
 	const float CIRCULATE_POS_X = DISPLAY_WIDTH * 1.3f;
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	static int degree = 0;
+
 	if (!(battleData->m_playerWon || battleData->m_enemyWon))
 	{
 		if (frameCount < 120)
@@ -163,7 +165,6 @@ void ControlMagicKnightMainGame(SCENE* scene,WordData* pMagicKnightWordDatas, Ma
 		else
 		{
 			/*手札のリストをずらす処理 開始*/
-			static int degree = 0;
 
 			if (g_keyState.keyHold[DIK_COMMA] || g_mouseState.directInputMouseState.lZ > 0)
 			{
@@ -381,13 +382,18 @@ void ControlMagicKnightMainGame(SCENE* scene,WordData* pMagicKnightWordDatas, Ma
 					maskFrameCount = 0;
 					effectFrameCount = 0;
 					*isClear = false;
+					initEnemy = true;
 					battleData->m_enemyWon = 0;
+					currentFloor = 0;
+					degree = 0;
 
 					*scene = HOME_SCENE;
 				}
 			}
 		}
 	}
+
+	const int STAGE_MAX[STAGE_MAX] = { 4,4,4 };
 
 	if (battleData->m_playerWon)
 	{
@@ -420,7 +426,13 @@ void ControlMagicKnightMainGame(SCENE* scene,WordData* pMagicKnightWordDatas, Ma
 					battleData->m_playerWon = 0;
 					initEnemy = true;
 
-					//*scene = HOME_SCENE;
+					if (currentFloor >= STAGE_MAX[selectedStage])
+					{
+						degree = 0;
+						frameCount = INIT_FRAME;
+						*scene = HOME_SCENE;
+						currentFloor = 0;
+					}
 				}
 			}
 		}

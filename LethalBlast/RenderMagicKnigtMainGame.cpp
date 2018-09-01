@@ -24,7 +24,7 @@ void RenderMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck*
 	static TEXTUREID uITexIds[UI_TEX_MAX];
 	static TEXTUREID effectTexIds[1];
 
-	static FONTID fontId;
+	static FONTID fontId[MK_MAIN_FONT_MAX];
 
 	static int frameCount = INIT_FRAME;
 
@@ -41,7 +41,8 @@ void RenderMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck*
 		RoadTexture("Texture/MainGame/mainBG.png", &stageTexIds[CAVE_STAGE]);
 		RoadTexture("Texture/MainGame/Enemy/Robot.png", &enemyTexIds[å√ë„ï∫äÌêlå^]);
 		RoadTexture("Texture/Effect/RazerAE.png", &effectTexIds[0]);
-		SetFont(DISPLAY_WIDTH / 70, DISPLAY_WIDTH / 48, "HGPñæí©B", &fontId, 0);
+		SetFont(DISPLAY_WIDTH / 70, DISPLAY_WIDTH / 48, "HGPñæí©B", &fontId[ENEMY_DATA_FONT], 0);
+		SetFont(DISPLAY_WIDTH / 35, DISPLAY_WIDTH / 24, "HGPñæí©B", &fontId[ENEMY_ACTION_FONT], 0);
 
 		frameCount = 0;
 	}
@@ -168,7 +169,7 @@ void RenderMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck*
 		DrawImage(cTVertices, collisionTestTexId[MK_SELECT_WORD_EFFECT_TEX]);
 	}
 
-	WriteText((int)(DISPLAY_WIDTH*0.1), (int)(DISPLAY_HEIGHT*0.03), pEnemyData.m_name, DT_CENTER, fontId, 0xFF111111);
+	WriteText((int)(DISPLAY_WIDTH*0.1), (int)(DISPLAY_HEIGHT*0.03), pEnemyData.m_name, DT_CENTER, fontId[ENEMY_DATA_FONT], 0xFF111111);
 
 	static int enemyEfCnt = -150;
 
@@ -192,7 +193,7 @@ void RenderMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck*
 
 		else
 		{
-			WriteText((int)(DISPLAY_WIDTH*0.5f), (int)(DISPLAY_HEIGHT*0.6f), pEnemyData.m_enemyAction[enemyActionNum].m_name, DT_CENTER, fontId,0xFFc1c1c1);
+			WriteText((int)(DISPLAY_WIDTH*0.5f), (int)(DISPLAY_HEIGHT*0.6f), pEnemyData.m_enemyAction[enemyActionNum].m_name, DT_CENTER, fontId[ENEMY_ACTION_FONT],0xFFFFFFFF);
 		}
 
 		if (enemyEfCnt < AN_X_NUM*AN_Y_NUM*AN_BLANK)
