@@ -255,13 +255,14 @@ void MainFunction(void)
 				&battleData, enemyActionNum, &isClear, resultMask, stageData, enemyData, selectedStage);
 
 			RenderMagicKnightMainGame(magicKnightWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
-				&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex, wordTexIds, hominEffect, resultMask);
+				&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex, 
+				wordTexIds, hominEffect, resultMask, &battleData, enemyActionNum, selectedStage, enemyData[battleData.m_enemyId]);
 
 			break;
 		}
 
-		ControlHP(player, enemy, &playerATKDamage, (PLAYERTYPE)playerType, enemyType,&frameCount,&CTCount, &magicKnightAction, magicKnightWordDatas);
-		RenderHP(player, enemy,&frameCount,&CTCount);
+		//ControlHP(player, enemy, &playerATKDamage, (PLAYERTYPE)playerType, enemyType,&frameCount,&CTCount, &magicKnightAction, magicKnightWordDatas);
+		//RenderHP(player, enemy,&frameCount,&CTCount);
 		
 		break;
 

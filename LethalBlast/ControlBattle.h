@@ -37,6 +37,7 @@ typedef struct
 	bool m_draw;
 	int m_elementEffectId;
 	int m_attackEffectId;
+	int m_enemyId;
 	UINT m_playerDamage;
 	UINT m_enemyDamage;
 }VSData;

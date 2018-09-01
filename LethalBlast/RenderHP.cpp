@@ -58,7 +58,7 @@ void RenderPlayerHP(PlayerState* pPlayer, TEXTUREID* pTextureIds)
 	float playerMoveX = -((pPlayer->m_maxHP - pPlayer->m_HP) / pPlayer->m_maxHP / 2 * 200);
 
 	CustomVertex playerHPSrc[4];
-
+	
 	CustomImageVerticies(playerHPSrc, 150.f, 600.f, 100.f, 20.f, GetColor(255, 0, 255, 0));
 
 	CustomVertex playerHPMoved[4];
