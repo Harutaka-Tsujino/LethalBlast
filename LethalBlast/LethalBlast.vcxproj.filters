@@ -34,9 +34,6 @@
     <ClCompile Include="ControlStageSelect.cpp">
       <Filter>ソース</Filter>
     </ClCompile>
-    <ClCompile Include="ControlTitle.cpp">
-      <Filter>ソース</Filter>
-    </ClCompile>
     <ClCompile Include="ControlWeaponMasterAction.cpp">
       <Filter>ソース</Filter>
     </ClCompile>
@@ -50,9 +47,6 @@
       <Filter>ソース</Filter>
     </ClCompile>
     <ClCompile Include="RenderModifyWord.cpp">
-      <Filter>ソース</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderTitle.cpp">
       <Filter>ソース</Filter>
     </ClCompile>
     <ClCompile Include="RenderCharaChoice.cpp">
@@ -89,6 +83,9 @@
       <Filter>ソース</Filter>
     </ClCompile>
     <ClCompile Include="ControlEnemyAI.cpp">
+ <Filter>ソース</Filter>
+    </ClCompile>
+    <ClCompile Include="OperateTitle.cpp">
       <Filter>ソース</Filter>
     </ClCompile>
   </ItemGroup>
@@ -106,9 +103,6 @@
       <Filter>ヘッダ</Filter>
     </ClInclude>
     <ClInclude Include="RenderStageSelect.h">
-      <Filter>ヘッダ</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderTitle.h">
       <Filter>ヘッダ</Filter>
     </ClInclude>
     <ClInclude Include="RenderWeaponMasterAction.h">
@@ -147,9 +141,6 @@
     <ClInclude Include="ControlStageSelect.h">
       <Filter>ヘッダ</Filter>
     </ClInclude>
-    <ClInclude Include="ControlTitle.h">
-      <Filter>ヘッダ</Filter>
-    </ClInclude>
     <ClInclude Include="ControlWeaponMasterAction.h">
       <Filter>ヘッダ</Filter>
     </ClInclude>
@@ -184,6 +175,9 @@
       <Filter>ヘッダ</Filter>
     </ClInclude>
     <ClInclude Include="ControlEnemyAI.h">
+  <Filter>ヘッダ</Filter>
+    </ClInclude>
+    <ClInclude Include="OperateTitle.h">
       <Filter>ヘッダ</Filter>
     </ClInclude>
   </ItemGroup>

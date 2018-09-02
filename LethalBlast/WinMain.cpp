@@ -4,18 +4,14 @@
 #include"ControlGame.h"
 #include"RenderGame.h"
 #include"WinMain.h"
-#include"ControlTitle.h"
-#include"RenderTitle.h"
+#include"OperateTitle.h"
 #include"OperatePV.h"
 #include"ControlCharaChoice.h"
 #include"RenderCharaChoice.h"
-//#include"ControlWordListsAndTyping.h"
-//#include"RenderWordListsAndTyping.h"
 #include"ControlHP.h"
 #include"RenderHP.h"
 #include"ControlWeaponMasterAction.h"
 #include"RenderWeaponMasterAction.h"
-
 #include"ControlDeckChoice.h"
 #include"RenderDeckChoice.h"
 #include"ControlMagicKnightMainGame.h"
@@ -42,7 +38,6 @@ void MainFunction(void)
 
 	static TEXTUREID textureIds[ALL_TEX_MAX];
 	static FONTID fontIds[ALL_FONT_MAX];
-
 
 	static WeaponMasterWordData weaponMasterWords[WEAPON_MASTER_WORD_MAX];
 	static WeaponMasterDeck weaponMasterWordDecks[WEAPON_MASTER_DECK_MAX];
@@ -129,8 +124,7 @@ void MainFunction(void)
 
 	case TITLE_SCENE:
 
-		TitleContorol(&scene);
-		TitleRender(&scene);
+		OperateTitle(&scene);
 
 		break;
 
@@ -255,13 +249,14 @@ void MainFunction(void)
 				&battleData, enemyActionNum, &isClear, resultMask, stageData, enemyData, selectedStage);
 
 			RenderMagicKnightMainGame(magicKnightWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
-				&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex, wordTexIds, hominEffect, resultMask);
+				&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex, 
+				wordTexIds, hominEffect, resultMask, &battleData, enemyActionNum, selectedStage, enemyData[battleData.m_enemyId]);
 
 			break;
 		}
 
-		ControlHP(player, enemy, &playerATKDamage, (PLAYERTYPE)playerType, enemyType,&frameCount,&CTCount, &magicKnightAction, magicKnightWordDatas);
-		RenderHP(player, enemy,&frameCount,&CTCount);
+		//ControlHP(player, enemy, &playerATKDamage, (PLAYERTYPE)playerType, enemyType,&frameCount,&CTCount, &magicKnightAction, magicKnightWordDatas);
+		//RenderHP(player, enemy,&frameCount,&CTCount);
 		
 		break;
 

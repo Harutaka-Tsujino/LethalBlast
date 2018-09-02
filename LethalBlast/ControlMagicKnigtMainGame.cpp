@@ -122,7 +122,7 @@ void ControlMagicKnightMainGame(SCENE* scene,WordData* pMagicKnightWordDatas, Ma
 	{
 		ZeroMemory(battleData, sizeof(VSData));
 
-		currentEnemyId = pStageData[selectedStage].m_enemyId[currentFloor];
+		battleData->m_enemyId = currentEnemyId = pStageData[selectedStage].m_enemyId[currentFloor];
 		battleData->m_cTBlank = pEnemyData[currentEnemyId].m_cTBlank;
 		battleData->m_cTMax = pEnemyData[currentEnemyId].m_cTNum;
 
@@ -145,6 +145,8 @@ void ControlMagicKnightMainGame(SCENE* scene,WordData* pMagicKnightWordDatas, Ma
 	const float CIRCULATE_POS_X = DISPLAY_WIDTH * 1.3f;
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	static int degree = 0;
+
 	if (!(battleData->m_playerWon || battleData->m_enemyWon))
 	{
 		if (frameCount < 120)
@@ -163,7 +165,6 @@ void ControlMagicKnightMainGame(SCENE* scene,WordData* pMagicKnightWordDatas, Ma
 		else
 		{
 			/*手札のリストをずらす処理 開始*/
-			static int degree = 0;
 
 			if (g_keyState.keyHold[DIK_COMMA] || g_mouseState.directInputMouseState.lZ > 0)
 			{
@@ -355,51 +356,84 @@ void ControlMagicKnightMainGame(SCENE* scene,WordData* pMagicKnightWordDatas, Ma
 
 	if (battleData->m_enemyWon)
 	{
-		static int maskFrameCount = 0;
+		static int effectFrameCount = 0;
 
-		GetCustomVerTexColor(resultMask, GetColor(4 * maskFrameCount, 0, 0, 0));
-
-		if (maskFrameCount < MASK_FRAME_MAX)
+		if (effectFrameCount < 600)
 		{
-			++maskFrameCount;
+			++effectFrameCount;
 		}
-		
+
 		else
 		{
-			if (g_mouseState.mousePush[LEFT_CLICK] || g_keyState.keyPush[DIK_RETURN])
-			{
-				frameCount = INIT_FRAME;
-				maskFrameCount = 0;
-				*isClear = false;
-				battleData->m_enemyWon = 0;
+			static int maskFrameCount = 0;
 
-				*scene = HOME_SCENE;
+			GetCustomVerTexColor(resultMask, GetColor(4 * maskFrameCount, 0, 0, 0));
+
+			if (maskFrameCount < MASK_FRAME_MAX)
+			{
+				++maskFrameCount;
+			}
+
+			else
+			{
+				if (g_mouseState.mousePush[LEFT_CLICK] || g_keyState.keyPush[DIK_RETURN])
+				{
+					frameCount = INIT_FRAME;
+					maskFrameCount = 0;
+					effectFrameCount = 0;
+					*isClear = false;
+					initEnemy = true;
+					battleData->m_enemyWon = 0;
+					currentFloor = 0;
+					degree = 0;
+
+					*scene = HOME_SCENE;
+				}
 			}
 		}
 	}
 
+	const int STAGE_MAX[STAGE_MAX] = { 4,4,4 };
+
 	if (battleData->m_playerWon)
 	{
-		static int maskFrameCount = 0;
+		static int effectFrameCount = 0;
 
-		GetCustomVerTexColor(resultMask, GetColor(4 * maskFrameCount, 0, 0, 0));
-
-		if (maskFrameCount < MASK_FRAME_MAX)
+		if (effectFrameCount < 600)
 		{
-			++maskFrameCount;
+			++effectFrameCount;
 		}
 
 		else
 		{
-			if (g_mouseState.mousePush[LEFT_CLICK] || g_keyState.keyPush[DIK_RETURN])
-			{
-				//frameCount = INIT_FRAME;
-				maskFrameCount = 0;
-				*isClear = true;
-				battleData->m_playerWon = 0;
-				initEnemy = true;
+			static int maskFrameCount = 0;
 
-				//*scene = HOME_SCENE;
+			GetCustomVerTexColor(resultMask, GetColor(4 * maskFrameCount, 0, 0, 0));
+
+			if (maskFrameCount < MASK_FRAME_MAX)
+			{
+				++maskFrameCount;
+			}
+
+			else
+			{
+				if (g_mouseState.mousePush[LEFT_CLICK] || g_keyState.keyPush[DIK_RETURN])
+				{
+					frameCount = 120;
+					maskFrameCount = 0;
+					effectFrameCount = 0;
+					*isClear = true;
+					battleData->m_playerWon = 0;
+					initEnemy = true;
+
+					if (currentFloor >= STAGE_MAX[selectedStage])
+					{
+						degree = 0;
+						frameCount = INIT_FRAME;
+						*scene = HOME_SCENE;
+						currentFloor = 0;
+					}
+				}
 			}
 		}
 	}

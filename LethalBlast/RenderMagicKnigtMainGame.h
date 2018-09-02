@@ -8,9 +8,24 @@ enum MK_MAIN_GAME_TEX
 	MK_MAIN_GAME_TEX_MAX,
 };
 
+enum UI_TEX
+{
+	HP_BAR,
+	CT_BAR,
+	HP_FRAME,
+	UI_TEX_MAX
+};
+
+enum MK_MAIN_FONT
+{
+	ENEMY_DATA_FONT,
+	ENEMY_ACTION_FONT,
+	MK_MAIN_FONT_MAX
+};
+
 void RenderMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck* pMagicKnightDecks,
 	MagicKnightPlayingDeck* pMagicKnightPlayingDeck, MagicKnightAction* pMagicKnightAction,
-	ImagesCustomVertex* pHandWordCollisionsVertex, ImagesCustomVertex* pMagicKnightActionCollisionsVertex, TEXTUREID* wordTexIds, HomingEffect* pHominEffect,
-	CustomVertex* resultMask);
+	ImagesCustomVertex* pHandWordCollisionsVertex, ImagesCustomVertex* pMagicKnightActionCollisionsVertex, TEXTUREID* wordTexIds,
+	HomingEffect* pHominEffect, CustomVertex* resultMask, VSData* battleData, int enemyActionNum, int selectedStage, EnemyST pEnemyData);
 
 void RenderWhileLoad(SCENE* scene, SCENE destScene, TEXTUREID* wordTexIds);

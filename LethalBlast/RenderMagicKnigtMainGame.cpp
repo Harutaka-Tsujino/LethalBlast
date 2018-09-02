@@ -5,6 +5,7 @@
 #include"ControlCharaChoice.h"
 #include"ControlMagicKnightMainGame.h"
 #include"RenderMagicKnigtMainGame.h"
+#include"ControlBattle.h"
 
 //static MagicKnightDeck magicKnightDecks[MAGIC_KNIGHT_DECKS_MAX];
 //static MagicKnightPlayingDeck magicKnightPlayingDeck;
@@ -14,10 +15,17 @@
 
 void RenderMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck* pMagicKnightDecks,
 	MagicKnightPlayingDeck* pMagicKnightPlayingDeck, MagicKnightAction* pMagicKnightAction,
-	ImagesCustomVertex* pHandWordCollisionsVertex, ImagesCustomVertex* pMagicKnightActionCollisionsVertex, TEXTUREID* wordTexIds, HomingEffect* pHominEffect,
-	CustomVertex* resultMask)
+	ImagesCustomVertex* pHandWordCollisionsVertex, ImagesCustomVertex* pMagicKnightActionCollisionsVertex, TEXTUREID* wordTexIds, 
+	HomingEffect* pHominEffect,CustomVertex* resultMask, VSData* battleData, int enemyActionNum, int selectedStage, EnemyST pEnemyData)
 {
 	static TEXTUREID collisionTestTexId[MK_MAIN_GAME_TEX_MAX];
+	static TEXTUREID enemyTexIds[ENEMY_MAX];
+	static TEXTUREID stageTexIds[STAGE_MAX];
+	static TEXTUREID uITexIds[UI_TEX_MAX];
+	static TEXTUREID effectTexIds[1];
+
+	static FONTID fontId[MK_MAIN_FONT_MAX];
+
 	static int frameCount = INIT_FRAME;
 
 	if (frameCount == INIT_FRAME)
@@ -25,9 +33,29 @@ void RenderMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck*
 		RoadTexture("texture/MainGame/WordUnderBoard.png", &collisionTestTexId[MK_UNDER_WORD_BOARD]);
 		RoadTexture("texture/MainGame/MKActionWordFrame.png", &collisionTestTexId[MK_ACTION_WORD_FRAME]);
 		RoadTexture("Texture/MainGame/HP/ct.png", &collisionTestTexId[MK_SELECT_WORD_EFFECT_TEX]);
+		RoadTexture("Texture/MainGame/HP/HP.png",&uITexIds[HP_BAR]);
+		RoadTexture("Texture/MainGame/HP/CTCount.png", &uITexIds[CT_BAR]);
+		RoadTexture("Texture/MainGame/HP/HPFrame.png", &uITexIds[HP_FRAME]);
+		RoadTexture("Texture/MainGame/mainBG.png", &stageTexIds[FOREST_STAGE]);
+		RoadTexture("Texture/MainGame/mainBG.png", &stageTexIds[RUIN_STAGE]);
+		RoadTexture("Texture/MainGame/mainBG.png", &stageTexIds[CAVE_STAGE]);
+		RoadTexture("Texture/MainGame/Enemy/Robot.png", &enemyTexIds[ŒÃ‘ã•ºŠílŒ^]);
+		RoadTexture("Texture/Effect/RazerAE.png", &effectTexIds[0]);
+		SetFont(DISPLAY_WIDTH / 70, DISPLAY_WIDTH / 48, "HGP–¾’©B", &fontId[ENEMY_DATA_FONT], 0);
+		SetFont(DISPLAY_WIDTH / 35, DISPLAY_WIDTH / 24, "HGP–¾’©B", &fontId[ENEMY_ACTION_FONT], 0);
 
 		frameCount = 0;
 	}
+
+	CustomVertex back[4];
+	CustomImageVerticies(back, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f);
+
+	DrawImage(back, stageTexIds[selectedStage]);
+
+	CustomVertex enemyVertices[4];
+	CustomImageVerticies(enemyVertices, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT * 0.5f, DISPLAY_WIDTH / 6.f, DISPLAY_WIDTH / 6.f, GetColor(255, 229, 220, 220));
+
+	DrawImage(enemyVertices, enemyTexIds[(battleData->m_enemyId)]);
 
 	for (int handWord = 0; handWord < HAND_WORD_MAX; ++handWord)
 	{
@@ -112,6 +140,71 @@ void RenderMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck*
 	if (frameCount < 120)
 	{
 		frameCount++;
+	}
+
+	CustomVertex barVertices[4];
+	CustomImageVerticies(barVertices, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT*0.05f, DISPLAY_WIDTH*0.3f, DISPLAY_HEIGHT*0.02f, 0xFFFFFFFF, 
+		0.5f*battleData->m_playerWon, 0.f, 0.5f, 1.f, 1.f, 1.f);
+
+	DrawImage(barVertices, uITexIds[HP_BAR]);
+
+	CustomImageVerticies(barVertices, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT*0.05f, DISPLAY_WIDTH*0.3f, DISPLAY_HEIGHT*0.02f);
+
+	DrawImage(barVertices, uITexIds[HP_FRAME]);
+
+	CustomImageVerticies(barVertices, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT*0.11f, DISPLAY_WIDTH*0.3f, DISPLAY_HEIGHT*0.02f, 0xFFFFFFFF,
+		0.5f*(1.f - battleData->m_cTCurrentCount / (float)(battleData->m_cTBlank)), 0.f, 0.5f, 1.f, 1.f, 1.f);
+	
+	DrawImage(barVertices, uITexIds[CT_BAR]);
+
+	CustomImageVerticies(barVertices, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT*0.11f, DISPLAY_WIDTH*0.3f, DISPLAY_HEIGHT*0.02f);
+
+	DrawImage(barVertices, uITexIds[HP_FRAME]);
+
+	CustomVertex cTVertices[4];
+	for (int cTNum = 0; cTNum < battleData->m_cT; ++cTNum)
+	{
+		CustomImageVerticies(cTVertices, DISPLAY_WIDTH*0.216f+(DISPLAY_HEIGHT*0.07f*cTNum), DISPLAY_HEIGHT*0.18f, DISPLAY_HEIGHT*0.03f, DISPLAY_HEIGHT*0.03f, GetColor(frameAlpha, 255, 255, 255));
+
+		DrawImage(cTVertices, collisionTestTexId[MK_SELECT_WORD_EFFECT_TEX]);
+	}
+
+	WriteText((int)(DISPLAY_WIDTH*0.1), (int)(DISPLAY_HEIGHT*0.03), pEnemyData.m_name, DT_CENTER, fontId[ENEMY_DATA_FONT], 0xFF111111);
+
+	static int enemyEfCnt = -150;
+
+	if (battleData->m_enemyWon)
+	{
+		CustomVertex EFVertices[RECT_VERTEX_NUM];
+
+		const int AN_BLANK = 3;
+		const float EF_SCALE = DISPLAY_HEIGHT * 1.5f;
+		const int AN_X_NUM = 10;
+		const int AN_Y_NUM = 10;
+
+		if (enemyEfCnt >= 0)
+		{
+			CustomImageVerticies(EFVertices, DISPLAY_WIDTH*0.5f, DISPLAY_HEIGHT*0.5f, EF_SCALE, EF_SCALE, GetColor(240, 255, 25, 25),
+				2 * EF_SCALE*((enemyEfCnt % (AN_BLANK*AN_X_NUM)) / AN_BLANK), 2 * EF_SCALE*((enemyEfCnt % (AN_BLANK*AN_X_NUM*AN_Y_NUM)) / (AN_BLANK * AN_X_NUM)),
+				2 * EF_SCALE, 2 * EF_SCALE, AN_X_NUM * 2 * EF_SCALE, AN_X_NUM * 2 * EF_SCALE);
+
+			DrawImage(EFVertices, effectTexIds[0]);
+		}
+
+		else
+		{
+			WriteText((int)(DISPLAY_WIDTH*0.5f), (int)(DISPLAY_HEIGHT*0.6f), pEnemyData.m_enemyAction[enemyActionNum].m_name, DT_CENTER, fontId[ENEMY_ACTION_FONT],0xFFFFFFFF);
+		}
+
+		if (enemyEfCnt < AN_X_NUM*AN_Y_NUM*AN_BLANK)
+		{
+			++enemyEfCnt;
+		}
+	}
+
+	else
+	{
+		enemyEfCnt = -150;
 	}
 
 	DrawImage(resultMask, NULL);
