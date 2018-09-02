@@ -2,11 +2,12 @@
 #include"WinMain.h"
 #include"ControlCharaChoice.h"
 #include"ControlMagicKnightMainGame.h"
+#include"ControlWeaponMasterAction.h"
 #include"ControlGame.h"
 #include"RenderHome.h"
 
 void RenderHome(SCENE* scene, CustomVertex* deckAlterPortal, CustomVertex* modifyWordPortal,
-	CustomVertex* mainGamePortal, CustomVertex* charaChoicePortal, TEXTUREID* wordTexIds, PLAYERTYPE* playerType)
+	CustomVertex* mainGamePortal, CustomVertex* charaChoicePortal, TEXTUREID* wordTexIds, TEXTUREID* weaponMasterWordIds,PLAYERTYPE* playerType,bool* initializedTex)
 {
 	static int frameCount = -1;
 
@@ -28,7 +29,7 @@ void RenderHome(SCENE* scene, CustomVertex* deckAlterPortal, CustomVertex* modif
 		{
 			pageLife[page] = rand() % PAGE_LIFE;
 
-			pageTexture[page] = NULL;
+			SAFE_RELEASE(pageTexture[page])
 		}
 
 		RoadTexture("Texture/Home/AlterDeckPortal.png", &homeTextures[ALTER_PORTAL_TEX]);
@@ -153,7 +154,7 @@ void RenderHome(SCENE* scene, CustomVertex* deckAlterPortal, CustomVertex* modif
 	const int RAND_NUM_WIDTH = 5;
 	const int RAND_NUM_UNDER = 4;
 
-	if (*playerType == MAGIC_KNIGHT)
+	if (*playerType == MAGIC_KNIGHT && (*initializedTex))
 	{
 		for (int page = 0; page < PAGE_MAX; ++page)
 		{
@@ -203,6 +204,59 @@ void RenderHome(SCENE* scene, CustomVertex* deckAlterPortal, CustomVertex* modif
 		}
 	}
 
+	if (*playerType == WEAPON_MASTER&& (*initializedTex))
+	{
+		const float WM_WORD_SCALE_X = 9.f;
+		const float WM_WORD_SCALE_Y = 6.5f;
+
+		for (int page = 0; page < PAGE_MAX; ++page)
+		{
+			if (pageLife[page] == 0)
+			{
+				pageLife[page] = PAGE_LIFE;
+
+				int randNum = rand() % RAND_NUM_WIDTH + RAND_NUM_UNDER;
+
+				pageScale[page].m_x = (double)WM_WORD_SCALE_X* randNum;
+				pageScale[page].m_y = (double)WM_WORD_SCALE_Y* randNum;
+
+				CustomImageVerticies(pageVertices[page].ImageVertex, (float)(rand() % DISPLAY_WIDTH), (float)(rand() % DISPLAY_HEIGHT), 0, (float)pageScale[page].m_y, GetColor(0, 255, 255, 255));
+
+				pageTexture[page] = weaponMasterWordIds[rand() % (WEAPON_MASTER_WORD_MAX - 1) + 1];
+			}
+
+			if (!pageTexture[page])
+			{
+				continue;
+			}
+
+			if (pageLife[page] >= (PAGE_LIFE - PAGE_LIFE_HEYDAY))
+			{
+				for (int vertices = 1; vertices < RECT_VERTEX_NUM - 1; ++vertices)
+				{
+					pageVertices[page].ImageVertex[vertices].m_x += ((float)pageScale[page].m_x*(1.f / PAGE_LIFE_HEYDAY));
+				}
+
+				for (int vertices = 0; vertices < RECT_VERTEX_NUM; ++vertices)
+				{
+					pageVertices[page].ImageVertex[vertices].m_color = GetColor((UCHAR)(ALPHA_MAX * (1.f - ((float)(pageLife[page] - PAGE_LIFE + PAGE_LIFE_HEYDAY) / PAGE_LIFE_HEYDAY))), 255, 255, 255);
+				}
+
+				SetImageTuTv(pageVertices[page].ImageVertex, pageVertices[page].ImageVertex, 0.f, 0.f, (float)pageScale[page].m_x * (1.f - (float)(pageLife[page] - PAGE_LIFE + PAGE_LIFE_HEYDAY) / PAGE_LIFE_HEYDAY), 1.f, (float)pageScale[page].m_x, 1.f);
+			}
+
+			else
+			{
+				for (int vertices = 0; vertices < RECT_VERTEX_NUM; ++vertices)
+				{
+					pageVertices[page].ImageVertex[vertices].m_color = GetColor((UCHAR)(ALPHA_MAX * (float)(pageLife[page] / (float)(PAGE_LIFE - PAGE_LIFE_HEYDAY))), 0, 0,0);
+				}
+			}
+
+			DrawImage(pageVertices[page].ImageVertex, pageTexture[page]);
+		}
+	}
+
 	CustomVertex MainChara[RECT_VERTEX_NUM];
 	CustomImageVerticies(MainChara, DISPLAY_WIDTH / 4.f, DISPLAY_HEIGHT * 0.56f, DISPLAY_WIDTH / 4.f, DISPLAY_WIDTH / 4.f,GetColor(255,229,220,220));
 
@@ -223,7 +277,7 @@ void RenderHome(SCENE* scene, CustomVertex* deckAlterPortal, CustomVertex* modif
 		frameCount++;
 	}
 
-	if (*scene != HOME_SCENE)
+	if ((*scene) != HOME_SCENE)
 	{
 		frameCount = 0;
 
@@ -231,7 +285,7 @@ void RenderHome(SCENE* scene, CustomVertex* deckAlterPortal, CustomVertex* modif
 		{
 			pageLife[page] = rand() % PAGE_LIFE;
 
-			pageTexture[page] = NULL;
+			pageTexture[page]=NULL;
 
 			ZeroMemory(backFrameCount, sizeof(int)*BACK_NUM);
 		}

@@ -148,10 +148,7 @@ void MainFunction(void)
 			weaponMasterWords, weaponMasterWordDecks,
 			deckAlterPortal, modifyWordPortal, mainGamePortal, charaChoicePortal, wordTexIds, weaponMasterWordIds, &playerType, &initializedTex);
 
-		if (initializedTex)
-		{
-			RenderHome(&scene, deckAlterPortal, modifyWordPortal, mainGamePortal, charaChoicePortal, wordTexIds, &playerType);
-		}
+		RenderHome(&scene, deckAlterPortal, modifyWordPortal, mainGamePortal, charaChoicePortal, wordTexIds, weaponMasterWordIds, &playerType,&initializedTex);
 
 		break;
 
