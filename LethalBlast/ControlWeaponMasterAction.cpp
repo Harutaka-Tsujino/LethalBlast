@@ -171,30 +171,11 @@ void ControlWeaponMasterAction(WeaponMasterWordData* pWeaponMasterWordData, Weap
 			//ŽèŽD‚ÌˆÊ’u
 			pWeaponMasterActionDatas->m_handPos[weaponMasterActionWordSpace] = wordLists;
 
-			//•KŽE‹Z
-			for (int actionConponentWord = 0; actionConponentWord < WEAPON_MASTER_ACTION_LISTS; ++actionConponentWord)
-			{
-				//“–‚½‚Á‚Ä‚¢‚È‚©‚Á‚½‚ç
-				if (!RectToRectCollisionCheak(mouseState, pWeaponMasterAction[actionConponentWord].ImageVertex))
-				{
-					continue;
-				}
-
-				if (pWeaponMasterActionDatas->m_componentWordIds[actionConponentWord] == (WEAPON_MASTER_WORD_LISTS)NULL)
-				{
-					break;
-				}
-
-				//ƒŠƒ€[ƒu
-				pWeaponMasterDeck->m_wordIds[(pWeaponMasterActionDatas->m_handPos[actionConponentWord])] = pWeaponMasterActionDatas->m_componentWordIds[actionConponentWord];
-				pWeaponMasterActionDatas->m_componentWordIds[actionConponentWord] = (WEAPON_MASTER_WORD_LISTS)NULL;
-				pWeaponMasterActionDatas->m_handPos[actionConponentWord] = 0;
-			}
-
 		}
 
-		WeaponMasterInputInfoToAction(pWeaponMasterDeck, pWeaponMasterActionDatas, pWeaponMasterAction, mouseState);
 	}
+
+	WeaponMasterInputInfoToAction(pWeaponMasterDeck, pWeaponMasterActionDatas, pWeaponMasterAction, mouseState);
 
 	if (g_mouseState.mousePush[RIGHT_CLICK] || g_keyState.keyPush[DIK_RETURN])
 	{
