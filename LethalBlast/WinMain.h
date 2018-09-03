@@ -145,3 +145,9 @@ extern SCENE scene;
 
 //メッセージループでループさせる関数
 void MainFunction(void);
+
+//サウンドを追加する
+extern SoundLib::SoundsManager soundsManager;
+
+//音声ファイルのオンオフ
+extern bool isSuccess;

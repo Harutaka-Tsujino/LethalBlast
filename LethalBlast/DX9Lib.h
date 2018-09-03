@@ -13,6 +13,7 @@
 #include <dinput.h>
 #include <memory.h>
 #include "DX9Lib.h"
+#include"SoundLib/Headers/SoundsManager.h"
 
 #pragma comment(lib,"d3dx9d.lib")
 #pragma comment(lib,"d3d9.lib")
@@ -20,6 +21,14 @@
 #pragma comment(lib,"dxguid.lib")
 #pragma comment(lib,"winmm.lib")
 #pragma comment(lib,"DX9Lib/DirectX9Library.lib")
+
+#ifdef _DEBUG
+#pragma comment(lib,"SoundLib/Debug/SoundLib.lib")
+
+#else 
+#pragma comment(lib,"SoundLib/Release/SoundLib.lib")
+#endif // DEBUG
+
 
 #define DISPLAY_WIDTH 1920
 #define DISPLAY_HEIGHT 1080

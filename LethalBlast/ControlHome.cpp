@@ -30,6 +30,7 @@ void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, MagicKnightDeck*
 			WeaponMasterLoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck7.csv", 6);
 			WeaponMasterLoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck8.csv", 7);
 			LordTextureWeaponMaster(weaponMasterWordIds);
+			isSuccess = soundsManager.AddFile("Audio/perusona.mp3", _T("bgm"));
 
 			*initializedTex = true;
 		}
@@ -49,6 +50,7 @@ void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, MagicKnightDeck*
 			LoadDeck(pMagicKnightWordDatas, pMagicKnightDecks, "Files/Deck/MKDeck6.csv", 5);
 			LoadDeck(pMagicKnightWordDatas, pMagicKnightDecks, "Files/Deck/MKDeck7.csv", 6);
 			LoadDeck(pMagicKnightWordDatas, pMagicKnightDecks, "Files/Deck/MKDeck8.csv", 7);
+			isSuccess = soundsManager.AddFile("Audio/perusona.mp3", _T("bgm"));
 
 			RoadTexture("Texture/MKWord/VOID_WORD.png", &wordTexIds[VOID_WORD]);
 
@@ -72,6 +74,8 @@ void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, MagicKnightDeck*
 		break;
 	}
 
+	isSuccess = soundsManager.Start(_T("bgm"), true);
+
 	//マウスカーソル
 	CustomVertex mouseCursorCollisionVertex[RECT_VERTEX_NUM];
 
@@ -86,6 +90,7 @@ void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, MagicKnightDeck*
 		if (RectToRectCollisionCheak(mouseCursorCollisionVertex, pMainGamePortal))
 		{
 			*scene = SELECT_STAGE_SCENE;
+			isSuccess = soundsManager.Stop(_T("bgm"));
 		}
 	}
 
@@ -101,6 +106,7 @@ void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, MagicKnightDeck*
 		if (RectToRectCollisionCheak(mouseCursorCollisionVertex, pDeckAlterPortal))
 		{
 			*scene = CHOSE_DECK_TO_ALTER_SCENE;
+			isSuccess = soundsManager.Stop(_T("bgm"));
 		}
 	}
 
@@ -113,6 +119,7 @@ void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, MagicKnightDeck*
 		if (RectToRectCollisionCheak(mouseCursorCollisionVertex, pModifyWordPortal))
 		{
 			*scene = MODIFY_WORD_SCENE;
+			isSuccess = soundsManager.Stop(_T("bgm"));
 		}
 	}
 
@@ -123,6 +130,8 @@ void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, MagicKnightDeck*
 		if (RectToRectCollisionCheak(mouseCursorCollisionVertex, pCharaChoicePortal))
 		{
 			*scene = CHARA_CHOICE_SCENE;
+
+			isSuccess = soundsManager.Stop(_T("bgm"));
 
 			*initializedTex = false;
 
@@ -353,7 +362,7 @@ void LoadWeaponMasterWordDatas(WeaponMasterWordData* pWeaponMasterWordDatas)
 
 	fopen_s(&pWordStatesFile, "Files/WordStates/WeaponMasterWordStates.csv", "r");
 
-	memset(pWeaponMasterWordDatas, 0, sizeof(WordData)*MAGIC_KNIGHT_WORD_MAX);
+	memset(pWeaponMasterWordDatas, 0, sizeof(WordData)*WEAPON_MASTER_WORD_MAX);
 
 	//ウェポンマスターのワードデーターを入れていく
 	for (int wordsNum = SPACE_WORD + 1; wordsNum < WEAPON_MASTER_WORD_MAX; ++wordsNum)

@@ -26,6 +26,10 @@
 #include"RenderStageSelect.h"
 #include"OperateResult.h"
 
+SoundLib::SoundsManager soundsManager;
+//音声の初期化
+bool isSuccess = soundsManager.Initialize();
+
 INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdShow)
 {
 	return CreateWindowAndRepeatToControlAndRender(hInst, "Lethal Blast", MainFunction, DISPLAY_WIDTH, DISPLAY_HEIGHT, TRUE , FALSE);
@@ -263,6 +267,6 @@ void MainFunction(void)
 
 		break;
 	}
-	
+
 	return;
 }
