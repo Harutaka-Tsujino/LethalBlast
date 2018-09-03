@@ -134,6 +134,7 @@
     <ClCompile Include="ControlItemDrop.cpp" />
     <ClCompile Include="ControlMagicKnigtMainGame.cpp" />
     <ClCompile Include="ControlModifyWord.cpp" />
+    <ClCompile Include="OperateBattle.cpp" />
     <ClCompile Include="OperateResult.cpp" />
     <ClCompile Include="ControlStageSelect.cpp" />
     <ClCompile Include="ControlWeaponMasterAction.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="ControlItemDrop.h" />
     <ClInclude Include="ControlMagicKnightMainGame.h" />
     <ClInclude Include="ControlModifyWord.h" />
+    <ClInclude Include="OperateBattle.h" />
     <ClInclude Include="OperateResult.h" />
     <ClInclude Include="ControlStageSelect.h" />
     <ClInclude Include="ControlWeaponMasterAction.h" />

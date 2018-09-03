@@ -83,9 +83,12 @@
       <Filter>ソース</Filter>
     </ClCompile>
     <ClCompile Include="ControlEnemyAI.cpp">
- <Filter>ソース</Filter>
+      <Filter>ソース</Filter>
     </ClCompile>
     <ClCompile Include="OperateTitle.cpp">
+      <Filter>ソース</Filter>
+    </ClCompile>
+    <ClCompile Include="OperateBattle.cpp">
       <Filter>ソース</Filter>
     </ClCompile>
   </ItemGroup>
@@ -175,9 +178,12 @@
       <Filter>ヘッダ</Filter>
     </ClInclude>
     <ClInclude Include="ControlEnemyAI.h">
-  <Filter>ヘッダ</Filter>
+      <Filter>ヘッダ</Filter>
     </ClInclude>
     <ClInclude Include="OperateTitle.h">
+      <Filter>ヘッダ</Filter>
+    </ClInclude>
+    <ClInclude Include="OperateBattle.h">
       <Filter>ヘッダ</Filter>
     </ClInclude>
   </ItemGroup>

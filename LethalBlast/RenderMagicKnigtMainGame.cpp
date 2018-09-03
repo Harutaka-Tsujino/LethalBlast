@@ -42,6 +42,7 @@ void RenderMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck*
 		RoadTexture("Texture/MainGame/Enemy/Robot.png", &enemyTexIds[ŒÃ‘ã•ºŠílŒ^]);
 		RoadTexture("Texture/Effect/RazerAE.png", &effectTexIds[RAZER_A_E_TEX]);
 		RoadTexture("Texture/Effect/FlashRazerAE.png", &effectTexIds[FLASH_RAZER_A_E_TEX]);
+		RoadTexture("Texture/Effect/SmashAE.png", &effectTexIds[SMASH_A_E_TEX]);
 
 		SetFont(DISPLAY_WIDTH / 70, DISPLAY_WIDTH / 48, "HGP–¾’©B", &fontId[ENEMY_DATA_FONT], 0);
 		SetFont(DISPLAY_WIDTH / 35, DISPLAY_WIDTH / 24, "HGP–¾’©B", &fontId[ENEMY_ACTION_FONT], 0);
@@ -180,7 +181,7 @@ void RenderMagicKnightMainGame(WordData* pMagicKnightWordDatas, MagicKnightDeck*
 		CustomVertex EFVertices[RECT_VERTEX_NUM];
 
 		const int AN_BLANK = 3;
-		const float EF_SCALE = DISPLAY_HEIGHT * 0.5f;
+		const float EF_SCALE = 256.f;
 		const int AN_X_NUM = 10;
 		const int AN_Y_NUM = 10;
 
@@ -248,6 +249,7 @@ void AnimateIntegratedImage(float posX, float posY, float imageScale,
 	if (effectCnt >= 0)
 	{
 		CustomImageVerticies(EFVertices, posX, posY, imageScale, imageScale, color,
+
 			2 * imageScale*((effectCnt % (animationBlank*imageSegmentX)) / animationBlank), 
 			2 * imageScale*((effectCnt % (animationBlank*imageSegmentX*imageSegmentY)) / (animationBlank * imageSegmentX)),
 

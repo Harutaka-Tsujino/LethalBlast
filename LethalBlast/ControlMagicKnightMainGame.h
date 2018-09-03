@@ -101,8 +101,9 @@ typedef struct
 	//構成している単語の識別子
 	MAGIC_KNIGHT_WORD m_componentWordIds[MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX];
 
-//入れた単語が手札の何番目にあったか
+	//入れた単語が手札の何番目にあったか
 	int m_handPos[MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX];
+	
 	//特殊属性別の合計数
 	char m_elementTotals[ELEMENT_ATTRIBUTES_MAX];
 
