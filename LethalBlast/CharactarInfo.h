@@ -23,7 +23,7 @@ enum MAGIC_KNIGHT_WORD
 typedef struct
 {
 	//•¶š‚Ì–¼‘O
-	char m_wordName[WORD_NAME_CHAR_MAX];
+	char m_word[WORD_NAME_CHAR_MAX];
 
 	//“Áê‘®«‚Ì¯•Êq
 	ELEMENT_ATTRIBUTE m_element;

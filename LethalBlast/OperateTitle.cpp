@@ -117,7 +117,7 @@ void PressEnterFont(FONTID* fontIds)
 
 	//ここまで点滅処理
 
-	WriteText(DISPLAY_WIDTH / 2, DISPLAY_HEIGHT*0.85f, "PRESS ENTER", DT_CENTER, fontIds[PRESS_ENTER_FONT], GetColor((UCHAR)alpha, 0xFF, 0xFF, 0xFF));
+	WriteText((int)(DISPLAY_WIDTH / 2.f), (int)(DISPLAY_HEIGHT*0.85f), "PRESS ENTER", DT_CENTER, fontIds[PRESS_ENTER_FONT], GetColor((UCHAR)alpha, 0xFF, 0xFF, 0xFF));
 
 	return;
 }

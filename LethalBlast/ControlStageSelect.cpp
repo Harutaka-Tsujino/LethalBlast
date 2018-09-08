@@ -7,7 +7,7 @@
 #include"ControlHome.h"
 #include"ControlStageSelect.h"
 
-void ControlStageSelect(SCENE* pScene, ImagesCustomVertex* pStageSelectPortals, int* pSelectedStage,CustomVertex* pBackPortal, StageDate* pStageData, EnemyST* pEnemyData)
+void ControlStageSelect(SCENE* pScene, ImagesCustomVertex* pStageSelectPortals, int* pSelectedStage,CustomVertex* pBackPortal)
 {
 	static int frameCount = INIT_FRAME;
 
@@ -23,13 +23,13 @@ void ControlStageSelect(SCENE* pScene, ImagesCustomVertex* pStageSelectPortals, 
 
 	const int MOVE_PORTAL_FRAME = 15;
 
-	CustomImageVerticies(pStageSelectPortals[CAVE_STAGE].ImageVertex, (DISPLAY_WIDTH / 6.f) * 0, (DISPLAY_HEIGHT / 2.f)*(2 - frameCount / (float)MOVE_PORTAL_FRAME),
+	CustomImageVerticies(pStageSelectPortals[ì¥åA].ImageVertex, (DISPLAY_WIDTH / 6.f) * 0, (DISPLAY_HEIGHT / 2.f)*(2 - frameCount / (float)MOVE_PORTAL_FRAME),
 		DISPLAY_WIDTH / 3.f, DISPLAY_WIDTH*2.f, GetColor(255, 18, 18, 18));
 
-	CustomImageVerticies(pStageSelectPortals[RUIN_STAGE].ImageVertex, (DISPLAY_WIDTH / 6.f) * 3, (DISPLAY_HEIGHT / 2.f)*(2 - frameCount / (float)MOVE_PORTAL_FRAME),
+	CustomImageVerticies(pStageSelectPortals[à‚ê’].ImageVertex, (DISPLAY_WIDTH / 6.f) * 3, (DISPLAY_HEIGHT / 2.f)*(2 - frameCount / (float)MOVE_PORTAL_FRAME),
 		DISPLAY_WIDTH*1.f, DISPLAY_WIDTH*2.f, 0xFFEA0D0D);
 
-	CustomImageVerticies(pStageSelectPortals[FOREST_STAGE].ImageVertex, (DISPLAY_WIDTH / 6.f) * 7.05, (DISPLAY_HEIGHT / 2.f)*(2 - frameCount / (float)MOVE_PORTAL_FRAME),
+	CustomImageVerticies(pStageSelectPortals[êX].ImageVertex, (DISPLAY_WIDTH / 6.f) * 7.05, (DISPLAY_HEIGHT / 2.f)*(2 - frameCount / (float)MOVE_PORTAL_FRAME),
 		DISPLAY_WIDTH / 3.f, DISPLAY_WIDTH*2.f, GetColor(255, 18, 18, 18));
 
 	for (int stage = 0; stage < STAGE_MAX; ++stage)
@@ -58,15 +58,15 @@ void ControlStageSelect(SCENE* pScene, ImagesCustomVertex* pStageSelectPortals, 
 
 	static bool initCave = false;
 
-	if (CheckRotatedRectsCollision(mouseCursorCollisionVertex, pStageSelectPortals[CAVE_STAGE].ImageVertex))
+	if (CheckRotatedRectsCollision(mouseCursorCollisionVertex, pStageSelectPortals[ì¥åA].ImageVertex))
 	{
-		*pSelectedStage = CAVE_STAGE;
+		*pSelectedStage = ì¥åA;
 		*pScene = CHOSE_DECK_TO_BATTLE_SCENE;
 
 		if (!initCave)
 		{
-			InitStageData(&pStageData[CAVE_STAGE], "Files/Stage/ForestStage.csv", FORSEST_FLOOR_MAX);
-			InitEnemyData(pEnemyData);
+			/*InitStageData(&pStageData[ì¥åA], "Files/Stage/ForestStage.csv", FORSEST_FLOOR_MAX);
+			InitEnemyData(pEnemyData);*/
 
 			initCave = true;
 		}
@@ -78,15 +78,15 @@ void ControlStageSelect(SCENE* pScene, ImagesCustomVertex* pStageSelectPortals, 
 
 	static bool initForest = false;
 
-	if (CheckRotatedRectsCollision(mouseCursorCollisionVertex, pStageSelectPortals[FOREST_STAGE].ImageVertex))
+	if (CheckRotatedRectsCollision(mouseCursorCollisionVertex, pStageSelectPortals[êX].ImageVertex))
 	{
-		*pSelectedStage = FOREST_STAGE;
+		*pSelectedStage = êX;
 		*pScene = CHOSE_DECK_TO_BATTLE_SCENE;
 
 		if (!initForest)
 		{
-			InitStageData(&pStageData[FOREST_STAGE], "Files/Stage/ForestStage.csv", FORSEST_FLOOR_MAX);
-			InitEnemyData(pEnemyData);
+			/*InitStageData(&pStageData[êX], "Files/Stage/ForestStage.csv", FORSEST_FLOOR_MAX);
+			InitEnemyData(pEnemyData)*/;
 
 			initForest = true;
 		}
@@ -98,15 +98,15 @@ void ControlStageSelect(SCENE* pScene, ImagesCustomVertex* pStageSelectPortals, 
 
 	static bool initRuin = false;
 
-	if (CheckRotatedRectsCollision(mouseCursorCollisionVertex, pStageSelectPortals[RUIN_STAGE].ImageVertex))
+	if (CheckRotatedRectsCollision(mouseCursorCollisionVertex, pStageSelectPortals[à‚ê’].ImageVertex))
 	{
-		*pSelectedStage = RUIN_STAGE;
+		*pSelectedStage = à‚ê’;
 		*pScene = CHOSE_DECK_TO_BATTLE_SCENE;
 
 		if (!initRuin)
 		{
-			InitStageData(&pStageData[RUIN_STAGE], "Files/Stage/ForestStage.csv", FORSEST_FLOOR_MAX);
-			InitEnemyData(pEnemyData);
+			/*InitStageData(&pStageData[à‚ê’], "Files/Stage/ForestStage.csv", FORSEST_FLOOR_MAX);
+			InitEnemyData(pEnemyData);*/
 
 			initForest = true;
 		}
@@ -205,66 +205,66 @@ void CalcurateVectByPoints(Vect* dest, double pointOPosX, double pointOPosY, dou
 	return;
 }
 
-void InitStageData(StageDate* pStageData, const char* filePath, int floorMax)
-{
-	FILE* pForesF;
-
-	pForesF = fopen(filePath, "r");
-
-	for (int floor = 0; floor < floorMax; ++floor)
-	{
-		fscanf(pForesF, "%d,", &pStageData->m_enemyId[floor]);
-
-		for (int drop = 0; drop < FLOOR_DROP_MAX; ++drop)
-		{
-			fscanf(pForesF, "%d,", &pStageData->m_dropWord[floor].m_mKDropId[drop]);
-		}
-
-		for (int drop = 0; drop < FLOOR_DROP_MAX; ++drop)
-		{
-			fscanf(pForesF, "%d,", &pStageData->m_dropWord[floor].m_wMDropId[drop]);
-		}
-
-		fscanf(pForesF, "%d,", &pStageData->m_clear[floor].m_mKClear);
-		fscanf(pForesF, "%d,", &pStageData->m_clear[floor].m_wMClear);
-	}
-
-	fclose(pForesF);
-
-	return;
-}
-
-void InitEnemyData(EnemyST* pEnemyData)
-{
-	FILE* pEnemySTF;
-
-	pEnemySTF= fopen("Files/EnemyStates/EnemyState.csv", "r");
-	
-	for (int enemy = VOID_ENEMY+1; enemy < ENEMY_MAX; ++enemy)
-	{
-		fscanf(pEnemySTF, "%[^,],%d,%d,", pEnemyData[enemy].m_name,
-			&pEnemyData[enemy].m_cTBlank, &pEnemyData[enemy].m_cTNum);
-
-		//fseek(pEnemySTF, sizeof(char), SEEK_CUR);
-
-		for (int action = 0; action < ENEMY_ACTION_MAX; ++action)
-		{
-			fscanf(pEnemySTF, " %[^,],%u,", pEnemyData[enemy].m_enemyAction[action].m_name,
-				&pEnemyData[enemy].m_enemyAction[action].m_ActionDamage);
-
-			for (int element = 0; element < ELEMENT_ATTRIBUTES_MAX - 1; ++element)
-			{
-				fscanf(pEnemySTF, "%d,", &pEnemyData[enemy].m_enemyAction[action].m_ActionElements[element]);
-			}
-
-			for (int attack = 0; attack < ATTACK_ATTRIBUTES_MAX - 1; ++attack)
-			{
-				fscanf(pEnemySTF, "%d,", &pEnemyData[enemy].m_enemyAction[action].m_ActionAttacks[attack]);
-			}
-		}
-	}
-
-	fclose(pEnemySTF);
-
-	return;
-}
+//void InitStageData(StageDate* pStageData, const char* filePath, int floorMax)
+//{
+//	FILE* pForesF;
+//
+//	pForesF = fopen(filePath, "r");
+//
+//	for (int floor = 0; floor < floorMax; ++floor)
+//	{
+//		fscanf(pForesF, "%d,", &pStageData->m_enemyId[floor]);
+//
+//		for (int drop = 0; drop < FLOOR_DROP_MAX; ++drop)
+//		{
+//			fscanf(pForesF, "%d,", &pStageData->m_dropWord[floor].m_mKDropId[drop]);
+//		}
+//
+//		for (int drop = 0; drop < FLOOR_DROP_MAX; ++drop)
+//		{
+//			fscanf(pForesF, "%d,", &pStageData->m_dropWord[floor].m_wMDropId[drop]);
+//		}
+//
+//		fscanf(pForesF, "%d,", &pStageData->m_clear[floor].m_mKClear);
+//		fscanf(pForesF, "%d,", &pStageData->m_clear[floor].m_wMClear);
+//	}
+//
+//	fclose(pForesF);
+//
+//	return;
+//}
+//
+//void InitEnemyData(EnemyST* pEnemyData)
+//{
+//	FILE* pEnemySTF;
+//
+//	pEnemySTF= fopen("Files/EnemyStates/EnemyState.csv", "r");
+//	
+//	for (int enemy = VOID_ENEMY+1; enemy < ENEMY_MAX; ++enemy)
+//	{
+//		fscanf(pEnemySTF, "%[^,],%d,%d,", pEnemyData[enemy].m_name,
+//			&pEnemyData[enemy].m_cTBlank, &pEnemyData[enemy].m_cTNum);
+//
+//		fseek(pEnemySTF, sizeof(char), SEEK_CUR);
+//
+//		for (int action = 0; action < ENEMY_ACTION_MAX; ++action)
+//		{
+//			fscanf(pEnemySTF, " %[^,],%u,", pEnemyData[enemy].m_enemyAction[action].m_name,
+//				&pEnemyData[enemy].m_enemyAction[action].m_ActionDamage);
+//
+//			for (int element = 0; element < ELEMENT_ATTRIBUTES_MAX - 1; ++element)
+//			{
+//				fscanf(pEnemySTF, "%d,", &pEnemyData[enemy].m_enemyAction[action].m_ActionElements[element]);
+//			}
+//
+//			for (int attack = 0; attack < ATTACK_ATTRIBUTES_MAX - 1; ++attack)
+//			{
+//				fscanf(pEnemySTF, "%d,", &pEnemyData[enemy].m_enemyAction[action].m_ActionAttacks[attack]);
+//			}
+//		}
+//	}
+//
+//	fclose(pEnemySTF);
+//
+//	return;
+//}

@@ -28,4 +28,4 @@ enum HOME_TEX
 };
 
 void RenderHome(SCENE* scene,CustomVertex* deckAlterPortal, CustomVertex* modifyWordPortal, CustomVertex* mainGamePortal,
-	CustomVertex* charaChoicePortal, TEXTUREID* wordTexIds, TEXTUREID* weaponMasterWordIds, PLAYERTYPE* playerType, bool* initializedTex);
+	CustomVertex* charaChoicePortal, TEXTUREID* mKWordTex, TEXTUREID* wMWordTex, PLAYERTYPE* playerType, bool* initializedTex);

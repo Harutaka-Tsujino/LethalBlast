@@ -1,4 +1,4 @@
-﻿#include"DX9Lib.h"
+#include"DX9Lib.h"
 #include"WinMain.h"
 #include"ControlCharaChoice.h"
 #include"CharactarInfo.h"

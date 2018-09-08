@@ -5,10 +5,9 @@
 #include"ControlCharaChoice.h"
 
 void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, MagicKnightDeck* pMagicKnightDecks,
-	MagicKnightPlayingDeck* pMagicKnightPlayingDeck, MagicKnightAction* pMagicKnightAction,
 	WeaponMasterWordData* pWeaponMAsterWordDatas, WeaponMasterDeck* pWeaponMasterDecks,
-	CustomVertex* pDeckAlterPortal, CustomVertex* pModifyWordPortal, CustomVertex* pMainGamePortal, 
-	CustomVertex* pCharaChoicePortal, TEXTUREID* wordTexIds, TEXTUREID* weaponMasterWordIds, PLAYERTYPE* playerType,
+	CustomVertex* pDeckAlterPortal, CustomVertex* pModifyWordPortal, CustomVertex* pMainGamePortal,
+	CustomVertex* pCharaChoicePortal, TEXTUREID* mKWordTex, TEXTUREID* wMWordTex, PLAYERTYPE* playerType,
 	bool* initializedTex);
 
 void LoadMagicKnightWordDatas(WordData* pMagicKnightWordDatas);

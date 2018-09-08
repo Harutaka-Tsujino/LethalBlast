@@ -38,3 +38,5 @@ void RenderCharaChoiceInit(TEXTUREID* textureIds);
 *(引数2)int* cursol	キャラ選択のための変数
 */
 void RenderCharaChoiceBackGround(TEXTUREID* textureIds,int* cursol);
+
+void RenderWhileLoad(SCENE* scene, SCENE destScene);

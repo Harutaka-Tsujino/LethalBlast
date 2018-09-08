@@ -7,7 +7,7 @@
 #include"RenderHome.h"
 
 void RenderHome(SCENE* scene, CustomVertex* deckAlterPortal, CustomVertex* modifyWordPortal,
-	CustomVertex* mainGamePortal, CustomVertex* charaChoicePortal, TEXTUREID* wordTexIds, TEXTUREID* weaponMasterWordIds,PLAYERTYPE* playerType,bool* initializedTex)
+	CustomVertex* mainGamePortal, CustomVertex* charaChoicePortal, TEXTUREID* mKWordTex, TEXTUREID* wMWordTex,PLAYERTYPE* playerType,bool* initializedTex)
 {
 	static int frameCount = -1;
 
@@ -169,7 +169,7 @@ void RenderHome(SCENE* scene, CustomVertex* deckAlterPortal, CustomVertex* modif
 
 				CustomImageVerticies(pageVertices[page].ImageVertex, (float)(rand() % DISPLAY_WIDTH), (float)(rand() % DISPLAY_HEIGHT), 0, (float)pageScale[page].m_y, GetColor(0, 255, 255, 255));
 
-				pageTexture[page] = wordTexIds[rand() % (MAGIC_KNIGHT_WORD_MAX - 1) + 1];
+				pageTexture[page] = mKWordTex[rand() % (MAGIC_KNIGHT_WORD_MAX - 1) + 1];
 			}
 
 			if (!pageTexture[page])
@@ -222,7 +222,7 @@ void RenderHome(SCENE* scene, CustomVertex* deckAlterPortal, CustomVertex* modif
 
 				CustomImageVerticies(pageVertices[page].ImageVertex, (float)(rand() % DISPLAY_WIDTH), (float)(rand() % DISPLAY_HEIGHT), 0, (float)pageScale[page].m_y, GetColor(0, 255, 255, 255));
 
-				pageTexture[page] = weaponMasterWordIds[rand() % (WEAPON_MASTER_WORD_MAX - 1) + 1];
+				pageTexture[page] = wMWordTex[rand() % (WEAPON_MASTER_WORD_MAX - 1) + 1];
 			}
 
 			if (!pageTexture[page])

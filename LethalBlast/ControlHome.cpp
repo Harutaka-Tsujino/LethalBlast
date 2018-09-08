@@ -8,7 +8,7 @@
 void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, PlayerDeck* pMagicKnightDecks,
 	WordData* pWeaponMAsterWordDatas, PlayerDeck* pWeaponMasterDecks,
 	CustomVertex* pDeckAlterPortal, CustomVertex* pModifyWordPortal, CustomVertex* pMainGamePortal,
-	CustomVertex* pCharaChoicePortal, TEXTUREID* wordTexIds, TEXTUREID* weaponMasterWordIds, PLAYERTYPE* playerType,
+	CustomVertex* pCharaChoicePortal, TEXTUREID* mKWordTex, TEXTUREID* wMWordTex, PLAYERTYPE* playerType,
 	bool* initializedTex)
 {
 	static int frameCount = -1;
@@ -51,7 +51,7 @@ void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, PlayerDeck* pMag
 			LoadDeck(pMagicKnightWordDatas, pMagicKnightDecks, "Files/Deck/MKDeck8.csv", 7);
 			isSuccess = soundsManager.AddFile("Audio/perusona.mp3", _T("bgm"));
 
-			RoadTexture("Texture/MKWord/VOID_WORD.png", &wordTexIds[VOID_WORD]);
+			RoadTexture("Texture/MKWord/VOID_WORD.png", &mKWordTex[VOID_WORD]);
 
 			FILE* pWordTexPathsFile;
 
@@ -62,7 +62,7 @@ void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, PlayerDeck* pMag
 				char mkWordPath[60];
 
 				fscanf(pWordTexPathsFile, "%s,", mkWordPath);
-				RoadTexture(mkWordPath, &wordTexIds[word]);
+				RoadTexture(mkWordPath, &mKWordTex[word]);
 			}
 
 			fclose(pWordTexPathsFile);
@@ -136,12 +136,12 @@ void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, PlayerDeck* pMag
 
 			for (int word = 0; word < WEAPON_MASTER_WORD_MAX; ++word)
 			{
-				SAFE_RELEASE(weaponMasterWordIds[word]);
+				SAFE_RELEASE(wMWordTex[word]);
 			}
 
 			for (int word = 0; word < MAGIC_KNIGHT_WORD_MAX; ++word)
 			{
-				SAFE_RELEASE(wordTexIds[word]);
+				SAFE_RELEASE(mKWordTex[word]);
 			}
 		}
 	}
@@ -155,6 +155,7 @@ void LordTextureWeaponMaster(TEXTUREID* pWmFontIds)
 
 	if (isFirstFrame == INIT_FRAME)
 	{
+		RoadTexture("Texture/WeaponMasterWord/VoidWord.png", &pWmFontIds[VOID_WORD]);
 		RoadTexture("Texture/WeaponMasterWord/‰Î.png", &pWmFontIds[‰Î]);
 		RoadTexture("Texture/WeaponMasterWord/”M.png", &pWmFontIds[”M]);
 		RoadTexture("Texture/WeaponMasterWord/”R.png", &pWmFontIds[”R]);
