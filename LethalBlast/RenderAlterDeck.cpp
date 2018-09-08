@@ -49,7 +49,7 @@ void RenderAlterDeck(ImagesCustomVertex* pChoiseWordCollisionsVertex, ImagesCust
 	for (int wordNum = 0; wordNum < MAGIC_KNIGHT_WORD_MAX; ++wordNum)
 	{
 		DrawImage(pChoiseWordCollisionsVertex[wordNum].ImageVertex, alterDeckTexId[UNDER_ALTER_WORD_BOARD_TEX]);
-		DrawImage(pChoiseWordCollisionsVertex[wordNum].ImageVertex, mKWordTex[wordNum]);
+		DrawImage(pChoiseWordCollisionsVertex[wordNum].ImageVertex, wordTexIds[wordNum]);
 
 		if (clickedWord[wordNum])
 		{
