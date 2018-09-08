@@ -6,6 +6,7 @@
 #include"ControlMagicKnightMainGame.h"
 #include"RenderMagicKnigtMainGame.h"
 #include"ControlBattle.h"
+#include"CharactarInfo.h"
 
 //static MagicKnightDeck magicKnightDecks[MAGIC_KNIGHT_DECKS_MAX];
 //static MagicKnightPlayingDeck magicKnightPlayingDeck;

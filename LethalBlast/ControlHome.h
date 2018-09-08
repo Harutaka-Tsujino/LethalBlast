@@ -3,8 +3,6 @@
 #include"DX9Lib.h"
 #include"WinMain.h"
 #include"ControlCharaChoice.h"
-#include"ControlMagicKnightMainGame.h"
-#include"ControlWeaponMasterAction.h"
 
 void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, MagicKnightDeck* pMagicKnightDecks,
 	MagicKnightPlayingDeck* pMagicKnightPlayingDeck, MagicKnightAction* pMagicKnightAction,

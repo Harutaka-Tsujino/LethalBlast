@@ -14,33 +14,6 @@ enum MAGIC_KNIGHT_WORD
 
 //修飾時の素材の数
 #define MATERIALS_NUM 2
-//単語のデータ
-typedef struct
-{
-	//名前
-	char m_word[WORD_NAME_CHAR_MAX];
-
-	//特殊属性の識別子
-	ELEMENT_ATTRIBUTE m_element;
-
-	//物理属性の識別子
-	ATTACK_ATTRIBUTE m_attack;
-
-	//特殊効果ビットフラグ
-	unsigned long m_specialAbilities;
-
-	//修飾時の素材
-	int m_matterials[MATERIALS_NUM];
-
-	//コスト
-	int m_cost;
-
-	//特殊属性の倍率
-	int m_plusDamage;
-
-	//所持しているかどうか
-	int m_have;
-}WordData;
 
 //デッキの名前の最大文字数
 #define DECK_NAME_CHAR_MAX 40

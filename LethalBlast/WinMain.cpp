@@ -25,6 +25,7 @@
 #include"ControlStageSelect.h"
 #include"RenderStageSelect.h"
 #include"OperateResult.h"
+#include"CharactarInfo.h"
 
 SoundLib::SoundsManager soundsManager;
 //音声の初期化
@@ -55,8 +56,6 @@ void MainFunction(void)
 	static bool endAttackEffect = false;
 	static int cursol = 1;
 
-	static WordData magicKnigtWords[MAGIC_KNIGHT_WORD_MAX];
-
 	static PLAYERTYPE playerType = WEAPON_MASTER;
 	static int playerATKDamage = 0;
 	static ENEMY_TYPE enemyType = SPIDER_ROBOT;
@@ -66,6 +65,7 @@ void MainFunction(void)
 	static int page = 1;
 
 	static WordData magicKnightWordDatas[MAGIC_KNIGHT_WORD_MAX];
+	static PlayerDeck magicKnightDeck[MAGIC_KNIGHT_DECKS_MAX];
 	static MagicKnightDeck magicKnightDecks[MAGIC_KNIGHT_DECKS_MAX];
 	static MagicKnightPlayingDeck magicKnightPlayingDeck;
 	static MagicKnightAction magicKnightAction;
@@ -74,6 +74,7 @@ void MainFunction(void)
 	ImagesCustomVertex choiseDeckCollisionsVertex[MAGIC_KNIGHT_DECKS_MAX];
 	ImagesCustomVertex choiseWordCollisionsVertex[MAGIC_KNIGHT_WORD_MAX];
 	ImagesCustomVertex deckComponentCollisionsVertex[DECK_WORD_MAX];
+	ImagesCustomVertex skillInfo[SKILL_MAX];
 	static int deckNumToAlter = 0;
 
 	CustomVertex endAlterDeckVertices[4];
@@ -81,6 +82,7 @@ void MainFunction(void)
 	CustomVertex wordDatasBackVertices[4];
 
 	CustomVertex deckAlterPortal[4];
+	CustomVertex CostFont[4];
 	CustomVertex modifyWordPortal[4];
 	CustomVertex mainGamePortal[4];
 	static CustomVertex charaChoicePortal[4];
@@ -93,6 +95,7 @@ void MainFunction(void)
 	ImagesCustomVertex modifyBoxVertices[2];
 	CustomVertex decideModify[4];
 	static bool clickedWord[MAGIC_KNIGHT_WORD_MAX];
+	static bool RclickedWord[MAGIC_KNIGHT_WORD_MAX];
 	static bool clickedWeaponMasterWord[WEAPON_MASTER_WORD_MAX];
 
 	ImagesCustomVertex stageSelectPortals[STAGE_MAX];
@@ -167,26 +170,27 @@ void MainFunction(void)
 
 		switch (playerType)
 		{
-		case WEAPON_MASTER:
-			ControlWeaponMasterAlterDeck(&scene, weaponMasterWords, weaponMasterWordDecks, choiseWMWordCollisionsVertex,
-				deckComponentCollisionsVertex, endAlterDeckVertices, backgroundVertices, wordDatasBackVertices, &deckNumToAlter, clickedWeaponMasterWord);
+		/*case WEAPON_MASTER:
+
+			ControlAlterDeck(&scene, magicKnigtWords, magicKnightDeck, choiseWordCollisionsVertex, deckComponentCollisionsVertex, skillInfo,
+				endAlterDeckVertices, backgroundVertices, wordDatasBackVertices, playerType, &deckNumToAlter, clickedWord, RclickedWord);
 			RenderWeaponMasterAlterDeck(choiseWMWordCollisionsVertex, deckComponentCollisionsVertex, endAlterDeckVertices,
 				backgroundVertices, wordDatasBackVertices, weaponMasterWordIds, weaponMasterWords, weaponMasterWordDecks, &deckNumToAlter, clickedWeaponMasterWord);
 
-			break;
+			break;*/
 
 		case MAGIC_KNIGHT:
-			ControlAlterDeck(&scene, magicKnightWordDatas, magicKnightDecks, choiseWordCollisionsVertex,
-				deckComponentCollisionsVertex, endAlterDeckVertices, backgroundVertices, wordDatasBackVertices, &deckNumToAlter, clickedWord);
-			RenderAlterDeck(choiseWordCollisionsVertex, deckComponentCollisionsVertex, endAlterDeckVertices,
-				backgroundVertices, wordDatasBackVertices, wordTexIds, magicKnightWordDatas, magicKnightDecks, &deckNumToAlter, clickedWord);
+			ControlAlterDeck(&scene, magicKnightWordDatas, &magicKnightDeck, choiseWordCollisionsVertex, deckComponentCollisionsVertex, skillInfo,
+				endAlterDeckVertices, backgroundVertices, wordDatasBackVertices, &playerType, &deckNumToAlter, clickedWord, RclickedWord);
+			RenderAlterDeck(choiseWordCollisionsVertex, deckComponentCollisionsVertex, skillInfo, endAlterDeckVertices, backgroundVertices, wordDatasBackVertices,
+				wordTexIds, magicKnightWordDatas, &magicKnightDeck, &deckNumToAlter, clickedWord, RclickedWord);
 
 			break;
 		}
 		
 		break;
 
-	case MODIFY_WORD_SCENE:
+	/*case MODIFY_WORD_SCENE:
 
 		ControlModify(&scene, magicKnightWordDatas, magicKnightDecks,
 			choiseWordCollisionsVertex, wordDatasBackVertices, endModifyVertices, backgroundVertices,
@@ -195,7 +199,7 @@ void MainFunction(void)
 			wordDatasBackVertices, endModifyVertices, backgroundVertices,
 			modifyWordBox, modifyBoxVertices, decideModify, wordTexIds, clickedWord);
 
-		break;
+		break;*/
 
 	case CHOSE_DECK_TO_BATTLE_SCENE:
 
@@ -243,7 +247,7 @@ void MainFunction(void)
 
 			break;
 
-		case MAGIC_KNIGHT:
+		/*case MAGIC_KNIGHT:
 
 			ControlMagicKnightMainGame(&scene, magicKnightWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
 				&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex, hominEffect,
@@ -253,7 +257,7 @@ void MainFunction(void)
 				&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex, 
 				wordTexIds, hominEffect, resultMask, &battleData, enemyActionNum, selectedStage, enemyData[battleData.m_enemyId]);
 
-			break;
+			break;*/
 		}
 
 		//ControlHP(player, enemy, &playerATKDamage, (PLAYERTYPE)playerType, enemyType,&frameCount,&CTCount, &magicKnightAction, magicKnightWordDatas);
