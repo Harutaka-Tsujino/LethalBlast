@@ -44,8 +44,8 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 
 		ZeroMemory(resultMask, sizeof(CustomVertex)*RECT_VERTEX_NUM);
 
-		for (int deckWord = 0; (pMKDeck[selectedDeck].m_wordId[deckWord] = 
-			pWMDeck[selectedDeck].m_wordId[deckWord] = deckWord) < DECK_WORD_MAX; ++deckWord);
+		/*for (int deckWord = 0; (pMKDeck[selectedDeck].m_wordId[deckWord] = 
+			pWMDeck[selectedDeck].m_wordId[deckWord] = deckWord) < DECK_WORD_MAX; ++deckWord);*/
 
 		initUnionTex = false;
 	}
@@ -932,7 +932,7 @@ void IOAction(int frameCount, int startAnimatationFrame,CustomVertex* pMouseCurs
 			}
 
 			//PPオーバー
-			if (pBattleData->m_pPCurrent - pWordDatas[handCurrent].m_cost <0)
+			if (pBattleData->m_pPCurrent - pWordDatas[handCurrent].m_costMax <0)
 			{
 				break;
 			}
@@ -978,7 +978,7 @@ void IOAction(int frameCount, int startAnimatationFrame,CustomVertex* pMouseCurs
 			//必殺技に代入
 			pBattleData->m_playerAction[actionSpace] = handCurrent;
 			++(pBattleData->m_playerActionCurrent);
-			pBattleData->m_pPCurrent -= pWordDatas[handCurrent].m_cost;
+			pBattleData->m_pPCurrent -= pWordDatas[handCurrent].m_costMax;
 			pBattleData->m_hand[hand] = 0;
 
 			//手札の位置
@@ -1004,7 +1004,7 @@ void IOAction(int frameCount, int startAnimatationFrame,CustomVertex* pMouseCurs
 
 			//リムーブ
 			--(pBattleData->m_playerActionCurrent);
-			pBattleData->m_pPCurrent += pWordDatas[actionWordCurrent].m_cost;
+			pBattleData->m_pPCurrent += pWordDatas[actionWordCurrent].m_costMax;
 			pBattleData->m_hand[(pBattleData->m_handPos[actionWord])] = actionWordCurrent;
 			pBattleData->m_playerAction[actionWord] = 0;
 			pBattleData->m_handPos[actionWord] = 0;
@@ -1088,35 +1088,35 @@ void CalcActionDamage(BattleData* pBattleData, int actionWordMax, WordData* pWor
 			decidePlayerElement = true;
 		}
 
-		int actionWordPlusCurrent = pWordDatas[actionWordCurrent].m_plusDamage;
+		/*int actionWordPlusCurrent = pWordDatas[actionWordCurrent].m_plusDamage;*/
 
-		switch (pWordDatas[actionWordCurrent].m_cost)
+		switch (pWordDatas[actionWordCurrent].m_costMax)
 		{
 		case 1:
 
-			pBattleData->m_playerActionDamage += MK_COST_1_DAMAGE +
-				MK_COST_1_PLUS__DAMAGE * actionWordPlusCurrent;
+			pBattleData->m_playerActionDamage += MK_COST_1_DAMAGE/* +
+				MK_COST_1_PLUS__DAMAGE * actionWordPlusCurrent*/;
 
 			break;
 
 		case 3:
 
-			pBattleData->m_playerActionDamage += MK_COST_3_DAMAGE +
-				MK_COST_3_PLUS__DAMAGE * actionWordPlusCurrent;
+			pBattleData->m_playerActionDamage += MK_COST_3_DAMAGE/* +
+				MK_COST_3_PLUS__DAMAGE * actionWordPlusCurrent*/;
 
 			break;
 
 		case 5:
 
-			pBattleData->m_playerActionDamage += MK_COST_5_DAMAGE +
-				MK_COST_5_PLUS__DAMAGE * actionWordPlusCurrent;
+			pBattleData->m_playerActionDamage += MK_COST_5_DAMAGE/* +
+				MK_COST_5_PLUS__DAMAGE * actionWordPlusCurrent*/;
 
 			break;
 
 		case 12:
 
-			pBattleData->m_playerActionDamage += MK_COST_12_DAMAGE +
-				MK_COST_12_PLUS__DAMAGE * actionWordPlusCurrent;
+			pBattleData->m_playerActionDamage += MK_COST_12_DAMAGE/* +
+				MK_COST_12_PLUS__DAMAGE * actionWordPlusCurrent*/;
 
 			break;
 		}
@@ -1175,7 +1175,7 @@ void CalcDamageBonusWithSkills(BattleData* pBattleData, int actionWordMax, WordD
 
 			for (int skillSlot = 0; skillSlot < SKILL_SLOT_MAX; ++skillSlot)
 			{
-				if (pWordDatas[actionWordId].m_skillSlots[skillSlot]==skill)
+				if (pWordDatas[actionWordId].m_skillSlot[skillSlot]==skill)
 				{
 					++(pBattleData->m_playerActionSkillsCurrent[skill]);
 				}
