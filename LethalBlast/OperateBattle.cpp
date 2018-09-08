@@ -47,6 +47,49 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 		actionEffectDatas[FLASH_RAZER].m_segmentY = 10;
 		actionEffectDatas[FLASH_RAZER].m_effectScale = DISPLAY_WIDTH * 0.5f;
 		int a=RoadTexture("Texture/Effect/FL2AE.png", &(actionEffectDatas[FLASH_RAZER].m_tex));
+		actionEffectDatas[FLASH_RAZER].m_color = 0xff4169e1;
+
+		actionEffectDatas[FULL_BURST].m_segmentX = 10;
+		actionEffectDatas[FULL_BURST].m_segmentY = 8;
+		actionEffectDatas[FULL_BURST].m_effectScale = DISPLAY_WIDTH * 0.5f;
+		a = RoadTexture("Texture/Effect/FBAE.png", &(actionEffectDatas[FULL_BURST].m_tex));
+		actionEffectDatas[FULL_BURST].m_color = 0xffffffff;
+
+		actionEffectDatas[DIVINE_SWORD].m_segmentX = 10;
+		actionEffectDatas[DIVINE_SWORD].m_segmentY = 2;
+		actionEffectDatas[DIVINE_SWORD].m_effectScale = DISPLAY_WIDTH * 0.5f;
+		a = RoadTexture("Texture/Effect/DBSAE.png", &(actionEffectDatas[DIVINE_SWORD].m_tex));
+		actionEffectDatas[DIVINE_SWORD].m_color = 0xffffff00;
+
+		actionEffectDatas[TARGET].m_segmentX = 10;
+		actionEffectDatas[TARGET].m_segmentY = 6;
+		actionEffectDatas[TARGET].m_effectScale = DISPLAY_WIDTH * 0.25f;
+		a = RoadTexture("Texture/Effect/TGAE.png", &(actionEffectDatas[TARGET].m_tex));
+		actionEffectDatas[TARGET].m_color = 0xff808080;
+
+		actionEffectDatas[ASTRAL_RAZER].m_segmentX = 10;
+		actionEffectDatas[ASTRAL_RAZER].m_segmentY = 10;
+		actionEffectDatas[ASTRAL_RAZER].m_effectScale = DISPLAY_WIDTH * 0.5f;
+		a = RoadTexture("Texture/Effect/RazerAE.png", &(actionEffectDatas[ASTRAL_RAZER].m_tex));
+		actionEffectDatas[ASTRAL_RAZER].m_color = 0xff00ffff;
+
+		actionEffectDatas[SMASH_AE].m_segmentX = 16;
+		actionEffectDatas[SMASH_AE].m_segmentY = 2;
+		actionEffectDatas[SMASH_AE].m_effectScale = DISPLAY_WIDTH * 0.5f;
+		a = RoadTexture("Texture/Effect/SmashAE.png", &(actionEffectDatas[SMASH_AE].m_tex));
+		actionEffectDatas[SMASH_AE].m_color = 0xff00ffff;
+
+		actionEffectDatas[SLASH_AE].m_segmentX = 8;
+		actionEffectDatas[SLASH_AE].m_segmentY = 2;
+		actionEffectDatas[SLASH_AE].m_effectScale = DISPLAY_WIDTH * 0.5f;
+		a = RoadTexture("Texture/Effect/SlashAE.png", &(actionEffectDatas[SLASH_AE].m_tex));
+		actionEffectDatas[SLASH_AE].m_color = 0xff00ffff;
+
+		actionEffectDatas[PENE_AE].m_segmentX = 16;
+		actionEffectDatas[PENE_AE].m_segmentY = 2;
+		actionEffectDatas[PENE_AE].m_effectScale = DISPLAY_WIDTH * 0.5f;
+		a = RoadTexture("Texture/Effect/PenetrateAE.png", &(actionEffectDatas[PENE_AE].m_tex));
+		actionEffectDatas[PENE_AE].m_color = 0xff00ffff;
 
 		SetFont(DISPLAY_WIDTH / 70, DISPLAY_WIDTH / 48, "HGP–¾’©B", &unionFont[ENEMY_NAME_FONT], 5);
 		SetFont(DISPLAY_WIDTH / 35, DISPLAY_WIDTH / 24, "HGP–¾’©B", &unionFont[ENEMY_ACTION_FONT], 25);
@@ -135,7 +178,7 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 		if ((g_keyState.keyPush[DIK_RETURN] || g_mouseState.mousePush[RIGHT_CLICK]) && !battleData.m_useAction)
 		{
 			battleData.m_useAction = true;
-			CalcActionDamage(&battleData, ACTION_WORD_MAX, pMKWordDatas);
+			CalcActionDamage(&battleData, ACTION_WORD_MAX, pMKWordDatas, actionEffectDatas);
 			battleData.m_enemyData.m_enemyAction[(battleData.m_turn - 1) % ENEMY_ACTION_MAX].m_damage;
 			InitHand(&battleData, pMKDeck, selectedDeck);
 		}
@@ -319,7 +362,7 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 				RenderActionEffect(battleFrameCount -
 					(ACTION_WORD_STAGE_FRAME + playerActionEffectFrame + REDUCE_ENEMY_HP_FRAME
 						+ ENEMY_ACTION_NAME_STAGE_FRAME), ACTION_EFFECT_BLANK,
-					DISPLAY_WIDTH*0.5f, DISPLAY_HEIGHT*0.5f, actionEffectDatas[battleData.m_playerEffectId].m_effectScale,
+					DISPLAY_WIDTH*0.5f, DISPLAY_HEIGHT*0.5f, actionEffectDatas[enemyEffectId].m_effectScale,
 					&actionEffectDatas[enemyEffectId], GetColor(200, 255, 20, 20));
 			}
 
@@ -464,7 +507,7 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 		if ((g_keyState.keyPush[DIK_RETURN] || g_mouseState.mousePush[RIGHT_CLICK]) && !battleData.m_useAction)
 		{
 			battleData.m_useAction = true;
-			CalcActionDamage(&battleData, ACTION_WORD_MAX, pWMWordDatas);
+			CalcActionDamage(&battleData, ACTION_WORD_MAX, pWMWordDatas, actionEffectDatas);
 			battleData.m_enemyData.m_enemyAction[(battleData.m_turn - 1) % ENEMY_ACTION_MAX].m_damage;
 			InitHand(&battleData, pWMDeck, selectedDeck);
 		}
@@ -648,7 +691,7 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 				RenderActionEffect(battleFrameCount -
 					(ACTION_WORD_STAGE_FRAME + playerActionEffectFrame + REDUCE_ENEMY_HP_FRAME
 						+ ENEMY_ACTION_NAME_STAGE_FRAME), ACTION_EFFECT_BLANK,
-					DISPLAY_WIDTH*0.5f, DISPLAY_HEIGHT*0.5f, actionEffectDatas[battleData.m_playerEffectId].m_effectScale,
+					DISPLAY_WIDTH*0.5f, DISPLAY_HEIGHT*0.5f, actionEffectDatas[enemyEffectId].m_effectScale,
 					&actionEffectDatas[enemyEffectId], GetColor(200, 255, 20, 20));
 			}
 
@@ -1074,7 +1117,8 @@ void SetEffect(WordSelectEffect* pWordSelectEffect, int selectEffectMax,
 	return;
 }
 
-void CalcActionDamage(BattleData* pBattleData, int actionWordMax, WordData* pWordDatas)
+void CalcActionDamage(BattleData* pBattleData, int actionWordMax, 
+	WordData* pWordDatas, ActionEffectData* pActionEffectDatas)
 {
 	bool decidePlayerAttack = false;
 	bool decidePlayerElement = false;
@@ -1085,7 +1129,8 @@ void CalcActionDamage(BattleData* pBattleData, int actionWordMax, WordData* pWor
 		{
 			if (actionWord < actionWordMax - 1)
 			{
-				pBattleData->m_playerAction[actionWord] = pBattleData->m_playerAction[actionWord + 1];
+				pBattleData->m_playerAction[actionWord] = 
+					pBattleData->m_playerAction[actionWord + 1];
 				pBattleData->m_playerAction[actionWord + 1] = 0;
 			}
 		}
@@ -1168,7 +1213,14 @@ void CalcActionDamage(BattleData* pBattleData, int actionWordMax, WordData* pWor
 
 	CalcDamageBonusWithSkills(pBattleData,actionWordMax, pWordDatas);
 
-	pBattleData->m_playerActionDamage = 155400000;
+	pBattleData->m_playerActionDamage = 20400000;////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	pBattleData->m_playerEffectId = pBattleData->m_playerActionAttack + 6;
+
+	const DWORD ELEMENT_COLORS[ELEMENT_ATTRIBUTES_MAX] =
+	{ 0xffff0000,0xff0000ff,0xff00ff00,0xffffff00,0xff800080 ,0xffffffff};
+
+	pActionEffectDatas[(pBattleData->m_playerEffectId)].m_color = ELEMENT_COLORS[(pBattleData->m_playerActionElement)];
 
 	return;
 }
@@ -1414,7 +1466,7 @@ void RenderActionEffect(int actionEffectCount,int actionEffectBlank,
 	const int ACTION_EFFECT_SEGMENT_X = pActionEffectData->m_segmentX;
 	const int ACTION_EFFECT_SEGMENT_Y = pActionEffectData->m_segmentY;
 	CustomVertex ActionEeffectVertices[RECT_VERTEX_NUM];
-	CustomImageVerticies(ActionEeffectVertices, posX, posY, effectScale, effectScale, color,
+	CustomImageVerticies(ActionEeffectVertices, posX, posY, effectScale, effectScale, pActionEffectData->m_color,
 
 		2 * effectScale*((actionEffectCount % (actionEffectBlank*ACTION_EFFECT_SEGMENT_X)) / actionEffectBlank),
 		2 * effectScale*((actionEffectCount %(actionEffectBlank*ACTION_EFFECT_SEGMENT_X*ACTION_EFFECT_SEGMENT_Y))

@@ -140,7 +140,7 @@ void LoadWordDatas(WordData* pMagicKnightWordDatas,const char *pFilePath,int wor
 	memset(pMagicKnightWordDatas, 0, sizeof(WordData)*wordDataMax);
 
 	//魔法剣士のワードデーターを入れていく
-	for (int wordsNum = VOID_WORD + 1; wordsNum < MAGIC_KNIGHT_WORD_MAX; ++wordsNum)
+	for (int wordsNum = VOID_WORD + 1; wordsNum < wordDataMax; ++wordsNum)
 	{
 		//外部ファイルの属性を数字に直したいので一度文字列で保管する
 		const int ELEMENTAL_WORDS_MAX = 10;
@@ -156,9 +156,9 @@ void LoadWordDatas(WordData* pMagicKnightWordDatas,const char *pFilePath,int wor
 			&pMagicKnightWordDatas[wordsNum].m_have);
 
 		//￥ｎの対処
-		if (wordsNum > VOID_WORD + 1)
+		if (wordsNum > VOID_WORD)
 		{
-			strcpy(&pMagicKnightWordDatas[wordsNum].m_word[0], &pMagicKnightWordDatas[wordsNum].m_word[1]);
+			fscanf(pWordStatesFile, "%*c");
 		}
 
 		//特殊属性の数だけ回す
