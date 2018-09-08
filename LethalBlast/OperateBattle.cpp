@@ -23,18 +23,30 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 	static CustomVertex back[RECT_VERTEX_NUM];
 
 	static CustomVertex resultMask[RECT_VERTEX_NUM];
-	
+
 	if (initUnionTex)
 	{
-		RoadTexture("Texture/MainGame/mainBG.png", &unionTex[森_BACK]);
+		RoadTexture("Texture/MainGame/Forest.png", &unionTex[森_BACK]);
 		RoadTexture("Texture/MainGame/mainBG.png", &unionTex[遺跡_BACK]);
-		RoadTexture("Texture/MainGame/mainBG.png", &unionTex[洞窟_BACK]);
+		RoadTexture("Texture/MainGame/CrystalCave.png", &unionTex[洞窟_BACK]);
 		RoadTexture("Texture/MainGame/HP/HP.png", &unionTex[HP_BAR]);
 		RoadTexture("Texture/MainGame/HP/HPFrame.png",&unionTex[HP_COVER]);
 		RoadTexture("Texture/MainGame/HP/CTCount.png", &unionTex[PP_BAR]); 
 		RoadTexture("Texture/MainGame/HP/CT.png", &unionTex[WORD_SELECT_EFFECT]);
 		RoadTexture("Texture/MainGame/WordBlackBack.png", &unionTex[WORD_BLACK_BACK]);
 		RoadTexture("Texture/MainGame/Enemy/Robot.png", &enemyTex[エーレ・ツヴァイ]);
+		RoadTexture("Texture/MainGame/Enemy/dragon_karie.png", &enemyTex[ヴィーヴル]);
+		RoadTexture("Texture/MainGame/Enemy/EDoubleCaster.png", &enemyTex[影の少女たち]);
+		RoadTexture("Texture/MainGame/Enemy/cerberus.png", &enemyTex[ケルベロス]);
+		RoadTexture("Texture/MainGame/Enemy/Gazer.png", &enemyTex[ゲイザー]);
+		RoadTexture("Texture/MainGame/Enemy/LBウエポンマスターmob2.png",&enemyTex[エンデュミオン]);
+		RoadTexture("Texture/MainGame/Enemy/LBウエポンマスターmob1.png",&enemyTex[エクスキューショナー]);
+		RoadTexture("Texture/MainGame/Enemy/turtle.png",&enemyTex[シルトクレスタル]);
+		
+		actionEffectDatas[FLASH_RAZER].m_segmentX = 16;
+		actionEffectDatas[FLASH_RAZER].m_segmentY = 10;
+		actionEffectDatas[FLASH_RAZER].m_effectScale = DISPLAY_WIDTH * 0.5f;
+		int a=RoadTexture("Texture/Effect/FL2AE.png", &(actionEffectDatas[FLASH_RAZER].m_tex));
 
 		SetFont(DISPLAY_WIDTH / 70, DISPLAY_WIDTH / 48, "HGP明朝B", &unionFont[ENEMY_NAME_FONT], 5);
 		SetFont(DISPLAY_WIDTH / 35, DISPLAY_WIDTH / 24, "HGP明朝B", &unionFont[ENEMY_ACTION_FONT], 25);
@@ -88,7 +100,7 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 			RoadTexture("Texture/CharaChoice/MagicKnight.png", &mKWordTex[MK_CHARA]);
 			RoadTexture("Texture/MainGame/MKActionWordFrame.png", &mKWordTex[MK_ACTION_SEAT]);
 			RoadTexture("Texture/MainGame/WordUnderBoard.png", &mKWordTex[MK_WORD_SEAT]);
-			RoadTexture("Texture/MainGame/WordUnderBoard.png", &mKWordTex[MK_CUT_IN]);
+			RoadTexture("Texture/MainGame/MKCutIn.png", &mKWordTex[MK_CUT_IN]);
 
 			frameCount = 0;
 		}
@@ -230,12 +242,21 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 			{
 				if (battleData.m_enemyData.m_currentHP <= battleData.m_playerActionDamage)
 				{
-					CustomImageVerticies(charaCutInVertices, DISPLAY_WIDTH*0.5f, DISPLAY_HEIGHT*0.5f,
-						DISPLAY_WIDTH*0.5f*(battleFrameCount / (float)ACTION_WORD_STAGE_FRAME), DISPLAY_HEIGHT*0.15f,
-						GetColor(255, 255, 255, 255),
-						(0.5f*(1.f - battleFrameCount / (float)ACTION_WORD_STAGE_FRAME)), 0.f,
-						DISPLAY_WIDTH*(battleFrameCount / (float)ACTION_WORD_STAGE_FRAME),
-						1.f, (float)DISPLAY_WIDTH, 1.f);
+					if (battleFrameCount < ACTION_WORD_STAGE_FRAME / 2)
+					{
+						CustomImageVerticies(charaCutInVertices, DISPLAY_WIDTH*0.5f, DISPLAY_HEIGHT*0.28f,
+							DISPLAY_WIDTH*0.5f*(battleFrameCount / (float)(ACTION_WORD_STAGE_FRAME/2)), DISPLAY_HEIGHT*0.15f,
+							GetColor(255, 255, 255, 255),
+							(0.5f*(1.f - battleFrameCount / (float)(ACTION_WORD_STAGE_FRAME/2))), 0.f,
+							DISPLAY_WIDTH*(battleFrameCount / (float)(ACTION_WORD_STAGE_FRAME/2)),
+							1.f, (float)DISPLAY_WIDTH, 1.f);
+					}
+
+					else
+					{
+						CustomImageVerticies(charaCutInVertices, DISPLAY_WIDTH*0.5f, DISPLAY_HEIGHT*0.28f,
+							DISPLAY_WIDTH*0.5f, DISPLAY_HEIGHT*0.15f);
+					}
 
 					DrawImage(charaCutInVertices, mKWordTex[MK_CUT_IN]);
 				}
@@ -251,7 +272,7 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 			if (ACTION_WORD_STAGE_FRAME <= battleFrameCount && battleFrameCount < ACTION_WORD_STAGE_FRAME + playerActionEffectFrame)
 			{
 				RenderActionEffect(battleFrameCount - ACTION_WORD_STAGE_FRAME, ACTION_EFFECT_BLANK,
-					DISPLAY_WIDTH*0.5f, DISPLAY_HEIGHT*0.5f, DISPLAY_WIDTH*1.0f,
+					DISPLAY_WIDTH*0.5f, DISPLAY_HEIGHT*0.5f, actionEffectDatas[battleData.m_playerEffectId].m_effectScale,
 					&actionEffectDatas[battleData.m_playerEffectId], GetColor(200, 255, 20, 20));
 			}
 
@@ -298,7 +319,7 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 				RenderActionEffect(battleFrameCount -
 					(ACTION_WORD_STAGE_FRAME + playerActionEffectFrame + REDUCE_ENEMY_HP_FRAME
 						+ ENEMY_ACTION_NAME_STAGE_FRAME), ACTION_EFFECT_BLANK,
-					DISPLAY_WIDTH*0.5f, DISPLAY_HEIGHT*0.5f, DISPLAY_WIDTH*1.0f,
+					DISPLAY_WIDTH*0.5f, DISPLAY_HEIGHT*0.5f, actionEffectDatas[battleData.m_playerEffectId].m_effectScale,
 					&actionEffectDatas[enemyEffectId], GetColor(200, 255, 20, 20));
 			}
 
@@ -361,14 +382,14 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 
 		DrawImage(enemyHPVertices, unionTex[HP_COVER]);
 
-		CustomImageVerticies(playerHPVertices, DISPLAY_WIDTH *0.2f, DISPLAY_HEIGHT*0.79f,
+		CustomImageVerticies(playerHPVertices, DISPLAY_WIDTH *0.12f, DISPLAY_HEIGHT*0.82f,
 			DISPLAY_WIDTH*0.1f, DISPLAY_HEIGHT*0.01f, 0xFFFFFFFF,
 			0.5f*(1.f - battleData.m_playerHPCurrent / (float)(battleData.m_playerHPMax)),
 			0.f, 0.5f, 1.f, 1.f, 1.f);
 
 		DrawImage(playerHPVertices, unionTex[HP_BAR]);
 
-		CustomImageVerticies(playerHPVertices, DISPLAY_WIDTH *0.2f, DISPLAY_HEIGHT*0.79f,
+		CustomImageVerticies(playerHPVertices, DISPLAY_WIDTH *0.12f, DISPLAY_HEIGHT*0.82f,
 			DISPLAY_WIDTH*0.1f, DISPLAY_HEIGHT*0.01f, 0xFFFFFFFF);
 
 		DrawImage(playerHPVertices, unionTex[HP_COVER]);
@@ -376,7 +397,7 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 		char pPBuf[10];
 		sprintf(pPBuf, "%d/%d", battleData.m_pPCurrent, battleData.m_pPMax);
 
-		WriteText((int)(DISPLAY_WIDTH *0.25f), (int)(DISPLAY_HEIGHT*0.7f), pPBuf, DT_CENTER,
+		WriteText((int)(DISPLAY_WIDTH *0.26f), (int)(DISPLAY_HEIGHT*0.8187f), pPBuf, DT_CENTER,
 			unionFont[ENEMY_NAME_FONT], GetColor(255, 0, 50, 255));
 
 		DrawImage(resultMask, NULL);
@@ -407,7 +428,7 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 			RoadTexture("Texture/CharaChoice/WeaponMaster.png", &wMWordTex[WM_CHARA]);
 			RoadTexture("Texture/MainGame/frame.png", &wMWordTex[WM_ACTION_SEAT]);
 			RoadTexture("Texture/MainGame/ListBG.png", &wMWordTex[WM_WORD_SEAT]);
-			RoadTexture("Texture/MainGame/ListBG.png", &wMWordTex[WM_CUT_IN]);
+			RoadTexture("Texture/MainGame/WMCutIn.png", &wMWordTex[WM_CUT_IN]);
 			RoadTexture("Texture/MainGame/WMUnderAction.png", &wMWordTex[WM_UNDER_ACTION]);
 
 			frameCount = 0;
@@ -419,17 +440,17 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 				selectedDeck, pWMDeck, wordSelectEffect, WORD_SELECT_EFFECT_MAX);
 		}
 
-		const float HAND_WIDTH = DISPLAY_WIDTH * 0.034f;
+		const float HAND_WIDTH = DISPLAY_WIDTH * 0.033f;
 		const float HAND_HEIGHT = HAND_WIDTH;
 
 		SetHandVertices(frameCount, START_ANIMATION_FRAME, handVertices,
 			DISPLAY_WIDTH *0.89f, DISPLAY_HEIGHT*0.5f,
 			HAND_WIDTH, HAND_HEIGHT, DISPLAY_WIDTH * 1.4f, SCROLL_SPEED, &battleData);
 
-		const float ACTION_WORD_WIDTH = DISPLAY_WIDTH * 0.034f;
+		const float ACTION_WORD_WIDTH = DISPLAY_WIDTH * 0.033f;
 		const float ACTION_WORD_HEIGHT = ACTION_WORD_WIDTH;
-		const float ACTION_WORD_POS_X = DISPLAY_WIDTH * 0.14f;
-		const float ACTION_WORD_POS_Y = DISPLAY_HEIGHT * 0.9f/* 0.975f*/;
+		const float ACTION_WORD_POS_X = DISPLAY_WIDTH * 0.12f;
+		const float ACTION_WORD_POS_Y = DISPLAY_HEIGHT * 0.92f/* 0.975f*/;
 		ImagesCustomVertex actionWordVertices[ACTION_WORD_MAX];
 
 		SetActionWordVertices(actionWordVertices, ACTION_WORD_MAX, ACTION_WORD_POS_X, ACTION_WORD_POS_Y,
@@ -550,12 +571,21 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 			{
 				if (battleData.m_enemyData.m_currentHP <= battleData.m_playerActionDamage)
 				{
-					CustomImageVerticies(charaCutInVertices, DISPLAY_WIDTH*0.5f, DISPLAY_HEIGHT*0.5f,
-						DISPLAY_WIDTH*0.5f*(battleFrameCount / (float)ACTION_WORD_STAGE_FRAME), DISPLAY_HEIGHT*0.15f,
-						GetColor(255, 255, 255, 255),
-						(0.5f*(1.f - battleFrameCount / (float)ACTION_WORD_STAGE_FRAME)), 0.f,
-						DISPLAY_WIDTH*(battleFrameCount / (float)ACTION_WORD_STAGE_FRAME),
-						1.f, (float)DISPLAY_WIDTH, 1.f);
+					if (battleFrameCount < ACTION_WORD_STAGE_FRAME / 2)
+					{
+						CustomImageVerticies(charaCutInVertices, DISPLAY_WIDTH*0.5f, DISPLAY_HEIGHT*0.28f,
+							DISPLAY_WIDTH*0.5f*(battleFrameCount / (float)(ACTION_WORD_STAGE_FRAME / 2)), DISPLAY_HEIGHT*0.15f,
+							GetColor(255, 255, 255, 255),
+							(0.5f*(1.f - battleFrameCount / (float)(ACTION_WORD_STAGE_FRAME / 2))), 0.f,
+							DISPLAY_WIDTH*(battleFrameCount / (float)(ACTION_WORD_STAGE_FRAME / 2)),
+							1.f, (float)DISPLAY_WIDTH, 1.f);
+					}
+
+					else
+					{
+						CustomImageVerticies(charaCutInVertices, DISPLAY_WIDTH*0.5f, DISPLAY_HEIGHT*0.28f,
+							DISPLAY_WIDTH*0.5f, DISPLAY_HEIGHT*0.15f);
+					}
 
 					DrawImage(charaCutInVertices, wMWordTex[WM_CUT_IN]);
 				}
@@ -571,7 +601,7 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 			if (ACTION_WORD_STAGE_FRAME <= battleFrameCount && battleFrameCount < ACTION_WORD_STAGE_FRAME + playerActionEffectFrame)
 			{
 				RenderActionEffect(battleFrameCount - ACTION_WORD_STAGE_FRAME, ACTION_EFFECT_BLANK,
-					DISPLAY_WIDTH*0.5f, DISPLAY_HEIGHT*0.5f, DISPLAY_WIDTH*1.0f,
+					DISPLAY_WIDTH*0.5f, DISPLAY_HEIGHT*0.5f, actionEffectDatas[battleData.m_playerEffectId].m_effectScale,
 					&actionEffectDatas[battleData.m_playerEffectId], GetColor(200, 255, 20, 20));
 			}
 
@@ -618,7 +648,7 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 				RenderActionEffect(battleFrameCount -
 					(ACTION_WORD_STAGE_FRAME + playerActionEffectFrame + REDUCE_ENEMY_HP_FRAME
 						+ ENEMY_ACTION_NAME_STAGE_FRAME), ACTION_EFFECT_BLANK,
-					DISPLAY_WIDTH*0.5f, DISPLAY_HEIGHT*0.5f, DISPLAY_WIDTH*1.0f,
+					DISPLAY_WIDTH*0.5f, DISPLAY_HEIGHT*0.5f, actionEffectDatas[battleData.m_playerEffectId].m_effectScale,
 					&actionEffectDatas[enemyEffectId], GetColor(200, 255, 20, 20));
 			}
 
@@ -681,14 +711,14 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 
 		DrawImage(enemyHPVertices, unionTex[HP_COVER]);
 
-		CustomImageVerticies(playerHPVertices, DISPLAY_WIDTH *0.2f, DISPLAY_HEIGHT*0.79f,
+		CustomImageVerticies(playerHPVertices, DISPLAY_WIDTH *0.12f, DISPLAY_HEIGHT*0.82f,
 			DISPLAY_WIDTH*0.1f, DISPLAY_HEIGHT*0.01f, 0xFFFFFFFF,
 			0.5f*(1.f - battleData.m_playerHPCurrent / (float)(battleData.m_playerHPMax)),
 			0.f, 0.5f, 1.f, 1.f, 1.f);
 
 		DrawImage(playerHPVertices, unionTex[HP_BAR]);
 
-		CustomImageVerticies(playerHPVertices, DISPLAY_WIDTH *0.2f, DISPLAY_HEIGHT*0.79f,
+		CustomImageVerticies(playerHPVertices, DISPLAY_WIDTH *0.12f, DISPLAY_HEIGHT*0.82f,
 			DISPLAY_WIDTH*0.1f, DISPLAY_HEIGHT*0.01f, 0xFFFFFFFF);
 
 		DrawImage(playerHPVertices, unionTex[HP_COVER]);
@@ -696,7 +726,7 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 		char pPBuf[10];
 		sprintf(pPBuf, "%d/%d", battleData.m_pPCurrent, battleData.m_pPMax);
 
-		WriteText((int)(DISPLAY_WIDTH *0.25f), (int)(DISPLAY_HEIGHT*0.7f), pPBuf, DT_CENTER,
+		WriteText((int)(DISPLAY_WIDTH *0.26f), (int)(DISPLAY_HEIGHT*0.8187f), pPBuf, DT_CENTER,
 			unionFont[ENEMY_NAME_FONT], GetColor(255, 0, 50, 255));
 
 		DrawImage(resultMask, NULL);
@@ -1138,6 +1168,8 @@ void CalcActionDamage(BattleData* pBattleData, int actionWordMax, WordData* pWor
 
 	CalcDamageBonusWithSkills(pBattleData,actionWordMax, pWordDatas);
 
+	pBattleData->m_playerActionDamage = 155400000;
+
 	return;
 }
 
@@ -1384,10 +1416,8 @@ void RenderActionEffect(int actionEffectCount,int actionEffectBlank,
 	CustomVertex ActionEeffectVertices[RECT_VERTEX_NUM];
 	CustomImageVerticies(ActionEeffectVertices, posX, posY, effectScale, effectScale, color,
 
-		2 * effectScale*((actionEffectCount % 
-		(actionEffectBlank*ACTION_EFFECT_SEGMENT_X)) / actionEffectBlank),
-		2 * effectScale*((actionEffectCount %
-		(actionEffectBlank*ACTION_EFFECT_SEGMENT_X*ACTION_EFFECT_SEGMENT_Y))
+		2 * effectScale*((actionEffectCount % (actionEffectBlank*ACTION_EFFECT_SEGMENT_X)) / actionEffectBlank),
+		2 * effectScale*((actionEffectCount %(actionEffectBlank*ACTION_EFFECT_SEGMENT_X*ACTION_EFFECT_SEGMENT_Y))
 			/ (actionEffectBlank * ACTION_EFFECT_SEGMENT_X)),
 
 		2 * effectScale,

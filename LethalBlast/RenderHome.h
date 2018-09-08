@@ -23,9 +23,10 @@ enum HOME_TEX
 	HOME_BACK_04_TEX,
 	HOME_BACK_05_TEX,
 	HOME_BACK_06_TEX,
-	HOME_MAIN_CHARA_TEX,
+	HOME_MAIN_CHARA_MK_TEX,
+	HOME_MAIN_CHARA_WM_TEX,
 	HOME_TEX_MAX
 };
 
-void RenderHome(SCENE* scene,CustomVertex* deckAlterPortal, CustomVertex* modifyWordPortal, CustomVertex* mainGamePortal,
+void RenderHome(int playerChara,SCENE* scene,CustomVertex* deckAlterPortal, CustomVertex* modifyWordPortal, CustomVertex* mainGamePortal,
 	CustomVertex* charaChoicePortal, TEXTUREID* mKWordTex, TEXTUREID* wMWordTex, PLAYERTYPE* playerType, bool* initializedTex);

@@ -13,66 +13,47 @@ void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, Deck* pMagicKnig
 {
 	static int frameCount = -1;
 	
-	switch (*playerType)
+	if (!(*initializedTex))
 	{
-	case WEAPON_MASTER:
+		LoadWordDatas(pWeaponMAsterWordDatas, "Files/WordStates/WeaponMasterWordStates.csv", WEAPON_MASTER_WORD_MAX);
+		LoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck1.csv", 0);
+		LoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck2.csv", 1);
+		LoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck3.csv", 2);
+		LoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck4.csv", 3);
+		LoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck5.csv", 4);
+		LoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck6.csv", 5);
+		LoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck7.csv", 6);
+		LoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck8.csv", 7);
+		LordTextureWeaponMaster(wMWordTex);
+		LoadWordDatas(pMagicKnightWordDatas, "Files/WordStates/MagicKnightWordStates.csv", MAGIC_KNIGHT_WORD_MAX);
+		LoadDeck(pMagicKnightWordDatas, pMagicKnightDecks, "Files/Deck/MKDeck1.csv", 0);
+		LoadDeck(pMagicKnightWordDatas, pMagicKnightDecks, "Files/Deck/MKDeck2.csv", 1);
+		LoadDeck(pMagicKnightWordDatas, pMagicKnightDecks, "Files/Deck/MKDeck3.csv", 2);
+		LoadDeck(pMagicKnightWordDatas, pMagicKnightDecks, "Files/Deck/MKDeck4.csv", 3);
+		LoadDeck(pMagicKnightWordDatas, pMagicKnightDecks, "Files/Deck/MKDeck5.csv", 4);
+		LoadDeck(pMagicKnightWordDatas, pMagicKnightDecks, "Files/Deck/MKDeck6.csv", 5);
+		LoadDeck(pMagicKnightWordDatas, pMagicKnightDecks, "Files/Deck/MKDeck7.csv", 6);
+		LoadDeck(pMagicKnightWordDatas, pMagicKnightDecks, "Files/Deck/MKDeck8.csv", 7);
+		isSuccess = soundsManager.AddFile("Audio/perusona.mp3", _T("bgm"));
 
-		if (!(*initializedTex))
+		RoadTexture("Texture/MKWord/VOID_WORD.png", &mKWordTex[VOID_WORD]);
+
+		FILE* pWordTexPathsFile;
+
+		pWordTexPathsFile = fopen("Files/TexturePaths/MKWordTexPaths.csv", "r");
+
+		for (int word = VOID_WORD + 1; word < MAGIC_KNIGHT_WORD_MAX; ++word)
 		{
-			LoadWordDatas(pWeaponMAsterWordDatas,"Files/WordStates/WeaponMasterWordStates.csv",WEAPON_MASTER_WORD_MAX);
-			LoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck1.csv", 0);
-			LoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck2.csv", 1);
-			LoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck3.csv", 2);
-			LoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck4.csv", 3);
-			LoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck5.csv", 4);
-			LoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck6.csv", 5);
-			LoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck7.csv", 6);
-			LoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck8.csv", 7);
-			LordTextureWeaponMaster(wMWordTex);
-			isSuccess = soundsManager.AddFile("Audio/perusona.mp3", _T("bgm"));
+			char mkWordPath[60];
 
-			*initializedTex = true;
-		}
-		
-		break;
-	
-	case MAGIC_KNIGHT:
-
-		if (!(*initializedTex))
-		{
-			LoadWordDatas(pMagicKnightWordDatas,"Files/WordStates/MagicKnightWordStates.csv",MAGIC_KNIGHT_WORD_MAX);
-			LoadDeck(pMagicKnightWordDatas, pMagicKnightDecks, "Files/Deck/MKDeck1.csv", 0);
-			LoadDeck(pMagicKnightWordDatas, pMagicKnightDecks, "Files/Deck/MKDeck2.csv", 1);
-			LoadDeck(pMagicKnightWordDatas, pMagicKnightDecks, "Files/Deck/MKDeck3.csv", 2);
-			LoadDeck(pMagicKnightWordDatas, pMagicKnightDecks, "Files/Deck/MKDeck4.csv", 3);
-			LoadDeck(pMagicKnightWordDatas, pMagicKnightDecks, "Files/Deck/MKDeck5.csv", 4);
-			LoadDeck(pMagicKnightWordDatas, pMagicKnightDecks, "Files/Deck/MKDeck6.csv", 5);
-			LoadDeck(pMagicKnightWordDatas, pMagicKnightDecks, "Files/Deck/MKDeck7.csv", 6);
-			LoadDeck(pMagicKnightWordDatas, pMagicKnightDecks, "Files/Deck/MKDeck8.csv", 7);
-			isSuccess = soundsManager.AddFile("Audio/perusona.mp3", _T("bgm"));
-
-			RoadTexture("Texture/MKWord/VOID_WORD.png", &mKWordTex[VOID_WORD]);
-
-			FILE* pWordTexPathsFile;
-
-			pWordTexPathsFile = fopen("Files/TexturePaths/MKWordTexPaths.csv", "r");
-
-			for (int word = VOID_WORD + 1; word < MAGIC_KNIGHT_WORD_MAX; ++word)
-			{
-				char mkWordPath[60];
-
-				fscanf(pWordTexPathsFile, "%s,", mkWordPath);
-				RoadTexture(mkWordPath, &mKWordTex[word]);
-			}
-
-			fclose(pWordTexPathsFile);
-
-			*initializedTex = true;
+			fscanf(pWordTexPathsFile, "%s,", mkWordPath);
+			RoadTexture(mkWordPath, &mKWordTex[word]);
 		}
 
-		break;
+		fclose(pWordTexPathsFile);
+
+		*initializedTex = true;
 	}
-
 
 	//マウスカーソル
 	CustomVertex mouseCursorCollisionVertex[RECT_VERTEX_NUM];
@@ -133,7 +114,7 @@ void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, Deck* pMagicKnig
 
 			isSuccess = soundsManager.Stop(_T("bgm"));
 
-			*initializedTex = false;
+			/**initializedTex = false;
 
 			for (int word = 0; word < WEAPON_MASTER_WORD_MAX; ++word)
 			{
@@ -143,7 +124,7 @@ void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, Deck* pMagicKnig
 			for (int word = 0; word < MAGIC_KNIGHT_WORD_MAX; ++word)
 			{
 				SAFE_RELEASE(mKWordTex[word]);
-			}
+			}*/
 		}
 	}
 

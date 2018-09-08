@@ -6,7 +6,7 @@
 #include"ControlGame.h"
 #include"RenderHome.h"
 
-void RenderHome(SCENE* scene, CustomVertex* deckAlterPortal, CustomVertex* modifyWordPortal,
+void RenderHome(int playerChara,SCENE* scene, CustomVertex* deckAlterPortal, CustomVertex* modifyWordPortal,
 	CustomVertex* mainGamePortal, CustomVertex* charaChoicePortal, TEXTUREID* mKWordTex, TEXTUREID* wMWordTex,PLAYERTYPE* playerType,bool* initializedTex)
 {
 	static int frameCount = -1;
@@ -43,7 +43,8 @@ void RenderHome(SCENE* scene, CustomVertex* deckAlterPortal, CustomVertex* modif
 		RoadTexture("Texture/Home/HomeBackground04.png", &homeTextures[HOME_BACK_04_TEX]);
 		RoadTexture("Texture/Home/HomeBackground05.png", &homeTextures[HOME_BACK_05_TEX]);
 		RoadTexture("Texture/Home/HomeBackground06.png", &homeTextures[HOME_BACK_06_TEX]);
-		RoadTexture("Texture/MainGame/Enemy/EDoubleCaster.png", &homeTextures[HOME_MAIN_CHARA_TEX]);
+		RoadTexture("Texture/CharaChoice/MagicKnight.png", &homeTextures[HOME_MAIN_CHARA_MK_TEX]);
+		RoadTexture("Texture/CharaChoice/WaeponMaster.png", &homeTextures[HOME_MAIN_CHARA_WM_TEX]);
 
 		ZeroMemory(backFrameCount, sizeof(int)*BACK_NUM);
 
@@ -260,7 +261,15 @@ void RenderHome(SCENE* scene, CustomVertex* deckAlterPortal, CustomVertex* modif
 	CustomVertex MainChara[RECT_VERTEX_NUM];
 	CustomImageVerticies(MainChara, DISPLAY_WIDTH / 4.f, DISPLAY_HEIGHT * 0.56f, DISPLAY_WIDTH / 4.f, DISPLAY_WIDTH / 4.f,GetColor(255,229,220,220));
 
-	DrawImage(MainChara, homeTextures[HOME_MAIN_CHARA_TEX]);
+	if (playerChara == MAGIC_KNIGHT)
+	{
+		DrawImage(MainChara, homeTextures[HOME_MAIN_CHARA_MK_TEX]);
+	}
+
+	else
+	{
+		DrawImage(MainChara, homeTextures[HOME_MAIN_CHARA_WM_TEX]);
+	}
 
 	DrawImage(deckAlterPortal, homeTextures[ALTER_PORTAL_TEX]);
 	DrawImage(modifyWordPortal, homeTextures[MODIFY_PORTAL_TEX]);

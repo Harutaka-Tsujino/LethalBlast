@@ -68,6 +68,10 @@ enum ENEMY
 	ヴィーヴル,
 	影の少女たち,
 	ケルベロス,
+	ゲイザー,
+	エンデュミオン,
+	エクスキューショナー,
+	シルトクレスタル,
 	ENEMY_MAX
 };
 
@@ -135,6 +139,7 @@ typedef struct
 	TEXTUREID m_tex;
 	int m_segmentX;
 	int m_segmentY;
+	float m_effectScale;
 }ActionEffectData;
 
 typedef struct

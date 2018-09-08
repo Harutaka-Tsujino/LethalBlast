@@ -139,6 +139,12 @@ typedef struct
 	CustomVertex ImageVertex[RECT_VERTEX_NUM];
 }ImagesCustomVertex;
 
+enum WEAPON_MASTER_WORD_LISTS
+{
+	SPACE_WORD,
+#include"Files/Enum/WeaponMasterWordEnum.txt"
+};
+
 enum MAGIC_KNIGHT_WORD
 {
 	VOID_WORD,
