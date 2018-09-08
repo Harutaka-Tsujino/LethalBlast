@@ -19,7 +19,7 @@ void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, PlayerDeck* pMag
 
 		if (!(*initializedTex))
 		{
-			/*LoadWeaponMasterWordDatas(pWeaponMAsterWordDatas);
+			LoadWeaponMasterWordDatas(pWeaponMAsterWordDatas);
 			WeaponMasterLoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck1.csv", 0);
 			WeaponMasterLoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck2.csv", 1);
 			WeaponMasterLoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck3.csv", 2);
@@ -27,7 +27,7 @@ void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, PlayerDeck* pMag
 			WeaponMasterLoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck5.csv", 4);
 			WeaponMasterLoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck6.csv", 5);
 			WeaponMasterLoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck7.csv", 6);
-			WeaponMasterLoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck8.csv", 7);*/
+			WeaponMasterLoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck8.csv", 7);
 			LordTextureWeaponMaster(weaponMasterWordIds);
 			isSuccess = soundsManager.AddFile("Audio/perusona.mp3", _T("bgm"));
 
@@ -40,7 +40,7 @@ void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, PlayerDeck* pMag
 
 		if (!(*initializedTex))
 		{
-			LoadMagicKnightWordDatas(pMagicKnightWordDatas);
+			LoadWordDatas(pMagicKnightWordDatas,"Files/WordStates/MagicKnightWordStates.csv",MAGIC_KNIGHT_WORD_MAX);
 			LoadDeck(pMagicKnightWordDatas, pMagicKnightDecks, "Files/Deck/MKDeck1.csv", 0);
 			LoadDeck(pMagicKnightWordDatas, pMagicKnightDecks, "Files/Deck/MKDeck2.csv", 1);
 			LoadDeck(pMagicKnightWordDatas, pMagicKnightDecks, "Files/Deck/MKDeck3.csv", 2);
@@ -73,7 +73,7 @@ void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, PlayerDeck* pMag
 		break;
 	}
 
-	isSuccess = soundsManager.Start(_T("bgm"), true);
+		isSuccess = soundsManager.Start(_T("bgm"), true);
 
 	//マウスカーソル
 	CustomVertex mouseCursorCollisionVertex[RECT_VERTEX_NUM];
@@ -99,6 +99,8 @@ void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, PlayerDeck* pMag
 	CustomImageVerticies(pDeckAlterPortal, 
 		(float)(DISPLAY_WIDTH*0.625f + MAIN_GAME_PORTAL_SCALE * 2), (float)(DISPLAY_HEIGHT*0.625f - MAIN_GAME_PORTAL_SCALE * 0.6),
 		(float)MID_PORTAL_SCALE_X, (float)MID_PORTAL_SCALE_Y);
+
+	isSuccess = soundsManager.Start(_T("bgm"), true);
 
 	if (g_mouseState.mousePush[LEFT_CLICK])
 	{
@@ -145,6 +147,208 @@ void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, PlayerDeck* pMag
 			}
 		}
 	}
+
+	return;
+}
+
+void LoadWordDatas(WordData* pMagicKnightWordDatas,const char *pFilePath,int wordDataMax)
+{
+	FILE* pWordStatesFile;
+
+	fopen_s(&pWordStatesFile, pFilePath, "r");
+
+	memset(pMagicKnightWordDatas, 0, sizeof(WordData)*wordDataMax);
+
+	//魔法剣士のワードデーターを入れていく
+	for (int wordsNum = VOID_WORD + 1; wordsNum < MAGIC_KNIGHT_WORD_MAX; ++wordsNum)
+	{
+		//外部ファイルの属性を数字に直したいので一度文字列で保管する
+		const int ELEMENTAL_WORDS_MAX = 10;
+		char elemental[ELEMENTAL_WORDS_MAX];
+		memset(elemental, 0, sizeof(char)*ELEMENTAL_WORDS_MAX);
+
+		const int ATTACK_WORDS_MAX = 10;
+		char attack[ATTACK_WORDS_MAX];
+		memset(attack, 0, sizeof(char)*ATTACK_WORDS_MAX);
+
+		//外部ファイルからの入力
+		fscanf(pWordStatesFile, "%[^,],%[^,],%[^,],%*x,%*d,%*d,%*d,%*d,%d", pMagicKnightWordDatas[wordsNum].m_word, elemental, attack, 
+			&pMagicKnightWordDatas[wordsNum].m_have);
+
+		//￥ｎの対処
+		if (wordsNum > VOID_WORD + 1)
+		{
+			strcpy(&pMagicKnightWordDatas[wordsNum].m_word[0], &pMagicKnightWordDatas[wordsNum].m_word[1]);
+		}
+
+		//特殊属性の数だけ回す
+		for (int elementalNum = 0; elementalNum < ELEMENT_ATTRIBUTES_MAX; ++elementalNum)
+		{
+			//属性が決まったかどうか
+			bool wasInputElemental = false;
+
+			//属性を文字列で保管していたので数字に変換する
+			switch (elementalNum)
+			{
+			case FIRE_ELEMENT:
+
+				if (!strcmp("fi", elemental))
+				{
+					pMagicKnightWordDatas[wordsNum].m_element = FIRE_ELEMENT;
+
+					wasInputElemental = true;
+				}
+
+				break;
+
+			case WATER_ELEMENT:
+
+				if (!strcmp("wa", elemental))
+				{
+					pMagicKnightWordDatas[wordsNum].m_element = WATER_ELEMENT;
+
+					wasInputElemental = true;
+				}
+
+				break;
+
+			case WIND_ELEMENT:
+
+				if (!strcmp("wi", elemental))
+				{
+					pMagicKnightWordDatas[wordsNum].m_element = WIND_ELEMENT;
+
+					wasInputElemental = true;
+				}
+
+				break;
+
+			case SHINING_ELEMENT:
+
+				if (!strcmp("sh", elemental))
+				{
+					pMagicKnightWordDatas[wordsNum].m_element = SHINING_ELEMENT;
+
+					wasInputElemental = true;
+				}
+
+				break;
+
+			case DARKNESS_ELEMENT:
+
+				if (!strcmp("da", elemental))
+				{
+					pMagicKnightWordDatas[wordsNum].m_element = DARKNESS_ELEMENT;
+
+					wasInputElemental = true;
+				}
+
+			case VOID_ELEMENT:
+
+				if (!strcmp("0", elemental))
+				{
+					pMagicKnightWordDatas[wordsNum].m_element = VOID_ELEMENT;
+
+					wasInputElemental = true;
+				}
+
+				break;
+			}
+
+			if (wasInputElemental)
+			{
+				break;
+			}
+		}
+
+		//物理属性の数だけ回す
+		for (int attackNum = 0; attackNum < ATTACK_ATTRIBUTES_MAX; ++attackNum)
+		{
+			bool wasInputAttack = 0;
+
+			switch (attackNum)
+			{
+			case SLASH_ATTACK:
+
+				if (!strcmp("sl", attack))
+				{
+					pMagicKnightWordDatas[wordsNum].m_attack = SLASH_ATTACK;
+
+					wasInputAttack = true;
+				}
+
+				break;
+
+			case SMASH_ATTACK:
+
+				if (!strcmp("sm", attack))
+				{
+					pMagicKnightWordDatas[wordsNum].m_attack = SMASH_ATTACK;
+
+					wasInputAttack = true;
+				}
+
+				break;
+
+			case PENETRATION_ATTACK:
+
+				if (!strcmp("pe", attack))
+				{
+					pMagicKnightWordDatas[wordsNum].m_attack = PENETRATION_ATTACK;
+
+					wasInputAttack = true;
+				}
+
+				break;
+
+			case VOID_ATTACK:
+
+				if (!strcmp("0", attack))
+				{
+					pMagicKnightWordDatas[wordsNum].m_attack = VOID_ATTACK;
+				}
+
+				break;
+			}
+
+			if (wasInputAttack)
+			{
+				break;
+			}
+		}
+	}
+
+	fclose(pWordStatesFile);
+
+	return;
+}
+
+void LoadDeck(WordData* pMagicKnightWordDatas, Deck* pMagicKnightDecks, const char* deckFilePath,int deckNum)
+{
+	FILE* pDeckFile;
+
+	pDeckFile = fopen(deckFilePath, "r");
+
+	memset(&pMagicKnightDecks[deckNum], 0, sizeof(Deck));
+
+	fscanf(pDeckFile, "%*[^,]");
+
+	for (int deckWordNum = 0; deckWordNum < DECK_WORD_MAX; ++deckWordNum)
+	{
+		fseek(pDeckFile, 1, SEEK_CUR);
+		fscanf(pDeckFile,"%d", &pMagicKnightDecks[deckNum].m_wordId[deckWordNum]);
+
+		int wordId = pMagicKnightDecks[deckNum].m_wordId[deckWordNum];
+
+		if (!wordId)
+		{
+			break;
+		}
+
+		pMagicKnightDecks[deckNum].m_wordNum += 1;
+	}
+
+	fclose(pDeckFile);
 
 	return;
 }

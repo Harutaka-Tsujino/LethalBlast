@@ -37,14 +37,12 @@ void MainFunction(void)
 	static SCENE scene = (SCENE)0;
 	static WeaponMasterWordData weaponMasterWords[WEAPON_MASTER_WORD_MAX];
 	static WordData wMWordDatas[WEAPON_MASTER_WORD_MAX];
-	static WeaponMasterDeck weaponMasterWordDecks[WEAPON_MASTER_DECK_MAX];
 	ImagesCustomVertex choiseWMWordCollisionsVertex[WEAPON_MASTER_WORD_MAX];
 	static int cursol = 1;
 
 	static PLAYERTYPE playerType = WEAPON_MASTER;
 	static int frameCount = 0;
 	static int page = 1;
-	static MagicKnightDeck magicKnightDecks[MAGIC_KNIGHT_WORD_MAX];
 	static WordData magicKnightWordDatas[MAGIC_KNIGHT_WORD_MAX];
 	static PlayerDeck magicKnightDeck[MAGIC_KNIGHT_DECKS_MAX];
 	
@@ -122,8 +120,8 @@ void MainFunction(void)
 
 	case HOME_SCENE:
 
-		ControlHome(&scene, magicKnightWordDatas, magicKnightDecks,
-			weaponMasterWords, weaponMasterWordDecks,
+		ControlHome(&scene, magicKnightWordDatas, mKDecks,
+			wMWordDatas, wMDecks,
 			deckAlterPortal, modifyWordPortal, mainGamePortal, charaChoicePortal, mKWordTex, wMWordTex, &playerType, &initializedTex);
 
 		RenderHome(&scene, deckAlterPortal, modifyWordPortal, mainGamePortal, charaChoicePortal, mKWordTex, wMWordTex, &playerType,&initializedTex);
@@ -133,7 +131,7 @@ void MainFunction(void)
 	case CHOSE_DECK_TO_ALTER_SCENE:
 
 		ControlChoiceDeck(&scene, ALTER_DECK_SCENE, choiseDeckCollisionsVertex, &deckNumToAlter);
-		RenderChoiceDeck(choiseDeckCollisionsVertex, magicKnightDecks);
+		RenderChoiceDeck(choiseDeckCollisionsVertex);
 
 		break;
 
@@ -175,7 +173,7 @@ void MainFunction(void)
 	case CHOSE_DECK_TO_BATTLE_SCENE:
 
 		ControlChoiceDeck(&scene, LOAD_DECK_TO_PLAY_SCENE,choiseDeckCollisionsVertex, &selectedDeck);
-		RenderChoiceDeck(choiseDeckCollisionsVertex, magicKnightDecks);
+		RenderChoiceDeck(choiseDeckCollisionsVertex);
 
 		break;
 

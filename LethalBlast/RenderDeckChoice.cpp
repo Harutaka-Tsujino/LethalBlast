@@ -3,7 +3,7 @@
 #include"ControlCharaChoice.h"
 #include"ControlMagicKnightMainGame.h"
 
-void RenderChoiceDeck(ImagesCustomVertex* pChoiseDeckCollisionsVertex, MagicKnightDeck* pMagicKnightDecks)
+void RenderChoiceDeck(ImagesCustomVertex* pChoiseDeckCollisionsVertex)
 {
 	static TEXTUREID deckTexIds[MAGIC_KNIGHT_DECKS_MAX+1];
 

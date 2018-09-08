@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include"DX9Lib.h"
 #include"WinMain.h"
