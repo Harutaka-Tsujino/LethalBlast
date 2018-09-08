@@ -172,6 +172,6 @@ void GetCustomVerTexColor(CustomVertex* pCustomVertex,DWORD color)
 {
 	for (int i = 0;i < 4;++i)
 	{
-		pCustomVertex->m_color = color;
+		pCustomVertex[i].m_color = color;
 	}
 }

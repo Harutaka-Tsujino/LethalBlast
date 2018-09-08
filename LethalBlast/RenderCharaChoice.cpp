@@ -40,3 +40,28 @@ void RenderCharaChoiceBackGround(TEXTUREID* textureIds, int* cursol)
 	DrawImage(CharaChoiceCharaImage, textureIds[CHARA_CHOICE_MAGIC_KNIGHT]);
 
 }
+
+void RenderWhileLoad(SCENE* scene, SCENE destScene)
+{
+	static TEXTUREID LoadTexId[2];
+
+	static int frameCount = INIT_FRAME;
+
+	if (frameCount == INIT_FRAME)
+	{
+		RoadTexture("texture/Load/LoadScene1.jpg", &LoadTexId[0]);
+		RoadTexture("texture/Load/LoadScene2.jpg", &LoadTexId[1]);
+
+		frameCount = 0;
+	}
+
+	CustomVertex LoadScene[4];
+
+	CustomImageVerticies(LoadScene, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f);
+
+	DrawImage(LoadScene, LoadTexId[rand() % 2]);
+
+	*scene = destScene;
+
+	return;
+}

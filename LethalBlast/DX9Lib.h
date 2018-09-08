@@ -13,7 +13,7 @@
 #include <dinput.h>
 #include <memory.h>
 #include "DX9Lib.h"
-#include"SoundLib/Headers/SoundsManager.h"
+#include"SoundLib\Headers\SoundsManager.h"
 
 #pragma comment(lib,"d3dx9d.lib")
 #pragma comment(lib,"d3d9.lib")

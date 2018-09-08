@@ -22,8 +22,8 @@ enum ALTER_DECK_TEX
 
 void RenderAlterDeck(ImagesCustomVertex* pChoiseWordCollisionsVertex, ImagesCustomVertex* pDeckComponentCollisionsVertex,
 	CustomVertex* endDeckAlterVertices, CustomVertex* pBackgroundVertices, CustomVertex* pWordDatasBackVertices,
-	TEXTUREID* wordTexIds, WordData* pMagicKnightWordDatas, MagicKnightDeck* pMagicKnightDecks, int* pDeckNumToAlter, bool* clickedWord);
+	TEXTUREID* mKWordTex, WordData* pMagicKnightWordDatas, MagicKnightDeck* pMagicKnightDecks, int* pDeckNumToAlter, bool* clickedWord);
 
 void RenderWeaponMasterAlterDeck(ImagesCustomVertex* pChoiseWordCollisionsVertex, ImagesCustomVertex* pDeckComponentCollisionsVertex,
 	CustomVertex* endDeckAlterVertices, CustomVertex* pBackgroundVertices, CustomVertex* pWordDatasBackVertices,
-	TEXTUREID* wordTexIds, WeaponMasterWordData* pWeaponMasterWordDatas, WeaponMasterDeck* pWeaponMasterDecks, int* pDeckNumToAlter, bool* clickedWord);
+	TEXTUREID* mKWordTex, WeaponMasterWordData* pWeaponMasterWordDatas, WeaponMasterDeck* pWeaponMasterDecks, int* pDeckNumToAlter, bool* clickedWord);

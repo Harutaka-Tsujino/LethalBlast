@@ -8,7 +8,7 @@
 
 void RenderAlterDeck(ImagesCustomVertex* pChoiseWordCollisionsVertex, ImagesCustomVertex* pDeckComponentCollisionsVertex,
 	CustomVertex* endDeckAlterVertices,CustomVertex* pBackgroundVertices, CustomVertex* pWordDatasBackVertices,
-	TEXTUREID* wordTexIds, WordData* pMagicKnightWordDatas, MagicKnightDeck* pMagicKnightDecks, int* pDeckNumToAlter, bool* clickedWord)
+	TEXTUREID* mKWordTex, WordData* pMagicKnightWordDatas, MagicKnightDeck* pMagicKnightDecks, int* pDeckNumToAlter, bool* clickedWord)
 {
 	static TEXTUREID alterDeckTexId[ALTER_DECK_TEX_MAX];
 	
@@ -39,7 +39,7 @@ void RenderAlterDeck(ImagesCustomVertex* pChoiseWordCollisionsVertex, ImagesCust
 	for (int wordNum = 0; wordNum < MAGIC_KNIGHT_WORD_MAX; ++wordNum)
 	{
 		DrawImage(pChoiseWordCollisionsVertex[wordNum].ImageVertex, alterDeckTexId[UNDER_ALTER_WORD_BOARD_TEX]);
-		DrawImage(pChoiseWordCollisionsVertex[wordNum].ImageVertex, wordTexIds[wordNum]);
+		DrawImage(pChoiseWordCollisionsVertex[wordNum].ImageVertex, mKWordTex[wordNum]);
 
 		if (clickedWord[wordNum])
 		{
@@ -55,7 +55,7 @@ void RenderAlterDeck(ImagesCustomVertex* pChoiseWordCollisionsVertex, ImagesCust
 
 		if (pMagicKnightDecks[(*pDeckNumToAlter)].m_wordIds[deckNum])
 		{
-			DrawImage(pDeckComponentCollisionsVertex[deckNum].ImageVertex, wordTexIds[(pMagicKnightDecks[(*pDeckNumToAlter)].m_wordIds[deckNum])]);
+			DrawImage(pDeckComponentCollisionsVertex[deckNum].ImageVertex, mKWordTex[(pMagicKnightDecks[(*pDeckNumToAlter)].m_wordIds[deckNum])]);
 		}
 	}
 	
@@ -162,7 +162,7 @@ void RenderAlterDeck(ImagesCustomVertex* pChoiseWordCollisionsVertex, ImagesCust
 
 void RenderWeaponMasterAlterDeck(ImagesCustomVertex* pChoiseWordCollisionsVertex, ImagesCustomVertex* pDeckComponentCollisionsVertex,
 	CustomVertex* endDeckAlterVertices, CustomVertex* pBackgroundVertices, CustomVertex* pWordDatasBackVertices,
-	TEXTUREID* wordTexIds, WeaponMasterWordData* pWeaponMasterWordDatas, WeaponMasterDeck* pWeaponMasterDecks, int* pDeckNumToAlter, bool* clickedWord)
+	TEXTUREID* mKWordTex, WeaponMasterWordData* pWeaponMasterWordDatas, WeaponMasterDeck* pWeaponMasterDecks, int* pDeckNumToAlter, bool* clickedWord)
 {
 	static TEXTUREID weaponMasterAlterTextureIds[ALTER_DECK_TEX_MAX];
 	static FONTID descriptionFontIds;
@@ -188,7 +188,7 @@ void RenderWeaponMasterAlterDeck(ImagesCustomVertex* pChoiseWordCollisionsVertex
 
 	for (int wordNum = 0; wordNum < WEAPON_MASTER_WORD_MAX; ++wordNum)
 	{
-		DrawImage(pChoiseWordCollisionsVertex[wordNum].ImageVertex, wordTexIds[wordNum]);
+		DrawImage(pChoiseWordCollisionsVertex[wordNum].ImageVertex, mKWordTex[wordNum]);
 
 		if (clickedWord[wordNum])
 		{
@@ -200,7 +200,7 @@ void RenderWeaponMasterAlterDeck(ImagesCustomVertex* pChoiseWordCollisionsVertex
 	{
 		if (pWeaponMasterDecks[(*pDeckNumToAlter)].m_wordIds[deckNum])
 		{
-			DrawImage(pDeckComponentCollisionsVertex[deckNum].ImageVertex, wordTexIds[(pWeaponMasterDecks[(*pDeckNumToAlter)].m_wordIds[deckNum])]);
+			DrawImage(pDeckComponentCollisionsVertex[deckNum].ImageVertex, mKWordTex[(pWeaponMasterDecks[(*pDeckNumToAlter)].m_wordIds[deckNum])]);
 		}
 	}
 

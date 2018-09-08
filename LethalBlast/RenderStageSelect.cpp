@@ -14,9 +14,9 @@ void RenderStageSelect(ImagesCustomVertex* pStageSelectPortals, CustomVertex* pB
 		frameCount = 0;
 	}
 
-	DrawImage(pStageSelectPortals[RUIN_STAGE].ImageVertex, NULL);
-	DrawImage(pStageSelectPortals[FOREST_STAGE].ImageVertex, NULL);
-	DrawImage(pStageSelectPortals[CAVE_STAGE].ImageVertex, NULL);
+	DrawImage(pStageSelectPortals[à‚ê’].ImageVertex, NULL);
+	DrawImage(pStageSelectPortals[êX].ImageVertex, NULL);
+	DrawImage(pStageSelectPortals[ì¥åA].ImageVertex, NULL);
 	DrawImage(pBackPortal, NULL);
 
 	return;
