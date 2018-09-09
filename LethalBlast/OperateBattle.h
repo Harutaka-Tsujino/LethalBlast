@@ -39,6 +39,11 @@ enum ACTION_EFFECT
 	DARK_FRAME_AE,
 	CHARGE_FORCE_AE,
 	CRYSTAL_RAZER_AE,
+	PHOENIX_AE,
+	EYES_AE,
+	SHADOW_BALL_AE,
+	SPELL_AE,
+	DORAGON_AE,
 	ACTION_EFFECT_MAX,
 };
 
@@ -166,7 +171,7 @@ typedef struct
 	bool m_valid;
 }WordSelectEffect;
 
-#define MAX_HP 120000000
+#define MAX_HP 120000
 #define FIRST_ACTION_LIMIT 1
 
 #define MK_MAX_PP 24
@@ -250,3 +255,5 @@ void DrawWordSelectEffect(WordSelectEffect* pWordSelectEffect, int wordSelectEff
 	TEXTUREID* pWordSelectEffectTex);
 
 void MoveSelectWordEffect(WordSelectEffect* pWordSelectEffect, int wordSelectEffectMax, int wordSelectEffectFrame);
+
+void LoadOriDeck(WordData* pWordData, Deck* pDeck, const char* filePath);

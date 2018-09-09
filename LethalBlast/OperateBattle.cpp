@@ -122,11 +122,41 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 		actionEffectDatas[CRYSTAL_RAZER_AE].m_color = 0xff00ffff;
 
 		actionEffectDatas[NONE_AE].m_segmentX = 10;
-		actionEffectDatas[NONE_AE].m_segmentY = 4;
-		actionEffectDatas[NONE_AE].m_effectScale = DISPLAY_WIDTH * 0.2f;
+		actionEffectDatas[NONE_AE].m_segmentY = 2;
+		actionEffectDatas[NONE_AE].m_effectScale = DISPLAY_WIDTH * 2.f;
 		a = RoadTexture("Texture/Effect/NAAE.png", &(actionEffectDatas[NONE_AE].m_tex));
 		actionEffectDatas[NONE_AE].m_color = 0xffffffff;
 		
+		actionEffectDatas[PHOENIX_AE].m_segmentX = 35;
+		actionEffectDatas[PHOENIX_AE].m_segmentY = 2;
+		actionEffectDatas[PHOENIX_AE].m_effectScale = DISPLAY_WIDTH * 0.5f;
+		a = RoadTexture("Texture/Effect/PAE.png", &(actionEffectDatas[PHOENIX_AE].m_tex));
+		actionEffectDatas[PHOENIX_AE].m_color = 0xffffffff;
+
+		actionEffectDatas[EYES_AE].m_segmentX = 13;
+		actionEffectDatas[EYES_AE].m_segmentY = 3;
+		actionEffectDatas[EYES_AE].m_effectScale = DISPLAY_WIDTH * 0.5f;
+		a = RoadTexture("Texture/Effect/EAE2.png", &(actionEffectDatas[EYES_AE].m_tex));
+		actionEffectDatas[EYES_AE].m_color = 0xffffffff;
+
+		actionEffectDatas[SHADOW_BALL_AE].m_segmentX = 64;
+		actionEffectDatas[SHADOW_BALL_AE].m_segmentY = 2;
+		actionEffectDatas[SHADOW_BALL_AE].m_effectScale = DISPLAY_WIDTH * 0.5f;
+		a = RoadTexture("Texture/Effect/ShadowBall2.png", &(actionEffectDatas[SHADOW_BALL_AE].m_tex));
+		actionEffectDatas[SHADOW_BALL_AE].m_color = 0xffffffff;
+
+		actionEffectDatas[SPELL_AE].m_segmentX = 10;
+		actionEffectDatas[SPELL_AE].m_segmentY = 6;
+		actionEffectDatas[SPELL_AE].m_effectScale = DISPLAY_WIDTH * 0.5f;
+		a = RoadTexture("Texture/Effect/SpellAE.png", &(actionEffectDatas[SPELL_AE].m_tex));
+		actionEffectDatas[SPELL_AE].m_color = 0xffffffff;
+
+		actionEffectDatas[DORAGON_AE].m_segmentX = 13;
+		actionEffectDatas[DORAGON_AE].m_segmentY = 4;
+		actionEffectDatas[DORAGON_AE].m_effectScale = DISPLAY_HEIGHT * 0.5f;
+		a = RoadTexture("Texture/Effect/DAE.png", &(actionEffectDatas[DORAGON_AE].m_tex));
+		actionEffectDatas[DORAGON_AE].m_color = 0xffffffff;
+
 		SetFont(DISPLAY_WIDTH / 70, DISPLAY_WIDTH / 48, "HGP–¾’©B", &unionFont[ENEMY_NAME_FONT], 5);
 		SetFont(DISPLAY_WIDTH / 35, DISPLAY_WIDTH / 24, "HGP–¾’©B", &unionFont[ENEMY_ACTION_FONT], 25);
 
@@ -135,8 +165,29 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 
 		ZeroMemory(resultMask, sizeof(CustomVertex)*RECT_VERTEX_NUM);
 
-		/*for (int deckWord = 0; (pMKDeck[selectedDeck].m_wordId[deckWord] = 
-			pWMDeck[selectedDeck].m_wordId[deckWord] = deckWord) < DECK_WORD_MAX; ++deckWord);*/
+		/*switch (selectedDeck)
+		{
+		case 0:
+			LoadOriDeck(pMKWordDatas, &pMKDeck[selectedDeck], filePath);
+			LoadOriDeck(pWMWordDatas, &pWMDeck[selectedDeck], filePath);
+
+			break;
+
+		case 1:
+
+			LoadOriDeck(pMKWordDatas, &pMKDeck[selectedDeck], filePath);
+			LoadOriDeck(pWMWordDatas, &pWMDeck[selectedDeck], filePath);
+
+			break;
+
+		case 2:
+
+			LoadOriDeck(pMKWordDatas, &pMKDeck[selectedDeck], filePath);
+			LoadOriDeck(pWMWordDatas, &pWMDeck[selectedDeck], filePath);
+
+
+			break;
+		}*/
 
 		initUnionTex = false;
 	}
@@ -1329,7 +1380,7 @@ void CalcActionDamage(BattleData* pBattleData, int actionWordMax,
 
 	CalcDamageBonusWithSkills(pBattleData,actionWordMax, pWordDatas);
 
-	pBattleData->m_playerActionDamage = 20400000;////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	pBattleData->m_playerEffectId = pBattleData->m_playerActionAttack + 6;
 
@@ -1718,6 +1769,36 @@ void MoveSelectWordEffect(WordSelectEffect* pWordSelectEffect,int wordSelectEffe
 			}
 		}
 	}
+
+	return;
+}
+
+void LoadOriDeck(WordData* pWordData, Deck* pDeck,const char* filePath)
+{
+	FILE* pDeckFile;
+	
+	pDeckFile = fopen(filePath, "r");
+
+	for (int deckWord = 0; deckWord < DECK_WORD_MAX; ++deckWord)
+	{
+		int wordId = 0;
+		int maxCost = 0;
+		int skillSlot[SKILL_SLOT_MAX] = { 0,0,0,0 };
+
+		fscanf(pDeckFile, "%d,%d,%d,%d,%d,%d,%*c",
+			&wordId, &maxCost, skillSlot, skillSlot + 1, skillSlot + 2, skillSlot + 3);
+
+		pWordData[wordId].m_costMax = maxCost;
+
+		for (int skill = 0; skill < SKILL_SLOT_MAX; ++skill)
+		{
+			pWordData[wordId].m_skillSlot[skill] = skillSlot[skill];
+		}
+
+		pDeck->m_wordId[deckWord] = wordId;
+	}
+
+	fclose(pDeckFile);
 
 	return;
 }

@@ -91,7 +91,7 @@ void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, Deck* pMagicKnig
 		}
 	}
 
-	CustomImageVerticies(pModifyWordPortal,
+	/*CustomImageVerticies(pModifyWordPortal,
 		(float)(DISPLAY_WIDTH*0.625f + MAIN_GAME_PORTAL_SCALE * 2), (float)(DISPLAY_HEIGHT*0.625f + MAIN_GAME_PORTAL_SCALE * 0.6),
 		(float)MID_PORTAL_SCALE_X, (float)MID_PORTAL_SCALE_Y);
 
@@ -102,7 +102,7 @@ void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, Deck* pMagicKnig
 			*scene = MODIFY_WORD_SCENE;
 			isSuccess = soundsManager.Stop(_T("bgm"));
 		}
-	}
+	}*/
 
 	CustomImageVerticies(pCharaChoicePortal, DISPLAY_HEIGHT*0.08f, DISPLAY_HEIGHT*0.04f, DISPLAY_HEIGHT*0.08f, DISPLAY_HEIGHT*0.04f,0xe6ffeeee);
 
