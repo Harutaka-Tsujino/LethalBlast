@@ -15,6 +15,8 @@ void ControlCharaChoice(SCENE* scene, int* cursol, PLAYERTYPE* playerType)
 
 	if (frameCount == INIT_FRAME)
 	{
+		isSuccess = soundsManager.Start(_T("Homebgm"), true);
+
 		frameCount = 0;
 	}
 
@@ -56,6 +58,21 @@ void ControlCharaChoice(SCENE* scene, int* cursol, PLAYERTYPE* playerType)
 		}
 	}
 
+}
+
+void SoundLoad(SCENE* scene, SCENE destScene)
+{
+	static int isFirstFrame = INIT_FRAME;
+
+	if (isFirstFrame == INIT_FRAME)
+	{
+		isSuccess = soundsManager.AddFile("Audio/BGM/uchunohajimari.mp3", _T("Homebgm"));
+		isSuccess = soundsManager.AddFile("Audio/BGM/antoinettenoniwa.mp3", _T("Alterbgm"));
+
+		isFirstFrame = 0;
+	}
+
+	*scene = destScene;
 }
 
 bool RectToRectCollisionCheak(CustomVertex* pObjA,CustomVertex* pObjB)

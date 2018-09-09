@@ -33,7 +33,6 @@ void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, Deck* pMagicKnig
 		LoadDeck(pMagicKnightWordDatas, pMagicKnightDecks, "Files/Deck/MKDeck6.csv", 5);
 		LoadDeck(pMagicKnightWordDatas, pMagicKnightDecks, "Files/Deck/MKDeck7.csv", 6);
 		LoadDeck(pMagicKnightWordDatas, pMagicKnightDecks, "Files/Deck/MKDeck8.csv", 7);
-		isSuccess = soundsManager.AddFile("Audio/perusona.mp3", _T("bgm"));
 
 		RoadTexture("Texture/MKWord/VOID_WORD.png", &mKWordTex[VOID_WORD]);
 
@@ -51,7 +50,6 @@ void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, Deck* pMagicKnig
 
 		fclose(pWordTexPathsFile);
 
-		isSuccess = soundsManager.Start(_T("bgm"), true);
 		*initializedTex = true;
 	}
 
@@ -69,7 +67,8 @@ void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, Deck* pMagicKnig
 		if (RectToRectCollisionCheak(mouseCursorCollisionVertex, pMainGamePortal))
 		{
 			*scene = SELECT_STAGE_SCENE;
-			isSuccess = soundsManager.Stop(_T("bgm"));
+			isSuccess = soundsManager.Stop(_T("Homebgm"));
+			isSuccess = soundsManager.Start(_T("Alterbgm"));
 		}
 	}
 
@@ -80,14 +79,13 @@ void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, Deck* pMagicKnig
 		(float)(DISPLAY_WIDTH*0.625f + MAIN_GAME_PORTAL_SCALE * 2), (float)(DISPLAY_HEIGHT*0.625f - MAIN_GAME_PORTAL_SCALE * 0.6),
 		(float)MID_PORTAL_SCALE_X, (float)MID_PORTAL_SCALE_Y);
 
-	isSuccess = soundsManager.Start(_T("bgm"), true);
-
 	if (g_mouseState.mousePush[LEFT_CLICK])
 	{
 		if (RectToRectCollisionCheak(mouseCursorCollisionVertex, pDeckAlterPortal))
 		{
 			*scene = CHOSE_DECK_TO_ALTER_SCENE;
-			isSuccess = soundsManager.Stop(_T("bgm"));
+			isSuccess = soundsManager.Stop(_T("Homebgm"));
+			isSuccess = soundsManager.Start(_T("Alterbgm"));
 		}
 	}
 
@@ -112,7 +110,6 @@ void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, Deck* pMagicKnig
 		{
 			*scene = CHARA_CHOICE_SCENE;
 
-			isSuccess = soundsManager.Stop(_T("bgm"));
 
 			/**initializedTex = false;
 

@@ -104,6 +104,12 @@ void MainFunction(void)
 
 		break;
 
+	case SOUND_LOAD_SCENE:
+
+		SoundLoad(&scene, CHARA_CHOICE_SCENE);
+
+		break;
+
 	case CHARA_CHOICE_SCENE:
 
 		ControlCharaChoice(&scene, &cursol, &playerType);
@@ -179,6 +185,9 @@ void MainFunction(void)
 	case LOAD_DECK_TO_PLAY_SCENE:
 
 		RenderWhileLoad(&scene, GAME_SCENE);
+
+		isSuccess = soundsManager.Stop(_T("Alterbgm"));
+
 		break;
 		
 	case SELECT_STAGE_SCENE:
