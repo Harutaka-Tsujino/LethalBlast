@@ -158,7 +158,6 @@ enum MAGIC_KNIGHT_WORD
 #define MATERIALS_NUM 2
 
 #define SKILL_SLOT_MAX 4
-#define SKILL_MAX 8
 
 //単語のデータ
 typedef struct
@@ -198,10 +197,13 @@ typedef struct
 
 #define DECK_MAX 8
 
+#define SKILL_MAX 8
+
 typedef struct
 {
 	int m_wordId[DECK_WORD_MAX];
 	int m_wordNum;
+	int m_currentCostMax;
 	int m_costMax;
 }Deck;
 

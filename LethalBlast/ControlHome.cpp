@@ -2,7 +2,6 @@
 #include"DX9Lib.h"
 #include"WinMain.h"
 #include"ControlCharaChoice.h"
-#include"ControlMagicKnightMainGame.h"
 #include"ControlHome.h"
 
 void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, Deck* pMagicKnightDecks,
@@ -52,6 +51,7 @@ void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, Deck* pMagicKnig
 
 		fclose(pWordTexPathsFile);
 
+		isSuccess = soundsManager.Start(_T("bgm"), true);
 		*initializedTex = true;
 	}
 
