@@ -165,33 +165,32 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 
 		ZeroMemory(resultMask, sizeof(CustomVertex)*RECT_VERTEX_NUM);
 
-		switch (selectedDeck)
-		{
-		case 0:
-			LoadOriDeck(pMKWordDatas, &pMKDeck[selectedDeck], "Files/Deck/êÖèªì¥åA/MagicKnightDeck00.csv");
-			LoadOriDeck(pWMWordDatas, &pWMDeck[selectedDeck], "Files/Deck/êÖèªì¥åA/WeaponMasterDeck00.csv");
-
-			break;
-
-		case 1:
-
-			LoadOriDeck(pMKWordDatas, &pMKDeck[selectedDeck], "Files/Deck/å√ë„à‚ê’/MagicKnightDeck02.csv");
-			LoadOriDeck(pWMWordDatas, &pWMDeck[selectedDeck], "Files/Deck/å√ë„à‚ê’/WeaponMasterDeck02.csv");
-
-			break;
-
-		case 2:
-
-			LoadOriDeck(pMKWordDatas, &pMKDeck[selectedDeck], "Files/Deck/çïêXÉmäŸ/MagicKnightDeck01.csv");
-			LoadOriDeck(pWMWordDatas, &pWMDeck[selectedDeck], "Files/Deck/çïêXÉmäŸ/WeaponMasterDeck01.csv");
-
-			break;
-		}
-
-		
-
 		initUnionTex = false;
 	}
+	
+	switch (selectedDeck)
+	{
+	case 0:
+		LoadOriDeck(pMKWordDatas, &pMKDeck[selectedDeck], "Files/Deck/êÖèªì¥åA/MagicKnightDeck00.csv");
+		LoadOriDeck(pWMWordDatas, &pWMDeck[selectedDeck], "Files/Deck/êÖèªì¥åA/WeaponMasterDeck00.csv");
+
+		break;
+
+	case 1:
+
+		LoadOriDeck(pMKWordDatas, &pMKDeck[selectedDeck], "Files/Deck/å√ë„à‚ê’/MagicKnightDeck02.csv");
+		LoadOriDeck(pWMWordDatas, &pWMDeck[selectedDeck], "Files/Deck/å√ë„à‚ê’/WeaponMasterDeck02.csv");
+
+		break;
+
+	case 2:
+
+		LoadOriDeck(pMKWordDatas, &pMKDeck[selectedDeck], "Files/Deck/çïêXÉmäŸ/MagicKnightDeck01.csv");
+		LoadOriDeck(pWMWordDatas, &pWMDeck[selectedDeck], "Files/Deck/çïêXÉmäŸ/WeaponMasterDeck01.csv");
+
+		break;
+	}
+	
 	switch (selectedStage)
 	{
 	case ì¥åA:
@@ -209,6 +208,7 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 
 		break;
 	}
+
 	static BattleData battleData;
 
 	static StageData stageDatas[STAGE_MAX];
@@ -333,7 +333,7 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 				++enemyDeleteFrameCount;
 			}
 
-			if (g_keyState.keyPush[DIK_RETURN] || g_mouseState.mousePush[RIGHT_CLICK])
+			if (g_keyState.keyPush[DIK_RETURN] || g_mouseState.mousePush[RIGHT_CLICK] || g_mouseState.mousePush[LEFT_CLICK])
 			{
 				*scene = HOME_SCENE;
 				InitOperateBattleDatas(&battleData, pEnemyDatas, stageDatas, selectedStage, MK_MAX_PP,
@@ -383,7 +383,7 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 				++blackOutFrameCount;
 			}
 
-			if (g_keyState.keyPush[DIK_RETURN] || g_mouseState.mousePush[RIGHT_CLICK])
+			if (g_keyState.keyPush[DIK_RETURN] || g_mouseState.mousePush[RIGHT_CLICK] || g_mouseState.mousePush[LEFT_CLICK])
 			{
 				*scene = HOME_SCENE;
 				InitOperateBattleDatas(&battleData, pEnemyDatas, stageDatas, selectedStage, MK_MAX_PP,
@@ -741,7 +741,7 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 				++enemyDeleteFrameCount;
 			}
 
-			if (g_keyState.keyPush[DIK_RETURN] || g_mouseState.mousePush[RIGHT_CLICK])
+			if (g_keyState.keyPush[DIK_RETURN] || g_mouseState.mousePush[RIGHT_CLICK] || g_mouseState.mousePush[LEFT_CLICK])
 			{
 				*scene = HOME_SCENE;
 				InitOperateBattleDatas(&battleData, pEnemyDatas, stageDatas, selectedStage, WM_MAX_PP,
@@ -791,7 +791,7 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 				++blackOutFrameCount;
 			}
 
-			if (g_keyState.keyPush[DIK_RETURN] || g_mouseState.mousePush[RIGHT_CLICK])
+			if (g_keyState.keyPush[DIK_RETURN] || g_mouseState.mousePush[RIGHT_CLICK] || g_mouseState.mousePush[LEFT_CLICK])
 			{
 				*scene = HOME_SCENE;
 				InitOperateBattleDatas(&battleData, pEnemyDatas, stageDatas, selectedStage, WM_MAX_PP,
@@ -1596,7 +1596,6 @@ void CalcDamageBonusWithSkills(BattleData* pBattleData, int actionWordMax, WordD
 			for (int sameSkill = 0; sameSkill < pBattleData->m_playerActionSkillsPrev[skill]; ++sameSkill)
 			{
 				pBattleData->m_playerActionDamage = (UINT)(pBattleData->m_playerActionDamage*0.8f);
-				++(pBattleData->m_playerActionSkillsPrev[skill]);
 			}
 
 			for (int sameSkill = 0; sameSkill < pBattleData->m_playerActionSkillsCurrent[skill]; ++sameSkill)
