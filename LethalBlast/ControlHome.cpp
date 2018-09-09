@@ -538,7 +538,7 @@ void LordTextureWeaponMaster(TEXTUREID* pWmFontIds)
 		RoadTexture("Texture/WeaponMasterWord/í±.png", &pWmFontIds[í±]);
 		RoadTexture("Texture/WeaponMasterWord/í¥.png", &pWmFontIds[í¥]);
 		RoadTexture("Texture/WeaponMasterWord/âç.png", &pWmFontIds[âç]);
-		RoadTexture("Texture/WeaponMasterWord/íG.png", &pWmFontIds[íG]);
+		RoadTexture("Texture/WeaponMasterWord/åò.png", &pWmFontIds[åò]);
 		RoadTexture("Texture/WeaponMasterWord/èÇ.png", &pWmFontIds[èÇ]);
 		RoadTexture("Texture/WeaponMasterWord/è|.png", &pWmFontIds[è|]);
 		RoadTexture("Texture/WeaponMasterWord/ãæ.png", &pWmFontIds[ãæ]);
