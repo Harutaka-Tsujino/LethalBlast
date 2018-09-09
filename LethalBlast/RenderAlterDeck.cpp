@@ -11,7 +11,7 @@ void RenderAlterDeck(ImagesCustomVertex* pChoiseWordCollisionsVertex, ImagesCust
 	TEXTUREID* wordTexIds, WordData* pPlayerWordDatas, Deck* pPlayerDecks, int* pDeckNumToAlter, bool* clickedWord, bool* pChoiceWordData)
 {
 	static TEXTUREID alterDeckTexId[ALTER_DECK_TEX_MAX];
-	static TEXTUREID explanationFontId[SKILL_MAX];
+	static TEXTUREID explanationFontId[SKILL_COST_MAX];
 
 	static FONTID fontId[3];
 
@@ -27,6 +27,14 @@ void RenderAlterDeck(ImagesCustomVertex* pChoiseWordCollisionsVertex, ImagesCust
 		RoadTexture("Texture/AlterDeck/UnderAlterWordBoard.png", &alterDeckTexId[UNDER_ALTER_WORD_BOARD_TEX]);
 		RoadTexture("Texture/AlterDeck/DeckAlterTag.jpg", &alterDeckTexId[DECK_ALTER_TAG_TEX]);
 		RoadTexture("Texture/MainGame/PageCursol.png", &alterDeckTexId[CURSOL_TEX]);
+		RoadTexture("Texture/AlterDeck/Delete.png", &alterDeckTexId[DELETE_TEX]);
+		RoadTexture("Texture/AlterDeck/skillslotInfo/ball01.png", &alterDeckTexId[SLOT_1]);
+		RoadTexture("Texture/AlterDeck/skillslotInfo/ball02.png", &alterDeckTexId[SLOT_2]);
+		RoadTexture("Texture/AlterDeck/skillslotInfo/ball03.png", &alterDeckTexId[SLOT_3]);
+		RoadTexture("Texture/AlterDeck/skillslotInfo/ball04.png", &alterDeckTexId[SLOT_4]);
+		RoadTexture("Texture/AlterDeck/skillslotInfo/ball05.png", &alterDeckTexId[SLOT_5]);
+		RoadTexture("Texture/AlterDeck/skillslotInfo/ball06.png", &alterDeckTexId[SLOT_6]);
+		RoadTexture("Texture/AlterDeck/skillslotInfo/ball07.png", &alterDeckTexId[SLOT_7]);
 
 		RoadTexture("Texture/AlterDeck/explanationFont/mojicost1_50.png", &explanationFontId[MP_PLUS_2]);
 		RoadTexture("Texture/AlterDeck/explanationFont/mojicost2_50.png", &explanationFontId[REDUSE_DAMEGE_25PAR]);
@@ -82,11 +90,18 @@ void RenderAlterDeck(ImagesCustomVertex* pChoiseWordCollisionsVertex, ImagesCust
 	const float WORD_COLLISION_SCALE_X = (DISPLAY_WIDTH) / 14;
 	const float WORD_COLLISION_SCALE_Y = WORD_COLLISION_SCALE_X / 5;
 
+	CustomVertex initVertex[4];
+	CustomImageVerticies(initVertex, DISPLAY_WIDTH*0.8f, DISPLAY_HEIGHT*0.90f, DISPLAY_WIDTH*0.035f, DISPLAY_HEIGHT*0.025f);
+
+	CustomVertex skillSlotIcon[4];
+	float skillSlotIconPosX = DISPLAY_WIDTH * 0.8f;
+	const float skillSlotIconScale = DISPLAY_WIDTH * 0.015f;
+
 	for (int wordDatas = 0; wordDatas < MAGIC_KNIGHT_WORD_MAX; ++wordDatas)
 	{
 		if (pChoiceWordData[wordDatas] == true)
 		{
-			CustomImageVerticies(pChoiseWordCollisionsVertex[wordDatas].ImageVertex, DISPLAY_WIDTH*0.85, DISPLAY_HEIGHT*0.2, WORD_COLLISION_SCALE_X, WORD_COLLISION_SCALE_Y);
+			CustomImageVerticies(pChoiseWordCollisionsVertex[wordDatas].ImageVertex, DISPLAY_WIDTH*0.85, DISPLAY_HEIGHT*0.12, WORD_COLLISION_SCALE_X, WORD_COLLISION_SCALE_Y);
 			DrawImage(pChoiseWordCollisionsVertex[wordDatas].ImageVertex, alterDeckTexId[UNDER_ALTER_WORD_BOARD_TEX]);
 			DrawImage(pChoiseWordCollisionsVertex[wordDatas].ImageVertex, wordTexIds[wordDatas]);
 
@@ -95,7 +110,7 @@ void RenderAlterDeck(ImagesCustomVertex* pChoiseWordCollisionsVertex, ImagesCust
 				switch (costConfig)
 				{
 				case 1:
-					CustomImageVerticies(cursol, CURSOL_POSX, DISPLAY_HEIGHT * 0.3f, CURSOL_SCALE, CURSOL_SCALE);
+					CustomImageVerticies(cursol, CURSOL_POSX, DISPLAY_HEIGHT * 0.2f, CURSOL_SCALE, CURSOL_SCALE);
 					RotateImageDeg(cursol, cursol, 180.f);
 
 					DrawImage(cursol, alterDeckTexId[CURSOL_TEX]);
@@ -103,32 +118,88 @@ void RenderAlterDeck(ImagesCustomVertex* pChoiseWordCollisionsVertex, ImagesCust
 					break;
 
 				case 2:
-					CustomImageVerticies(cursol, CURSOL_POSX + DISPLAY_WIDTH * 0.12f, DISPLAY_HEIGHT*0.3f, CURSOL_SCALE, CURSOL_SCALE);
+					CustomImageVerticies(cursol, CURSOL_POSX + DISPLAY_WIDTH * 0.12f, DISPLAY_HEIGHT*0.2f, CURSOL_SCALE, CURSOL_SCALE);
 
 					DrawImage(cursol, alterDeckTexId[CURSOL_TEX]);
 
 					break;
 				}
 
+				for (int skill = MP_PLUS_2;skill < SKILL_COST_MAX;++skill)
+				{
+					DrawImage(pSkillInfo[skill].ImageVertex, explanationFontId[skill]);
+				}
+
+				char cost[10];
+				sprintf(cost, "%d", pPlayerWordDatas[wordDatas].m_costMax);
+
+				WriteText(DISPLAY_WIDTH * 0.83, DISPLAY_HEIGHT * 0.2, cost, DT_RIGHT, fontId[0]);
+				WriteText(DISPLAY_WIDTH * 0.87, DISPLAY_HEIGHT * 0.2, "/12", DT_RIGHT, fontId[1]);
 			}
 
-			for (int skill = MP_PLUS_2;skill < SKILL_COST_MAX;++skill)
+			for (int slot = 0;slot < SKILL_SLOT_MAX;++slot)
 			{
-				DrawImage(pSkillInfo[skill].ImageVertex, explanationFontId[skill]);
+				CustomImageVerticies(skillSlotIcon, skillSlotIconPosX, DISPLAY_HEIGHT*0.27f, skillSlotIconScale, skillSlotIconScale);
+
+				skillSlotIconPosX += skillSlotIconScale * 2;
+
+				if (!(pPlayerWordDatas[wordDatas].m_skillSlot[slot] == 0))
+				{
+					switch (pPlayerWordDatas[wordDatas].m_skillSlot[slot])
+					{
+					case MP_PLUS_2:
+						DrawImage(skillSlotIcon, alterDeckTexId[SLOT_1]);
+
+						break;
+
+					case REDUSE_DAMEGE_25PAR:
+						DrawImage(skillSlotIcon, alterDeckTexId[SLOT_2]);
+
+						break;
+
+					case HEAL_HP_25PAR:
+						DrawImage(skillSlotIcon, alterDeckTexId[SLOT_3]);
+
+						break;
+
+					case NEXT_TURN_DAMEGE_1p3:
+						DrawImage(skillSlotIcon, alterDeckTexId[SLOT_4]);
+
+						break;
+
+					case ATTACK_1p1:
+						DrawImage(skillSlotIcon, alterDeckTexId[SLOT_5]);
+
+						break;
+
+					case PURSUIT_25PAR:
+						DrawImage(skillSlotIcon, alterDeckTexId[SLOT_6]);
+
+						break;
+
+					case CURRENT_1p4_NEXT_0p8:
+						DrawImage(skillSlotIcon, alterDeckTexId[SLOT_7]);
+
+						break;
+					}
+				}
 			}
-
-			char cost[10];
-			sprintf(cost, "%d", pPlayerWordDatas[wordDatas].m_costMax);
-
-			WriteText(DISPLAY_WIDTH * 0.83, DISPLAY_HEIGHT * 0.3, cost, DT_RIGHT, fontId[0]);
-			WriteText(DISPLAY_WIDTH * 0.87, DISPLAY_HEIGHT * 0.3, "/12", DT_RIGHT, fontId[1]);
 		}
 	}
 
 	char deckNumberOfSeets[10];
 	sprintf(deckNumberOfSeets, "%d", pPlayerDecks[(*pDeckNumToAlter)].m_wordNum);
+	
+	char deckCost[10];
+	sprintf(deckCost, "%d", pPlayerDecks[(*pDeckNumToAlter)].m_currentCostMax);
+	char deckCostMax[10];
+	sprintf(deckCostMax, "%d", pPlayerDecks[(*pDeckNumToAlter)].m_costMax);
 
 	WriteText(DISPLAY_WIDTH*0.1, DISPLAY_HEIGHT*0.7, deckNumberOfSeets, DT_RIGHT, fontId[1]);
+	WriteText(DISPLAY_WIDTH*0.2, DISPLAY_HEIGHT*0.7, deckCost, DT_RIGHT, fontId[1]);
+	WriteText(DISPLAY_WIDTH*0.25, DISPLAY_HEIGHT*0.7, deckCostMax, DT_RIGHT, fontId[1]);
+
+	DrawImage(initVertex, alterDeckTexId[DELETE_TEX]);
 
 	DrawImage(endDeckAlterVertices, alterDeckTexId[EXIT_ALTER_TEX]);
 

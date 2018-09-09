@@ -28,3 +28,5 @@ enum SKILL_COST
 void ControlAlterDeck(SCENE* scene, WordData* pPlayerWordDatas, Deck* pPlayerDecks, ImagesCustomVertex* pChoiseWordCollisionsVertex, ImagesCustomVertex* pDeckComponentCollisionsVertex,
 	ImagesCustomVertex* pSkillInfo, CustomVertex* pEndDeckAlterVertices, CustomVertex* pBackgroundVertices, CustomVertex* pWordDatasBackVertices,
 	PLAYERTYPE* playerType, int* pDeckNumToAlter, bool* clickedWord, bool* pChoiceWordData);
+
+void CalcDeckCost(WordData* pPlayerWordDatas, Deck* pPlayerDecks);

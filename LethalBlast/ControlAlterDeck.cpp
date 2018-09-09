@@ -15,7 +15,7 @@ void ControlAlterDeck(SCENE* scene,WordData* pPlayerWordDatas, Deck* pPlayerDeck
 		memset(clickedWord, 0, sizeof(bool)*MAGIC_KNIGHT_WORD_MAX);
 		ZeroMemory(pChoiceWordData, sizeof(bool)*MAGIC_KNIGHT_WORD_MAX);
 
-		for (int word = 0;word < MAGIC_KNIGHT_WORD_MAX;++word)
+		for (int word = VOID_WORD;word < MAGIC_KNIGHT_WORD_MAX;++word)
 		{
 			pPlayerWordDatas[word].m_costMax = 1;
 			pPlayerWordDatas[word].m_have = 1;
@@ -25,6 +25,10 @@ void ControlAlterDeck(SCENE* scene,WordData* pPlayerWordDatas, Deck* pPlayerDeck
 				pPlayerWordDatas[word].m_skillSlot[skill] = 0;
 			}
 		}
+
+		pPlayerWordDatas[VOID_WORD].m_have = 0;
+		pPlayerWordDatas[VOID_WORD].m_costMax = 0;
+		pPlayerDecks[(*pDeckNumToAlter)].m_costMax = 120;
 
 		frameCount = 0;
 	}
@@ -330,7 +334,7 @@ void ControlAlterDeck(SCENE* scene,WordData* pPlayerWordDatas, Deck* pPlayerDeck
 
 		ZeroMemory(pSkillInfo, sizeof(ImagesCustomVertex)*SKILL_COST_MAX);
 
-		float skillInfoPosY = (float)(DISPLAY_HEIGHT * 0.3f);
+		float skillInfoPosY = (float)(DISPLAY_HEIGHT * 0.28f);
 		const float SKILL_INFO_XSCALE = (float)(DISPLAY_WIDTH * 0.125f);
 		const float SKILL_INFO_YSCALE = (float)(DISPLAY_HEIGHT * 0.047f);
 
@@ -354,6 +358,9 @@ void ControlAlterDeck(SCENE* scene,WordData* pPlayerWordDatas, Deck* pPlayerDeck
 		CustomVertex cursol[4];
 		const float CURSOL_POSX = DISPLAY_WIDTH * 0.8f;
 		const float CURSOL_SCALE = DISPLAY_WIDTH * 0.01f;
+
+		CustomVertex initVertex[4];
+		CustomImageVerticies(initVertex, DISPLAY_WIDTH*0.8f, DISPLAY_HEIGHT*0.90f, DISPLAY_WIDTH*0.035f, DISPLAY_HEIGHT*0.025f);
 
 		if (g_mouseState.mousePush[RIGHT_CLICK])
 		{
@@ -388,12 +395,14 @@ void ControlAlterDeck(SCENE* scene,WordData* pPlayerWordDatas, Deck* pPlayerDeck
 					switch (costConfig)
 					{
 					case 1:
-						CustomImageVerticies(cursol, CURSOL_POSX, DISPLAY_HEIGHT*0.3f, CURSOL_SCALE, CURSOL_SCALE);
+						CustomImageVerticies(cursol, CURSOL_POSX, DISPLAY_HEIGHT*0.2f, CURSOL_SCALE, CURSOL_SCALE);
 
 						if (g_mouseState.mousePush[LEFT_CLICK])
 						{
 							if (RectToRectCollisionCheak(mouseCursorCollisionVertex, cursol))
 							{
+								pPlayerDecks[(*pDeckNumToAlter)].m_currentCostMax -= (pPlayerWordDatas[wordDatas].m_costMax);
+
 								if (pPlayerWordDatas[wordDatas].m_costMax == 3)
 								{
 									pPlayerWordDatas[wordDatas].m_costMax = 1;
@@ -409,17 +418,21 @@ void ControlAlterDeck(SCENE* scene,WordData* pPlayerWordDatas, Deck* pPlayerDeck
 									pPlayerWordDatas[wordDatas].m_costMax = 6;
 								}
 
+								pPlayerDecks[(*pDeckNumToAlter)].m_currentCostMax += pPlayerWordDatas[wordDatas].m_costMax;
+
 							}
 						}
 						break;
 
 					case 2:
-						CustomImageVerticies(cursol, CURSOL_POSX + DISPLAY_WIDTH * 0.12f, DISPLAY_HEIGHT*0.3f, CURSOL_SCALE, CURSOL_SCALE);
+						CustomImageVerticies(cursol, CURSOL_POSX + DISPLAY_WIDTH * 0.12f, DISPLAY_HEIGHT*0.2f, CURSOL_SCALE, CURSOL_SCALE);
 
 						if (g_mouseState.mousePush[LEFT_CLICK])
 						{
 							if (RectToRectCollisionCheak(mouseCursorCollisionVertex, cursol))
 							{
+								pPlayerDecks[(*pDeckNumToAlter)].m_currentCostMax -= (pPlayerWordDatas[wordDatas].m_costMax);
+
 								if (pPlayerWordDatas[wordDatas].m_costMax == 6)
 								{
 									pPlayerWordDatas[wordDatas].m_costMax = 12;
@@ -435,14 +448,15 @@ void ControlAlterDeck(SCENE* scene,WordData* pPlayerWordDatas, Deck* pPlayerDeck
 									pPlayerWordDatas[wordDatas].m_costMax = 3;
 								}
 
+								pPlayerDecks[(*pDeckNumToAlter)].m_currentCostMax += pPlayerWordDatas[wordDatas].m_costMax;
+
 							}
 						}
 						break;
 					}
-
 				}
 
-				int skillSlotSpace = 3;
+				int skillSlotSpace = SKILL_SLOT_MAX;
 
 				for (int skill = MP_PLUS_2;skill < SKILL_COST_MAX;++skill)
 				{
@@ -453,30 +467,31 @@ void ControlAlterDeck(SCENE* scene,WordData* pPlayerWordDatas, Deck* pPlayerDeck
 							continue;
 						}
 
-						if (pPlayerWordDatas[wordDatas].m_costMax < pPlayerWordDatas[wordDatas].m_currentCost)
+						if (pPlayerWordDatas[wordDatas].m_costMax < pPlayerWordDatas[wordDatas].m_currentCost+SKILL_COST[skill])
 						{
-							pPlayerWordDatas[wordDatas].m_skillSlot[skillSlotSpace] = 0;
 							continue;
 						}
 
 						for (int skillSpace = 0;skillSpace < 4;++skillSpace)
 						{
-							if (pPlayerWordDatas[wordDatas].m_skillSlot[skillSpace] == 0)
+							if (pPlayerWordDatas[wordDatas].m_skillSlot[skillSpace] == VOID_SKILL)
 							{
 								skillSlotSpace = skillSpace;
-								pPlayerWordDatas[wordDatas].m_currentCost += pPlayerWordDatas[wordDatas].m_skillSlot[skillSlotSpace];
+
+								pPlayerWordDatas[wordDatas].m_currentCost += SKILL_COST[skill];
+
+								pPlayerWordDatas[wordDatas].m_skillSlot[skillSlotSpace] = skill;
+
+								skillSlotSpace = SKILL_SLOT_MAX;
 
 								break;
 							}
 						}
 
-						if (skillSlotSpace == SKILL_SLOT_MAX - 1)
+						if (skillSlotSpace == SKILL_SLOT_MAX)
 						{
 							break;
 						}
-
-						pPlayerWordDatas->m_skillSlot[skillSlotSpace] = SKILL_COST[skill];
-
 					}
 				}
 			}
@@ -484,7 +499,7 @@ void ControlAlterDeck(SCENE* scene,WordData* pPlayerWordDatas, Deck* pPlayerDeck
 
 		if (g_mouseState.mousePush[LEFT_CLICK] || g_keyState.keyPush[DIK_RETURN])
 		{
-			for (int wordDatas = 0; wordDatas < MAGIC_KNIGHT_WORD_MAX; ++wordDatas)
+			for (int wordDatas = VOID_WORD; wordDatas < MAGIC_KNIGHT_WORD_MAX; ++wordDatas)
 			{
 				if (!RectToRectCollisionCheak(pBackgroundVertices, mouseCursorCollisionVertex))
 				{
@@ -498,13 +513,13 @@ void ControlAlterDeck(SCENE* scene,WordData* pPlayerWordDatas, Deck* pPlayerDeck
 								{
 									pPlayerDecks[(*pDeckNumToAlter)].m_wordId[deckSpace] = (MAGIC_KNIGHT_WORD)wordDatas;
 
-									clickedWord[wordDatas] = true;
+									if (pPlayerDecks[(*pDeckNumToAlter)].m_wordNum < 40)
+									{
+										clickedWord[wordDatas] = true;
+										pPlayerDecks[(*pDeckNumToAlter)].m_currentCostMax += pPlayerWordDatas[wordDatas].m_costMax;
+										pPlayerDecks[(*pDeckNumToAlter)].m_wordNum += 1;
+									}
 								}
-							}
-
-							if (clickedWord[wordDatas] == true)
-							{
-								pPlayerDecks[(*pDeckNumToAlter)].m_wordNum += 1;
 							}
 						}
 					}
@@ -517,24 +532,53 @@ void ControlAlterDeck(SCENE* scene,WordData* pPlayerWordDatas, Deck* pPlayerDeck
 				{
 					if (RectToRectCollisionCheak(mouseCursorCollisionVertex, pDeckComponentCollisionsVertex[wordDatas].ImageVertex))
 					{
+						if (pPlayerDecks[(*pDeckNumToAlter)].m_wordId[wordDatas] == VOID_WORD)
+						{
+							break;
+						}
+
 						clickedWord[(pPlayerDecks[(*pDeckNumToAlter)].m_wordId[wordDatas])] = false;
+
+						pPlayerDecks[(*pDeckNumToAlter)].m_currentCostMax -= pPlayerWordDatas[pPlayerDecks[(*pDeckNumToAlter)].m_wordId[wordDatas]].m_costMax;
 
 						pPlayerDecks[(*pDeckNumToAlter)].m_wordId[wordDatas] = VOID_WORD;
 
 						pPlayerDecks[(*pDeckNumToAlter)].m_wordNum -= 1;
-					}	
+					}
 				}
 			}
 
-			
+			if (RectToRectCollisionCheak(mouseCursorCollisionVertex, initVertex))
+			{
+				for (int word = VOID_WORD;word < MAGIC_KNIGHT_WORD_MAX;++word)
+				{
+					if (pChoiceWordData[word] == true)
+					{
+						pPlayerWordDatas[word].m_costMax = 1;
+						pPlayerWordDatas[word].m_currentCost = 0;
+
+						for (int skill = 0;skill < SKILL_SLOT_MAX;++skill)
+						{
+							pPlayerWordDatas[word].m_skillSlot[skill] = VOID_SKILL;
+						}
+					}
+				}
+				pPlayerWordDatas[VOID_WORD].m_costMax = 0;
+			}
+
+			CalcDeckCost(pPlayerWordDatas, &pPlayerDecks[(*pDeckNumToAlter)]);
 
 			if (RectToRectCollisionCheak(mouseCursorCollisionVertex, pEndDeckAlterVertices))
 			{
-				if (pPlayerDecks[(*pDeckNumToAlter)].m_wordNum == 40)
+				if(pPlayerDecks[(*pDeckNumToAlter)].m_costMax >= pPlayerDecks[(*pDeckNumToAlter)].m_currentCostMax)
 				{
-					memset(clickedWord, 0, sizeof(bool)*MAGIC_KNIGHT_WORD_MAX);
+					if (pPlayerDecks[(*pDeckNumToAlter)].m_wordNum == 40)
+					{
+						memset(clickedWord, 0, sizeof(bool)*MAGIC_KNIGHT_WORD_MAX);
+						ZeroMemory(pChoiceWordData, sizeof(bool)*MAGIC_KNIGHT_WORD_MAX);
 
-					*scene = HOME_SCENE;
+						*scene = HOME_SCENE;
+					}
 				}
 			}
 		}
@@ -543,4 +587,14 @@ void ControlAlterDeck(SCENE* scene,WordData* pPlayerWordDatas, Deck* pPlayerDeck
 
 	}
 	return;
+}
+
+void CalcDeckCost(WordData* pPlayerWordDatas, Deck* pPlayerDecks)
+{
+	pPlayerDecks->m_currentCostMax = 0;
+
+	for (int deckWord = 0;deckWord < DECK_WORD_MAX;++deckWord)
+	{
+		pPlayerDecks->m_currentCostMax += pPlayerWordDatas[pPlayerDecks->m_wordId[deckWord]].m_costMax;
+	}
 }
