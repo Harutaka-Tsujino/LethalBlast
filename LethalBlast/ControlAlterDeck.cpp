@@ -281,6 +281,7 @@ void ControlAlterDeck(SCENE* scene,WordData* pPlayerWordDatas, Deck* pPlayerDeck
 						}
 						break;
 					}
+
 				}
 
 				int skillSlotSpace = SKILL_SLOT_MAX;
@@ -319,6 +320,8 @@ void ControlAlterDeck(SCENE* scene,WordData* pPlayerWordDatas, Deck* pPlayerDeck
 						{
 							break;
 						}
+
+
 					}
 				}
 			}
@@ -412,7 +415,7 @@ void ControlAlterDeck(SCENE* scene,WordData* pPlayerWordDatas, Deck* pPlayerDeck
 
 		break;
 	}
-		
+	
 
 	case MAGIC_KNIGHT:
 	{

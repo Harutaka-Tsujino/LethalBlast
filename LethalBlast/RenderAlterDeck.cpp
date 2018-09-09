@@ -53,12 +53,12 @@ void RenderAlterDeck(ImagesCustomVertex* pChoiseWordCollisionsVertex, ImagesCust
 			frameCount = 0;
 		}
 
-		CustomVertex wMAlterBackVertices[4];
-		CustomImageVerticies(wMAlterBackVertices, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f);
+		CustomVertex AlterBackVertices[4];
+		CustomImageVerticies(AlterBackVertices, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT / 2.f);
 
-		DrawImage(wMAlterBackVertices, alterDeckTexId[WM_ALTER_BACK_1_TEX]);
+		DrawImage(AlterBackVertices, alterDeckTexId[WM_ALTER_BACK_1_TEX]);
 
-		for (int wordNum = 0; wordNum < MAGIC_KNIGHT_WORD_MAX; ++wordNum)
+		for (int wordNum = 0; wordNum < WEAPON_MASTER_WORD_MAX; ++wordNum)
 		{
 			DrawImage(pChoiseWordCollisionsVertex[wordNum].ImageVertex, alterDeckTexId[UNDER_ALTER_WORD_BOARD_TEX]);
 			DrawImage(pChoiseWordCollisionsVertex[wordNum].ImageVertex, wordTexIds[wordNum]);
@@ -69,7 +69,7 @@ void RenderAlterDeck(ImagesCustomVertex* pChoiseWordCollisionsVertex, ImagesCust
 			}
 		}
 
-		DrawImage(wMAlterBackVertices, alterDeckTexId[WM_ALTER_BACK_2_TEX]);
+		DrawImage(AlterBackVertices, alterDeckTexId[WM_ALTER_BACK_2_TEX]);
 
 		for (int deckNum = 0; deckNum < DECK_WORD_MAX; ++deckNum)
 		{
@@ -81,31 +81,31 @@ void RenderAlterDeck(ImagesCustomVertex* pChoiseWordCollisionsVertex, ImagesCust
 			}
 		}
 
-		DrawImage(wMAlterBackVertices, alterDeckTexId[WM_ALTER_BACK_3_TEX]);
+		DrawImage(AlterBackVertices, alterDeckTexId[WM_ALTER_BACK_3_TEX]);
 
-		CustomVertex wMDeckAlterTag[RECT_VERTEX_NUM];
-		CustomImageVerticies(wMDeckAlterTag, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT*0.04f, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT*0.04f);
+		CustomVertex DeckAlterTag[RECT_VERTEX_NUM];
+		CustomImageVerticies(DeckAlterTag, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT*0.04f, DISPLAY_WIDTH / 2.f, DISPLAY_HEIGHT*0.04f);
 
-		DrawImage(wMDeckAlterTag, alterDeckTexId[DECK_ALTER_TAG_TEX]);
+		DrawImage(DeckAlterTag, alterDeckTexId[DECK_ALTER_TAG_TEX]);
 
-		CustomVertex wMcursol[4];
-		const float WMCURSOL_POSX = DISPLAY_WIDTH * 0.8f;
-		const float WMCURSOL_SCALE = DISPLAY_WIDTH * 0.01f;
-		const float WMWORD_COLLISION_SCALE_X = (DISPLAY_WIDTH) / 55;
-		const float WMWORD_COLLISION_SCALE_Y = WMWORD_COLLISION_SCALE_X;
+		CustomVertex cursol[4];
+		const float CURSOL_POSX = DISPLAY_WIDTH * 0.8f;
+		const float CURSOL_SCALE = DISPLAY_WIDTH * 0.01f;
+		const float WORD_COLLISION_SCALE_X = (DISPLAY_WIDTH) / 55;
+		const float WORD_COLLISION_SCALE_Y = WORD_COLLISION_SCALE_X;
 
 		CustomVertex initVertex[4];
 		CustomImageVerticies(initVertex, DISPLAY_WIDTH*0.8f, DISPLAY_HEIGHT*0.90f, DISPLAY_WIDTH*0.035f, DISPLAY_HEIGHT*0.025f);
 
-		CustomVertex wMSkillSlotIcon[4];
-		float wMSkillSlotIconPosX = DISPLAY_WIDTH * 0.8f;
-		const float WMSKILL_SLOT_ICON_SCALE = DISPLAY_WIDTH * 0.015f;
+		CustomVertex skillSlotIcon[4];
+		float skillSlotIconPosX = DISPLAY_WIDTH * 0.8f;
+		const float skillSlotIconScale = DISPLAY_WIDTH * 0.015f;
 
 		for (int wordDatas = 0; wordDatas < WEAPON_MASTER_WORD_MAX; ++wordDatas)
 		{
 			if (pChoiceWordData[wordDatas] == true)
 			{
-				CustomImageVerticies(pChoiseWordCollisionsVertex[wordDatas].ImageVertex, DISPLAY_WIDTH*0.85, DISPLAY_HEIGHT*0.12, WMWORD_COLLISION_SCALE_X, WMWORD_COLLISION_SCALE_Y);
+				CustomImageVerticies(pChoiseWordCollisionsVertex[wordDatas].ImageVertex, DISPLAY_WIDTH*0.85, DISPLAY_HEIGHT*0.12, WORD_COLLISION_SCALE_X, WORD_COLLISION_SCALE_Y);
 				DrawImage(pChoiseWordCollisionsVertex[wordDatas].ImageVertex, alterDeckTexId[UNDER_ALTER_WORD_BOARD_TEX]);
 				DrawImage(pChoiseWordCollisionsVertex[wordDatas].ImageVertex, wordTexIds[wordDatas]);
 
@@ -114,17 +114,17 @@ void RenderAlterDeck(ImagesCustomVertex* pChoiseWordCollisionsVertex, ImagesCust
 					switch (costConfig)
 					{
 					case 1:
-						CustomImageVerticies(wMcursol, WMCURSOL_POSX, DISPLAY_HEIGHT * 0.2f, WMCURSOL_SCALE, WMCURSOL_SCALE);
-						RotateImageDeg(wMcursol, wMcursol, 180.f);
+						CustomImageVerticies(cursol, CURSOL_POSX, DISPLAY_HEIGHT * 0.2f, CURSOL_SCALE, CURSOL_SCALE);
+						RotateImageDeg(cursol, cursol, 180.f);
 
-						DrawImage(wMcursol, alterDeckTexId[CURSOL_TEX]);
+						DrawImage(cursol, alterDeckTexId[CURSOL_TEX]);
 
 						break;
 
 					case 2:
-						CustomImageVerticies(wMcursol, WMCURSOL_POSX + DISPLAY_WIDTH * 0.12f, DISPLAY_HEIGHT*0.2f, WMCURSOL_SCALE, WMCURSOL_SCALE);
+						CustomImageVerticies(cursol, CURSOL_POSX + DISPLAY_WIDTH * 0.12f, DISPLAY_HEIGHT*0.2f, CURSOL_SCALE, CURSOL_SCALE);
 
-						DrawImage(wMcursol, alterDeckTexId[CURSOL_TEX]);
+						DrawImage(cursol, alterDeckTexId[CURSOL_TEX]);
 
 						break;
 					}
@@ -143,46 +143,46 @@ void RenderAlterDeck(ImagesCustomVertex* pChoiseWordCollisionsVertex, ImagesCust
 
 				for (int slot = 0;slot < SKILL_SLOT_MAX;++slot)
 				{
-					CustomImageVerticies(wMSkillSlotIcon, wMSkillSlotIconPosX, DISPLAY_HEIGHT*0.27f, WMSKILL_SLOT_ICON_SCALE, WMSKILL_SLOT_ICON_SCALE);
+					CustomImageVerticies(skillSlotIcon, skillSlotIconPosX, DISPLAY_HEIGHT*0.27f, skillSlotIconScale, skillSlotIconScale);
 
-					wMSkillSlotIconPosX += WMSKILL_SLOT_ICON_SCALE * 2;
+					skillSlotIconPosX += skillSlotIconScale * 2;
 
 					if (!(pPlayerWordDatas[wordDatas].m_skillSlot[slot] == 0))
 					{
 						switch (pPlayerWordDatas[wordDatas].m_skillSlot[slot])
 						{
 						case MP_PLUS_2:
-							DrawImage(wMSkillSlotIcon, alterDeckTexId[SLOT_1]);
+							DrawImage(skillSlotIcon, alterDeckTexId[SLOT_1]);
 
 							break;
 
 						case REDUSE_DAMEGE_25PAR:
-							DrawImage(wMSkillSlotIcon, alterDeckTexId[SLOT_2]);
+							DrawImage(skillSlotIcon, alterDeckTexId[SLOT_2]);
 
 							break;
 
 						case HEAL_HP_25PAR:
-							DrawImage(wMSkillSlotIcon, alterDeckTexId[SLOT_3]);
+							DrawImage(skillSlotIcon, alterDeckTexId[SLOT_3]);
 
 							break;
 
 						case NEXT_TURN_DAMEGE_1p3:
-							DrawImage(wMSkillSlotIcon, alterDeckTexId[SLOT_4]);
+							DrawImage(skillSlotIcon, alterDeckTexId[SLOT_4]);
 
 							break;
 
 						case ATTACK_1p1:
-							DrawImage(wMSkillSlotIcon, alterDeckTexId[SLOT_5]);
+							DrawImage(skillSlotIcon, alterDeckTexId[SLOT_5]);
 
 							break;
 
 						case PURSUIT_25PAR:
-							DrawImage(wMSkillSlotIcon, alterDeckTexId[SLOT_6]);
+							DrawImage(skillSlotIcon, alterDeckTexId[SLOT_6]);
 
 							break;
 
 						case CURRENT_1p4_NEXT_0p8:
-							DrawImage(wMSkillSlotIcon, alterDeckTexId[SLOT_7]);
+							DrawImage(skillSlotIcon, alterDeckTexId[SLOT_7]);
 
 							break;
 						}
