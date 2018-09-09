@@ -176,7 +176,7 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 			InitOperateBattleDatas(&battleData, pEnemyDatas, stageDatas, selectedStage, MK_MAX_PP,
 				selectedDeck, pMKDeck, wordSelectEffect, WORD_SELECT_EFFECT_MAX);
 
-			RoadTexture("Texture/CharaChoice/MagicKnight.png", &mKWordTex[MK_CHARA]);
+			RoadTexture("Texture/MainGame/MagicKnight.png", &mKWordTex[MK_CHARA]);
 			RoadTexture("Texture/MainGame/MKActionWordFrame.png", &mKWordTex[MK_ACTION_SEAT]);
 			RoadTexture("Texture/MainGame/WordUnderBoard.png", &mKWordTex[MK_WORD_SEAT]);
 			RoadTexture("Texture/MainGame/MKCutIn.png", &mKWordTex[MK_CUT_IN]);
@@ -506,6 +506,12 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 
 		DrawImage(playerHPVertices, unionTex[HP_COVER]);
 
+		CustomVertex chara[RECT_VERTEX_NUM];
+		CustomImageVerticies(chara, DISPLAY_WIDTH*0.12f, DISPLAY_HEIGHT*0.64999f,
+			DISPLAY_WIDTH*0.09f, DISPLAY_WIDTH*0.09f);
+
+		DrawImage(chara, mKWordTex[MK_CHARA]);
+
 		char pPBuf[10];
 		sprintf(pPBuf, "%d/%d", battleData.m_pPCurrent, battleData.m_pPMax);
 
@@ -537,7 +543,7 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 			InitOperateBattleDatas(&battleData, pEnemyDatas, stageDatas, selectedStage, WM_MAX_PP,
 				selectedDeck, pWMDeck, wordSelectEffect, WORD_SELECT_EFFECT_MAX);
 
-			RoadTexture("Texture/CharaChoice/WeaponMaster.png", &wMWordTex[WM_CHARA]);
+			RoadTexture("Texture/MainGame/WaeponMaster.png", &wMWordTex[WM_CHARA]);
 			RoadTexture("Texture/MainGame/frame.png", &wMWordTex[WM_ACTION_SEAT]);
 			RoadTexture("Texture/MainGame/ListBG.png", &wMWordTex[WM_WORD_SEAT]);
 			RoadTexture("Texture/MainGame/WMCutIn.png", &wMWordTex[WM_CUT_IN]);
@@ -817,7 +823,7 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 
 					_itoa(pWMWordDatas[handWord].m_costMax, maxCostBuf, 10);
 
-					const int TEXT_POS_X = (int)(DISPLAY_WIDTH * 0.7f);
+					const int TEXT_POS_X = (int)(DISPLAY_WIDTH * 0.8f);
 					const int TEXT_POS_Y = (int)(DISPLAY_HEIGHT * 0.49f);
 					const int TEXT_Y_BLANK = (int)(DISPLAY_HEIGHT*0.05f);
 					WriteText(TEXT_POS_X, TEXT_POS_Y, maxCostBuf, DT_CENTER, unionFont[ENEMY_NAME_FONT], 0xFF000000);
@@ -867,6 +873,14 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 			DISPLAY_WIDTH*0.1f, DISPLAY_HEIGHT*0.01f, 0xFFFFFFFF);
 
 		DrawImage(playerHPVertices, unionTex[HP_COVER]);
+
+		DrawImage(playerHPVertices, unionTex[HP_COVER]);
+
+		CustomVertex chara[RECT_VERTEX_NUM];
+		CustomImageVerticies(chara, DISPLAY_WIDTH*0.12f, DISPLAY_HEIGHT*0.64999f,
+			DISPLAY_WIDTH*0.09f, DISPLAY_WIDTH*0.09f);
+
+		DrawImage(chara, wMWordTex[WM_CHARA]);
 
 		char pPBuf[10];
 		sprintf(pPBuf, "%d/%d", battleData.m_pPCurrent, battleData.m_pPMax);
