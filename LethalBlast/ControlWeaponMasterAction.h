@@ -4,12 +4,6 @@
 #include"ControlGame.h"
 #include"ControlCharaChoice.h"
 
-enum WEAPON_MASTER_WORD_LISTS
-{
-	SPACE_WORD,
-	#include"Files/Enum/WeaponMasterWordEnum.txt"
-};
-
 #define WORD_NAME 40
 
 //Cü‚Ì‘fŞ‚Ì”

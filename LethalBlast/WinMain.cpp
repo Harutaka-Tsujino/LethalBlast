@@ -35,7 +35,7 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdSh
 void MainFunction(void)
 {
 	static SCENE scene = (SCENE)0;
-	static WeaponMasterWordData weaponMasterWords[WEAPON_MASTER_WORD_MAX];
+	
 	static WordData wMWordDatas[WEAPON_MASTER_WORD_MAX];
 	ImagesCustomVertex choiseWMWordCollisionsVertex[WEAPON_MASTER_WORD_MAX];
 	static int cursol = 1;
@@ -44,10 +44,8 @@ void MainFunction(void)
 	static int frameCount = 0;
 	static int page = 1;
 	static WordData magicKnightWordDatas[MAGIC_KNIGHT_WORD_MAX];
-	static PlayerDeck magicKnightDeck[MAGIC_KNIGHT_DECKS_MAX];
+	static Deck magicKnightDeck[MAGIC_KNIGHT_DECKS_MAX];
 	
-	ImagesCustomVertex handWordCollisionsVertex[HAND_WORD_MAX];
-	ImagesCustomVertex magicKnightActionCollisionsVertex[MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX];
 	ImagesCustomVertex choiseDeckCollisionsVertex[MAGIC_KNIGHT_DECKS_MAX];
 	ImagesCustomVertex choiseWordCollisionsVertex[MAGIC_KNIGHT_WORD_MAX];
 	ImagesCustomVertex deckComponentCollisionsVertex[DECK_WORD_MAX];
@@ -107,7 +105,7 @@ void MainFunction(void)
 
 	case CHARA_CHOICE_SCENE:
 
-		ControlCharaChoice(&scene,&cursol,&playerType);
+		ControlCharaChoice(&scene, &cursol, &playerType);
 		RenderCharaChoice(&scene, &cursol);
 
 		break;
@@ -124,7 +122,7 @@ void MainFunction(void)
 			wMWordDatas, wMDecks,
 			deckAlterPortal, modifyWordPortal, mainGamePortal, charaChoicePortal, mKWordTex, wMWordTex, &playerType, &initializedTex);
 
-		RenderHome(&scene, deckAlterPortal, modifyWordPortal, mainGamePortal, charaChoicePortal, mKWordTex, wMWordTex, &playerType,&initializedTex);
+		RenderHome(&scene, deckAlterPortal, modifyWordPortal, mainGamePortal, charaChoicePortal, mKWordTex, wMWordTex, &playerType, &initializedTex);
 
 		break;
 
@@ -149,10 +147,10 @@ void MainFunction(void)
 			break;*/
 
 		case MAGIC_KNIGHT:
-			ControlAlterDeck(&scene, magicKnightWordDatas, &magicKnightDeck, choiseWordCollisionsVertex, deckComponentCollisionsVertex, skillInfo,
+			ControlAlterDeck(&scene, magicKnightWordDatas, magicKnightDeck, choiseWordCollisionsVertex, deckComponentCollisionsVertex, skillInfo,
 				endAlterDeckVertices, backgroundVertices, wordDatasBackVertices, &playerType, &deckNumToAlter, clickedWord, RclickedWord);
 			RenderAlterDeck(choiseWordCollisionsVertex, deckComponentCollisionsVertex, skillInfo, endAlterDeckVertices, backgroundVertices, wordDatasBackVertices,
-				wordTexIds, magicKnightWordDatas, &magicKnightDeck, &deckNumToAlter, clickedWord, RclickedWord);
+				mKWordTex, magicKnightWordDatas, magicKnightDeck, &deckNumToAlter, clickedWord, RclickedWord);
 
 			break;
 		}
@@ -172,7 +170,7 @@ void MainFunction(void)
 
 	case CHOSE_DECK_TO_BATTLE_SCENE:
 
-		ControlChoiceDeck(&scene, LOAD_DECK_TO_PLAY_SCENE,choiseDeckCollisionsVertex, &selectedDeck);
+		ControlChoiceDeck(&scene, LOAD_DECK_TO_PLAY_SCENE, choiseDeckCollisionsVertex, &selectedDeck);
 		RenderChoiceDeck(choiseDeckCollisionsVertex);
 
 		break;
@@ -191,33 +189,10 @@ void MainFunction(void)
 
 	case GAME_SCENE:
 
-		ControlGame(&scene);
-		RenderGame(&scene);
-	switch (playerType)
-		{
-		case WEAPON_MASTER:
-			ControlWeaponMasterAction(weaponMasterWords, weaponMasterWordDecks, weaponMasterActionWords,
-				weaponMasterDeckVerticies,weaponMasterActionVerticies, &scrollEffect, &page);
-			RenderWeaponMasterAction(weaponMasterDeckVerticies, weaponMasterActionVerticies, weaponMasterWordDecks, weaponMasterActionWords, page, &scrollEffect, weaponMasterWordIds);
+		OperateBattle(&scene, playerType, selectedStage, selectedDeck, mKDecks, wMDecks,
+			magicKnightWordDatas, mKWordTex, wMWordDatas, wMWordTex,
+			enemyDatas, mouseCursorCollisionVertex);
 
-			break;
-
-		/*case MAGIC_KNIGHT:
-
-			ControlMagicKnightMainGame(&scene, magicKnightWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
-				&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex, hominEffect,
-				&battleData, enemyActionNum, &isClear, resultMask, stageData, enemyData, selectedStage);
-
-			RenderMagicKnightMainGame(magicKnightWordDatas, magicKnightDecks, &magicKnightPlayingDeck,
-				&magicKnightAction, handWordCollisionsVertex, magicKnightActionCollisionsVertex, 
-				wordTexIds, hominEffect, resultMask, &battleData, enemyActionNum, selectedStage, enemyData[battleData.m_enemyId]);
-
-			break;*/
-		}
-
-		//ControlHP(player, enemy, &playerATKDamage, (PLAYERTYPE)playerType, enemyType,&frameCount,&CTCount, &magicKnightAction, magicKnightWordDatas);
-		//RenderHP(player, enemy,&frameCount,&CTCount);
-		
 		break;
 
 	case RESULT_SCENE:

@@ -22,4 +22,4 @@ enum ALTER_DECK_TEX
 
 void RenderAlterDeck(ImagesCustomVertex* pChoiseWordCollisionsVertex, ImagesCustomVertex* pDeckComponentCollisionsVertex, ImagesCustomVertex* pSkillInfo,
 	CustomVertex* endDeckAlterVertices, CustomVertex* pBackgroundVertices, CustomVertex* pWordDatasBackVertices,
-	TEXTUREID* wordTexIds, WordData* pPlayerWordDatas, PlayerDeck* pPlayerDecks, int* pDeckNumToAlter, bool* clickedWord, bool* pChoiceWordData);
+	TEXTUREID* wordTexIds, WordData* pPlayerWordDatas, Deck* pPlayerDecks, int* pDeckNumToAlter, bool* clickedWord, bool* pChoiceWordData);

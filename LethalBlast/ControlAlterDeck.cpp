@@ -4,7 +4,7 @@
 #include"CharactarInfo.h"
 #include"ControlAlterDeck.h"
 
-void ControlAlterDeck(SCENE* scene,WordData* pPlayerWordDatas, PlayerDeck* pPlayerDecks, ImagesCustomVertex* pChoiseWordCollisionsVertex,ImagesCustomVertex* pDeckComponentCollisionsVertex,
+void ControlAlterDeck(SCENE* scene,WordData* pPlayerWordDatas, Deck* pPlayerDecks, ImagesCustomVertex* pChoiseWordCollisionsVertex,ImagesCustomVertex* pDeckComponentCollisionsVertex,
 	ImagesCustomVertex* pSkillInfo,CustomVertex* pEndDeckAlterVertices, CustomVertex* pBackgroundVertices,CustomVertex* pWordDatasBackVertices,
 	PLAYERTYPE* playerType, int* pDeckNumToAlter,bool* clickedWord,bool* pChoiceWordData)
 {
@@ -13,6 +13,18 @@ void ControlAlterDeck(SCENE* scene,WordData* pPlayerWordDatas, PlayerDeck* pPlay
 	if (frameCount == -1)
 	{
 		memset(clickedWord, 0, sizeof(bool)*MAGIC_KNIGHT_WORD_MAX);
+		ZeroMemory(pChoiceWordData, sizeof(bool)*MAGIC_KNIGHT_WORD_MAX);
+
+		for (int word = 0;word < MAGIC_KNIGHT_WORD_MAX;++word)
+		{
+			pPlayerWordDatas[word].m_costMax = 1;
+			pPlayerWordDatas[word].m_have = 1;
+
+			for (int skill = 0;skill < SKILL_SLOT_MAX;++skill)
+			{
+				pPlayerWordDatas[word].m_skillSlot[skill] = 0;
+			}
+		}
 
 		frameCount = 0;
 	}
@@ -203,7 +215,7 @@ void ControlAlterDeck(SCENE* scene,WordData* pPlayerWordDatas, PlayerDeck* pPlay
 		const float WORD_COLLISION_SCALE_X = (DISPLAY_WIDTH) / 14;
 		const float WORD_COLLISION_SCALE_Y = WORD_COLLISION_SCALE_X / 5;
 
-		float listWordPosX = (float)(WORD_COLLISION_SCALE_X*1.3);
+		float listWordPosX = (float)(WORD_COLLISION_SCALE_X * 1.3);
 		float listWordPosY = WORD_COLLISION_SCALE_X;
 
 		float deckComponentPosX = (float)(WORD_COLLISION_SCALE_X * 1.3);
@@ -212,7 +224,6 @@ void ControlAlterDeck(SCENE* scene,WordData* pPlayerWordDatas, PlayerDeck* pPlay
 		const int WORD_NEW_LINE = 4;
 
 		memset(pChoiseWordCollisionsVertex, 0, sizeof(ImagesCustomVertex)*MAGIC_KNIGHT_WORD_MAX);
-		memset(pDeckComponentCollisionsVertex, 0, sizeof(ImagesCustomVertex)*MAGIC_KNIGHT_ACTION_COMPONENT_WORDS_MAX);
 
 		static int wordSlidePosY = 0;
 		const int SLIDE_SPEED = 40;
@@ -317,29 +328,32 @@ void ControlAlterDeck(SCENE* scene,WordData* pPlayerWordDatas, PlayerDeck* pPlay
 			}
 		}
 
-		static float skillInfoPosY = DISPLAY_HEIGHT / 1.5f;
-		const float SKILL_INFO_XSCALE = DISPLAY_WIDTH * 0.25f;
-		const float SKILL_INFO_YSCALE = DISPLAY_HEIGHT / 21;
+		ZeroMemory(pSkillInfo, sizeof(ImagesCustomVertex)*SKILL_COST_MAX);
 
-		for (int skill = MPプラス２;skill < SKILL_MAX;++skill)
+		float skillInfoPosY = (float)(DISPLAY_HEIGHT * 0.3f);
+		const float SKILL_INFO_XSCALE = (float)(DISPLAY_WIDTH * 0.125f);
+		const float SKILL_INFO_YSCALE = (float)(DISPLAY_HEIGHT * 0.047f);
+
+		for (int skill = VOID_SKILL;skill < SKILL_COST_MAX;++skill)
 		{
-			CustomImageVerticies(pSkillInfo[skill].ImageVertex, DISPLAY_WIDTH * 0.25, skillInfoPosY, SKILL_INFO_XSCALE, SKILL_INFO_YSCALE);
+			CustomImageVerticies(pSkillInfo[skill].ImageVertex, DISPLAY_WIDTH * 0.85f, skillInfoPosY, SKILL_INFO_XSCALE, SKILL_INFO_YSCALE);
 
-			skillInfoPosY += SKILL_INFO_YSCALE * 2;
+			skillInfoPosY += SKILL_INFO_YSCALE*1.5f;
 		}
 
 		CustomImageVerticies(pEndDeckAlterVertices, DISPLAY_WIDTH*0.90f, DISPLAY_HEIGHT*0.90f, DISPLAY_WIDTH*0.025f, DISPLAY_HEIGHT*0.025f);
 
 		for (int wordDatas = 0; wordDatas < DECK_WORD_MAX; ++wordDatas)
 		{
-			clickedWord[(pPlayerDecks[(*pDeckNumToAlter)].m_wordIds[wordDatas])] = true;
+			clickedWord[(pPlayerDecks[(*pDeckNumToAlter)].m_wordId[wordDatas])] = true;
 		}
 		
 		const int SKILL_COST[SKILL_MAX] = { 0,3,3,3,6,3,4,12 };
+		static int ChoiceWordDataBuff = 0;
 
 		CustomVertex cursol[4];
-		const float CURSOL_POSX = DISPLAY_WIDTH * 0.7f;
-		const float CURSOL_SCALE = DISPLAY_WIDTH * 0.025f;
+		const float CURSOL_POSX = DISPLAY_WIDTH * 0.8f;
+		const float CURSOL_SCALE = DISPLAY_WIDTH * 0.01f;
 
 		if (g_mouseState.mousePush[RIGHT_CLICK])
 		{
@@ -352,6 +366,13 @@ void ControlAlterDeck(SCENE* scene,WordData* pPlayerWordDatas, PlayerDeck* pPlay
 						if (RectToRectCollisionCheak(mouseCursorCollisionVertex, pChoiseWordCollisionsVertex[wordDatas].ImageVertex))
 						{
 							pChoiceWordData[wordDatas] = true;
+							
+							if (pChoiceWordData[wordDatas] == true)
+							{
+								pChoiceWordData[ChoiceWordDataBuff] = false;
+							}
+
+							ChoiceWordDataBuff = wordDatas;
 						}
 					}
 				}
@@ -360,16 +381,14 @@ void ControlAlterDeck(SCENE* scene,WordData* pPlayerWordDatas, PlayerDeck* pPlay
 
 		for (int wordDatas = 0; wordDatas < MAGIC_KNIGHT_WORD_MAX; ++wordDatas)
 		{
-			if (pChoiceWordData[wordDatas] = true)
+			if (pChoiceWordData[wordDatas] == true)
 			{
-				CustomImageVerticies(pChoiseWordCollisionsVertex[wordDatas].ImageVertex, DISPLAY_WIDTH*0.85f, DISPLAY_HEIGHT*0.1f, WORD_COLLISION_SCALE_X, WORD_COLLISION_SCALE_Y);
-
 				for (int costConfig = 1;costConfig < 3;++costConfig)
 				{
 					switch (costConfig)
 					{
 					case 1:
-						CustomImageVerticies(cursol, CURSOL_POSX, DISPLAY_HEIGHT*0.7f, CURSOL_SCALE, CURSOL_SCALE);
+						CustomImageVerticies(cursol, CURSOL_POSX, DISPLAY_HEIGHT*0.3f, CURSOL_SCALE, CURSOL_SCALE);
 
 						if (g_mouseState.mousePush[LEFT_CLICK])
 						{
@@ -395,7 +414,7 @@ void ControlAlterDeck(SCENE* scene,WordData* pPlayerWordDatas, PlayerDeck* pPlay
 						break;
 
 					case 2:
-						CustomImageVerticies(cursol, CURSOL_POSX + DISPLAY_WIDTH * 0.1f, DISPLAY_HEIGHT*0.7f, CURSOL_SCALE, CURSOL_SCALE);
+						CustomImageVerticies(cursol, CURSOL_POSX + DISPLAY_WIDTH * 0.12f, DISPLAY_HEIGHT*0.3f, CURSOL_SCALE, CURSOL_SCALE);
 
 						if (g_mouseState.mousePush[LEFT_CLICK])
 						{
@@ -424,9 +443,8 @@ void ControlAlterDeck(SCENE* scene,WordData* pPlayerWordDatas, PlayerDeck* pPlay
 				}
 
 				int skillSlotSpace = 3;
-				const int SKILL_SLOT_MAX = 3;
 
-				for (int skill = MPプラス２;skill < SKILL_MAX;++skill)
+				for (int skill = MP_PLUS_2;skill < SKILL_COST_MAX;++skill)
 				{
 					if (g_mouseState.mousePush[LEFT_CLICK])
 					{
@@ -452,7 +470,7 @@ void ControlAlterDeck(SCENE* scene,WordData* pPlayerWordDatas, PlayerDeck* pPlay
 							}
 						}
 
-						if (skillSlotSpace == SKILL_SLOT_MAX)
+						if (skillSlotSpace == SKILL_SLOT_MAX - 1)
 						{
 							break;
 						}
@@ -476,12 +494,17 @@ void ControlAlterDeck(SCENE* scene,WordData* pPlayerWordDatas, PlayerDeck* pPlay
 						{
 							for (int deckSpace = 0; deckSpace < DECK_WORD_MAX; ++deckSpace)
 							{
-								if (!pPlayerDecks[(*pDeckNumToAlter)].m_wordIds[deckSpace] && !clickedWord[wordDatas])
+								if (!pPlayerDecks[(*pDeckNumToAlter)].m_wordId[deckSpace] && !clickedWord[wordDatas])
 								{
-									pPlayerDecks[(*pDeckNumToAlter)].m_wordIds[deckSpace] = (MAGIC_KNIGHT_WORD)wordDatas;
+									pPlayerDecks[(*pDeckNumToAlter)].m_wordId[deckSpace] = (MAGIC_KNIGHT_WORD)wordDatas;
 
 									clickedWord[wordDatas] = true;
 								}
+							}
+
+							if (clickedWord[wordDatas] == true)
+							{
+								pPlayerDecks[(*pDeckNumToAlter)].m_wordNum += 1;
 							}
 						}
 					}
@@ -494,18 +517,25 @@ void ControlAlterDeck(SCENE* scene,WordData* pPlayerWordDatas, PlayerDeck* pPlay
 				{
 					if (RectToRectCollisionCheak(mouseCursorCollisionVertex, pDeckComponentCollisionsVertex[wordDatas].ImageVertex))
 					{
-						clickedWord[(pPlayerDecks[(*pDeckNumToAlter)].m_wordIds[wordDatas])] = false;
+						clickedWord[(pPlayerDecks[(*pDeckNumToAlter)].m_wordId[wordDatas])] = false;
 
-						pPlayerDecks[(*pDeckNumToAlter)].m_wordIds[wordDatas] = VOID_WORD;
-					}
+						pPlayerDecks[(*pDeckNumToAlter)].m_wordId[wordDatas] = VOID_WORD;
+
+						pPlayerDecks[(*pDeckNumToAlter)].m_wordNum -= 1;
+					}	
 				}
 			}
 
+			
+
 			if (RectToRectCollisionCheak(mouseCursorCollisionVertex, pEndDeckAlterVertices))
 			{
-				memset(clickedWord, 0, sizeof(bool)*MAGIC_KNIGHT_WORD_MAX);
+				if (pPlayerDecks[(*pDeckNumToAlter)].m_wordNum == 40)
+				{
+					memset(clickedWord, 0, sizeof(bool)*MAGIC_KNIGHT_WORD_MAX);
 
-				*scene = HOME_SCENE;
+					*scene = HOME_SCENE;
+				}
 			}
 		}
 

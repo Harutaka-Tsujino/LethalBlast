@@ -145,6 +145,13 @@ enum MAGIC_KNIGHT_WORD
 #include"Files/Enum/MagicKnightWordEnum.txt"
 };
 
+//ウェポンマスターの単語
+enum WEAPON_MASTER_WORD_LISTS
+{
+	SPACE_WORD,
+#include"Files/Enum/WeaponMasterWordEnum.txt"
+};
+
 //単語の名前の文字数最大値
 #define WORD_NAME_CHAR_MAX 40
 
@@ -152,7 +159,6 @@ enum MAGIC_KNIGHT_WORD
 #define MATERIALS_NUM 2
 
 #define SKILL_SLOT_MAX 4
-#define SKILL_MAX 8
 
 //単語のデータ
 typedef struct
@@ -191,6 +197,8 @@ typedef struct
 #define HAND_WORD_MAX 40
 
 #define DECK_MAX 8
+
+#define SKILL_MAX 8
 
 typedef struct
 {

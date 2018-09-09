@@ -8,23 +8,23 @@ enum SKILL_COST
 {
 	VOID_SKILL,
 
-	MPプラス２,
+	MP_PLUS_2,
 
-	被ダメ２５％カット,
+	REDUSE_DAMEGE_25PAR,
 
-	２５％回復,
+	HEAL_HP_25PAR,
 
-	次の与ダメ１．３倍,
+	NEXT_TURN_DAMEGE_1p3,
 
-	与ダメ１．１倍,
+	ATTACK_1p1,
 
-	追撃２５％,
+	PURSUIT_25PAR,
 
-	今１．４倍次０．８倍,
+	CURRENT_1p4_NEXT_0p8,
 
-	SKILL_MAX,
+	SKILL_COST_MAX,
 };
 
-void ControlAlterDeck(SCENE* scene, WordData* pPlayerWordDatas, PlayerDeck* pPlayerDecks, ImagesCustomVertex* pChoiseWordCollisionsVertex, ImagesCustomVertex* pDeckComponentCollisionsVertex,
+void ControlAlterDeck(SCENE* scene, WordData* pPlayerWordDatas, Deck* pPlayerDecks, ImagesCustomVertex* pChoiseWordCollisionsVertex, ImagesCustomVertex* pDeckComponentCollisionsVertex,
 	ImagesCustomVertex* pSkillInfo, CustomVertex* pEndDeckAlterVertices, CustomVertex* pBackgroundVertices, CustomVertex* pWordDatasBackVertices,
 	PLAYERTYPE* playerType, int* pDeckNumToAlter, bool* clickedWord, bool* pChoiceWordData);

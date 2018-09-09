@@ -2,11 +2,10 @@
 #include"DX9Lib.h"
 #include"WinMain.h"
 #include"ControlCharaChoice.h"
-#include"CharactarInfo.h"
 #include"ControlHome.h"
 
-void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, PlayerDeck* pMagicKnightDecks,
-	WordData* pWeaponMAsterWordDatas, PlayerDeck* pWeaponMasterDecks,
+void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, Deck* pMagicKnightDecks,
+	WordData* pWeaponMAsterWordDatas, Deck* pWeaponMasterDecks,
 	CustomVertex* pDeckAlterPortal, CustomVertex* pModifyWordPortal, CustomVertex* pMainGamePortal,
 	CustomVertex* pCharaChoicePortal, TEXTUREID* mKWordTex, TEXTUREID* wMWordTex, PLAYERTYPE* playerType,
 	bool* initializedTex)
@@ -19,16 +18,16 @@ void ControlHome(SCENE* scene, WordData* pMagicKnightWordDatas, PlayerDeck* pMag
 
 		if (!(*initializedTex))
 		{
-			LoadWeaponMasterWordDatas(pWeaponMAsterWordDatas);
-			WeaponMasterLoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck1.csv", 0);
-			WeaponMasterLoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck2.csv", 1);
-			WeaponMasterLoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck3.csv", 2);
-			WeaponMasterLoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck4.csv", 3);
-			WeaponMasterLoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck5.csv", 4);
-			WeaponMasterLoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck6.csv", 5);
-			WeaponMasterLoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck7.csv", 6);
-			WeaponMasterLoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck8.csv", 7);
-			LordTextureWeaponMaster(weaponMasterWordIds);
+			LoadWordDatas(pWeaponMAsterWordDatas, "Files/WordStates/WeaponMasterWordStates.csv", WEAPON_MASTER_WORD_MAX);
+			LoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck1.csv", 0);
+			LoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck2.csv", 1);
+			LoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck3.csv", 2);
+			LoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck4.csv", 3);
+			LoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck5.csv", 4);
+			LoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck6.csv", 5);
+			LoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck7.csv", 6);
+			LoadDeck(pWeaponMAsterWordDatas, pWeaponMasterDecks, "Files/WMDeck/WMDeck8.csv", 7);
+			LordTextureWeaponMaster(wMWordTex);
 			isSuccess = soundsManager.AddFile("Audio/perusona.mp3", _T("bgm"));
 
 			*initializedTex = true;
