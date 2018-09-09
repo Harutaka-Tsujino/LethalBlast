@@ -169,21 +169,21 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 		{
 		case 0:
 			LoadOriDeck(pMKWordDatas, &pMKDeck[selectedDeck], "Files/Deck/êÖèªì¥åA/MagicKnightDeck00.csv");
-			LoadOriDeck(pWMWordDatas, &pWMDeck[selectedDeck], "Files/Deck/êÖèªì¥åA/MagicKnightDeck00.csv");
+			LoadOriDeck(pWMWordDatas, &pWMDeck[selectedDeck], "Files/Deck/êÖèªì¥åA/WeaponMasterDeck00.csv");
 
 			break;
 
 		case 1:
 
-			LoadOriDeck(pMKWordDatas, &pMKDeck[selectedDeck], "Files/Deck/å√ë„à‚ê’/MagicKnightDeck01.csv");
-			LoadOriDeck(pWMWordDatas, &pWMDeck[selectedDeck], "Files/Deck/å√ë„à‚ê’/MagicKnightDeck01.csv");
+			LoadOriDeck(pMKWordDatas, &pMKDeck[selectedDeck], "Files/Deck/å√ë„à‚ê’/MagicKnightDeck02.csv");
+			LoadOriDeck(pWMWordDatas, &pWMDeck[selectedDeck], "Files/Deck/å√ë„à‚ê’/WeaponMasterDeck02.csv");
 
 			break;
 
 		case 2:
 
-			LoadOriDeck(pMKWordDatas, &pMKDeck[selectedDeck], "Files/Deck/çïêXÉmäŸ/MagicKnightDeck02.csv");
-			LoadOriDeck(pWMWordDatas, &pWMDeck[selectedDeck], "Files/Deck/çïêXÉmäŸ/MagicKnightDeck02.csv");
+			LoadOriDeck(pMKWordDatas, &pMKDeck[selectedDeck], "Files/Deck/çïêXÉmäŸ/MagicKnightDeck01.csv");
+			LoadOriDeck(pWMWordDatas, &pWMDeck[selectedDeck], "Files/Deck/çïêXÉmäŸ/WeaponMasterDeck01.csv");
 
 			break;
 		}
