@@ -34,6 +34,16 @@ enum ACTION_EFFECT
 	SMASH_AE,
 	PENE_AE,
 	NONE_AE,
+	TWIN_CYCLON_AE,
+	TILANT_WING_AE,
+	DARK_FRAME_AE,
+	CHARGE_FORCE_AE,
+	CRYSTAL_RAZER_AE,
+	PHOENIX_AE,
+	EYES_AE,
+	SHADOW_BALL_AE,
+	SPELL_AE,
+	DORAGON_AE,
 	ACTION_EFFECT_MAX,
 };
 
@@ -161,7 +171,7 @@ typedef struct
 	bool m_valid;
 }WordSelectEffect;
 
-#define MAX_HP 2000000000
+#define MAX_HP 120000
 #define FIRST_ACTION_LIMIT 1
 
 #define MK_MAX_PP 24
@@ -176,7 +186,7 @@ typedef struct
 #define MK_COST_5_DAMAGE 5000000
 #define MK_COST_5_PLUS__DAMAGE 40000
 
-#define MK_COST_12_DAMAGE 15000000
+#define MK_COST_12_DAMAGE 11000000
 #define MK_COST_12_PLUS__DAMAGE 25000
 
 #define ELEMENT_WEAK 1.2f
@@ -245,3 +255,5 @@ void DrawWordSelectEffect(WordSelectEffect* pWordSelectEffect, int wordSelectEff
 	TEXTUREID* pWordSelectEffectTex);
 
 void MoveSelectWordEffect(WordSelectEffect* pWordSelectEffect, int wordSelectEffectMax, int wordSelectEffectFrame);
+
+void LoadOriDeck(WordData* pWordData, Deck* pDeck, const char* filePath);

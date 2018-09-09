@@ -10,12 +10,13 @@ void RenderStageSelect(ImagesCustomVertex* pStageSelectPortals, CustomVertex* pB
 	//static TEXTUREID stageSelectTexIds[STAGE_SELECT_TEX_MAX];
 
 	static TEXTUREID StageTextureIds[STAGE_MAX];
-
+	static TEXTUREID homeTextures;
 	if (frameCount == INIT_FRAME)
 	{
 		RoadTexture("Texture/StagePortal/Forest.png", &StageTextureIds[êX]);
 		RoadTexture("Texture/StagePortal/mainBG.png", &StageTextureIds[à‚ê’]);
 		RoadTexture("Texture/StagePortal/CrystalCave.png", &StageTextureIds[ì¥åA]);
+		RoadTexture("Texture/Home/CharaChoicePortal.png", &homeTextures);
 
 		frameCount = 0;
 	}
@@ -23,7 +24,7 @@ void RenderStageSelect(ImagesCustomVertex* pStageSelectPortals, CustomVertex* pB
 	DrawImage(pStageSelectPortals[à‚ê’].ImageVertex, StageTextureIds[à‚ê’]);
 	DrawImage(pStageSelectPortals[êX].ImageVertex, StageTextureIds[êX]);
 	DrawImage(pStageSelectPortals[ì¥åA].ImageVertex, StageTextureIds[ì¥åA]);
-	DrawImage(pBackPortal, NULL);
+	DrawImage(pBackPortal, homeTextures);
 
 	return;
 }

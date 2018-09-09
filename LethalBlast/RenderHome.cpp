@@ -272,7 +272,7 @@ void RenderHome(int playerChara,SCENE* scene, CustomVertex* deckAlterPortal, Cus
 	}
 
 	DrawImage(deckAlterPortal, homeTextures[ALTER_PORTAL_TEX]);
-	DrawImage(modifyWordPortal, homeTextures[MODIFY_PORTAL_TEX]);
+	//DrawImage(modifyWordPortal, homeTextures[MODIFY_PORTAL_TEX]);
 	DrawImage(mainGamePortal, homeTextures[QUEST_PORTAL_TEX]);
 	DrawImage(charaChoicePortal, homeTextures[CHARA_CHOICE_PORTAL_TEX]);
 

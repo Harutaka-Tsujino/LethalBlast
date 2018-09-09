@@ -327,7 +327,7 @@
 //		{
 //			if (pHominEffect[effect].m_valid)
 //			{
-//				MoveImage(pHominEffect[effect].m_rect, pHominEffect[effect].m_rect,
+//				MoveImage(pHominEffect[effect].m_rect, pHominEffect[effect].m_rect,//HPｔｍｐ
 //					(float)(pHominEffect[effect].m_HomingVect.m_x*(1 / (float)EFFECT_FRAME)),
 //					(float)(pHominEffect[effect].m_HomingVect.m_y*(1 / (float)EFFECT_FRAME)));
 //

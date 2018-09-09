@@ -91,6 +91,72 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 		a = RoadTexture("Texture/Effect/PenetrateAE.png", &(actionEffectDatas[PENE_AE].m_tex));
 		actionEffectDatas[PENE_AE].m_color = 0xff00ffff;
 
+		actionEffectDatas[TWIN_CYCLON_AE].m_segmentX = 10;
+		actionEffectDatas[TWIN_CYCLON_AE].m_segmentY = 6;
+		actionEffectDatas[TWIN_CYCLON_AE].m_effectScale = DISPLAY_WIDTH * 0.5f;
+		a = RoadTexture("Texture/Effect/TwinCyclon.png", &(actionEffectDatas[TWIN_CYCLON_AE].m_tex));
+		actionEffectDatas[TWIN_CYCLON_AE].m_color = 0xffffffff;
+
+		actionEffectDatas[TILANT_WING_AE].m_segmentX = 16;
+		actionEffectDatas[TILANT_WING_AE].m_segmentY = 2;
+		actionEffectDatas[TILANT_WING_AE].m_effectScale = DISPLAY_WIDTH * 0.5f;
+		a = RoadTexture("Texture/Effect/wind.png", &(actionEffectDatas[TILANT_WING_AE].m_tex));
+		actionEffectDatas[TILANT_WING_AE].m_color = 0xff00ffff;
+
+		actionEffectDatas[DARK_FRAME_AE].m_segmentX = 32;
+		actionEffectDatas[DARK_FRAME_AE].m_segmentY = 4;
+		actionEffectDatas[DARK_FRAME_AE].m_effectScale = DISPLAY_WIDTH * 0.5f;
+		a = RoadTexture("Texture/Effect/DarkFlame.png", &(actionEffectDatas[DARK_FRAME_AE].m_tex));
+		actionEffectDatas[DARK_FRAME_AE].m_color = 0xffffffff;
+
+		actionEffectDatas[CHARGE_FORCE_AE].m_segmentX = 10;
+		actionEffectDatas[CHARGE_FORCE_AE].m_segmentY = 2;
+		actionEffectDatas[CHARGE_FORCE_AE].m_effectScale = DISPLAY_WIDTH * 0.5f;
+		a = RoadTexture("Texture/Effect/Charge.png", &(actionEffectDatas[CHARGE_FORCE_AE].m_tex));
+		actionEffectDatas[CHARGE_FORCE_AE].m_color = 0xffffff00;
+
+		actionEffectDatas[CRYSTAL_RAZER_AE].m_segmentX = 30;
+		actionEffectDatas[CRYSTAL_RAZER_AE].m_segmentY = 1;
+		actionEffectDatas[CRYSTAL_RAZER_AE].m_effectScale = DISPLAY_WIDTH * 0.5f;
+		a = RoadTexture("Texture/Effect/MultiSlash.png", &(actionEffectDatas[CRYSTAL_RAZER_AE].m_tex));
+		actionEffectDatas[CRYSTAL_RAZER_AE].m_color = 0xff00ffff;
+
+		actionEffectDatas[NONE_AE].m_segmentX = 10;
+		actionEffectDatas[NONE_AE].m_segmentY = 2;
+		actionEffectDatas[NONE_AE].m_effectScale = DISPLAY_WIDTH * 2.f;
+		a = RoadTexture("Texture/Effect/NAAE.png", &(actionEffectDatas[NONE_AE].m_tex));
+		actionEffectDatas[NONE_AE].m_color = 0xffffffff;
+		
+		actionEffectDatas[PHOENIX_AE].m_segmentX = 35;
+		actionEffectDatas[PHOENIX_AE].m_segmentY = 2;
+		actionEffectDatas[PHOENIX_AE].m_effectScale = DISPLAY_WIDTH * 0.5f;
+		a = RoadTexture("Texture/Effect/PAE.png", &(actionEffectDatas[PHOENIX_AE].m_tex));
+		actionEffectDatas[PHOENIX_AE].m_color = 0xffffffff;
+
+		actionEffectDatas[EYES_AE].m_segmentX = 13;
+		actionEffectDatas[EYES_AE].m_segmentY = 3;
+		actionEffectDatas[EYES_AE].m_effectScale = DISPLAY_WIDTH * 0.5f;
+		a = RoadTexture("Texture/Effect/EAE2.png", &(actionEffectDatas[EYES_AE].m_tex));
+		actionEffectDatas[EYES_AE].m_color = 0xffffffff;
+
+		actionEffectDatas[SHADOW_BALL_AE].m_segmentX = 64;
+		actionEffectDatas[SHADOW_BALL_AE].m_segmentY = 2;
+		actionEffectDatas[SHADOW_BALL_AE].m_effectScale = DISPLAY_WIDTH * 0.5f;
+		a = RoadTexture("Texture/Effect/ShadowBall2.png", &(actionEffectDatas[SHADOW_BALL_AE].m_tex));
+		actionEffectDatas[SHADOW_BALL_AE].m_color = 0xffffffff;
+
+		actionEffectDatas[SPELL_AE].m_segmentX = 10;
+		actionEffectDatas[SPELL_AE].m_segmentY = 6;
+		actionEffectDatas[SPELL_AE].m_effectScale = DISPLAY_WIDTH * 0.5f;
+		a = RoadTexture("Texture/Effect/SpellAE.png", &(actionEffectDatas[SPELL_AE].m_tex));
+		actionEffectDatas[SPELL_AE].m_color = 0xffffffff;
+
+		actionEffectDatas[DORAGON_AE].m_segmentX = 13;
+		actionEffectDatas[DORAGON_AE].m_segmentY = 4;
+		actionEffectDatas[DORAGON_AE].m_effectScale = DISPLAY_HEIGHT * 0.5f;
+		a = RoadTexture("Texture/Effect/DAE.png", &(actionEffectDatas[DORAGON_AE].m_tex));
+		actionEffectDatas[DORAGON_AE].m_color = 0xffffffff;
+
 		SetFont(DISPLAY_WIDTH / 70, DISPLAY_WIDTH / 48, "HGP–¾’©B", &unionFont[ENEMY_NAME_FONT], 5);
 		SetFont(DISPLAY_WIDTH / 35, DISPLAY_WIDTH / 24, "HGP–¾’©B", &unionFont[ENEMY_ACTION_FONT], 25);
 
@@ -99,8 +165,28 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 
 		ZeroMemory(resultMask, sizeof(CustomVertex)*RECT_VERTEX_NUM);
 
-		/*for (int deckWord = 0; (pMKDeck[selectedDeck].m_wordId[deckWord] = 
-			pWMDeck[selectedDeck].m_wordId[deckWord] = deckWord) < DECK_WORD_MAX; ++deckWord);*/
+		switch (selectedDeck)
+		{
+		case 0:
+			LoadOriDeck(pMKWordDatas, &pMKDeck[selectedDeck], "Files/Deck/…»“´ŒA/MagicKnightDeck00.csv");
+			LoadOriDeck(pWMWordDatas, &pWMDeck[selectedDeck], "Files/Deck/…»“´ŒA/MagicKnightDeck00.csv");
+
+			break;
+
+		case 1:
+
+			LoadOriDeck(pMKWordDatas, &pMKDeck[selectedDeck], "Files/Deck/ŒÃ‘ãˆâÕ/MagicKnightDeck01.csv");
+			LoadOriDeck(pWMWordDatas, &pWMDeck[selectedDeck], "Files/Deck/ŒÃ‘ãˆâÕ/MagicKnightDeck01.csv");
+
+			break;
+
+		case 2:
+
+			LoadOriDeck(pMKWordDatas, &pMKDeck[selectedDeck], "Files/Deck/•XƒmŠÙ/MagicKnightDeck02.csv");
+			LoadOriDeck(pWMWordDatas, &pWMDeck[selectedDeck], "Files/Deck/•XƒmŠÙ/MagicKnightDeck02.csv");
+
+			break;
+		}
 
 		initUnionTex = false;
 	}
@@ -140,7 +226,7 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 			InitOperateBattleDatas(&battleData, pEnemyDatas, stageDatas, selectedStage, MK_MAX_PP,
 				selectedDeck, pMKDeck, wordSelectEffect, WORD_SELECT_EFFECT_MAX);
 
-			RoadTexture("Texture/CharaChoice/MagicKnight.png", &mKWordTex[MK_CHARA]);
+			RoadTexture("Texture/MainGame/MagicKnight.png", &mKWordTex[MK_CHARA]);
 			RoadTexture("Texture/MainGame/MKActionWordFrame.png", &mKWordTex[MK_ACTION_SEAT]);
 			RoadTexture("Texture/MainGame/WordUnderBoard.png", &mKWordTex[MK_WORD_SEAT]);
 			RoadTexture("Texture/MainGame/MKCutIn.png", &mKWordTex[MK_CUT_IN]);
@@ -408,6 +494,39 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 				&battleData, actionWordVertices, pMKWordTex,unionTex,playerChara);
 
 			DrawWordSelectEffect(wordSelectEffect, WORD_SELECT_EFFECT_MAX, &unionTex[WORD_SELECT_EFFECT]);
+
+			for (int hand = 0; hand < HAND_MAX; ++hand)
+			{
+				int handWord = battleData.m_hand[hand];
+				
+				if (RectToRectCollisionCheak(handVertices[hand].ImageVertex, pMouseCursorVertices)&&handWord)
+				{
+					char maxCostBuf[5];
+
+					_itoa(pMKWordDatas[handWord].m_costMax, maxCostBuf, 10);
+
+					const int TEXT_POS_X = (int)(DISPLAY_WIDTH * 0.7f);
+					const int TEXT_POS_Y = (int)(DISPLAY_HEIGHT * 0.49f);
+					const int TEXT_Y_BLANK = (int)(DISPLAY_HEIGHT*0.05f);
+					WriteText(TEXT_POS_X, TEXT_POS_Y, maxCostBuf, DT_CENTER, unionFont[ENEMY_NAME_FONT],0xFF000000);
+
+					char elementBuf[ELEMENT_ATTRIBUTES_MAX][10]=
+					{
+						{"‰Î"},{"…"},{"•—"},{"Œõ"},{"ˆÅ"},{""}
+					};
+
+					WriteText(TEXT_POS_X, TEXT_POS_Y+ TEXT_Y_BLANK, &elementBuf[pMKWordDatas[handWord].m_element][0],
+						DT_CENTER, unionFont[ENEMY_NAME_FONT], 0xFF000000);
+
+					char attackBuf[ATTACK_ATTRIBUTES_MAX][10] =
+					{
+						{"Ža"},{"‘Å"},{"“Ë"},{""},
+					};
+
+					WriteText(TEXT_POS_X, TEXT_POS_Y + 2*TEXT_Y_BLANK, &attackBuf[pMKWordDatas[handWord].m_attack][0],
+						DT_CENTER, unionFont[ENEMY_NAME_FONT], 0xFF000000);
+				}
+			}
 		}
 
 		WriteText((int)(DISPLAY_WIDTH*0.35), (int)(DISPLAY_HEIGHT*0.03),
@@ -436,6 +555,12 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 			DISPLAY_WIDTH*0.1f, DISPLAY_HEIGHT*0.01f, 0xFFFFFFFF);
 
 		DrawImage(playerHPVertices, unionTex[HP_COVER]);
+
+		CustomVertex chara[RECT_VERTEX_NUM];
+		CustomImageVerticies(chara, DISPLAY_WIDTH*0.12f, DISPLAY_HEIGHT*0.64999f,
+			DISPLAY_WIDTH*0.09f, DISPLAY_WIDTH*0.09f);
+
+		DrawImage(chara, mKWordTex[MK_CHARA]);
 
 		char pPBuf[10];
 		sprintf(pPBuf, "%d/%d", battleData.m_pPCurrent, battleData.m_pPMax);
@@ -468,7 +593,7 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 			InitOperateBattleDatas(&battleData, pEnemyDatas, stageDatas, selectedStage, WM_MAX_PP,
 				selectedDeck, pWMDeck, wordSelectEffect, WORD_SELECT_EFFECT_MAX);
 
-			RoadTexture("Texture/CharaChoice/WeaponMaster.png", &wMWordTex[WM_CHARA]);
+			RoadTexture("Texture/MainGame/WaeponMaster.png", &wMWordTex[WM_CHARA]);
 			RoadTexture("Texture/MainGame/frame.png", &wMWordTex[WM_ACTION_SEAT]);
 			RoadTexture("Texture/MainGame/ListBG.png", &wMWordTex[WM_WORD_SEAT]);
 			RoadTexture("Texture/MainGame/WMCutIn.png", &wMWordTex[WM_CUT_IN]);
@@ -737,6 +862,39 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 				&battleData, actionWordVertices, pWMWordTex, unionTex, playerChara);
 
 			DrawWordSelectEffect(wordSelectEffect, WORD_SELECT_EFFECT_MAX, &unionTex[WORD_SELECT_EFFECT]);
+
+			for (int hand = 0; hand < HAND_MAX; ++hand)
+			{
+				int handWord = battleData.m_hand[hand];
+
+				if (RectToRectCollisionCheak(handVertices[hand].ImageVertex, pMouseCursorVertices) && handWord)
+				{
+					char maxCostBuf[5];
+
+					_itoa(pWMWordDatas[handWord].m_costMax, maxCostBuf, 10);
+
+					const int TEXT_POS_X = (int)(DISPLAY_WIDTH * 0.8f);
+					const int TEXT_POS_Y = (int)(DISPLAY_HEIGHT * 0.49f);
+					const int TEXT_Y_BLANK = (int)(DISPLAY_HEIGHT*0.05f);
+					WriteText(TEXT_POS_X, TEXT_POS_Y, maxCostBuf, DT_CENTER, unionFont[ENEMY_NAME_FONT], 0xFF000000);
+
+					char elementBuf[ELEMENT_ATTRIBUTES_MAX][10] =
+					{
+						{ "‰Î" },{ "…" },{ "•—" },{ "Œõ" },{ "ˆÅ" },{ "" }
+					};
+
+					WriteText(TEXT_POS_X, TEXT_POS_Y + TEXT_Y_BLANK, &elementBuf[pWMWordDatas[handWord].m_element][0],
+						DT_CENTER, unionFont[ENEMY_NAME_FONT], 0xFF000000);
+
+					char attackBuf[ATTACK_ATTRIBUTES_MAX][10] =
+					{
+						{ "Ža" },{ "‘Å" },{ "“Ë" },{ "" },
+					};
+
+					WriteText(TEXT_POS_X, TEXT_POS_Y + 2 * TEXT_Y_BLANK, &attackBuf[pWMWordDatas[handWord].m_attack][0],
+						DT_CENTER, unionFont[ENEMY_NAME_FONT], 0xFF000000);
+				}
+			}
 		}
 
 		WriteText((int)(DISPLAY_WIDTH*0.35), (int)(DISPLAY_HEIGHT*0.03),
@@ -765,6 +923,14 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 			DISPLAY_WIDTH*0.1f, DISPLAY_HEIGHT*0.01f, 0xFFFFFFFF);
 
 		DrawImage(playerHPVertices, unionTex[HP_COVER]);
+
+		DrawImage(playerHPVertices, unionTex[HP_COVER]);
+
+		CustomVertex chara[RECT_VERTEX_NUM];
+		CustomImageVerticies(chara, DISPLAY_WIDTH*0.12f, DISPLAY_HEIGHT*0.64999f,
+			DISPLAY_WIDTH*0.09f, DISPLAY_WIDTH*0.09f);
+
+		DrawImage(chara, wMWordTex[WM_CHARA]);
 
 		char pPBuf[10];
 		sprintf(pPBuf, "%d/%d", battleData.m_pPCurrent, battleData.m_pPMax);
@@ -1181,7 +1347,7 @@ void CalcActionDamage(BattleData* pBattleData, int actionWordMax,
 
 			break;
 
-		case 5:
+		case 6:
 
 			pBattleData->m_playerActionDamage += MK_COST_5_DAMAGE/* +
 				MK_COST_5_PLUS__DAMAGE * actionWordPlusCurrent*/;
@@ -1213,7 +1379,7 @@ void CalcActionDamage(BattleData* pBattleData, int actionWordMax,
 
 	CalcDamageBonusWithSkills(pBattleData,actionWordMax, pWordDatas);
 
-	pBattleData->m_playerActionDamage = 20400000;////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	pBattleData->m_playerEffectId = pBattleData->m_playerActionAttack + 6;
 
@@ -1290,7 +1456,7 @@ void CalcDamageBonusWithSkills(BattleData* pBattleData, int actionWordMax, WordD
 
 			for (int sameSkill = 0; sameSkill < pBattleData->m_playerActionSkillsCurrent[skill]; ++sameSkill)
 			{
-				pBattleData->m_playerHPTmp += (UINT)(pBattleData->m_playerHPMax*0.25);
+				pBattleData->m_playerHPTmp += (UINT)(pBattleData->m_playerHPMax*0.25f);
 			}
 
 			break;
@@ -1299,7 +1465,7 @@ void CalcDamageBonusWithSkills(BattleData* pBattleData, int actionWordMax, WordD
 
 			for (int sameSkill = 0; sameSkill < pBattleData->m_playerActionSkillsPrev[skill]; ++sameSkill)
 			{
-				pBattleData->m_playerActionDamage = (UINT)(pBattleData->m_playerActionDamage*1.4);
+				pBattleData->m_playerActionDamage = (UINT)(pBattleData->m_playerActionDamage*1.4f);
 			}
 
 			for (int sameSkill = 0; sameSkill < pBattleData->m_playerActionSkillsCurrent[skill]; ++sameSkill)
@@ -1313,7 +1479,7 @@ void CalcDamageBonusWithSkills(BattleData* pBattleData, int actionWordMax, WordD
 
 			for (int sameSkill = 0; sameSkill < pBattleData->m_playerActionSkillsCurrent[skill]; ++sameSkill)
 			{
-				pBattleData->m_playerActionDamage = (UINT)(pBattleData->m_playerActionDamage*1.1);
+				pBattleData->m_playerActionDamage = (UINT)(pBattleData->m_playerActionDamage*1.1f);
 			}
 
 			break;
@@ -1322,7 +1488,7 @@ void CalcDamageBonusWithSkills(BattleData* pBattleData, int actionWordMax, WordD
 
 			for (int sameSkill = 0; sameSkill < pBattleData->m_playerActionSkillsCurrent[skill]; ++sameSkill)
 			{
-				pBattleData->m_playerActionDamage=(UINT)(pBattleData->m_playerActionDamage*1.25);
+				pBattleData->m_playerActionDamage=(UINT)(pBattleData->m_playerActionDamage*1.25f);
 			}
 
 			break;
@@ -1331,13 +1497,13 @@ void CalcDamageBonusWithSkills(BattleData* pBattleData, int actionWordMax, WordD
 
 			for (int sameSkill = 0; sameSkill < pBattleData->m_playerActionSkillsPrev[skill]; ++sameSkill)
 			{
-				pBattleData->m_playerActionDamage = (UINT)(pBattleData->m_playerActionDamage*0.8);
+				pBattleData->m_playerActionDamage = (UINT)(pBattleData->m_playerActionDamage*0.8f);
 				++(pBattleData->m_playerActionSkillsPrev[skill]);
 			}
 
 			for (int sameSkill = 0; sameSkill < pBattleData->m_playerActionSkillsCurrent[skill]; ++sameSkill)
 			{
-				pBattleData->m_playerActionDamage = (UINT)(pBattleData->m_playerActionDamage*1.4);
+				pBattleData->m_playerActionDamage = (UINT)(pBattleData->m_playerActionDamage*1.8f);
 				++(pBattleData->m_playerActionSkillsPrev[skill]);
 			}
 
@@ -1507,7 +1673,7 @@ void ReduceEnemyHPGradually(int reduceEnemyHPFrame ,BattleData* pBattleData)
 
 void HealPlayerHPGradually(int healHPFrame, BattleData* pBattleData)
 {
-	pBattleData->m_playerHPCurrent+= pBattleData->m_playerHPTmp / healHPFrame;
+	pBattleData->m_playerHPCurrent+= (UINT)(pBattleData->m_playerHPTmp / (float)healHPFrame);
 
 	if (pBattleData->m_playerHPCurrent > pBattleData->m_playerHPMax)
 	{
@@ -1520,8 +1686,8 @@ void HealPlayerHPGradually(int healHPFrame, BattleData* pBattleData)
 void ReducePlayerHPGradually(int reducePlayerHPFrame, BattleData* pBattleData)
 {
 	UINT currentReduceHP = 
-		(UINT)(pBattleData->m_enemyData.m_enemyAction[(pBattleData->m_turn - 1)].m_damage*
-		(1 - 0.25f*pBattleData->m_playerActionSkillsPrev[2]) / reducePlayerHPFrame);
+		(UINT)(pBattleData->m_enemyData.m_enemyAction[(pBattleData->m_turn - 1)%ENEMY_ACTION_MAX].m_damage*
+		(1 - 0.25f*pBattleData->m_playerActionSkillsPrev[2]) / (float)reducePlayerHPFrame);
 
 	if (pBattleData->m_playerHPCurrent <= currentReduceHP)
 	{
@@ -1544,6 +1710,8 @@ void ReducePlayerHPGradually(int reducePlayerHPFrame, BattleData* pBattleData)
 void PrepareNextTurn(int* pBattleFrameCount,BattleData* pBattleData,int actionWordMax)
 {
 	pBattleData->m_pPCurrent = pBattleData->m_pPMax + pBattleData->m_pPTmp;
+	pBattleData->m_pPTmp = 0;
+	pBattleData->m_playerHPTmp = 0;
 
 	for (int skill = 0; skill < SKILL_MAX; ++skill)
 	{
@@ -1600,6 +1768,36 @@ void MoveSelectWordEffect(WordSelectEffect* pWordSelectEffect,int wordSelectEffe
 			}
 		}
 	}
+
+	return;
+}
+
+void LoadOriDeck(WordData* pWordData, Deck* pDeck,const char* filePath)
+{
+	FILE* pDeckFile;
+	
+	pDeckFile = fopen(filePath, "r");
+
+	for (int deckWord = 0; deckWord < DECK_WORD_MAX; ++deckWord)
+	{
+		int wordId = 0;
+		int maxCost = 0;
+		int skillSlot[SKILL_SLOT_MAX] = { 0,0,0,0 };
+
+		fscanf(pDeckFile, "%d,%d,%d,%d,%d,%d,%*c",
+			&wordId, &maxCost, skillSlot, skillSlot + 1, skillSlot + 2, skillSlot + 3);
+
+		pWordData[wordId].m_costMax = maxCost;
+
+		for (int skill = 0; skill < SKILL_SLOT_MAX; ++skill)
+		{
+			pWordData[wordId].m_skillSlot[skill] = skillSlot[skill];
+		}
+
+		pDeck->m_wordId[deckWord] = wordId;
+	}
+
+	fclose(pDeckFile);
 
 	return;
 }
