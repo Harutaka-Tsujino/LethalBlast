@@ -188,9 +188,27 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 			break;
 		}
 
+		
+
 		initUnionTex = false;
 	}
+	switch (selectedStage)
+	{
+	case 洞窟:
+		isSuccess = soundsManager.Start(_T("ヴィーヴル戦"), true);
 
+		break;
+
+	case 遺跡:
+		isSuccess = soundsManager.Start(_T("エーレ・ツヴァイ戦"), true);
+
+		break;
+
+	case 森:
+		isSuccess = soundsManager.Start(_T("影の少女たち戦"), true);
+
+		break;
+	}
 	static BattleData battleData;
 
 	static StageData stageDatas[STAGE_MAX];
@@ -324,6 +342,26 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 				enemyDeleteFrameCount = 0;
 				battleFrameCount = 0;
 
+				switch (selectedStage)
+				{
+				case 洞窟:
+					isSuccess = soundsManager.Stop(_T("ヴィーヴル戦"));
+
+					break;
+
+				case 遺跡:
+					isSuccess = soundsManager.Stop(_T("エーレ・ツヴァイ戦"));
+
+					break;
+
+				case 森:
+					isSuccess = soundsManager.Stop(_T("影の少女たち戦"));
+
+					break;
+				}
+
+				isSuccess = soundsManager.Start(_T("Homebgm"));
+
 				return;
 			}
 		}
@@ -355,6 +393,26 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 				frameCount = 0;
 				blackOutFrameCount = 0;
 				battleFrameCount = 0;
+
+				switch (selectedStage)
+				{
+				case 洞窟:
+					isSuccess = soundsManager.Stop(_T("ヴィーヴル戦"));
+
+					break;
+
+				case 遺跡:
+					isSuccess = soundsManager.Stop(_T("エーレ・ツヴァイ戦"));
+
+					break;
+
+				case 森:
+					isSuccess = soundsManager.Stop(_T("影の少女たち戦"));
+
+					break;
+				}
+
+				isSuccess = soundsManager.Start(_T("Homebgm"));
 
 				return;
 			}
@@ -692,6 +750,26 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 				enemyDeleteFrameCount = 0;
 				battleFrameCount = 0;
 
+				switch (selectedStage)
+				{
+				case 洞窟:
+					isSuccess = soundsManager.Stop(_T("ヴィーヴル戦"));
+
+					break;
+
+				case 遺跡:
+					isSuccess = soundsManager.Stop(_T("エーレ・ツヴァイ戦"));
+
+					break;
+
+				case 森:
+					isSuccess = soundsManager.Stop(_T("影の少女たち戦"));
+
+					break;
+				}
+
+				isSuccess = soundsManager.Start(_T("Homebgm"));
+
 				return;
 			}
 		}
@@ -723,6 +801,26 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 				frameCount = 0;
 				blackOutFrameCount = 0;
 				battleFrameCount = 0;
+
+				switch (selectedStage)
+				{
+				case 洞窟:
+					isSuccess = soundsManager.Stop(_T("ヴィーヴル戦"));
+
+					break;
+
+				case 遺跡:
+					isSuccess = soundsManager.Stop(_T("エーレ・ツヴァイ戦"));
+
+					break;
+
+				case 森:
+					isSuccess = soundsManager.Stop(_T("影の少女たち戦"));
+
+					break;
+				}
+
+				isSuccess = soundsManager.Start(_T("Homebgm"));
 
 				return;
 			}

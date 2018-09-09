@@ -28,7 +28,7 @@ bool isSuccess = soundsManager.Initialize();
 
 INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR szStr, INT iCmdShow)
 {
-	return CreateWindowAndRepeatToControlAndRender(hInst, "Lethal Blast", MainFunction, DISPLAY_WIDTH, DISPLAY_HEIGHT, TRUE, FALSE);
+	return CreateWindowAndRepeatToControlAndRender(hInst, "Lethal Blast", MainFunction, DISPLAY_WIDTH, DISPLAY_HEIGHT, FALSE, FALSE);
 }
 
 //メッセージループでループさせる関数
@@ -187,7 +187,6 @@ void MainFunction(void)
 		RenderWhileLoad(&scene, GAME_SCENE);
 
 		isSuccess = soundsManager.Stop(_T("Alterbgm"));
-
 		break;
 		
 	case SELECT_STAGE_SCENE:

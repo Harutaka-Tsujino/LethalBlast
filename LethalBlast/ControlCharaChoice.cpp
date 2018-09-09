@@ -68,6 +68,9 @@ void SoundLoad(SCENE* scene, SCENE destScene)
 	{
 		isSuccess = soundsManager.AddFile("Audio/BGM/uchunohajimari.mp3", _T("Homebgm"));
 		isSuccess = soundsManager.AddFile("Audio/BGM/antoinettenoniwa.mp3", _T("Alterbgm"));
+		isSuccess = soundsManager.AddFile("Audio/BGM/LastBoss.mp3", _T("ヴィーヴル戦"));
+		isSuccess = soundsManager.AddFile("Audio/BGM/WOLF.mp3", _T("エーレ・ツヴァイ戦"));
+		isSuccess = soundsManager.AddFile("Audio/BGM/Shadow.mp3", _T("影の少女たち戦"));
 
 		isFirstFrame = 0;
 	}
