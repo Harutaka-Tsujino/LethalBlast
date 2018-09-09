@@ -165,6 +165,8 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 
 		ZeroMemory(resultMask, sizeof(CustomVertex)*RECT_VERTEX_NUM);
 
+		isSuccess = soundsManager.Stop(_T("Alterbgm"));
+
 		initUnionTex = false;
 	}
 	
