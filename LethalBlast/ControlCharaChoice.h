@@ -12,3 +12,5 @@
 void ControlCharaChoice(SCENE* scene, int* cursol, PLAYERTYPE* playerType);
 
 bool RectToRectCollisionCheak(CustomVertex* pObjA, CustomVertex* pObjB);
+
+void SoundLoad(SCENE* scene, SCENE destScene);

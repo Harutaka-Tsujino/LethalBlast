@@ -65,6 +65,8 @@ void ControlStageSelect(SCENE* pScene, ImagesCustomVertex* pStageSelectPortals, 
 	{
 		*pScene = HOME_SCENE;
 
+		isSuccess = soundsManager.Start(_T("Homebgm"), true);
+
 		frameCount = 0;
 
 		return;

@@ -29,6 +29,9 @@ enum SCENE
 	//タイトル画面
 	TITLE_SCENE,
 
+	//音読み込み画面
+	SOUND_LOAD_SCENE,
+
 	//キャラ選択画面
 	CHARA_CHOICE_SCENE,
 

@@ -407,6 +407,9 @@ void ControlAlterDeck(SCENE* scene,WordData* pPlayerWordDatas, Deck* pPlayerDeck
 						memset(clickedWord, 0, sizeof(bool)*WEAPON_MASTER_WORD_MAX);
 						ZeroMemory(pChoiceWordData, sizeof(bool)*WEAPON_MASTER_WORD_MAX);
 
+						isSuccess = soundsManager.Stop(_T("Alterbgm"));
+						isSuccess = soundsManager.Start(_T("Homebgm"));
+
 						*scene = HOME_SCENE;
 					}
 				}
@@ -440,6 +443,9 @@ void ControlAlterDeck(SCENE* scene,WordData* pPlayerWordDatas, Deck* pPlayerDeck
 			pPlayerWordDatas[VOID_WORD].m_have = 0;
 			pPlayerWordDatas[VOID_WORD].m_costMax = 0;
 			pPlayerDecks[(*pDeckNumToAlter)].m_costMax = 120;
+
+			isSuccess = soundsManager.AddFile("Audio/BGM/antoinettenoniwa.mp3", _T("Alterbgm"));
+			isSuccess = soundsManager.Start(_T("Alterbgm"), true);
 
 			frameCount = 0;
 		}
@@ -804,6 +810,9 @@ void ControlAlterDeck(SCENE* scene,WordData* pPlayerWordDatas, Deck* pPlayerDeck
 					{
 						memset(clickedWord, 0, sizeof(bool)*MAGIC_KNIGHT_WORD_MAX);
 						ZeroMemory(pChoiceWordData, sizeof(bool)*MAGIC_KNIGHT_WORD_MAX);
+
+						isSuccess = soundsManager.Stop(_T("Alterbgm"));
+						isSuccess = soundsManager.Start(_T("Homebgm"));
 
 						*scene = HOME_SCENE;
 					}

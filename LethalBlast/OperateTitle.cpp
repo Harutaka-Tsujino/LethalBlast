@@ -31,7 +31,9 @@ void OperateTitle(SCENE *scene)
 			SAFE_RELEASE(fontIds[font]);
 		}
 
-		*scene = CHARA_CHOICE_SCENE;
+		isSuccess = soundsManager.Stop(_T("Titlebgm"));
+
+		*scene = SOUND_LOAD_SCENE;
 	}
 
 	return;
@@ -46,6 +48,10 @@ void TitleRenderInit(TEXTUREID* textureIds)
 	{
 		RoadTexture("Texture/PV/LBtitlerogo_k008.png", &textureIds[TITLE_BG_TEX]);
 		RoadTexture("Texture/PV/LBtitlerogo_k007.png", &textureIds[TITLE_ROGO_TEX]);
+
+		isSuccess = soundsManager.AddFile("Audio/BGM/fukaiyaminookude.mp3", _T("Titlebgm"));
+
+		isSuccess = soundsManager.Start(_T("Titlebgm"), true);
 
 		isFirstFrame = false;
 	}
