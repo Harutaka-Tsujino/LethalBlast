@@ -165,29 +165,28 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 
 		ZeroMemory(resultMask, sizeof(CustomVertex)*RECT_VERTEX_NUM);
 
-		/*switch (selectedDeck)
+		switch (selectedDeck)
 		{
 		case 0:
-			LoadOriDeck(pMKWordDatas, &pMKDeck[selectedDeck], filePath);
-			LoadOriDeck(pWMWordDatas, &pWMDeck[selectedDeck], filePath);
+			LoadOriDeck(pMKWordDatas, &pMKDeck[selectedDeck], "Files/Deck/…»“´ŒA/MagicKnightDeck00.csv");
+			LoadOriDeck(pWMWordDatas, &pWMDeck[selectedDeck], "Files/Deck/…»“´ŒA/MagicKnightDeck00.csv");
 
 			break;
 
 		case 1:
 
-			LoadOriDeck(pMKWordDatas, &pMKDeck[selectedDeck], filePath);
-			LoadOriDeck(pWMWordDatas, &pWMDeck[selectedDeck], filePath);
+			LoadOriDeck(pMKWordDatas, &pMKDeck[selectedDeck], "Files/Deck/ŒÃ‘ãˆâÕ/MagicKnightDeck01.csv");
+			LoadOriDeck(pWMWordDatas, &pWMDeck[selectedDeck], "Files/Deck/ŒÃ‘ãˆâÕ/MagicKnightDeck01.csv");
 
 			break;
 
 		case 2:
 
-			LoadOriDeck(pMKWordDatas, &pMKDeck[selectedDeck], filePath);
-			LoadOriDeck(pWMWordDatas, &pWMDeck[selectedDeck], filePath);
-
+			LoadOriDeck(pMKWordDatas, &pMKDeck[selectedDeck], "Files/Deck/•XƒmŠÙ/MagicKnightDeck02.csv");
+			LoadOriDeck(pWMWordDatas, &pWMDeck[selectedDeck], "Files/Deck/•XƒmŠÙ/MagicKnightDeck02.csv");
 
 			break;
-		}*/
+		}
 
 		initUnionTex = false;
 	}
@@ -1348,7 +1347,7 @@ void CalcActionDamage(BattleData* pBattleData, int actionWordMax,
 
 			break;
 
-		case 5:
+		case 6:
 
 			pBattleData->m_playerActionDamage += MK_COST_5_DAMAGE/* +
 				MK_COST_5_PLUS__DAMAGE * actionWordPlusCurrent*/;
