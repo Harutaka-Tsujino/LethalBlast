@@ -25,6 +25,15 @@ enum MAIN_UNION_TEX
 enum ACTION_EFFECT
 {
 	FLASH_RAZER,
+	FULL_BURST,
+	DIVINE_SWORD,
+	CHARGE,
+	ASTRAL_RAZER,
+	TARGET,
+	SLASH_AE,
+	SMASH_AE,
+	PENE_AE,
+	NONE_AE,
 	ACTION_EFFECT_MAX,
 };
 
@@ -68,6 +77,10 @@ enum ENEMY
 	ヴィーヴル,
 	影の少女たち,
 	ケルベロス,
+	ゲイザー,
+	エンデュミオン,
+	エクスキューショナー,
+	シルトクレスタル,
 	ENEMY_MAX
 };
 
@@ -135,6 +148,8 @@ typedef struct
 	TEXTUREID m_tex;
 	int m_segmentX;
 	int m_segmentY;
+	float m_effectScale;
+	DWORD m_color;
 }ActionEffectData;
 
 typedef struct
@@ -146,7 +161,7 @@ typedef struct
 	bool m_valid;
 }WordSelectEffect;
 
-#define MAX_HP 120000
+#define MAX_HP 2000000000
 #define FIRST_ACTION_LIMIT 1
 
 #define MK_MAX_PP 24
@@ -202,7 +217,8 @@ void SetEffect(WordSelectEffect* pWordSelectEffect, int selectEffectMax,
 	ImagesCustomVertex* pHandVertices, float handWidth, float handHeight, int hand,
 	ImagesCustomVertex* pActionWordVertices, float actionWordWidth, float actionWordHeight, int actionSpace);
 
-void CalcActionDamage(BattleData* pBattleData, int actionWordMax, WordData* pWordDatas);
+void CalcActionDamage(BattleData* pBattleData, int actionWordMax,
+	WordData* pWordDatas, ActionEffectData* pActionEffectDatas);
 
 void CalcDamageBonusWithSkills(BattleData* pBattleData, int actionWordMax, WordData* pWordDatas);
 

@@ -21,21 +21,35 @@ void ControlStageSelect(SCENE* pScene, ImagesCustomVertex* pStageSelectPortals, 
 	const float MOUSE_CURSOR_SCALE = 0.5f;
 	CustomImageVerticies(mouseCursorCollisionVertex, (float)g_mouseState.absolutePos.x, (float)g_mouseState.absolutePos.y, MOUSE_CURSOR_SCALE, MOUSE_CURSOR_SCALE);
 
-	const int MOVE_PORTAL_FRAME = 15;
+	const int MOVE_PORTAL_FRAME = 25;
 
-	CustomImageVerticies(pStageSelectPortals[ì¥åA].ImageVertex, (DISPLAY_WIDTH / 6.f) * 0, (DISPLAY_HEIGHT / 2.f)*(2 - frameCount / (float)MOVE_PORTAL_FRAME),
-		DISPLAY_WIDTH / 3.f, DISPLAY_WIDTH*2.f, GetColor(255, 18, 18, 18));
+	ZeroMemory(pStageSelectPortals, sizeof(ImagesCustomVertex)*STAGE_MAX);
 
-	CustomImageVerticies(pStageSelectPortals[à‚ê’].ImageVertex, (DISPLAY_WIDTH / 6.f) * 3, (DISPLAY_HEIGHT / 2.f)*(2 - frameCount / (float)MOVE_PORTAL_FRAME),
-		DISPLAY_WIDTH*1.f, DISPLAY_WIDTH*2.f, 0xFFEA0D0D);
+	if (frameCount >= MOVE_PORTAL_FRAME / 3 * 1)
+	{
+		CustomImageVerticies(pStageSelectPortals[ì¥åA].ImageVertex, (DISPLAY_WIDTH / 6.f) * 1,
+			(DISPLAY_HEIGHT / 2.f),
+			DISPLAY_WIDTH / 6.f, DISPLAY_HEIGHT / 2.f/*, GetColor(255, 18, 18, 18)*/);
+	}
 
-	CustomImageVerticies(pStageSelectPortals[êX].ImageVertex, (DISPLAY_WIDTH / 6.f) * 7.05, (DISPLAY_HEIGHT / 2.f)*(2 - frameCount / (float)MOVE_PORTAL_FRAME),
-		DISPLAY_WIDTH / 3.f, DISPLAY_WIDTH*2.f, GetColor(255, 18, 18, 18));
+	if (frameCount >= MOVE_PORTAL_FRAME / 3 * 2)
+	{
+		CustomImageVerticies(pStageSelectPortals[à‚ê’].ImageVertex, (DISPLAY_WIDTH / 6.f) * 3 ,
+			(DISPLAY_HEIGHT / 2.f),
+			DISPLAY_WIDTH / 6.f, DISPLAY_HEIGHT / 2.f/*, 0xFFEA0D0D*/);
+	}
 
-	for (int stage = 0; stage < STAGE_MAX; ++stage)
+	if (frameCount >= MOVE_PORTAL_FRAME / 3 * 3)
+	{
+		CustomImageVerticies(pStageSelectPortals[êX].ImageVertex, (DISPLAY_WIDTH / 6.f) * 5 ,
+			(DISPLAY_HEIGHT / 2.f),
+			DISPLAY_WIDTH / 6.f, DISPLAY_HEIGHT / 2.f/*, GetColor(255, 18, 18, 18)*/);
+	}
+
+	/*for (int stage = 0; stage < STAGE_MAX; ++stage)
 	{
 		RotateImageDeg(pStageSelectPortals[stage].ImageVertex, pStageSelectPortals[stage].ImageVertex, (float)(-15 + 30 * stage)*(2 - frameCount / (float)MOVE_PORTAL_FRAME));
-	}
+	}*/
 
 	if (frameCount < MOVE_PORTAL_FRAME)
 	{
