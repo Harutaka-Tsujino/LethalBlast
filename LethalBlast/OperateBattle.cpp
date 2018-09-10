@@ -568,7 +568,7 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 					const int TEXT_POS_X = (int)(DISPLAY_WIDTH * 0.7f);
 					const int TEXT_POS_Y = (int)(DISPLAY_HEIGHT * 0.49f);
 					const int TEXT_Y_BLANK = (int)(DISPLAY_HEIGHT*0.05f);
-					WriteText(TEXT_POS_X, TEXT_POS_Y, maxCostBuf, DT_CENTER, unionFont[ENEMY_NAME_FONT],0xFF000000);
+					WriteText(TEXT_POS_X, TEXT_POS_Y, maxCostBuf, DT_CENTER, unionFont[ENEMY_NAME_FONT],0xFF808080);
 
 					char elementBuf[ELEMENT_ATTRIBUTES_MAX][10]=
 					{
@@ -576,7 +576,7 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 					};
 
 					WriteText(TEXT_POS_X, TEXT_POS_Y+ TEXT_Y_BLANK, &elementBuf[pMKWordDatas[handWord].m_element][0],
-						DT_CENTER, unionFont[ENEMY_NAME_FONT], 0xFF000000);
+						DT_CENTER, unionFont[ENEMY_NAME_FONT], 0xFF808080);
 
 					char attackBuf[ATTACK_ATTRIBUTES_MAX][10] =
 					{
@@ -584,7 +584,7 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 					};
 
 					WriteText(TEXT_POS_X, TEXT_POS_Y + 2*TEXT_Y_BLANK, &attackBuf[pMKWordDatas[handWord].m_attack][0],
-						DT_CENTER, unionFont[ENEMY_NAME_FONT], 0xFF000000);
+						DT_CENTER, unionFont[ENEMY_NAME_FONT], 0xFF808080);
 				}
 			}
 		}
@@ -976,7 +976,7 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 					const int TEXT_POS_X = (int)(DISPLAY_WIDTH * 0.8f);
 					const int TEXT_POS_Y = (int)(DISPLAY_HEIGHT * 0.49f);
 					const int TEXT_Y_BLANK = (int)(DISPLAY_HEIGHT*0.05f);
-					WriteText(TEXT_POS_X, TEXT_POS_Y, maxCostBuf, DT_CENTER, unionFont[ENEMY_NAME_FONT], 0xFF000000);
+					WriteText(TEXT_POS_X, TEXT_POS_Y, maxCostBuf, DT_CENTER, unionFont[ENEMY_NAME_FONT], 0xFF808080);
 
 					char elementBuf[ELEMENT_ATTRIBUTES_MAX][10] =
 					{
@@ -984,7 +984,7 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 					};
 
 					WriteText(TEXT_POS_X, TEXT_POS_Y + TEXT_Y_BLANK, &elementBuf[pWMWordDatas[handWord].m_element][0],
-						DT_CENTER, unionFont[ENEMY_NAME_FONT], 0xFF000000);
+						DT_CENTER, unionFont[ENEMY_NAME_FONT], 0xFF808080);
 
 					char attackBuf[ATTACK_ATTRIBUTES_MAX][10] =
 					{
@@ -992,7 +992,7 @@ void OperateBattle(SCENE* scene, int playerChara, int selectedStage, int selecte
 					};
 
 					WriteText(TEXT_POS_X, TEXT_POS_Y + 2 * TEXT_Y_BLANK, &attackBuf[pWMWordDatas[handWord].m_attack][0],
-						DT_CENTER, unionFont[ENEMY_NAME_FONT], 0xFF000000);
+						DT_CENTER, unionFont[ENEMY_NAME_FONT], 0xFF808080);
 				}
 			}
 		}
@@ -1784,6 +1784,11 @@ void HealPlayerHPGradually(int healHPFrame, BattleData* pBattleData)
 
 void ReducePlayerHPGradually(int reducePlayerHPFrame, BattleData* pBattleData)
 {
+	if (pBattleData->m_playerActionSkillsPrev[2]>=4)
+	{
+		pBattleData->m_playerActionSkillsPrev[2] = 4;
+	}
+
 	UINT currentReduceHP = 
 		(UINT)(pBattleData->m_enemyData.m_enemyAction[(pBattleData->m_turn - 1)%ENEMY_ACTION_MAX].m_damage*
 		(1 - 0.25f*pBattleData->m_playerActionSkillsPrev[2]) / (float)reducePlayerHPFrame);
